@@ -59,6 +59,8 @@ async def on_message(message):
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DVZidQ.1MTSYLrrPL2bNeLMXFVQDPc25Mg")
 connection.commit()
 connection.close()
+cur.close
+con.close
 
 
 # https://qiita.com/PinappleHunter/items/af4ccdbb04727437477f
