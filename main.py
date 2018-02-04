@@ -10,11 +10,7 @@ client = discord.Client()
 connection = MySQLdb.connect(
     host='localhost', user='root', passwd='laksjd', db='dismona', charset='utf8')
 cursor = connection.cursor()
-cursor.execute("""CREATE TABLE IF NOT EXISTS 'dismona_id' (
-'id' int(11) NOT NULL,
-'name' varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
-PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci""")
+cursor.execute("""CREATE TABLE IF NOT EXISTS dismona.id(id int, name varchar(20));""")
 
 
 @client.event
