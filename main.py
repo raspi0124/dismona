@@ -17,7 +17,6 @@ def res_cmd(cmd):
       cmd, stdout=subprocess.PIPE,
       shell=True).communicate()[0]
 # エラー処理（例外処理）
-cursor.execute("DROP TABLE IF EXISTS 'dismona_id'")
 cursor.execute("""CREATE TABLE IF NOT EXISTS 'dismona_id' (
 'id' int(11) NOT NULL,
 'name' varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
