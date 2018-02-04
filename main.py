@@ -35,7 +35,7 @@ async def on_message(message):
                 await client.send_message(message.channel, m)
             # subprocess.check_output(["monacoin-cli getaddressesbyaccount" + message.author.name + ])
                 print ('Creating ' + message.author.name + "'s account..")
-                cursor.execute("INSERT INTO dismona_id VALUES (authorname, res_cmd(cmd))")
+                cursor.execute("INSERT INTO id VALUES (authorname, res_cmd(cmd))")
                 m = "Created your account succefully! your address is <address>enjoy!"
                 await client.send_message(message.channel, m)
 
