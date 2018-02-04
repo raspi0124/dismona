@@ -20,6 +20,8 @@ async def on_ready():
     print(client.user.id)
     print('------')
 
+INDB = "aaaa"
+
 @client.event
 async def on_message(message):
     # 「/register」で始まるか調べる
@@ -27,7 +29,7 @@ async def on_message(message):
         # 送り主がBotだった場合反応したくないので
         if client.user != message.author:
             # メッセージを書きます
-            if authorname != INDB:
+            if message.author != INDB:
                 m = "@" + message.author.name + " さんのアカウントを作成しますね！"
             # メッセージが送られてきたチャンネルへメッセージを送ります
                 await client.send_message(message.channel, m)
