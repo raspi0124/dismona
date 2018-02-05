@@ -22,7 +22,7 @@ async def on_ready():
 
 INDB = "aaaa"
 
-message_author = message.author.name
+message_author = + message.author.name + 
 
 @client.event
 async def on_message(message):
@@ -31,7 +31,7 @@ async def on_message(message):
         # 送り主がBotだった場合反応したくないので
         if client.user != message.author:
             # メッセージを書きます
-            if message.author != INDB:
+            if message.author.name != INDB:
                 m = "@" + message.author.name + " さんのアカウントを作成しますね！"
             # メッセージが送られてきたチャンネルへメッセージを送ります
                 await client.send_message(message.channel, m)
@@ -49,10 +49,8 @@ async def on_message(message):
             
             
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DVZidQ.1MTSYLrrPL2bNeLMXFVQDPc25Mg")
-connection.commit()
-connection.close()
-cur.close
-con.close
+
+cursor = conn.cursor()
 
 
 # https://qiita.com/PinappleHunter/items/af4ccdbb04727437477f
