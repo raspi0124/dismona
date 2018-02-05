@@ -22,7 +22,6 @@ async def on_ready():
 
 INDB = "aaaa"
 
-message_author == + message.author.name +
 
 @client.event
 async def on_message(message):
