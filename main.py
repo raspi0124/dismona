@@ -10,7 +10,7 @@ client = discord.Client()
 connection = MySQLdb.connect(
     host='localhost', user='root', passwd='laksjd', db='dismona', charset='utf8')
 cursor = connection.cursor()
-cursor.execute("""CREATE TABLE IF NOT EXISTS dismona.id(id, address));""")
+cursor.execute("""CREATE TABLE IF NOT EXISTS dismona.id(id,address));""")
 
 
 @client.event
