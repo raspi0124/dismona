@@ -22,7 +22,7 @@ async def on_ready():
 
 INDB = "aaaa"
 
-message_author = message.author
+message.author.name = message_author
 @client.event
 async def on_message(message):
     # 「/register」で始まるか調べる
