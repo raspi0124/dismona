@@ -22,6 +22,7 @@ async def on_ready():
 
 INDB = "aaaa"
 
+message_author == + message.author.name +
 
 @client.event
 async def on_message(message):
@@ -36,7 +37,7 @@ async def on_message(message):
                 await client.send_message(message.channel, m)
             # subprocess.check_output(["monacoin-cli getaddressesbyaccount" + message.author.name + ])
                 print ('Creating ' + message.author.name + "'s account..")
-                cursor.execute("INSERT INTO id(id, name) VALUES ('message_author', address)")
+                cursor.execute("INSERT INTO dismona.id(id, name) VALUES ('message_author', address)")
                 m = "Created your account succefully! your address is <address>enjoy!"
                 await client.send_message(message.channel, m)
 
