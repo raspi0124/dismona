@@ -22,13 +22,14 @@ async def on_ready():
 
 INDB = "aaaa"
 
+#message.author.name がユーザー名
 
 @client.event
 async def on_message(message):
     # 「/register」で始まるか調べる
     if message.content.startswith("/register"):
         # 送り主がBotだった場合反応したくないので
-        if client.user != message.author:
+        if client.user != message.author.name:
             # メッセージを書きます
             if message.author.name != INDB:
                 m = "@" + message.author.name + " さんのアカウントを作成しますね！"
