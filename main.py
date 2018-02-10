@@ -36,8 +36,8 @@ async def on_message(message):
             # メッセージが送られてきたチャンネルへメッセージを送ります
                 await client.send_message(message.channel, m)
                 #DB
-                query = """INSERT INTO 'dismona.id' = %s
-                VALUES = %s
+                query = """INSERT INTO dismona.id(id,address)
+                VALUES %s
                 """
                 values = ("message.author.name", "address")
             # subprocess.check_output(["monacoin-cli getaddressesbyaccount" + message.author.name + ])
