@@ -20,7 +20,7 @@ async def on_ready():
     print(client.user.id)
     print('------')
 
-INDB = "aaaa"
+INDB = "raspi0124"
 
 #message.author.name がユーザー名
 
