@@ -38,7 +38,7 @@ async def on_message(message):
             # subprocess.check_output(["monacoin-cli getaddressesbyaccount" + message.author.name + ])
                 print ('Creating ' + message.author.name + "'s account..")
                 #cursor.execute("insert into dismona.id(id,address) values('message_author', address);")
-                cursor.execute("INSERT INTO 'dismona.id'('id', 'address') VALUES ('" + message.author.name + "', 'address')")
+                cursor.execute("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', 'address')")
                 print ('----MYSQL COMMAND START----')
                 print ("INSERT INTO 'dismona.id'('id', 'address') VALUES ('" + message.author.name + "', 'address')")
                 print ('----MYSQL COMMAND END----')
