@@ -40,7 +40,7 @@ async def on_message(message):
                 #cursor.execute("insert into dismona.id(id,address) values('message_author', address);")
                 cursor.execute("INSERT INTO 'dismona.id'('id', 'address') VALUES (" + message.author.name + ",address);")
                 print ('----MYSQL COMMAND START----')
-                print ("INSERT INTO 'dismona.id'('id', 'address') VALUES (" + message.author.name + ",address);")
+                print ("INSERT INTO 'dismona.id'('id', 'address') VALUES (" + message.author.name + ",'address');")
                 print ('----MYSQL COMMAND END----')
                 m = "Created your account succefully! your address is <address>enjoy!"
                 await client.send_message(message.channel, m)
