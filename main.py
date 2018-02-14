@@ -1,5 +1,6 @@
 import discord
 import subprocess
+import re
 # Python 3.5.2 にて動作を確認
 # MySQLdb をインポート
 import MySQLdb
@@ -35,21 +36,22 @@ async def on_message(message):
                 m = "@" + message.author.name + " さんのアカウントを作成しますね！"
             # メッセージが送られてきたチャンネルへメッセージを送ります
                 await client.send_message(message.channel, m)
-            # subprocess.check_output(["monacoin-cli getaddressesbyaccount" + message.author.name + ])
+                ca_cmd = "monacoin-cli getaddressesbyaccount" + message.author.name + ""
+                ca_rut  =  subprocess.check_output( cmd.split(" ") )
                 print ('Creating ' + message.author.name + "'s account..")
                 #cursor.execute("insert into dismona.id(id,address) values('message_author', address);")
-                cursor.execute("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', 'address')")
+                cursor.execute("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + ca_rut + "' )")
                 print ('----MYSQL COMMAND START----')
-                print ("INSERT INTO 'dismona.id'('id', 'address') VALUES ('" + message.author.name + "', 'address')")
+                print ("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + ca_rut + "' )")
                 print ('----MYSQL COMMAND END----')
-                m = "Created your account succefully! your address is <address>enjoy!"
+                m = "Created your account succefully! your address is " + message.author.name + " enjoy!"
                 await client.send_message(message.channel, m)
 
             else:
                 m = "すみませんがそのアカウント名はすでにこのシステムに登録されているようです。。"
                 await client.send_message(message.channel, m)
                 print ("failed to create" + message.author.name + "'s account..")
-                
+
             
             
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DVZidQ.1MTSYLrrPL2bNeLMXFVQDPc25Mg")
@@ -59,3 +61,4 @@ cursor = conn.cursor()
 
 # https://qiita.com/PinappleHunter/items/af4ccdbb04727437477f
 # https://qiita.com/komeiy/items/d6b5f25bf1778fa10e21
+#
