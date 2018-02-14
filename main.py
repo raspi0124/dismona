@@ -37,7 +37,7 @@ async def on_message(message):
             # メッセージが送られてきたチャンネルへメッセージを送ります
                 await client.send_message(message.channel, m)
                 ca_cmd = "monacoin-cli getaddressesbyaccount" + message.author.name + ""
-                ca_rut  =  subprocess.check_output( cmd.split(" ") )
+                ca_rut  =  subprocess.check_output( ca_cmd.split(" ") )
                 print ('Creating ' + message.author.name + "'s account..")
                 #cursor.execute("insert into dismona.id(id,address) values('message_author', address);")
                 cursor.execute("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + ca_rut + "' )")
@@ -52,6 +52,14 @@ async def on_message(message):
                 await client.send_message(message.channel, m)
                 print ("failed to create" + message.author.name + "'s account..")
 
+@client.event
+async def on_message(message):
+    # 「/register」で始まるか調べる
+    if message.content.startswith("/withdrawall"):
+        # 送り主がBotだった場合反応したくないので
+        if client.user != message.author.name:
+            m = ""
+                
             
             
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DVZidQ.1MTSYLrrPL2bNeLMXFVQDPc25Mg")
