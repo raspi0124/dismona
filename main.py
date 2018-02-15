@@ -86,7 +86,7 @@ async def on_message(message):
                 cmd = "monacoin-cli getbalance " + message.author.id + ""
                 rut  =  subprocess.check_output( cmd.split(" ") )
                 balance = rut.decode()
-                m = "@"+ message.author.id + " ,or " + message.author.name + ",your balance is" + balance + "mona!"
+                m = "<@"+ message.author.id + "> ,or " + message.author.name + ",your balance is" + balance + "mona!"
                 print ("---6---")
                 await client.send_message(message.channel, m)
     if message.content.startswith("/deposit"):
