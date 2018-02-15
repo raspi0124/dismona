@@ -89,6 +89,18 @@ async def on_message(message):
                 m = "@"+ message.author.id + " ,or " + message.author.name + ",your balance is" + balance + "mona!"
                 print ("---6---")
                 await client.send_message(message.channel, m)
+    if message.content.startswith("/deposit"):
+        # 送り主がBotだった場合反応したくないので
+        if client.user != message.author.name:
+            # メッセージを書きます
+                m = "@" + message.author.name + " アドレスを確認中..."
+            # メッセージが送られてきたチャンネルへメッセージを送ります
+                await client.send_message(message.channel, m)
+                cmd = "monacoin-cli getaddressesbyaccount " + message.author.id + ""
+                rut  =  subprocess.check_output( cmd.split(" ") )
+                address = rut.decode()
+                m = "@"+ message.author.id + " ,or " + message.author.name + ",your address is" + address + ""
+                await client.send_message(message.channel, m)
 
             
             
