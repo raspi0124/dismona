@@ -45,13 +45,13 @@ async def on_message(message):
                 print (resultaddress)
                 print ("-----------------")
                 print ("---address---")
-                print(rut)
+                print(resultaddress)
                 print ("----------------")
                 cursor.execute("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + rut + "' )")
                 print ('----MYSQL COMMAND START----')
                 print ("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + rut + "' )")
                 print ('----MYSQL COMMAND END----')
-                m = "Created your account succefully! your address is " + rut + " enjoy!"
+                m = "Created your account succefully! your address is " + resultaddress + " enjoy!"
                 await client.send_message(message.channel, m)
 
             else:
