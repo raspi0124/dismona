@@ -40,11 +40,11 @@ async def on_message(message):
                 rut  =  subprocess.check_output( cmd.split(" ") )
                 print ('Creating ' + message.author.name + "'s account..")
                 #cursor.execute("insert into dismona.id(id,address) values('message_author', address);")
-                cursor.execute("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + ca_rut + "' )")
+                cursor.execute("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + rut + "' )")
                 print ('----MYSQL COMMAND START----')
-                print ("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + ca_rut + "' )")
+                print ("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + rut + "' )")
                 print ('----MYSQL COMMAND END----')
-                m = "Created your account succefully! your address is " + message.author.name + " enjoy!"
+                m = "Created your account succefully! your address is " + rut + " enjoy!"
                 await client.send_message(message.channel, m)
 
             else:
