@@ -40,6 +40,8 @@ async def on_message(message):
                 rut  =  subprocess.check_output( cmd.split(" ") )
                 print ('Creating ' + message.author.name + "'s account..")
                 #cursor.execute("insert into dismona.id(id,address) values('message_author', address);")
+                print ("---address---")
+                print ("----------------")
                 cursor.execute("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + rut + "' )")
                 print ('----MYSQL COMMAND START----')
                 print ("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + rut + "' )")
