@@ -99,7 +99,9 @@ async def on_message(message):
                 cmd = "monacoin-cli getaddressesbyaccount " + message.author.id + ""
                 rut  =  subprocess.check_output( cmd.split(" ") )
                 address = rut.decode()
-                m = "@"+ message.author.id + " ,or " + message.author.name + ",your address is" + address + ""
+                address2 = address.replace('[', '')
+                address3 = address2.replace(']', '')
+                m = "@"+ message.author.id + " ,or " + message.author.name + ",your address is" + address3 + ""
                 await client.send_message(message.channel, m)
 
             
