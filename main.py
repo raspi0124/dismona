@@ -39,11 +39,13 @@ async def on_message(message):
                 cmd = "monacoin-cli getaddressesbyaccount " + message.author.name + ""
                 rut  =  subprocess.check_output( cmd.split(" ") )
                 print ('Creating ' + message.author.name + "'s account..")
+                print ("---1---")
                 #cursor.execute("insert into dismona.id(id,address) values('message_author', address);")
                 resultaddress = rut.decode()
                 resultmore = resultaddress.replace('[', '')
                 resultmore2 = resultmore.replace(']', '')
                 resultmore3 = resultmore2.replace('"', '')
+                print ("---2---")
                 #DEBUG
                 print ("---decoded---")
                 print (resultaddress)
@@ -55,11 +57,15 @@ async def on_message(message):
                 print (resultmore3)
                 print ("------------------------------")
                 #DEBUG FIN
-                cursor.execute("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + rut + "' )")
+                print ("---3---")
+                cursor.execute("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + resultmore3 + "' )")
+                print ("---4---")
                 print ('----MYSQL COMMAND START----')
-                print ("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + rut + "' )")
+                print ("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + resultmore3 + "' )")
                 print ('----MYSQL COMMAND END----')
-                m = "Created your account succefully! your address is " + resultaddress + " enjoy!"
+                print ("---5---")
+                m = "@"+ message.author.name + " ,Created your account succefully! your address is " + resultmore3 + " enjoy!"
+                print ("---6---")
                 await client.send_message(message.channel, m)
 
             else:
