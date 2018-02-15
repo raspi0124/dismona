@@ -89,11 +89,6 @@ async def on_message(message):
                 print ("---6---")
                 await client.send_message(message.channel, m)
 
-            else:
-                m = "すみませんがそのアカウント名はすでにこのシステムに登録されているようです。。"
-                await client.send_message(message.channel, m)
-                print ("failed to create" + message.author.name + "'s account..")
-
             
             
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DVZidQ.1MTSYLrrPL2bNeLMXFVQDPc25Mg")
