@@ -101,7 +101,7 @@ async def on_message(message):
                 address = rut.decode()
                 address2 = address.replace('[', '')
                 address3 = address2.replace(']', '')
-                m = "@"+ message.author.id + " ,or " + message.author.name + ",your address is" + address3 + ""
+                m = "<@"+ message.author.id + ">,your address is" + address3 + ""
                 await client.send_message(message.channel, m)
 
             
