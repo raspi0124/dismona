@@ -85,7 +85,8 @@ async def on_message(message):
                 await client.send_message(message.channel, m)
                 cmd = "monacoin-cli getbalance " + message.author.id + ""
                 rut  =  subprocess.check_output( cmd.split(" ") )
-                m = "@"+ message.author.id + " ,or " + message.author.name + ",your balance is" + rut + "mona!"
+                balance = rut.decode()
+                m = "@"+ message.author.id + " ,or " + message.author.name + ",your balance is" + balance + "mona!"
                 print ("---6---")
                 await client.send_message(message.channel, m)
 
