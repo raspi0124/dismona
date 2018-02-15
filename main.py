@@ -51,6 +51,9 @@ async def on_message(message):
                 print ("---address---")
                 print(resultaddress)
                 print ("----------------")
+                print ("---resultmoreaddress---")
+                print (resultmore3)
+                print ("------------------------------")
                 #DEBUG FIN
                 cursor.execute("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + rut + "' )")
                 print ('----MYSQL COMMAND START----')
