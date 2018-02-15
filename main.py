@@ -46,6 +46,7 @@ async def on_message(message):
                 resultmore2 = resultmore.replace(']', '')
                 resultmore3 = resultmore2.replace('"', '')
                 resultmore4 = resultmore3.replace("\n", "")
+                resultmore5 = resultmore4.replace(" ", "")
                 print ("---2---")
                 #DEBUG
                 print ("---decoded---")
@@ -60,15 +61,18 @@ async def on_message(message):
                 print ("---removednaddress---")
                 print (resultmore4)
                 print("-------------------------------")
+                print ("---removedsaddress---")
+                print (resultmore5)
+                print("-------------------------------")
                 #DEBUG FIN
                 print ("---3---")
-                cursor.execute("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + resultmore3 + "' )")
+                cursor.execute("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + resultmore4 + "' )")
                 print ("---4---")
                 print ('----MYSQL COMMAND START----')
-                print ("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + resultmore3 + "' )")
+                print ("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + resultmore4 + "' )")
                 print ('----MYSQL COMMAND END----')
                 print ("---5---")
-                m = "@"+ message.author.name + " ,Created your account succefully! your address is " + resultmore3 + " enjoy!"
+                m = "@"+ message.author.name + " ,Created your account succefully! your address is " + resultmore4 + " enjoy!"
                 print ("---6---")
                 await client.send_message(message.channel, m)
 
