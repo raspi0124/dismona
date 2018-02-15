@@ -33,12 +33,12 @@ async def on_message(message):
         if client.user != message.author.name:
             # メッセージを書きます
             if message.author.name != INDB:
-                m = "@" + message.author.name + " さんのアカウントを作成しますね！"
+                m = "<@" + message.author.id + "> さんのアカウントを作成しますね！"
             # メッセージが送られてきたチャンネルへメッセージを送ります
                 await client.send_message(message.channel, m)
                 cmd = "monacoin-cli getnewaddress " + message.author.id + ""
                 rut  =  subprocess.check_output( cmd.split(" ") )
-                print ('Creating ' + message.author.name + "'s account.. user ID " + message.author.id + "")
+                print ('Creating <' + message.author.id + ">'s account.. user ID ")
                 print ("---1---")
                 #cursor.execute("insert into dismona.id(id,address) values('message_author', address);")
                 resultaddress = rut.decode()
@@ -72,7 +72,7 @@ async def on_message(message):
                 print ("INSERT INTO dismona.id(id, address) VALUES ('" + message.author.id + "', '" + resultmore5 + "' )")
                 print ('----MYSQL COMMAND END----')
                 print ("---5---")
-                m = "@"+ message.author.id + " ,Created your account succefully! your address is " + resultmore5 + " enjoy!"
+                m = "<@"+ message.author.id + "> ,Created your account succefully! your address is " + resultmore5 + " enjoy!"
                 print ("---6---")
                 await client.send_message(message.channel, m)
 
@@ -80,20 +80,20 @@ async def on_message(message):
         # 送り主がBotだった場合反応したくないので
         if client.user != message.author.name:
             # メッセージを書きます
-                m = "<@" + message.author.name + "> さんの残高チェック中.."
+                m = "<@" + message.author.id + "> さんの残高チェック中.."
             # メッセージが送られてきたチャンネルへメッセージを送ります
                 await client.send_message(message.channel, m)
                 cmd = "monacoin-cli getbalance " + message.author.id + ""
                 rut  =  subprocess.check_output( cmd.split(" ") )
                 balance = rut.decode()
-                m = "<@"+ message.author.id + "> ,or " + message.author.name + ",your balance is" + balance + "mona!"
+                m = "<@"+ message.author.id + ">"", your balance is " + balance + " mona!"
                 print ("---6---")
                 await client.send_message(message.channel, m)
     if message.content.startswith("/deposit"):
         # 送り主がBotだった場合反応したくないので
         if client.user != message.author.name:
             # メッセージを書きます
-                m = "@" + message.author.name + " アドレスを確認中..."
+                m = "<@" + message.author.id + "> アドレスを確認中..."
             # メッセージが送られてきたチャンネルへメッセージを送ります
                 await client.send_message(message.channel, m)
                 cmd = "monacoin-cli getaddressesbyaccount " + message.author.id + ""
