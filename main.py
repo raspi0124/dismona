@@ -80,7 +80,7 @@ async def on_message(message):
         # 送り主がBotだった場合反応したくないので
         if client.user != message.author.name:
             # メッセージを書きます
-                m = "@" + message.author.name + " さんの残高チェック中.."
+                m = "<@" + message.author.name + "> さんの残高チェック中.."
             # メッセージが送られてきたチャンネルへメッセージを送ります
                 await client.send_message(message.channel, m)
                 cmd = "monacoin-cli getbalance " + message.author.id + ""
