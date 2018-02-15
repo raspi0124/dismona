@@ -76,6 +76,19 @@ async def on_message(message):
                 print ("---6---")
                 await client.send_message(message.channel, m)
 
+    if message.content.startswith("/balance"):
+        # 送り主がBotだった場合反応したくないので
+        if client.user != message.author.name:
+            # メッセージを書きます
+                m = "@" + message.author.name + " さんの残高チェック中.."
+            # メッセージが送られてきたチャンネルへメッセージを送ります
+                await client.send_message(message.channel, m)
+                cmd = "monacoin-cli getbalance " + message.author.id + ""
+                rut  =  subprocess.check_output( cmd.split(" ") )
+                m = "@"+ message.author.id + " ,or " + message.author.name + ",your balance is" + rut + "mona!"
+                print ("---6---")
+                await client.send_message(message.channel, m)
+
             else:
                 m = "すみませんがそのアカウント名はすでにこのシステムに登録されているようです。。"
                 await client.send_message(message.channel, m)
