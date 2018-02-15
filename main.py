@@ -66,13 +66,13 @@ async def on_message(message):
                 print("-------------------------------")
                 #DEBUG FIN
                 print ("---3---")
-                cursor.execute("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + resultmore4 + "' )")
+                cursor.execute("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + resultmore5 + "' )")
                 print ("---4---")
                 print ('----MYSQL COMMAND START----')
-                print ("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + resultmore4 + "' )")
+                print ("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + resultmore5 + "' )")
                 print ('----MYSQL COMMAND END----')
                 print ("---5---")
-                m = "@"+ message.author.name + " ,Created your account succefully! your address is " + resultmore4 + " enjoy!"
+                m = "@"+ message.author.name + " ,Created your account succefully! your address is " + resultmore5 + " enjoy!"
                 print ("---6---")
                 await client.send_message(message.channel, m)
 
