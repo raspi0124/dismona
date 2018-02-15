@@ -45,6 +45,7 @@ async def on_message(message):
                 resultmore = resultaddress.replace('[', '')
                 resultmore2 = resultmore.replace(']', '')
                 resultmore3 = resultmore2.replace('"', '')
+                resultmore4 = resultmore3.replace("\n", "")
                 print ("---2---")
                 #DEBUG
                 print ("---decoded---")
@@ -56,6 +57,9 @@ async def on_message(message):
                 print ("---resultmoreaddress---")
                 print (resultmore3)
                 print ("------------------------------")
+                print ("---removednaddress---")
+                print (resultmore4)
+                print("-------------------------------")
                 #DEBUG FIN
                 print ("---3---")
                 cursor.execute("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + resultmore3 + "' )")
