@@ -52,14 +52,6 @@ async def on_message(message):
                 await client.send_message(message.channel, m)
                 print ("failed to create" + message.author.name + "'s account..")
 
-@client.event
-async def on_message(message):
-    # 「/register」で始まるか調べる
-    if message.content.startswith("/withdrawall"):
-        # 送り主がBotだった場合反応したくないので
-        if client.user != message.author.name:
-            m = ""
-                
             
             
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DVZidQ.1MTSYLrrPL2bNeLMXFVQDPc25Mg")
