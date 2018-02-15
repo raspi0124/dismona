@@ -36,7 +36,7 @@ async def on_message(message):
                 m = "@" + message.author.name + " さんのアカウントを作成しますね！"
             # メッセージが送られてきたチャンネルへメッセージを送ります
                 await client.send_message(message.channel, m)
-                cmd = "monacoin-cli getaddressesbyaccount" + message.author.name + ""
+                cmd = "monacoin-cli getaddressesbyaccount" + message.author.name + " "
                 rut  =  subprocess.check_output( cmd.split(" ") )
                 print ('Creating ' + message.author.name + "'s account..")
                 #cursor.execute("insert into dismona.id(id,address) values('message_author', address);")
