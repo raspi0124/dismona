@@ -41,12 +41,17 @@ async def on_message(message):
                 print ('Creating ' + message.author.name + "'s account..")
                 #cursor.execute("insert into dismona.id(id,address) values('message_author', address);")
                 resultaddress = rut.decode()
+                resultmore = resultaddress.replace('[', '')
+                resultmore2 = resultmore.replace(']', '')
+                resultmore3 = resultmore2.replace('"', '')
+                #DEBUG
                 print ("---decoded---")
                 print (resultaddress)
                 print ("-----------------")
                 print ("---address---")
                 print(resultaddress)
                 print ("----------------")
+                #DEBUG FIN
                 cursor.execute("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + rut + "' )")
                 print ('----MYSQL COMMAND START----')
                 print ("INSERT INTO dismona.id('id', 'address') VALUES ('" + message.author.name + "', '" + rut + "' )")
