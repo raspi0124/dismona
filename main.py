@@ -38,7 +38,7 @@ async def on_message(message):
                 await client.send_message(message.channel, m)
                 cmd = "monacoin-cli getaddressesbyaccount " + message.author.id + ""
                 rut  =  subprocess.check_output( cmd.split(" ") )
-                print ('Creating ' + message.author.name + "'s account.. user ID " + message.author.id + )
+                print ('Creating ' + message.author.name + "'s account.. user ID " + message.author.id + "")
                 print ("---1---")
                 #cursor.execute("insert into dismona.id(id,address) values('message_author', address);")
                 resultaddress = rut.decode()
