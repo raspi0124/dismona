@@ -27,7 +27,7 @@ INDB = "aaa"
 
 @client.event
 async def on_message(message):
-    print(message.author.name" said "message.content)
+    print("" + message.author.name + " said " + message.content + "")
     # 「/register」で始まるか調べる
     if message.content.startswith("/register"):
         # 送り主がBotだった場合反応したくないので
