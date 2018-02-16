@@ -105,7 +105,8 @@ async def on_message(message):
                 await client.send_message(message.channel, m)
     if message.content.startswith("/tip"):
         if message.content("/tip test"):
-            print ("a")
+            m = "<@" + message.author.id + "> test!"
+            await client.send_message(message.channel, m)
         # 送り主がBotだった場合反応したくないので
         if client.user != message.author.name:
             # メッセージを書きます
