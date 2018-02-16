@@ -103,8 +103,13 @@ async def on_message(message):
                 address3 = address2.replace(']', '')
                 m = "<@"+ message.author.id + ">,your address is" + address3 + ""
                 await client.send_message(message.channel, m)
-    if message.content == "hahaha":
-        m = "<@{0}> test!".format(message.author.id)
+    if message.content.startswith("/withdrawall"):
+        message.content = message
+        message2 = message.replace('/withdrawall', '')
+        message3 = message2.replace(' ', '')
+        print (message3)
+        m = "<@" + message.author.id + "> withdrawall to" + message3 +""
+        # メッセージが送られてきたチャンネルへメッセージを送ります
         await client.send_message(message.channel, m)
 
             
