@@ -21,8 +21,6 @@ async def on_ready():
     print(client.user.id)
     print('------')
 
-INDB = "aaa"
-
 #message.author.name がユーザー名
 
 @client.event
@@ -122,9 +120,9 @@ async def on_message(message):
         print(withdrawalldata)
         m = "<@"+ message.author.id + ">,we've just withdrawed all mona you have, to " + message3 + " , and here are some details " + withdrawalldata + ""
         await client.send_message(message.channel, m)
-        # メッセージが送られてきたチャンネルへメッセージを送ります     
+    if 
     if message.content.startswith("/credit"):
-        m = "`-----------------------------------------------------------------------------------  \
+        m = "```-----------------------------------------------------------------------------------  \
         \n このプログラムは以下の方たちの協力によって完成しました。この場にて改めて感謝します。(敬称略) \
         \n ---開発、制作--- \
         \n raspi0124 \
@@ -148,7 +146,7 @@ async def on_message(message):
         \n ---その他--- \
         \n 脇山P (WordPressプラグイン、monage作成の際に頂いたmonaをVPS代にありがたくつぎ込ませてもらっています。) \
         \n ----------------------------------------------------------------------------------- \
-        `"
+        ```"
         await client.send_message(message.channel, m)
             
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DVZidQ.1MTSYLrrPL2bNeLMXFVQDPc25Mg")
@@ -158,4 +156,3 @@ cursor = conn.cursor()
 
 # https://qiita.com/PinappleHunter/items/af4ccdbb04727437477f
 # https://qiita.com/komeiy/items/d6b5f25bf1778fa10e21
-#
