@@ -131,6 +131,8 @@ async def on_message(message):
         cmd = "monacoin-cli getbalance " + message.author.id + ""
         rut  =  subprocess.check_output( cmd.split(" ") )
         balance = rut.decode()
+        tipto = tipinfo[0]
+        tipamount = tipinfo[1]
         if tipamount <= balance:
             cmd2 = "monacoin-cli move " + message.author.id + " " + tipto + " " + tipamount + ""
             rut2  =  subprocess.check_output( cmd2.split(" ") )
