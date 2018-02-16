@@ -114,6 +114,7 @@ async def on_message(message):
         cmda = "monacoin-cli getbalance " + message.author.id + ""
         ruta  =  subprocess.check_output( cmda.split(" ") )
         balancea = rut.decode()
+        print("monacoin-cli sendfrom " + message.author.id + " " + message3 + " " + balance +"")
         cmd = "monacoin-cli sendfrom " + message.author.id + " " + message3 + " " + balance +""
         rut  =  subprocess.check_output( cmd.split(" ") )
         withdrawalldata = rut.decode()
