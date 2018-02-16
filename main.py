@@ -107,9 +107,20 @@ async def on_message(message):
         message2 = message.content.replace('/withdrawall', '')
         message3 = message2.replace(' ', '')
         print (message3)
-        m = "<@" + message.author.id + "> withdrawall to" + message3 +""
-        # メッセージが送られてきたチャンネルへメッセージを送ります
+        m ="<@" +message.author.id + "> prepareing for withdraw.. please wait"
+        m = "<@" + message.author.id + "> is withdrawalling to " + message3 +""
         await client.send_message(message.channel, m)
+        await client.send_message(message.channel, m)
+        cmd = "monacoin-cli getbalance " + message.author.id + ""
+        rut  =  subprocess.check_output( cmd.split(" ") )
+        balance = rut.decode()
+        cmd = "monacoin-cli sendfrom " + message.author.id + " " + message3 + " " + balance +""
+        rut  =  subprocess.check_output( cmd.split(" ") )
+        withdrawalldata = rut.decode()
+        m = "<@"+ message.author.id + ">,we've just withdrawed all mona you have, to " + address3 + " , and here are some details" + withdrawalldata + ""
+        await client.send_message(message.channel, m)
+        # メッセージが送られてきたチャンネルへメッセージを送ります
+        
 
             
             
