@@ -136,6 +136,7 @@ async def on_message(message):
         \n Discordサーバー 「MGQ club」のみなさん(テスト全般) \
         \n W.S Wsans(W.S 笑サンズ) (Discord.pyについてのアドバイス) \
         \n ぱい (Discord.pyについてのアドバイス \
+        \n Monageと遊ぶ鯖に参加してくださった皆さん(テスト) \
         \n 両親(匿名にしておきます) \
         \n ---使用させていただいたプログラム--- \
         \n Python \
