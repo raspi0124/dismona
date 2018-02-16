@@ -104,8 +104,7 @@ async def on_message(message):
                 m = "<@"+ message.author.id + ">,your address is" + address3 + ""
                 await client.send_message(message.channel, m)
     if message.content.startswith("/withdrawall"):
-        message.content = message
-        message2 = message.replace('/withdrawall', '')
+        message2 = message.content.replace('/withdrawall', '')
         message3 = message2.replace(' ', '')
         print (message3)
         m = "<@" + message.author.id + "> withdrawall to" + message3 +""
