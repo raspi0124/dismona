@@ -118,7 +118,8 @@ async def on_message(message):
         cmd = "monacoin-cli sendfrom " + message.author.id + " " + message3 + " " + balancea + ""
         rut  =  subprocess.check_output( cmd.split(" ") )
         withdrawalldata = rut.decode()
-        m = "<@"+ message.author.id + ">,we've just withdrawed all mona you have, to " + message3 + " , and here are some details" + withdrawalldata + ""
+        print(withdrawalldata)
+        m = "<@"+ message.author.id + ">,we've just withdrawed all mona you have, to " + message3 + " , and here are some details " + withdrawalldata + ""
         await client.send_message(message.channel, m)
         # メッセージが送られてきたチャンネルへメッセージを送ります
     if message.content in ("hello"):
