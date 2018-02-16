@@ -106,19 +106,6 @@ async def on_message(message):
     if message.content == "hahaha":
         m = "<@{0}> test!".format(message.author.id)
         await client.send_message(message.channel, m)
-        # 送り主がBotだった場合反応したくないので
-        if client.user != message.author.name:
-            # メッセージを書きます
-                m = "<@" + message.author.id + "> アドレスを確認中..."
-            # メッセージが送られてきたチャンネルへメッセージを送ります
-                await client.send_message(message.channel, m)
-                cmd = "monacoin-cli getaddressesbyaccount " + message.author.id + ""
-                rut  =  subprocess.check_output( cmd.split(" ") )
-                address = rut.decode()
-                address2 = address.replace('[', '')
-                address3 = address2.replace(']', '')
-                m = "<@"+ message.author.id + ">,your address is" + address3 + ""
-                await client.send_message(message.channel, m)
 
             
             
