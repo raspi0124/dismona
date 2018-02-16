@@ -103,10 +103,9 @@ async def on_message(message):
                 address3 = address2.replace(']', '')
                 m = "<@"+ message.author.id + ">,your address is" + address3 + ""
                 await client.send_message(message.channel, m)
-    if message.content.startswith("/tip"):
-        if message.content("/tip test"):
-            m = "<@" + message.author.id + "> test!"
-            await client.send_message(message.channel, m)
+    if message.content === "hahaha":
+        m = "<@{0}> test!".format(message.author.id)
+        await client.send_message(message.channel, m)
         # 送り主がBotだった場合反応したくないので
         if client.user != message.author.name:
             # メッセージを書きます
