@@ -125,7 +125,7 @@ async def on_message(message):
         print (message2)
         pattern = r'([+-]?[0-9]+\.?[0-9]*)'
         print(re.findall(pattern,message2))
-        tipinfo = re.findall(pattern,text)
+        tipinfo = re.findall(pattern,message2)
         print(arr[0])
         print(arr[1])
 
