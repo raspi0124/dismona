@@ -124,7 +124,7 @@ async def on_message(message):
         await client.send_message(message.channel, m)
         # メッセージが送られてきたチャンネルへメッセージを送ります     
     if message.content.startswith("/credit"):
-        m = "-----------------------------------------------------------------------------------"
+        m = "`-----------------------------------------------------------------------------------\ntest`"
         await client.send_message(message.channel, m)
         m = "このプログラムは以下の方たちの協力によって完成しました。この場にて改めて感謝します。(敬称略)"
         await client.send_message(message.channel, m)
