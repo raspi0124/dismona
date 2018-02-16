@@ -126,8 +126,8 @@ async def on_message(message):
         pattern = r'([+-]?[0-9]+\.?[0-9]*)'
         print(re.findall(pattern,message2))
         tipinfo = re.findall(pattern,message2)
-        print(arr[0])
-        print(arr[1])
+        print(tipinfo[0])
+        print(tipinfo[1])
 
     if message.content.startswith("/credit"):
         m = "```-----------------------------------------------------------------------------------  \
