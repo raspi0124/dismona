@@ -27,6 +27,7 @@ INDB = "aaa"
 
 @client.event
 async def on_message(message):
+    print(message.content)
     # 「/register」で始まるか調べる
     if message.content.startswith("/register"):
         # 送り主がBotだった場合反応したくないので
@@ -121,9 +122,7 @@ async def on_message(message):
         print(withdrawalldata)
         m = "<@"+ message.author.id + ">,we've just withdrawed all mona you have, to " + message3 + " , and here are some details " + withdrawalldata + ""
         await client.send_message(message.channel, m)
-        # メッセージが送られてきたチャンネルへメッセージを送ります
-    if message.content in ("hello"):
-        await client.delete_message(message)        
+        # メッセージが送られてきたチャンネルへメッセージを送ります     
 
             
             
