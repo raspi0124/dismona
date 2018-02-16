@@ -27,7 +27,7 @@ INDB = "aaa"
 
 @client.event
 async def on_message(message):
-    print(message.content)
+    print(message.author.name" said "message.content)
     # 「/register」で始まるか調べる
     if message.content.startswith("/register"):
         # 送り主がBotだった場合反応したくないので
@@ -123,8 +123,53 @@ async def on_message(message):
         m = "<@"+ message.author.id + ">,we've just withdrawed all mona you have, to " + message3 + " , and here are some details " + withdrawalldata + ""
         await client.send_message(message.channel, m)
         # メッセージが送られてきたチャンネルへメッセージを送ります     
-
-            
+    if message.content.startswith("/credit"):
+        m = "-----------------------------------------------------------------------------------"
+        await client.send_message(message.channel, m)
+        m = "このプログラムは以下の方たちの協力によって完成しました。この場にて改めて感謝します。(敬称略)"
+        await client.send_message(message.channel, m)
+        m = "---開発、制作---"
+        await client.send_message(message.channel, m)
+        m = "raspi0124"
+        await client.send_message(message.channel, m)
+        m = "---開発協力---"
+        await client.send_message(message.channel, m)
+        m = "はるまど(Gitlabの提供。勝手にモナオクのgitlab使っちゃってすみませんm(_ _)m)"
+        await client.send_message(message.channel, m)
+        m = "kakarichyo(クローズドアルファにおけるテスト)"
+        await client.send_message(message.channel, m)
+        m = "ポテト(クローズドアルファにおけるテスト)"
+        await client.send_message(message.channel, m)
+        m = "MGQ(アドバイス)"
+        await client.send_message(message.channel, m)
+        m = "Discordサーバー 「MGQ club」のみなさん(テスト全般)"
+        await client.send_message(message.channel, m)
+        m = "W.S Wsans(W.S 笑サンズ) (Discord.pyについてのアドバイス)"
+        await client.send_message(message.channel, m)
+        m = "ぱい (Discord.pyについてのアドバイス"
+        await client.send_message(message.channel, m)
+        m = "両親(匿名にしておきます)"
+        await client.send_message(message.channel, m)
+        m = "---使用させていただいたプログラム---"
+        await client.send_message(message.channel, m)
+        m = "Python"
+        await client.send_message(message.channel, m)
+        m = "Discord.py"
+        await client.send_message(message.channel, m)
+        m = "Sublime text3"
+        await client.send_message(message.channel, m)
+        m = "nano"
+        await client.send_message(message.channel, m)
+        m = "Gitlab"
+        await client.send_message(message.channel, m)
+        m = "Ubuntu"
+        await client.send_message(message.channel, m)
+        m = "---その他---"
+        await client.send_message(message.channel, m)
+        m = "脇山P (WordPressプラグイン、monage作成の際に頂いたmonaをVPS代にありがたくつぎ込ませてもらっています。)"
+        await client.send_message(message.channel, m)
+        m = "-----------------------------------------------------------------------------------"
+        await client.send_message(message.channel, m)
             
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DVZidQ.1MTSYLrrPL2bNeLMXFVQDPc25Mg")
 
