@@ -123,7 +123,8 @@ async def on_message(message):
     if message.content.startswith("/tip"):
         message2 = message.content.replace('/tip', '')
         print (message2)
-        
+        pattern = r'([+-]?[0-9]+\.?[0-9]*)'
+        print('findall:',re.findall(pattern,message2))
     if message.content.startswith("/credit"):
         m = "```-----------------------------------------------------------------------------------  \
         \n このプログラムは以下の方たちの協力によって完成しました。この場にて改めて感謝します。(敬称略) \
