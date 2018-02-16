@@ -121,7 +121,8 @@ async def on_message(message):
         m = "<@"+ message.author.id + ">,we've just withdrawed all mona you have, to " + message3 + " , and here are some details" + withdrawalldata + ""
         await client.send_message(message.channel, m)
         # メッセージが送られてきたチャンネルへメッセージを送ります
-        
+    if message.content == ("hello"):
+        await client.delete_message(message)        
 
             
             
