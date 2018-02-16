@@ -120,6 +120,10 @@ async def on_message(message):
         print(withdrawalldata)
         m = "<@"+ message.author.id + ">,we've just withdrawed all mona you have, to " + message3 + " , and here are some details " + withdrawalldata + ""
         await client.send_message(message.channel, m)
+    if message.content.startswith("/tip"):
+        message2 = message.content.replace('/tip', '')
+        print (message2)
+        
     if message.content.startswith("/credit"):
         m = "```-----------------------------------------------------------------------------------  \
         \n このプログラムは以下の方たちの協力によって完成しました。この場にて改めて感謝します。(敬称略) \
