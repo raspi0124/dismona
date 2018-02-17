@@ -25,8 +25,8 @@ async def on_ready():
 
 import datetime
 
-now = datetime.datetime.now() # 現在の日時を取得
-
+nowold = datetime.datetime.now() # 現在の日時を取得
+now = nowold.decode()
 
 nowtime = "" + now.year + "," + now.month + "," + now.day + "," + now.hour + "," + now.minute + "," + now.second +""
 nowtime2 = nowtime.decode()
