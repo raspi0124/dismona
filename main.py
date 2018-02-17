@@ -157,7 +157,7 @@ async def on_message(message):
         \n /withdrawall <送金先アドレス>\
         \n /tip <ユーザー> <金額> <任意のコメント>\ ```"
         await client.send_message(message.channel, m)
-    if message.content.startwith("/hello")
+    if message.content.startwith("/hello"):
         m = "こんにちは!"
         await client.send_message(message.channel, m)
 
