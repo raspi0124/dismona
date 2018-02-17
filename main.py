@@ -136,7 +136,7 @@ async def on_message(message):
         if tipamount <= balance:
             cmd2 = "monacoin-cli move " + message.author.id + " " + tipto + " " + tipamount + ""
             rut2  =  subprocess.check_output( cmd2.split(" ") )
-            m = "<@"+ message.author.id + ">, sended " + tipamount + " to " + tipto + " !"
+            m = "<@"+ message.author.id + ">, sended " + tipamount + " to <@" + tipto + "> !"
             await client.send_message(message.channel, m)
         else:
             m = "<@"+ message.author.id + ">, Error, Not enougth fund. check your balance and amount you want to tip"
