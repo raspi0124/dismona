@@ -137,13 +137,19 @@ async def on_message(message):
         tipto = tipinfo[0]
         tipamount = tipinfo[1]
         if tipamount <= balance:
-            cmd2 = "monacoin-cli move " + message.author.id + " " + tipto + " " + tipamount + ""
-            rut2  =  subprocess.check_output( cmd2.split(" ") )
-            m = "<@"+ message.author.id + ">, sended " + tipamount + " to <@" + tipto + "> ! \n Created message at " + currenttime + ""
-            await client.send_message(message.channel, m)
+            try:
+                cmd2 = "monacoin-cli move " + message.author.id + " " + tipto + " " + tipamount + ""
+                rut2  =  subprocess.check_output( cmd2.split(" ") )
+                m = "<@" + message.author.id + ">, sended " + tipamount + " to <@" + tipto + "> ! \n Created message at " + currenttime + ""
+                await client.send_message(message.channel, m)
+            except subprocess.CalledProcessError as e
+                m = "<@" + message.author.id "> Something wrong happened.\n Created message at " + currenttime + ". \n error detail:" + e.output + ""
         else:
             m = "<@"+ message.author.id + ">, Error, Not enougth fund. check your balance and amount you want to tip \n Created message at " + currenttime + ""
             await client.send_message(message.channel, m)
+    if message.content.startwith("/admin info"):
+        m = "Still in progress... wait.."
+        await client.send_message(message.channel, m)
     
     if message.content.startswith("/help"):
         m = "```----------------------------------------------------------------------------------- \
@@ -156,6 +162,7 @@ async def on_message(message):
         \n /withdraw - 指定されたmonaを指定されたアドレスに送ります (未実装) \
         \n /donate - 指定された金額のmonaを寄付先として認証された方に送ります (未実装)\
         \n /rain - 指定された金額のmonaをランダムに配ります。 (実装検討中..)\
+        \n /admin info - 管理者専用コマンド。管理者がすぐに状況確認できるように作成しました\
         \n ---使い方---\
         \n /withdrawall <送金先アドレス>\
         \n /tip <ユーザー> <金額> <任意のコメント>\ \n Created message at " + currenttime + "```"
