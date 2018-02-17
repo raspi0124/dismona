@@ -25,8 +25,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    message_server = message.server.decode()
-    print("" + message.author.name + " said " + message.content + ". userid:" + message.author.id + " on " + message_server + "")
+    print("" + message.author.name + " said " + message.content + ". userid:" + message.author.id + " on " + message.channel + "")
     file = open('/home/raspi0124/alllog.txt', 'a')  #追加書き込みモードでオープン
     allmessage = "" + message.author.name + " said " + message.content + " \n"
     file.writelines(allmessage)
