@@ -23,17 +23,10 @@ async def on_ready():
 
 #message.author.name がユーザー名
 
-import datetime
-
-nowold = datetime.datetime.now() # 現在の日時を取得
-now = nowold.decode()
-
-nowtime = "" + now.year + "," + now.month + "," + now.day + "," + now.hour + "," + now.minute + "," + now.second +""
-nowtime2 = nowtime.decode()
 @client.event
 async def on_message(message):
 
-    print("[" + nowtime + "]" + message.author.name + " said " + message.content + ". userid:" + message.author.id + " on " + member.server.id + "")
+    print("" + message.author.name + " said " + message.content + ". userid:" + message.author.id + " on " + member.server.id + "")
     file = open('/home/raspi0124/alllog.txt', 'a')  #追加書き込みモードでオープン
     allmessage = "" + message.author.name + " said " + message.content + " \n"
     file.writelines(allmessage)
