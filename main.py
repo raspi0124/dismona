@@ -18,6 +18,9 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
+    m = "Monage has started"
+    await client.send_message("414478675132547073", m)
+
 
 #message.author.name がユーザー名
 
