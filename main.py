@@ -7,6 +7,7 @@ import MySQLdb
 client = discord.Client()
 from datetime import datetime
 print (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 
 # データベース接続とカーソル生成
 # 接続情報はダミーです。お手元の環境にあわせてください。
@@ -74,10 +75,9 @@ async def on_message(message):
             print ("INSERT INTO dismona.id(id, address) VALUES ('" + message.author.id + "', '" + resultmore5 + "' )")
             print ('----MYSQL COMMAND END----')
             print ("---5---")
-            m = "<@"+ message.author.id + "> ,Created your account succefully! your address is " + resultmore5 + " enjoy!"
+            m = "<@"+ message.author.id + "> ,Created your account succefully! your address is " + resultmore5 + " enjoy! \n Created message at " + currenttime + ""
             print ("---6---")
             await client.send_message(message.channel, m)
-
     if message.content.startswith("/balance"):
         # 送り主がBotだった場合反応したくないので
         if client.user != message.author.name:
@@ -88,7 +88,7 @@ async def on_message(message):
                 cmd = "monacoin-cli getbalance " + message.author.id + ""
                 rut  =  subprocess.check_output( cmd.split(" ") )
                 balance = rut.decode()
-                m = "<@"+ message.author.id + ">"", your balance is " + balance + " mona!"
+                m = "<@"+ message.author.id + ">"", your balance is " + balance + " mona!\n Created message at " + currenttime + ""
                 print ("---6---")
                 await client.send_message(message.channel, m)
     if message.content.startswith("/deposit"):
@@ -103,7 +103,7 @@ async def on_message(message):
                 address = rut.decode()
                 address2 = address.replace('[', '')
                 address3 = address2.replace(']', '')
-                m = "<@"+ message.author.id + ">,your address is" + address3 + ""
+                m = "<@"+ message.author.id + ">,your address is" + address3 + " \n Created message at " + currenttime + ""
                 await client.send_message(message.channel, m)
     if message.content.startswith("/withdrawall"):
         message2 = message.content.replace('/withdrawall', '')
@@ -121,7 +121,7 @@ async def on_message(message):
         rut  =  subprocess.check_output( cmd.split(" ") )
         withdrawalldata = rut.decode()
         print(withdrawalldata)
-        m = "<@"+ message.author.id + ">,we've just withdrawed all mona you have, to " + message3 + " , and here are some details " + withdrawalldata + ""
+        m = "<@"+ message.author.id + ">,we've just withdrawed all mona you have, to " + message3 + " , and here are some details " + withdrawalldata + " \n Created message at " + currenttime + ""
         await client.send_message(message.channel, m)
     if message.content.startswith("/tip"):
         message2 = message.content.replace('/tip', '')
@@ -139,10 +139,10 @@ async def on_message(message):
         if tipamount <= balance:
             cmd2 = "monacoin-cli move " + message.author.id + " " + tipto + " " + tipamount + ""
             rut2  =  subprocess.check_output( cmd2.split(" ") )
-            m = "<@"+ message.author.id + ">, sended " + tipamount + " to <@" + tipto + "> !"
+            m = "<@"+ message.author.id + ">, sended " + tipamount + " to <@" + tipto + "> ! \n Created message at " + currenttime + ""
             await client.send_message(message.channel, m)
         else:
-            m = "<@"+ message.author.id + ">, Error, Not enougth fund. check your balance and amount you want to tip"
+            m = "<@"+ message.author.id + ">, Error, Not enougth fund. check your balance and amount you want to tip \n Created message at " + currenttime + ""
             await client.send_message(message.channel, m)
     
     if message.content.startswith("/help"):
@@ -158,7 +158,7 @@ async def on_message(message):
         \n /rain - 指定された金額のmonaをランダムに配ります。 (実装検討中..)\
         \n ---使い方---\
         \n /withdrawall <送金先アドレス>\
-        \n /tip <ユーザー> <金額> <任意のコメント>\ ```"
+        \n /tip <ユーザー> <金額> <任意のコメント>\ \n Created message at " + currenttime + "```"
         await client.send_message(message.channel, m)
     
     if message.content.startswith("/hello"):
@@ -188,7 +188,7 @@ async def on_message(message):
         \n Gitlab \
         \n Ubuntu \
         \n ---その他--- \
-        \n 脇山P (WordPressプラグイン、monage作成の際に頂いたmonaをVPS代にありがたくつぎ込ませてもらっています。) \
+        \n 脇山P (WordPressプラグイン、monage作成の際に頂いたmonaをVPS代にありがたくつぎ込ませてもらっています。) \n Created message at " + currenttime + "\
         \n ----------------------------------------------------------------------------------- \
         ```"
         await client.send_message(message.channel, m)
