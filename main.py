@@ -25,7 +25,7 @@ async def on_ready():
 
 import datetime
 
-now = datetime.dateime.now() # 現在の日時を取得
+now = datetime.datetime.now() # 現在の日時を取得
 
 print(now.year)           # 年： 2016
 print(now.month)          # 月： 2
