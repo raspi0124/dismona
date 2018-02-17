@@ -143,6 +143,7 @@ async def on_message(message):
                 m = "<@" + message.author.id + ">, sended " + tipamount + " to <@" + tipto + "> ! \n Created message at " + currenttime + ""
                 await client.send_message(message.channel, m)
             except subprocess.CalledProcessError as e:
+                eout = e.output.decode()
                 m = "<@" + message.author.id + "> Something wrong happened. \n Created message at " + currenttime + ". and here are some details:" + e.output + ""
                 await client.send_message(message.channel, m)
         else:
