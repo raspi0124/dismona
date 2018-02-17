@@ -142,7 +142,7 @@ async def on_message(message):
                 rut2  =  subprocess.check_output( cmd2.split(" ") )
                 m = "<@" + message.author.id + ">, sended " + tipamount + " to <@" + tipto + "> ! \n Created message at " + currenttime + ""
                 await client.send_message(message.channel, m)
-            except subprocess.CalledProcessError as e
+            except subprocess.CalledProcessError as e:
                 m = "<@" + message.author.id "> Something wrong happened.\n Created message at " + currenttime + ". \n error detail:" + e.output + ""
         else:
             m = "<@"+ message.author.id + ">, Error, Not enougth fund. check your balance and amount you want to tip \n Created message at " + currenttime + ""
