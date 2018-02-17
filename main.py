@@ -12,9 +12,6 @@ connection = MySQLdb.connect(
     host='localhost', user='root', passwd='laksjd', db='dismona', charset='utf8')
 cursor = connection.cursor()
 cursor.execute("CREATE TABLE IF NOT EXISTS dismona.id (id VARCHAR(20), address VARCHAR(50));")
-cmd = "monacoin-cli walletpassphrase 0124 31536000"
-rut  =  subprocess.check_output( cmd.split(" ") )
-print(rut)
 @client.event
 async def on_ready():
     print('Logged in as')
