@@ -145,7 +145,7 @@ async def on_message(message):
             m = "<@"+ message.author.id + ">, Error, Not enougth fund. check your balance and amount you want to tip"
             await client.send_message(message.channel, m)
     
-    if message.content.startswith("/help")
+    if message.content.startswith("/help"):
         m = "```----------------------------------------------------------------------------------- \
         \n /help - ヘルプを表示します \
         \n /register - あなたの財布を新しく作成します \
