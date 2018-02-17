@@ -27,14 +27,9 @@ import datetime
 
 now = datetime.datetime.now() # 現在の日時を取得
 
-print(now.year)           # 年： 2016
-print(now.month)          # 月： 2
-print(now.day)            # 日： 23
-print(now.hour)           # 時： 11
-print(now.minute)         # 分： 53
-print(now.second)         # 秒： 42
 
 nowtime = "" + now.year + "," + now.month + "," + now.day + "," + now.hour + "," + now.minute + "," + now.second +""
+nowtime2 = nowtime.decode()
 @client.event
 async def on_message(message):
 
