@@ -144,12 +144,12 @@ async def on_message(message):
                 await client.send_message(message.channel, m)
             except subprocess.CalledProcessError as e:
                 eout = e.output.decode()
-                m = "<@" + message.author.id + "> Something wrong happened. \n Created message at " + currenttime + ". and here are some details:" + e.output + ""
+                m = "<@" + message.author.id + "> Something wrong happened. \n Created message at " + currenttime + ". and here are some details:" + eout + ""
                 await client.send_message(message.channel, m)
         else:
             m = "<@"+ message.author.id + ">, Error, Not enougth fund. check your balance and amount you want to tip \n Created message at " + currenttime + ""
             await client.send_message(message.channel, m)
-    if message.content.startwith("/admin info"):
+    if message.content.startswith("/admin info"):
         m = "Still in progress... wait.."
         await client.send_message(message.channel, m)
     
