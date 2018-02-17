@@ -159,7 +159,7 @@ async def on_message(message):
         await client.send_message(message.channel, m)
     
     if message.content.startswith("/hello"):
-        m = "こんにちは!"
+        m = "こんにちは! <@" + message.author.id + "> さん！" 
         await client.send_message(message.channel, m)
 
     if message.content.startswith("/credit"):
