@@ -159,6 +159,8 @@ async def on_message(message):
         \n ---使い方---\
         \n /withdrawall <送金先アドレス>\
         \n /tip <ユーザー> <金額> <任意のコメント>\ ```"
+        await client.send_message(message.channel, m)
+
 
 
     if message.content.startswith("/credit"):
