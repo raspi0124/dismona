@@ -144,7 +144,21 @@ async def on_message(message):
         else:
             m = "<@"+ message.author.id + ">, Error, Not enougth fund. check your balance and amount you want to tip"
             await client.send_message(message.channel, m)
-        
+    
+    if message.content.startswith("/help")
+        m = "```----------------------------------------------------------------------------------- \
+        \n /help - ヘルプを表示します \
+        \n /register - あなたの財布を新しく作成します \
+        \n /balance - あなたの現在の残高を表示します \
+        \n /deposit - あなたの所有しているアドレスを一覧表示します \
+        \n /withdrawall - あなたの持っているmonaすべてを指定されたアドレスに送金します \
+        \n /tip - 指定されたmonaを指定されたユーザーに送ります \
+        \n /withdraw - 指定されたmonaを指定されたアドレスに送ります (未実装) \
+        \n /donate - 指定された金額のmonaを寄付先として認証された方に送ります (未実装)\
+        \n /rain - 指定された金額のmonaをランダムに配ります。 (実装検討中..)\
+        \n ---使い方---\
+        \n /withdrawall <送金先アドレス>\
+        \n /tip <ユーザー> <金額> <任意のコメント>\ ```"
 
 
     if message.content.startswith("/credit"):
