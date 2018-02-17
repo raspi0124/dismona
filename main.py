@@ -5,6 +5,8 @@ import re
 # MySQLdb をインポート
 import MySQLdb
 client = discord.Client()
+from datetime import datetime
+print (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 
 # データベース接続とカーソル生成
 # 接続情報はダミーです。お手元の環境にあわせてください。
@@ -18,8 +20,6 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
-    m = "Monage has started"
-    await client.send_message("414478675132547073", m)
 
 
 #message.author.name がユーザー名
