@@ -287,9 +287,9 @@ import sys
 def handler(signal, frame):
         print('うおおお、やられたーー')
         sys.exit(0)
-signal.signal(signal.SIGINT, handler)
-while(True):
-pass:
+        signal.signal(signal.SIGINT, handler)
+    while(True):
+        pass:
 
 
 # https://qiita.com/PinappleHunter/items/af4ccdbb04727437477f
