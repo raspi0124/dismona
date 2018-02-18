@@ -256,7 +256,7 @@ async def on_message(message):
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
         m = "こんにちは! <@" + message.author.id + "> さん！" 
         await client.send_message(message.channel, m)
-        await client.add_reaction(message, :ok_hand: )
+        await client.add_reaction(message, '👌')
 
     if message.content.startswith("/credit"):
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
