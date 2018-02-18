@@ -199,6 +199,7 @@ async def on_message(message):
             print(message3)
             cmd = "monacoin-cli getnewaddress " + message3 + ""
             rut = subprocess.check_output( cmd.split(" "))
+            address = rut.decode()
             m = "issued account for <@" + message3 + ">. address is " + rut + "."
             await client.send_message(message.channel, m)
         else:
@@ -211,6 +212,7 @@ async def on_message(message):
             print(message3)
             cmd = "monacoin-cli getbalance " + message3 + ""
             rut = subprocess.check_output( cmd.split(" "))
+            balance = rut.decode()
             m = "<@" + message3 + "> 's balance are " + rut + "."
         else:
             m = "sorry, but you are not arrowed to do that!"
