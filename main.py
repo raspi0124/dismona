@@ -145,7 +145,7 @@ async def on_message(message):
             try:
                 cmd2 = "monacoin-cli move " + message.author.id + " " + tipto + " " + tipamount + ""
                 rut2  =  subprocess.check_output( cmd2.split(" ") )
-                m = "<@" + message.author.id + ">, sended " + tipamount + " to <@" + tipto + "> ! \n Created message at " + currenttime + ""
+                m = "<@" + message.author.id + ">, sended " + tipamount + "mona to <@" + tipto + "> ! \n Created message at " + currenttime + ""
                 await client.send_message(message.channel, m)
             except subprocess.CalledProcessError as e:
                 eout = e.output.decode()
@@ -213,11 +213,15 @@ async def on_message(message):
             cmd = "monacoin-cli getbalance " + message3 + ""
             rut = subprocess.check_output( cmd.split(" "))
             balance = rut.decode()
-            m = "<@" + message3 + "> 's balance are " + balance + "."
+            m = "<@" + message3 + "> 's balance are " + balance + "mona."
             await client.send_message(message.channel, m)
         else:
             m = "sorry, but you are not arrowed to do that!"
             await client.send_message(message.channel, m)
+    if message.content.startswith("/image"):
+        with open('image.jpg', 'rb') as f:
+        await client.send_file(channel, f)
+
     if message.content.startswith("/help"):
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
         m = "```----------------------------------------------------------------------------------- \
