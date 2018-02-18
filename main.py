@@ -140,6 +140,7 @@ async def on_message(message):
                 m = "<@"+ message.author.id + ">,your address is" + address3 + " \n Created message at " + currenttime + ""
                 await client.send_message(message.channel, m)
     if message.content.startswith("/withdrawall"):
+        currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
         await client.add_reaction(message, '👌')
         message2 = message.content.replace('/withdrawall', '')
         message3 = message2.replace(' ', '')
@@ -157,7 +158,6 @@ async def on_message(message):
             rut  =  subprocess.check_output( cmd.split(" ") )
             withdrawalldata = rut.decode()
             print(withdrawalldata)
-            currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
             m = "<@" + message.author.id + ">, all of your Mona has been withdrawn to " + message3 + ". Transaction details:" + withdrawalldata + "\n(message created on " + currenttime + ")"
             await client.send_message(message.channel, m)
         else:
