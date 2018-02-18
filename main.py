@@ -14,6 +14,9 @@ import signal
 cmda = "monacoin-cli walletpassphrase 0124 32140800"
 ruta  =  subprocess.check_output( cmda.split(" ") )
 print(ruta)
+number1 = "1"
+print(number1)
+print(number1 - 0.5)
 
 def sigint_handler(signum, frame):
     print ('Stop pressing the CTRL+C!')
@@ -148,18 +151,23 @@ async def on_message(message):
         cmda = "monacoin-cli getbalance " + message.author.id + ""
         ruta  =  subprocess.check_output( cmda.split(" ") )
         balancea = ruta.decode()
+        balanceaa = balancea - 0.005
         m ="<@" + message.author.id + ">, preparing your withdrawal, please wait."
         await client.send_message(message.channel, m)
         if balancea >= "0":
-            m = "<@" + message.author.id + ">, executing your withdrawal to " + message3 + ""
-            await client.send_message(message.channel, m)
-            print("monacoin-cli sendfrom " + message.author.id + " " + message3 + " " + balancea + "")
-            cmd = "monacoin-cli sendfrom " + message.author.id + " " + message3 + " " + balancea + ""
-            rut  =  subprocess.check_output( cmd.split(" ") )
-            withdrawalldata = rut.decode()
-            print(withdrawalldata)
-            m = "<@" + message.author.id + ">, all of your Mona has been withdrawn to " + message3 + ". Transaction details can be found here: https://mona.chainsight.info/tx/" + withdrawalldata + "\n(message created on " + currenttime + ")"
-            await client.send_message(message.channel, m)
+                if balancea >= "0.01":
+                    m = "<@" + message.author.id + ">, executing your withdrawal to " + message3 + ""
+                    await client.send_message(message.channel, m)
+                    print("monacoin-cli sendfrom " + message.author.id + " " + message3 + " " + balancea + "")
+                    cmd = "monacoin-cli sendfrom " + message.author.id + " " + message3 + " " + balancea + ""
+                    rut  =  subprocess.check_output( cmd.split(" ") )
+                    withdrawalldata = rut.decode()
+                    print(withdrawalldata)
+                    m = "<@" + message.author.id + ">, all of your Mona has been withdrawn to " + message3 + ". Transaction details can be found here: https://mona.chainsight.info/tx/" + withdrawalldata + "\n(message created on " + currenttime + ")"
+                    await client.send_message(message.channel, m)
+                else:
+                    m = "<@" + message.author.id + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
+                    await client.send_message(message.channel, m)
         else:
             m = "<@" + message.author.id + ">sorry, failed to complete your request: you do not have any mona at all!(message created on " + currenttime + ")"
             await client.send_message(message.channel, m)
@@ -230,11 +238,13 @@ async def on_message(message):
         else:
             m = "Haha, you don't have permission to do that! Your request has been logged and reported to the admin! (but the admin probably won't care about it, so don't worry.)"
             await client.send_message(message.channel, m)
-    if message.content.startswith('!members'):
+    if message.content.startswith('/members'):
         await client.add_reaction(message, '👌')
         for server in client.servers:
-            for member in server.members:
+            for member in server.members.id:
                 print (member)
+                list_of_ids = [m.id  for m in server.members]
+                print(list_of_ids)
     if message.content.startswith('/adminregister'):
         await client.add_reaction(message, '👌')
         if message.author.id == "326091178984603669":
