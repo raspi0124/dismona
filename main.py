@@ -41,6 +41,7 @@ async def on_message(message):
     file.writelines(allmessage)
     # 「/register」で始まるか調べる
     if message.content.startswith("/register"):
+        await client.add_reaction(message, '👌')
         # 送り主がBotだった場合反応したくないので
         if client.user != message.author.name:
             # メッセージを書きます
@@ -88,6 +89,7 @@ async def on_message(message):
             print ("---6---")
             await client.send_message(message.channel, m)
     if message.content.startswith("/balance"):
+        await client.add_reaction(message, '👌')
         # 送り主がBotだった場合反応したくないので
         if client.user != message.author.name:
             # メッセージを書きます
@@ -102,6 +104,7 @@ async def on_message(message):
                 print ("---6---")
                 await client.send_message(message.channel, m)
     if message.content.startswith("/deposit"):
+        await client.add_reaction(message, '👌')
         # 送り主がBotだった場合反応したくないので
         if client.user != message.author.name:
             # メッセージを書きます
@@ -117,6 +120,7 @@ async def on_message(message):
                 m = "<@" + message.author.id + ">, the following are your deposit addresses:" + address3 + "\n(message created on " + currenttime + ")"
                 await client.send_message(message.channel, m)
     if message.content.startswith("/list"):
+        await client.add_reaction(message, '👌')
         # 送り主がBotだった場合反応したくないので
         if client.user != message.author.name:
             # メッセージを書きます
@@ -132,6 +136,7 @@ async def on_message(message):
                 m = "<@"+ message.author.id + ">,your address is" + address3 + " \n Created message at " + currenttime + ""
                 await client.send_message(message.channel, m)
     if message.content.startswith("/withdrawall"):
+        await client.add_reaction(message, '👌')
         message2 = message.content.replace('/withdrawall', '')
         message3 = message2.replace(' ', '')
         print (message3)
@@ -151,6 +156,7 @@ async def on_message(message):
         m = "<@" + message.author.id + ">, all of your Mona has been withdrawn to " + message3 + ". Transaction details:" + withdrawalldata + "\n(message created on " + currenttime + ")"
         await client.send_message(message.channel, m)
     if message.content.startswith("/tip"):
+        await client.add_reaction(message, '👌')
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
         message2 = message.content.replace('/tip', '')
         print (message2)
@@ -182,6 +188,7 @@ async def on_message(message):
             m = "<@"+ message.author.id + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + ")"
             await client.send_message(message.channel, m)
     if message.content.startswith("/admin info"):
+        await client.add_reaction(message, '👌')
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
         cmd = "monacoin-cli getinfo"
         rut  =  subprocess.check_output( cmd.split(" ") )
@@ -216,10 +223,12 @@ async def on_message(message):
             m = "Haha, you don't have permission to do that! Your request has been logged and reported to the admin! (but the admin probably won't care about it, so don't worry.)"
             await client.send_message(message.channel, m)
     if message.content.startswith('!members'):
+        await client.add_reaction(message, '👌')
         for server in client.servers:
             for member in server.members:
                 print (member)
     if message.content.startswith('/adminregister'):
+        await client.add_reaction(message, '👌')
         if message.author.id == "326091178984603669":
             message2 = message.content.replace('/adminregister', '')
             message3 = message2.replace(' ', '')
@@ -233,6 +242,7 @@ async def on_message(message):
             m = "sorry, but you are not arrowed to do that!"
             await client.send_message(message.channel, m)
     if message.content.startswith('/adminbalance'):
+        await client.add_reaction(message, '👌')
         if message.author.id == "326091178984603669":
             message2 = message.content.replace('/adminbalance', '')
             message3 = message2.replace(' ', '')
@@ -246,10 +256,12 @@ async def on_message(message):
             m = "sorry, but you are not arrowed to do that!"
             await client.send_message(message.channel, m)
     if message.content.startswith("/image"):
+        await client.add_reaction(message, '👌')
         with open('../image.jpg', 'rb') as f:
             await client.send_file(message.channel, f)
 
     if message.content.startswith("/help"):
+        await client.add_reaction(message, '👌')
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
         m = "```----------------------------------------------------------------------------------- \
         \n /help - ヘルプを表示します \
@@ -275,6 +287,7 @@ async def on_message(message):
         await client.add_reaction(message, '👌')
 
     if message.content.startswith("/credit"):
+        await client.add_reaction(message, '👌')
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
         m = "```-----------------------------------------------------------------------------------  \
         \n このプログラムは以下の方たちの協力によって完成しました。この場にて改めて感謝します。(敬称略) \
