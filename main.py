@@ -20,13 +20,12 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
-
+    await client.change_presence(game=discord.Game(name='Say /help'))
 
 #message.author.name がユーザー名
 
 @client.event
 async def on_message(message):
-    await change_presence(game=discord.Game(name='Say /help'))
     print("" + message.author.name + " said " + message.content + ". userid:" + message.author.id + " on ")
     file = open('/home/raspi0124/alllog.txt', 'a')  #追加書き込みモードでオープン
     allmessage = "" + message.author.name + " said " + message.content + " \n"
