@@ -159,9 +159,9 @@ async def on_message(message):
         await client.send_message(message.channel, m)
 
     if message.content.startswith('!members'):
-        x = message.server.members
-        for member in x:
-            print(member.name)
+        for server in client.servers:
+            for member in server.members:
+                yield member
     
     if message.content.startswith("/help"):
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
