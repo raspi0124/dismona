@@ -145,7 +145,7 @@ async def on_message(message):
         tipto = tipinfo[0]
         tipamount = tipinfo[1]
         if tipamount <= balance:
-            if tipamount >= "0.0000001"
+            if tipamount >= "0.0000001":
                 try:
                     cmd2 = "monacoin-cli move " + message.author.id + " " + tipto + " " + tipamount + ""
                     rut2  =  subprocess.check_output( cmd2.split(" ") )
