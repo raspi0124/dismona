@@ -152,9 +152,7 @@ async def on_message(message):
         ruta  =  subprocess.check_output( cmda.split(" ") )
         balance = ruta.decode()
         fee = "0.005"
-        balancea = int(balance)
-        feee = int(fee)
-        balanceaa = (balancea-fee)
+        a-=fee
         print(balanceaa)
         print("-----------")
         m ="<@" + message.author.id + ">, preparing your withdrawal, please wait."
