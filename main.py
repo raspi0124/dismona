@@ -155,7 +155,7 @@ async def on_message(message):
             await client.send_message(message.channel, m)
     if message.content.startswith("/admin info"):
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-        if message.author.id = "326091178984603669":
+        if message.author.id == "326091178984603669":
             m = "Still in progress... wait.."
             await client.send_message(message.channel, m)
         else:
