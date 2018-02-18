@@ -144,21 +144,25 @@ async def on_message(message):
         message2 = message.content.replace('/withdrawall', '')
         message3 = message2.replace(' ', '')
         print (message3)
-        m ="<@" + message.author.id + ">, preparing your withdrawal, please wait."
-        await client.send_message(message.channel, m)
-        m = "<@" + message.author.id + ">, executing your withdrawal to " + message3 + ""
-        await client.send_message(message.channel, m)
         cmda = "monacoin-cli getbalance " + message.author.id + ""
         ruta  =  subprocess.check_output( cmda.split(" ") )
         balancea = ruta.decode()
-        print("monacoin-cli sendfrom " + message.author.id + " " + message3 + " " + balancea + "")
-        cmd = "monacoin-cli sendfrom " + message.author.id + " " + message3 + " " + balancea + ""
-        rut  =  subprocess.check_output( cmd.split(" ") )
-        withdrawalldata = rut.decode()
-        print(withdrawalldata)
-        currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-        m = "<@" + message.author.id + ">, all of your Mona has been withdrawn to " + message3 + ". Transaction details:" + withdrawalldata + "\n(message created on " + currenttime + ")"
+        m ="<@" + message.author.id + ">, preparing your withdrawal, please wait."
         await client.send_message(message.channel, m)
+        if balance >= "0"
+            m = "<@" + message.author.id + ">, executing your withdrawal to " + message3 + ""
+            await client.send_message(message.channel, m)
+            print("monacoin-cli sendfrom " + message.author.id + " " + message3 + " " + balancea + "")
+            cmd = "monacoin-cli sendfrom " + message.author.id + " " + message3 + " " + balancea + ""
+            rut  =  subprocess.check_output( cmd.split(" ") )
+            withdrawalldata = rut.decode()
+            print(withdrawalldata)
+            currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+            m = "<@" + message.author.id + ">, all of your Mona has been withdrawn to " + message3 + ". Transaction details:" + withdrawalldata + "\n(message created on " + currenttime + ")"
+            await client.send_message(message.channel, m)
+        else:
+            m = "<@" + message.author.id + "sorry, failed to complete your request: you do not have any mona at all!(message created on " + currenttime + ")"
+            await client.send_message(message.channel, m)
     if message.content.startswith("/tip"):
         await client.add_reaction(message, '👌')
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
