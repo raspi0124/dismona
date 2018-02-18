@@ -16,7 +16,7 @@ ruta  =  subprocess.check_output( cmda.split(" ") )
 print(ruta)
 number1 = "1"
 print(number1)
-print(number1 - 0.5)
+print(5 - 0.5)
 
 def sigint_handler(signum, frame):
     print ('Stop pressing the CTRL+C!')
