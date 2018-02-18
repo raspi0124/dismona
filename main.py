@@ -219,7 +219,7 @@ async def on_message(message):
             m = "sorry, but you are not arrowed to do that!"
             await client.send_message(message.channel, m)
     if message.content.startswith("/image"):
-        with open('image.jpg', 'rb') as f:
+        with open('../image.jpg', 'rb') as f:
             await client.send_file(channel, f)
 
     if message.content.startswith("/help"):
