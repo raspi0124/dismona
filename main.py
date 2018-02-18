@@ -24,7 +24,7 @@ async def on_ready():
     await client.change_presence(game=discord.Game(name='/help'))
     await client.send_message(discord.Object(id='414478675132547073'), '```monage started. \n current time:' + currenttime + '```')
     await client.send_message(discord.Object(id='414086589434822667'), '```monage started. \n current time:' + currenttime + '```')
-    
+
 
 #message.author.name がユーザー名
 
@@ -145,14 +145,18 @@ async def on_message(message):
         tipto = tipinfo[0]
         tipamount = tipinfo[1]
         if tipamount <= balance:
-            try:
-                cmd2 = "monacoin-cli move " + message.author.id + " " + tipto + " " + tipamount + ""
-                rut2  =  subprocess.check_output( cmd2.split(" ") )
-                m = "<@" + message.author.id + ">, sended " + tipamount + "mona to <@" + tipto + "> ! \n Created message at " + currenttime + ""
-                await client.send_message(message.channel, m)
-            except subprocess.CalledProcessError as e:
-                eout = e.output.decode()
-                m = "<@" + message.author.id + "> Something wrong happened. \n Created message at " + currenttime + ". and here are some details: User<@" + tipto + "> are not yet registered." 
+            if tipamount >= "0.0000001"
+                try:
+                    cmd2 = "monacoin-cli move " + message.author.id + " " + tipto + " " + tipamount + ""
+                    rut2  =  subprocess.check_output( cmd2.split(" ") )
+                    m = "<@" + message.author.id + ">, sended " + tipamount + "mona to <@" + tipto + "> ! \n Created message at " + currenttime + ""
+                    await client.send_message(message.channel, m)
+                except subprocess.CalledProcessError as e:
+                    eout = e.output.decode()
+                    m = "<@" + message.author.id + "> Something wrong happened. \n Created message at " + currenttime + ". and here are some details: User<@" + tipto + "> are not yet registered." 
+                    await client.send_message(message.channel, m)
+            else:
+                m = "<@" + message.author.id + ">Something wrong happened \n Created message at " + currenttime + ". and here are some details: TIping under 10 watanabe are not allowed for server's load."
                 await client.send_message(message.channel, m)
         else:
             m = "<@"+ message.author.id + ">, Error, Not enougth fund. check your balance and amount you want to tip \n Created message at " + currenttime + ""
