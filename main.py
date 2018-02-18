@@ -12,7 +12,7 @@ currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 import signal
  
 def sigint_handler(signum, frame):
-    print 'Stop pressing the CTRL+C!'
+    print ('Stop pressing the CTRL+C!')
 # データベース接続とカーソル生成
 # 接続情報はダミーです。お手元の環境にあわせてください。
 connection = MySQLdb.connect(
