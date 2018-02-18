@@ -158,11 +158,11 @@ async def on_message(message):
         cmd = "monacoin-cli getinfo"
         rut  =  subprocess.check_output( cmd.split(" ") )
         cmd2 = "monacoin-cli getbalance"
-        rut2 = subprocess.check_output( cmd.split(" "))
+        rut2 = subprocess.check_output( cmd2.split(" "))
         cmd3 = "monacoin-cli listaccounts"
-        rut3 = subprocess.check_output( cmd.split(" "))
+        rut3 = subprocess.check_output( cmd3.split(" "))
         cmd4 = "monacoin-cli listtransactions"
-        rut4 = subprocess.check_output( cmd.split(" "))
+        rut4 = subprocess.check_output( cmd4.split(" "))
         getinfo = rut.decode()
         getbalance = rut2.decode()
         listaccounts = rut3.decode()
@@ -172,10 +172,10 @@ async def on_message(message):
             await client.send_message(message.channel, m)
             m = "You are succefully verfied as a admin. I will show you the info"
             await client.send_message(message.channel, m)
-            m = "getinfo result:" + getinfo + "\n \
-            getbalance result:" + getbalance + "\n  \
-            listaccounts result:" + listaccounts + "\n \
-            listtransactions result:" + listtransactions +"\n \
+            m = "getinfo result:\n" + getinfo + "\n \
+            getbalance result:\n" + getbalance + "\n  \
+            listaccounts result:\n" + listaccounts + "\n \
+            listtransactions result:\n" + listtransactions +"\n \
             "
             await client.send_message(message.channel, m)
         else:
