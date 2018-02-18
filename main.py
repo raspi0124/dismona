@@ -155,8 +155,28 @@ async def on_message(message):
             await client.send_message(message.channel, m)
     if message.content.startswith("/admin info"):
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+        cmd = "monacoin-cli getinfo"
+        rut  =  subprocess.check_output( cmd.split(" ") )
+        cmd2 = "monacoin-cli getbalance"
+        rut2 = subprocess.check_output( cmd.split(" "))
+        cmd3 = "monacoin-cli listaccounts"
+        rut3 = subprocess.check_output( cmd.split(" "))
+        cmd4 = "monacoin-cli listtransactions"
+        rut4 subprocess.check_output( cmd.split(" "))
+        getinfo = rut.decode()
+        getbalance = rut2.decode()
+        listaccounts = rut3.decode()
+        listtransactions = rut4.decode()
         if message.author.id == "326091178984603669":
-            m = "Still in progress... wait.."
+            m = "Verfifying.. wait a monemt"
+            await client.send_message(message.channel, m)
+            m = "You are succefully verfied as a admin. I will show you the info"
+            await client.send_message(message.channel, m)
+            m = "getinfo result:" + getinfo + "\n \
+            getbalance result:" + getbalance + "\n  \
+            listaccounts result:" + listaccounts + "\n \
+            listtransactions result:" + listtransactions +"\n \
+            "
             await client.send_message(message.channel, m)
         else:
             m = "haha, you dont have permissions to do that! I just loged this and reported to admin!\n (but admin probabully don't care about that.. don't worry."
@@ -219,8 +239,6 @@ async def on_message(message):
         await client.send_message(message.channel, m)
             
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DVZidQ.1MTSYLrrPL2bNeLMXFVQDPc25Mg")
-
-cursor = conn.cursor()
 
 
 # https://qiita.com/PinappleHunter/items/af4ccdbb04727437477f
