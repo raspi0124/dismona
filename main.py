@@ -8,7 +8,7 @@ import MySQLdb
 client = discord.Client()
 from datetime import datetime
 print (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-
+currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 # データベース接続とカーソル生成
 # 接続情報はダミーです。お手元の環境にあわせてください。
 connection = MySQLdb.connect(
