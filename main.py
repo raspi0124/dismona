@@ -149,7 +149,7 @@ async def on_message(message):
         balancea = ruta.decode()
         m ="<@" + message.author.id + ">, preparing your withdrawal, please wait."
         await client.send_message(message.channel, m)
-        if balance >= "0":
+        if balancea >= "0":
             m = "<@" + message.author.id + ">, executing your withdrawal to " + message3 + ""
             await client.send_message(message.channel, m)
             print("monacoin-cli sendfrom " + message.author.id + " " + message3 + " " + balancea + "")
