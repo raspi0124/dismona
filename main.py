@@ -162,7 +162,7 @@ async def on_message(message):
         cmd3 = "monacoin-cli listaccounts"
         rut3 = subprocess.check_output( cmd.split(" "))
         cmd4 = "monacoin-cli listtransactions"
-        rut4 subprocess.check_output( cmd.split(" "))
+        rut4 = subprocess.check_output( cmd.split(" "))
         getinfo = rut.decode()
         getbalance = rut2.decode()
         listaccounts = rut3.decode()
