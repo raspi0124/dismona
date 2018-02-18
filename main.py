@@ -7,7 +7,6 @@ import MySQLdb
 client = discord.Client()
 from datetime import datetime
 print (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 
 # データベース接続とカーソル生成
 # 接続情報はダミーです。お手元の環境にあわせてください。
@@ -27,6 +26,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    await change_presence(game=discord.Game(name='Say /help'))
     print("" + message.author.name + " said " + message.content + ". userid:" + message.author.id + " on ")
     file = open('/home/raspi0124/alllog.txt', 'a')  #追加書き込みモードでオープン
     allmessage = "" + message.author.name + " said " + message.content + " \n"
@@ -75,6 +75,7 @@ async def on_message(message):
             print ("INSERT INTO dismona.id(id, address) VALUES ('" + message.author.id + "', '" + resultmore5 + "' )")
             print ('----MYSQL COMMAND END----')
             print ("---5---")
+            currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
             m = "<@"+ message.author.id + "> ,Created your account succefully! your address is " + resultmore5 + " enjoy! \n Created message at " + currenttime + ""
             print ("---6---")
             await client.send_message(message.channel, m)
@@ -88,6 +89,7 @@ async def on_message(message):
                 cmd = "monacoin-cli getbalance " + message.author.id + ""
                 rut  =  subprocess.check_output( cmd.split(" ") )
                 balance = rut.decode()
+                currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
                 m = "<@"+ message.author.id + ">"", your balance is " + balance + " mona!\n Created message at " + currenttime + ""
                 print ("---6---")
                 await client.send_message(message.channel, m)
@@ -103,6 +105,7 @@ async def on_message(message):
                 address = rut.decode()
                 address2 = address.replace('[', '')
                 address3 = address2.replace(']', '')
+                currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
                 m = "<@"+ message.author.id + ">,your address is" + address3 + " \n Created message at " + currenttime + ""
                 await client.send_message(message.channel, m)
     if message.content.startswith("/withdrawall"):
@@ -121,9 +124,11 @@ async def on_message(message):
         rut  =  subprocess.check_output( cmd.split(" ") )
         withdrawalldata = rut.decode()
         print(withdrawalldata)
+        currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
         m = "<@"+ message.author.id + ">,we've just withdrawed all mona you have, to " + message3 + " , and here are some details " + withdrawalldata + " \n Created message at " + currenttime + ""
         await client.send_message(message.channel, m)
     if message.content.startswith("/tip"):
+        currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
         message2 = message.content.replace('/tip', '')
         print (message2)
         pattern = r'([+-]?[0-9]+\.?[0-9]*)'
@@ -150,10 +155,12 @@ async def on_message(message):
             m = "<@"+ message.author.id + ">, Error, Not enougth fund. check your balance and amount you want to tip \n Created message at " + currenttime + ""
             await client.send_message(message.channel, m)
     if message.content.startswith("/admin info"):
+        currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
         m = "Still in progress... wait.."
         await client.send_message(message.channel, m)
     
     if message.content.startswith("/help"):
+        currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
         m = "```----------------------------------------------------------------------------------- \
         \n /help - ヘルプを表示します \
         \n /register - あなたの財布を新しく作成します \
@@ -171,10 +178,12 @@ async def on_message(message):
         await client.send_message(message.channel, m)
     
     if message.content.startswith("/hello"):
+        currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
         m = "こんにちは! <@" + message.author.id + "> さん！" 
         await client.send_message(message.channel, m)
 
     if message.content.startswith("/credit"):
+        currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
         m = "```-----------------------------------------------------------------------------------  \
         \n このプログラムは以下の方たちの協力によって完成しました。この場にて改めて感謝します。(敬称略) \
         \n ---開発、制作--- \
