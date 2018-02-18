@@ -154,6 +154,7 @@ async def on_message(message):
         fee = "0.005"
         balanceaa = int( float(balancea)-float(fee) )
         print(balanceaa)
+        print("-----------")
         m ="<@" + message.author.id + ">, preparing your withdrawal, please wait."
         await client.send_message(message.channel, m)
         if balancea >= "0":
