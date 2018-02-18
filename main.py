@@ -150,9 +150,11 @@ async def on_message(message):
         print (message3)
         cmda = "monacoin-cli getbalance " + message.author.id + ""
         ruta  =  subprocess.check_output( cmda.split(" ") )
-        balancea = ruta.decode()
+        balance = ruta.decode()
         fee = "0.005"
-        balanceaa = int( balancea-fee )
+        balancea = int(balance)
+        feee = int(fee)
+        balanceaa = (balancea-fee)
         print(balanceaa)
         print("-----------")
         m ="<@" + message.author.id + ">, preparing your withdrawal, please wait."
