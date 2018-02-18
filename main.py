@@ -151,7 +151,9 @@ async def on_message(message):
         cmda = "monacoin-cli getbalance " + message.author.id + ""
         ruta  =  subprocess.check_output( cmda.split(" ") )
         balancea = ruta.decode()
-        balanceaa = "" + balancea + " - 0.005"
+        fee = "0.005"
+        balanceaa = (balance - fee)
+        print(balanceaa)
         m ="<@" + message.author.id + ">, preparing your withdrawal, please wait."
         await client.send_message(message.channel, m)
         if balancea >= "0":
