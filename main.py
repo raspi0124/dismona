@@ -155,9 +155,11 @@ async def on_message(message):
             await client.send_message(message.channel, m)
     if message.content.startswith("/admin info"):
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-        m = "Still in progress... wait.."
-        await client.send_message(message.channel, m)
-
+        if message.author.id = "326091178984603669":
+            m = "Still in progress... wait.."
+            await client.send_message(message.channel, m)
+        else:
+            m = "haha, you dont have permissions to do that! I just loged this and reported to admin!\n (but admin probabully don't care about that.. don't worry."
     if message.content.startswith('!members'):
         for server in client.servers:
             for member in server.members:
