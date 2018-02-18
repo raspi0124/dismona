@@ -161,7 +161,7 @@ async def on_message(message):
             m = "<@" + message.author.id + ">, all of your Mona has been withdrawn to " + message3 + ". Transaction details:" + withdrawalldata + "\n(message created on " + currenttime + ")"
             await client.send_message(message.channel, m)
         else:
-            m = "<@" + message.author.id + "sorry, failed to complete your request: you do not have any mona at all!(message created on " + currenttime + ")"
+            m = "<@" + message.author.id + ">sorry, failed to complete your request: you do not have any mona at all!(message created on " + currenttime + ")"
             await client.send_message(message.channel, m)
     if message.content.startswith("/tip"):
         await client.add_reaction(message, '👌')
