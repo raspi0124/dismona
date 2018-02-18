@@ -22,6 +22,7 @@ async def on_ready():
     print(client.user.id)
     print('------')
     await client.change_presence(game=discord.Game(name='/help'))
+    await client.send_message(discord.Object(id='414478675132547073'), '```monage started. \n current time:' + currenttime + '')
 
 #message.author.name がユーザー名
 
