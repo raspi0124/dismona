@@ -289,7 +289,7 @@ def handler(signal, frame):
         sys.exit(0)
 signal.signal(signal.SIGINT, handler)
 while(True):
-pass
+pass:
 
 
 # https://qiita.com/PinappleHunter/items/af4ccdbb04727437477f
