@@ -214,6 +214,7 @@ async def on_message(message):
             rut = subprocess.check_output( cmd.split(" "))
             balance = rut.decode()
             m = "<@" + message3 + "> 's balance are " + balance + "."
+            await client.send_message(message.channel, m)
         else:
             m = "sorry, but you are not arrowed to do that!"
             await client.send_message(message.channel, m)
