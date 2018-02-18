@@ -49,7 +49,7 @@ async def on_message(message):
             await client.send_message(message.channel, m)
             cmd = "monacoin-cli getnewaddress " + message.author.id + ""
             rut  =  subprocess.check_output( cmd.split(" ") )
-            print ('Creating <' + message.author.id + ">'s account.. user ID ")
+            print ('Creating <' + message.author.id + ">s account.. user ID ")
             print ("---1---")
             #cursor.execute("insert into dismona.id(id,address) values('message_author', address);")
             resultaddress = rut.decode()
@@ -84,7 +84,7 @@ async def on_message(message):
             print ('----MYSQL COMMAND END----')
             print ("---5---")
             currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-            m = "<@"+ message.author.id + "> ,Created your account succefully! your address is " + resultmore5 + " enjoy! \n Created message at " + currenttime + ""
+            m = "<@" + message.author.id + ">, successfully created an account for you! Your new address is " + resultmore5 + ", enjoy!\n(message created on " + currenttime + ")"
             print ("---6---")
             await client.send_message(message.channel, m)
     if message.content.startswith("/balance"):
@@ -98,10 +98,25 @@ async def on_message(message):
                 rut  =  subprocess.check_output( cmd.split(" ") )
                 balance = rut.decode()
                 currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-                m = "<@"+ message.author.id + ">"", your balance is " + balance + " mona!\n Created message at " + currenttime + ""
+                m = "<@" + message.author.id + ">, you currently have  " + balance + " mona!\n(message created on " + currenttime + ")"
                 print ("---6---")
                 await client.send_message(message.channel, m)
     if message.content.startswith("/deposit"):
+        # 送り主がBotだった場合反応したくないので
+        if client.user != message.author.name:
+            # メッセージを書きます
+                m = "<@" + message.author.id + "> アドレスを確認中..."
+            # メッセージが送られてきたチャンネルへメッセージを送ります
+                await client.send_message(message.channel, m)
+                cmd = "monacoin-cli getaddressesbyaccount " + message.author.id + ""
+                rut  =  subprocess.check_output( cmd.split(" ") )
+                address = rut.decode()
+                address2 = address.replace('[', '')
+                address3 = address2.replace(']', '')
+                currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+                m = "<@" + message.author.id + ">, the following are your deposit addresses:" + address3 + "\n(message created on " + currenttime + ")"
+                await client.send_message(message.channel, m)
+    if message.content.startswith("/list"):
         # 送り主がBotだった場合反応したくないので
         if client.user != message.author.name:
             # メッセージを書きます
@@ -120,9 +135,9 @@ async def on_message(message):
         message2 = message.content.replace('/withdrawall', '')
         message3 = message2.replace(' ', '')
         print (message3)
-        m ="<@" +message.author.id + "> prepareing for withdraw.. please wait"
+        m ="<@" + message.author.id + ">, preparing your withdrawal, please wait."
         await client.send_message(message.channel, m)
-        m = "<@" + message.author.id + "> is withdrawalling to " + message3 + ""
+        m = "<@" + message.author.id + ">, executing your withdrawal to " + message3
         await client.send_message(message.channel, m)
         cmda = "monacoin-cli getbalance " + message.author.id + ""
         ruta  =  subprocess.check_output( cmda.split(" ") )
@@ -133,7 +148,7 @@ async def on_message(message):
         withdrawalldata = rut.decode()
         print(withdrawalldata)
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-        m = "<@"+ message.author.id + ">,we've just withdrawed all mona you have, to " + message3 + " , and here are some details " + withdrawalldata + " \n Created message at " + currenttime + ""
+        m = "<@" + message.author.id + ">, all of your Mona has been withdrawn to " + message3 + ". Transaction details:" + withdrawalldata + "\n(message created on " + currenttime + ")"
         await client.send_message(message.channel, m)
     if message.content.startswith("/tip"):
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
@@ -154,17 +169,17 @@ async def on_message(message):
                 try:
                     cmd2 = "monacoin-cli move " + message.author.id + " " + tipto + " " + tipamount + ""
                     rut2  =  subprocess.check_output( cmd2.split(" ") )
-                    m = "<@" + message.author.id + ">, sended " + tipamount + "mona to <@" + tipto + "> ! \n Created message at " + currenttime + ""
+                    m = "<@" + message.author.id + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ")"
                     await client.send_message(message.channel, m)
                 except subprocess.CalledProcessError as e:
                     eout = e.output.decode()
-                    m = "<@" + message.author.id + "> Something wrong happened. \n Created message at " + currenttime + ". and here are some details: User<@" + tipto + "> are not yet registered." 
+                    m = "<@" + message.author.id + ">, sorry, failed to complete your request: <@" + tipto + "> is not yet registered.\n(message created on " + currenttime + ")" 
                     await client.send_message(message.channel, m)
             else:
-                m = "<@" + message.author.id + ">Something wrong happened \n Created message at " + currenttime + ". and here are some details: TIping under 10 watanabe are not allowed for server's load."
+                m = "<@" + message.author.id + ">, sorry, failed to complete your request: your tip must meet the minimum of 10 watanabe (0.00000010 Mona).\n(message created on " + currenttime + ")"
                 await client.send_message(message.channel, m)
         else:
-            m = "<@"+ message.author.id + ">, Error, Not enougth fund. check your balance and amount you want to tip \n Created message at " + currenttime + ""
+            m = "<@"+ message.author.id + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + ")"
             await client.send_message(message.channel, m)
     if message.content.startswith("/admin info"):
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
@@ -183,7 +198,7 @@ async def on_message(message):
         if message.author.id == "326091178984603669":
             m = "Verfifying.. wait a monemt"
             await client.send_message(message.channel, m)
-            m = "You are succefully verfied as a admin. I will show you the info"
+            m = "Successfully verified you as an admin, here is the info you requested:"
             await client.send_message(message.channel, m)
             m = "```getinfo result: " + getinfo + "\n```"
             await client.send_message(message.channel, m)
@@ -198,7 +213,7 @@ async def on_message(message):
             await client.send_message(message.channel, m)
             time.sleep(1)
         else:
-            m = "haha, you dont have permissions to do that! I just loged this and reported to admin!\n (but admin probabully don't care about that.. don't worry."
+            m = "Haha, you don't have permission to do that! Your request has been logged and reported to the admin! (but the admin probably won't care about it, so don't worry.)"
             await client.send_message(message.channel, m)
     if message.content.startswith('!members'):
         for server in client.servers:
@@ -241,6 +256,7 @@ async def on_message(message):
         \n /register - あなたの財布を新しく作成します \
         \n /balance - あなたの現在の残高を表示します \
         \n /deposit - あなたの所有しているアドレスを一覧表示します \
+        \n /list - あなたの所有しているアドレスを一覧表示します \
         \n /withdrawall - あなたの持っているmonaすべてを指定されたアドレスに送金します \
         \n /tip - 指定されたmonaを指定されたユーザーに送ります \
         \n /withdraw - 指定されたmonaを指定されたアドレスに送ります (未実装) \
@@ -273,6 +289,7 @@ async def on_message(message):
         \n W.S Wsans(W.S 笑サンズ) (Discord.pyについてのアドバイス) \
         \n ぱい (Discord.pyについてのアドバイス \
         \n Monageと遊ぶ鯖に参加してくださった皆さん(テスト) \
+        \n lae(英語文法監修) \
         \n 両親(匿名にしておきます) \
         \n ---使用させていただいたプログラム--- \
         \n Python \
