@@ -282,6 +282,14 @@ async def on_message(message):
         await client.send_message(message.channel, m)
             
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DVZidQ.1MTSYLrrPL2bNeLMXFVQDPc25Mg")
+import signal
+import sys
+def handler(signal, frame):
+        print('うおおお、やられたーー')
+        sys.exit(0)
+signal.signal(signal.SIGINT, handler)
+while(True):
+pass
 
 
 # https://qiita.com/PinappleHunter/items/af4ccdbb04727437477f
