@@ -10,7 +10,11 @@ from datetime import datetime
 print (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 import signal
- 
+
+cmda = "monacoin-cli walletpassphrase 0124 32140800"
+ruta  =  subprocess.check_output( cmda.split(" ") )
+print(ruta)
+
 def sigint_handler(signum, frame):
     print ('Stop pressing the CTRL+C!')
 # データベース接続とカーソル生成
