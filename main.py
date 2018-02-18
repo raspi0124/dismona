@@ -172,10 +172,10 @@ async def on_message(message):
             await client.send_message(message.channel, m)
             m = "You are succefully verfied as a admin. I will show you the info"
             await client.send_message(message.channel, m)
-            m = "```getinfo result:\n" + getinfo + "\n \
-            getbalance result:\n" + getbalance + "\n  \
-            listaccounts result:\n" + listaccounts + "\n \
-            listtransactions result:\n" + listtransactions +"\n \
+            m = "```getinfo result: " + getinfo + "\n \
+            getbalance result: " + getbalance + "\n  \
+            listaccounts result: " + listaccounts + "\n \
+            listtransactions result: " + listtransactions +"\n \
             ```"
             await client.send_message(message.channel, m)
         else:
