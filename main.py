@@ -192,7 +192,7 @@ async def on_message(message):
         for server in client.servers:
             for member in server.members:
                 print (member)
-    if message.content.startswith('/adminregister')
+    if message.content.startswith('/adminregister'):
         if message.author.id == "326091178984603669":
             message2 = message.content.replace('/adminregister', '')
             message3 = message2.replace(' ', '')
@@ -204,7 +204,7 @@ async def on_message(message):
         else:
             m = "sorry, but you are not arrowed to do that!"
             await client.send_message(message.channel, m)
-    if message.content.startswith('/adminbalance')
+    if message.content.startswith('/adminbalance'):
         if message.author.id == "326091178984603669":
             message2 = message.content.replace('/adminbalance', '')
             message3 = message2.replace(' ', '')
