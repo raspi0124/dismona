@@ -289,7 +289,7 @@ async def on_message(message):
         \n W.S Wsans(W.S 笑サンズ) (Discord.pyについてのアドバイス) \
         \n ぱい (Discord.pyについてのアドバイス \
         \n Monageと遊ぶ鯖に参加してくださった皆さん(テスト) \
-        \n lae(英語文法監修) \
+        \n lae(アドバイス,英語文法監修) \
         \n 両親(匿名にしておきます) \
         \n ---使用させていただいたプログラム--- \
         \n Python \
