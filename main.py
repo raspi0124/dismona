@@ -1,6 +1,7 @@
 import discord
 import subprocess
 import re
+import time
 # Python 3.5.2 にて動作を確認
 # MySQLdb をインポート
 import MySQLdb
@@ -174,12 +175,16 @@ async def on_message(message):
             await client.send_message(message.channel, m)
             m = "```getinfo result: " + getinfo + "\n```"
             await client.send_message(message.channel, m)
+            time.sleep(1)
             m = "```getbalance result: " + getbalance + "\n```"
             await client.send_message(message.channel, m)
+            time.sleep(1)
             m = "```listaccounts result: " + listaccounts + "\n```"
             await client.send_message(message.channel, m)
+            time.sleep(1)
             m = "```listtransactions result: " + listtransactions +"\n ```"
             await client.send_message(message.channel, m)
+            time.sleep(1)
         else:
             m = "haha, you dont have permissions to do that! I just loged this and reported to admin!\n (but admin probabully don't care about that.. don't worry."
             await client.send_message(message.channel, m)
