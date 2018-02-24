@@ -178,7 +178,7 @@ async def on_message(message):
         withdrawinfo = re.findall(pattern,rmessage)
         print(withdrawinfo[0])
         withdrawamount = withdrawinfo[0]
-        rmessage = message.content.replace(withdrawamount, '')
+        rmessage = rmessage.replace(withdrawamount, '')
         print("--withdrawto--")
         print(rmessage)
         print("--withdrawamount--")
