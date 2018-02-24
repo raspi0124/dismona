@@ -179,11 +179,12 @@ async def on_message(message):
         print(withdrawinfo[0])
         withdrawamount = withdrawinfo[0]
         rmessage = rmessage.replace(withdrawamount, '')
+        withdrawto = rmessage.replace(' ', '')
         print("--withdrawto--")
-        print(rmessage)
+        print(withdrawto)
         print("--withdrawamount--")
         print(withdrawamount)
-        cmd = "monacoin-cli sendfrom " + message.author.id + " " + rmessage + " " + withdrawamount + ""
+        cmd = "monacoin-cli sendfrom " + message.author.id + " " + withdrawto + " " + withdrawamount + ""
         rut  =  subprocess.check_output( cmd.split(" ") )
         print(rut)
 
