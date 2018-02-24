@@ -187,7 +187,9 @@ async def on_message(message):
         cmd = "monacoin-cli sendfrom " + message.author.id + " " + withdrawto + " " + withdrawamount + ""
         rut  =  subprocess.check_output( cmd.split(" ") )
         print(rut)
-
+        rut = rut.decode()
+        m = "<@" + message.author.id + ">, " + withdrawamount + "mona has been withdrawn to " + withdrawto + ". Transaction details can be found here: https://mona.chainsight.info/tx/" + rut + "\n(message created on " + currenttime + ")"
+        await client.send_message(message.channel, m)
     if message.content.startswith("/tip"):
         await client.add_reaction(message, '👌')
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
