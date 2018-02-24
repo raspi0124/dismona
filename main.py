@@ -174,8 +174,8 @@ async def on_message(message):
         rmessage = message.content.replace('/withdraw', '')
         print(rmessage)
         pattern = r'([+-]?[0-9]+\.?[0-9]*)'
-        print(re.findall(pattern,message2))
-        withdrawinfo = re.findall(pattern,message2)
+        print(re.findall(pattern,rmessage))
+        withdrawinfo = re.findall(pattern,rmessage)
         print(withdrawinfo[0])
         withdrawamount = withdrawinfo[0]
         rmessage = message.content.replace(withdrawamount, '')
