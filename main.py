@@ -168,6 +168,25 @@ async def on_message(message):
         else:
             m = "<@" + message.author.id + ">sorry, failed to complete your request: you do not have any mona at all!(message created on " + currenttime + ")"
             await client.send_message(message.channel, m)
+    if message.content.startswith("/withdraw"):
+        await client.add_reaction(message, '👌')
+        currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+        rmessage = message.content.replace('/withdraw', '')
+        print(rmessage)
+        pattern = r'([+-]?[0-9]+\.?[0-9]*)'
+        print(re.findall(pattern,message2))
+        withdrawinfo = re.findall(pattern,message2)
+        print(withdrawinfo[0])
+        withdrawamount = withdrawinfo[0]
+        rmessage = message.content.replace(withdrawamount, '')
+        print("--withdrawto--")
+        print(rmessage)
+        print("--withdrawamount--")
+        print(withdrawamount)
+        cmd = "monacoin-cli sendfrom " + message.author.id + " " + rmessage + " " + withdrawamount + ""
+        rut  =  subprocess.check_output( cmd.split(" ") )
+        print(rut)
+
     if message.content.startswith("/tip"):
         await client.add_reaction(message, '👌')
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
