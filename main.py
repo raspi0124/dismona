@@ -308,12 +308,13 @@ async def on_message(message):
         \n /list - あなたの所有しているアドレスを一覧表示します \
         \n /withdrawall - あなたの持っているmonaすべてを指定されたアドレスに送金します \
         \n /tip - 指定されたmonaを指定されたユーザーに送ります \
-        \n /withdraw - 指定されたmonaを指定されたアドレスに送ります (未実装) \
+        \n /withdraw - 指定されたmonaを指定されたアドレスに送ります \
         \n /donate - 指定された金額のmonaを寄付先として認証された方に送ります (未実装)\
         \n /rain - 指定された金額のmonaをランダムに配ります。 (実装検討中..)\
         \n /admin info - 管理者専用コマンド。管理者がすぐに状況確認できるように作成しました\
         \n ---使い方---\
         \n /withdrawall <送金先アドレス>\
+        \n /withdraw <金額> <送金先アドレス> \
         \n /tip <ユーザー> <金額> <任意のコメント>\ \n Created message at " + currenttime + "```"
         await client.send_message(message.channel, m)
     
