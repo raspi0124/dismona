@@ -4,7 +4,7 @@ import re
 import time
 # Python 3.5.2 にて動作を確認
 # MySQLdb をインポート
-import MySQLdb
+#import MySQLdb
 client = discord.Client()
 from datetime import datetime
 print (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
@@ -22,10 +22,10 @@ def sigint_handler(signum, frame):
     print ('Stop pressing the CTRL+C!')
 # データベース接続とカーソル生成
 # 接続情報はダミーです。お手元の環境にあわせてください。
-connection = MySQLdb.connect(
-    host='localhost', user='root', passwd='laksjd', db='dismona', charset='utf8')
-cursor = connection.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS dismona.id (id VARCHAR(20), address VARCHAR(50));")
+#connection = MySQLdb.connect(
+#   host='localhost', user='root', passwd='laksjd', db='dismona', charset='utf8')
+#cursor = connection.cursor()
+#cursor.execute("CREATE TABLE IF NOT EXISTS dismona.id (id VARCHAR(20), address VARCHAR(50));")
 @client.event
 async def on_ready():
     print('Logged in as')
