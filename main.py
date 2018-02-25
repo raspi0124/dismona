@@ -35,7 +35,7 @@ async def on_ready():
     await client.change_presence(game=discord.Game(name='/help'))
 
 @client.event
-async def on_reaction_add(reaction):
+async def on_reaction_add():
     m = "reaction has been added!"
     await client.send_message(message.channel, m)
 #message.author.name がユーザー名
