@@ -304,21 +304,24 @@ async def on_message(message):
         await client.add_reaction(message, '👌')
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
         m = "```----------------------------------------------------------------------------------- \
-        \n /help - ヘルプを表示します \
-        \n /register - あなたの財布を新しく作成します \
-        \n /balance - あなたの現在の残高を表示します \
-        \n /deposit - あなたの所有しているアドレスを一覧表示します \
-        \n /list - あなたの所有しているアドレスを一覧表示します \
-        \n /withdrawall - あなたの持っているmonaすべてを指定されたアドレスに送金します \
-        \n /tip - 指定されたmonaを指定されたユーザーに送ります \
-        \n /withdraw - 指定されたmonaを指定されたアドレスに送ります \
-        \n /donate - 指定された金額のmonaを寄付先として認証された方に送ります (未実装)\
-        \n /rain - 指定された金額のmonaをランダムに配ります。 (実装検討中..)\
-        \n /admin info - 管理者専用コマンド。管理者がすぐに状況確認できるように作成しました\
-        \n ---使い方---\
+        \n /help - ヘルプを表示します <Show help> \
+        \n /register - あなたの財布を新しく作成します <Create your address> \
+        \n /balance - あなたの現在の残高を表示します <Show your current balance> \
+        \n /deposit - あなたの所有しているアドレスを一覧表示します <List address you currently have> \
+        \n /list - あなたの所有しているアドレスを一覧表示します <List address you currently have (same as /deposit)>\
+        \n /withdrawall - あなたの持っているmonaすべてを指定されたアドレスに送金します <Send all of your mona to specifyed address> \
+        \n /tip - 指定されたmonaを指定されたユーザーに送ります <Tip specified amount of mona to specified user> \
+        \n /withdraw - 指定されたmonaを指定されたアドレスに送ります <Withdraw specified amount of mona to specified address> \
+        \n /rain - 指定された金額のmonaをランダムに配ります。 (Working in progress)\
+        \n /admin info - 管理者専用コマンド。管理者がすぐに状況確認できるように作成しました <Admin only command>\
+        \n ---使い方 <Usage>---\
         \n /withdrawall <送金先アドレス>\
+        \n /withdrawall <address to send> \
         \n /withdraw <金額> <送金先アドレス> \
-        \n /tip <ユーザー> <金額> <任意のコメント> \n Created message at " + currenttime + "```"
+        \n /withdraw <amount to withdraw> <address to send> \
+        \n /tip <ユーザー> <金額> <任意のコメント> \
+        \n /tip <User to send mona> <amoun to tip> <comment (optional>> \
+        \n Created message at " + currenttime + "```"
         await client.send_message(message.channel, m)
     
     if message.content.startswith("/hello"):
