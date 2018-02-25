@@ -34,7 +34,10 @@ async def on_ready():
     print('------')
     await client.change_presence(game=discord.Game(name='/help'))
 
-
+@client.event
+async def on_reaction_add(reaction)
+    m = "reaction has been added!"
+    await client.send_message(message.channel, m)
 #message.author.name がユーザー名
 
 @client.event
@@ -315,7 +318,7 @@ async def on_message(message):
         \n ---使い方---\
         \n /withdrawall <送金先アドレス>\
         \n /withdraw <金額> <送金先アドレス> \
-        \n /tip <ユーザー> <金額> <任意のコメント>\ \n Created message at " + currenttime + "```"
+        \n /tip <ユーザー> <金額> <任意のコメント> \n Created message at " + currenttime + "```"
         await client.send_message(message.channel, m)
     
     if message.content.startswith("/hello"):
