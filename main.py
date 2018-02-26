@@ -170,6 +170,7 @@ async def on_message(message):
                     m = "<@" + message.author.id + ">, executing your withdrawal to " + message3 + ""
                     await client.send_message(message.channel, m)
                     sum = float(balancea) - float(fee)
+                    sum = round(sum,5)
                     sum = str(sum)
                     print("monacoin-cli sendfrom " + message.author.id + " " + message3 + " " + sum + "")
                     print("monacoin-cli move " + message.author.id + " fee " + fee + "")
@@ -188,6 +189,7 @@ async def on_message(message):
                         amounttosendback = float(defo) + float(balancea)
                         print(amounttosendback)
                         amounttosendback = str(amounttosendback)
+
                         cmd = "monacoin-cli move fee "  + message.author.id + " " + amounttosendback + ""
                         ruta  =  subprocess.check_output( cmd.split(" ") )
                         print(ruta)
