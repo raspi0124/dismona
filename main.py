@@ -218,7 +218,7 @@ async def on_message(message):
                     cmd = "monacoin-cli sendfrom " + message.author.id + " " + withdrawto + " " + rewithdrawamount + ""
                     rut  =  subprocess.check_output( cmd.split(" ") )
                     cmd = "monacoin-cli move " + message.author.id + " fee " + fee + ""
-                    rut  =  subprocess.check_output( cmd.split(" ") )
+                    ruta  =  subprocess.check_output( cmd.split(" ") )
                     print(rut)
                     rut = rut.decode()
                     m = "<@" + message.author.id + ">, " + rewithdrawamount + "mona has been withdrawn to " + withdrawto + ". Transaction details can be found here: https://mona.chainsight.info/tx/" + rut + "\n(message created on " + currenttime + ")"
