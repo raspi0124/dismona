@@ -211,7 +211,7 @@ async def on_message(message):
         print(withdrawamount)
         print("--rewithdrawamount--")
         print(rewithdrawamount)
-        if withdrawamount >= "0.01"
+        if withdrawamount >= "0.01":
             if balancea >= "0":
                 if balancea >= "0.01":
                     cmd = "monacoin-cli sendfrom " + message.author.id + " " + withdrawto + " " + rewithdrawamount + ""
