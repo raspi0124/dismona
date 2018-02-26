@@ -177,7 +177,7 @@ async def on_message(message):
                     rut  =  subprocess.check_output( cmd.split(" ") )
 
                     cmd = "monacoin-cli move " + message.author.id + " fee " + fee + ""
-                    rut  =  subprocess.check_output( cmd.split(" ") )
+                    ruta  =  subprocess.check_output( cmd.split(" ") )
                     withdrawalldata = rut.decode()
                     print(withdrawalldata)
                     m = "<@" + message.author.id + ">, all of your Mona (except for fee) has been withdrawn to " + message3 + ". Transaction details can be found here: https://mona.chainsight.info/tx/" + withdrawalldata + "\n(message created on " + currenttime + ")"
@@ -187,6 +187,7 @@ async def on_message(message):
                         defo = "0"
                         amounttosendback = float(defo) + float(balancea)
                         print(amounttosendback)
+                        amounttosendback = str(amounttosendback)
                         cmd = "monacoin-cli move fee "  + message.author.id + " " + amounttosendback + ""
                         ruta  =  subprocess.check_output( cmd.split(" ") )
                         print(ruta)
