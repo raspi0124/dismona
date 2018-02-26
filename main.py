@@ -48,10 +48,6 @@ async def on_ready():
     print('------')
     await client.change_presence(game=discord.Game(name='/help'))
 
-@client.event
-async def on_reaction_add():
-    m = "reaction has been added!"
-    await client.send_message(message.channel, m)
 #message.author.name がユーザー名
 
 @client.event
@@ -193,6 +189,11 @@ async def on_message(message):
     if message.content.startswith("/withdraw"):
         await client.add_reaction(message, '👌')
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+        #getbalance
+        cmda = "monacoin-cli getbalance " + message.author.id + ""
+        ruta  =  subprocess.check_output( cmda.split(" ") )
+        balancea = ruta.decode()
+        #okikae
         rmessage = message.content.replace('/withdraw', '')
         print(rmessage)
         pattern = r'([+-]?[0-9]+\.?[0-9]*)'
@@ -202,16 +203,35 @@ async def on_message(message):
         withdrawamount = withdrawinfo[0]
         rmessage = rmessage.replace(withdrawamount, '')
         withdrawto = rmessage.replace(' ', '')
+        fee = "0.005"
+        rewithdrawamount = float(withdrawamount) - float(fee)
         print("--withdrawto--")
         print(withdrawto)
         print("--withdrawamount--")
         print(withdrawamount)
-        cmd = "monacoin-cli sendfrom " + message.author.id + " " + withdrawto + " " + withdrawamount + ""
-        rut  =  subprocess.check_output( cmd.split(" ") )
-        print(rut)
-        rut = rut.decode()
-        m = "<@" + message.author.id + ">, " + withdrawamount + "mona has been withdrawn to " + withdrawto + ". Transaction details can be found here: https://mona.chainsight.info/tx/" + rut + "\n(message created on " + currenttime + ")"
-        await client.send_message(message.channel, m)
+        print("--rewithdrawamount--")
+        print(rewithdrawamount)
+        if withdrawamount >= "0.01"
+            if balancea >= "0":
+                if balancea >= "0.01":
+                    cmd = "monacoin-cli sendfrom " + message.author.id + " " + withdrawto + " " + rewithdrawamount + ""
+                    rut  =  subprocess.check_output( cmd.split(" ") )
+                    cmd = "monacoin-cli move " + message.author.id + " fee " + fee + ""
+                    rut  =  subprocess.check_output( cmd.split(" ") )
+                    print(rut)
+                    rut = rut.decode()
+                    m = "<@" + message.author.id + ">, " + rewithdrawamount + "mona has been withdrawn to " + withdrawto + ". Transaction details can be found here: https://mona.chainsight.info/tx/" + rut + "\n(message created on " + currenttime + ")"
+                    await client.send_message(message.channel, m)
+                else:
+                    m = "<@" + message.author.id + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
+                    await client.send_message(message.channel, m)
+            else:
+                m = "<@" + message.author.id + ">sorry, failed to complete your request: you do not have any mona at all!(message created on " + currenttime + ")"
+                await client.send_message(message.channel, m)
+        else:
+            m = "<@" + message.author.id + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
+            await client.send_message(message.channel, m)
+
     if message.content.startswith("/tip"):
         await client.add_reaction(message, '👌')
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
