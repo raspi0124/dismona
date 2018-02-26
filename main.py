@@ -181,6 +181,14 @@ async def on_message(message):
                     print(withdrawalldata)
                     m = "<@" + message.author.id + ">, all of your Mona (except for fee) has been withdrawn to " + message3 + ". Transaction details can be found here: https://mona.chainsight.info/tx/" + withdrawalldata + "\n(message created on " + currenttime + ")"
                     await client.send_message(message.channel, m)
+                    
+                    if balancea >= "0":
+                        defo = "0"
+                        amounttosendback = float(defo) + float(balancea)
+                        print(amounttosendback)
+                        cmd = "monacoin-cli move fee "  + message.author.id + " " + amounttosendback + ""
+                        ruta  =  subprocess.check_output( cmd.split(" ") )
+                        print(ruta)
                 else:
                     m = "<@" + message.author.id + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
                     await client.send_message(message.channel, m)
