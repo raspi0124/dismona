@@ -224,6 +224,14 @@ async def on_message(message):
                     rut = rut.decode()
                     m = "<@" + message.author.id + ">, " + rewithdrawamount + "mona has been withdrawn to " + withdrawto + ". Transaction details can be found here: https://mona.chainsight.info/tx/" + rut + "\n(message created on " + currenttime + ")"
                     await client.send_message(message.channel, m)
+                    if balancea >= "0":
+                        defo = "0"
+                        amounttosendback = float(defo) + float(balancea)
+                        print(amounttosendback)
+                        cmd = "monacoin-cli move fee "  + message.author.id + " " + amounttosendback + ""
+                        ruta  =  subprocess.check_output( cmd.split(" ") )
+                        print(ruta)
+
                 else:
                     m = "<@" + message.author.id + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
                     await client.send_message(message.channel, m)
@@ -311,7 +319,7 @@ async def on_message(message):
             result = rut.decode()
             await client.send_message(message.channel, result)
         else:
-            m = "sorry, but you are not arrowed to do that!"
+            m = "sorry, but you are not allowed to do that!"
             await client.send_message(message.channel, m)
     if message.content.startswith('/members'):
         await client.add_reaction(message, '👌')
@@ -332,7 +340,7 @@ async def on_message(message):
             m = "issued account for <@" + message3 + ">. address is " + address + "."
             await client.send_message(message.channel, m)
         else:
-            m = "sorry, but you are not arrowed to do that!"
+            m = "sorry, but you are not allowed to do that!"
             await client.send_message(message.channel, m)
     if message.content.startswith('/adminbalance'):
         await client.add_reaction(message, '👌')
