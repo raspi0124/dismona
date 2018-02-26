@@ -228,7 +228,7 @@ async def on_message(message):
                     if balancea <= "0":
                         defo = "0"
                         amounttosendback = float(defo) - float(balancea)
-                        print(--amounttosendback--)
+                        print("--amounttosendback--")
                         print(amounttosendback)
                         amounttosendback = str(amounttosendback)
 
