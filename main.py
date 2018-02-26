@@ -228,12 +228,12 @@ async def on_message(message):
                     if balancea >= "0":
                         defo = "0"
                         amounttosendback = float(defo) - float(balancea)
+                        print(--amounttosendback--)
                         print(amounttosendback)
                         amounttosendback = str(amounttosendback)
 
                         #cmd = "monacoin-cli move fee "  + message.author.id + " " + amounttosendback + ""
                         #ruta  =  subprocess.check_output( cmd.split(" ") )
-                        print(ruta)
 
                 else:
                     m = "<@" + message.author.id + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
