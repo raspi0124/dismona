@@ -95,11 +95,11 @@ async def on_message(message):
             print("-------------------------------")
             #DEBUG FIN
             print ("---3---")
-            cursor.execute("INSERT INTO dismona.id(id, address) VALUES ('" + message.author.id + "', '" + resultmore5 + "' )")
+            #cursor.execute("INSERT INTO dismona.id(id, address) VALUES ('" + message.author.id + "', '" + resultmore5 + "' )")
             print ("---4---")
-            print ('----MYSQL COMMAND START----')
-            print ("INSERT INTO dismona.id(id, address) VALUES ('" + message.author.id + "', '" + resultmore5 + "' )")
-            print ('----MYSQL COMMAND END----')
+            #print ('----MYSQL COMMAND START----')
+            #print ("INSERT INTO dismona.id(id, address) VALUES ('" + message.author.id + "', '" + resultmore5 + "' )")
+            #print ('----MYSQL COMMAND END----')
             print ("---5---")
             currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
             m = "<@" + message.author.id + ">, successfully created an account for you! Your new address is " + resultmore5 + ", enjoy!\n(message created on " + currenttime + ")"
