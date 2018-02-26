@@ -187,7 +187,6 @@ async def on_message(message):
             m = "<@" + message.author.id + ">sorry, failed to complete your request: you do not have any mona at all!(message created on " + currenttime + ")"
             await client.send_message(message.channel, m)
     if message.content.startswith("/withdraw"):
-        await client.add_reaction(message, '👌')
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
         #getbalance
         cmda = "monacoin-cli getbalance " + message.author.id + ""
@@ -209,11 +208,13 @@ async def on_message(message):
         print(withdrawto)
         print("--withdrawamount--")
         print(withdrawamount)
+        rewithdrawamount = rewithdrawamount.decode()
         print("--rewithdrawamount--")
         print(rewithdrawamount)
         if withdrawamount >= "0.01":
             if balancea >= "0":
                 if balancea >= "0.01":
+                    await client.add_reaction(message, '👌')
                     cmd = "monacoin-cli sendfrom " + message.author.id + " " + withdrawto + " " + rewithdrawamount + ""
                     rut  =  subprocess.check_output( cmd.split(" ") )
                     cmd = "monacoin-cli move " + message.author.id + " fee " + fee + ""
