@@ -2,6 +2,7 @@ import discord
 import subprocess
 import re
 import time
+import math
 # Python 3.5.2 にて動作を確認
 # MySQLdb をインポート
 #import MySQLdb
@@ -17,6 +18,19 @@ print(ruta)
 number1 = "1"
 print(number1)
 print(5 - 0.5)
+# This program minus two numbers
+
+num1 = 1.4
+num2 = 0.01
+
+# Add two numbers
+sum = float(num1) - float(num2)
+
+# Display the sum
+print('The sum of {0} and {1} is {2}'.format(num1, num2, sum))
+
+print(sum)
+
 
 def sigint_handler(signum, frame):
     print ('Stop pressing the CTRL+C!')
