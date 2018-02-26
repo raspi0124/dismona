@@ -170,6 +170,7 @@ async def on_message(message):
                     m = "<@" + message.author.id + ">, executing your withdrawal to " + message3 + ""
                     await client.send_message(message.channel, m)
                     sum = float(balancea) - float(fee)
+                    sum = str(sum)
                     print("monacoin-cli sendfrom " + message.author.id + " " + message3 + " " + sum + "")
                     print("monacoin-cli move " + message.author.id + " fee " + fee + "")
                     cmd = "monacoin-cli sendfrom " + message.author.id + " " + message3 + " " + sum + ""
@@ -181,7 +182,7 @@ async def on_message(message):
                     print(withdrawalldata)
                     m = "<@" + message.author.id + ">, all of your Mona (except for fee) has been withdrawn to " + message3 + ". Transaction details can be found here: https://mona.chainsight.info/tx/" + withdrawalldata + "\n(message created on " + currenttime + ")"
                     await client.send_message(message.channel, m)
-                    
+
                     if balancea >= "0":
                         defo = "0"
                         amounttosendback = float(defo) + float(balancea)
