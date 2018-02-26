@@ -153,42 +153,41 @@ async def on_message(message):
                 currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
                 m = "<@"+ message.author.id + ">,your address is" + address3 + " \n Created message at " + currenttime + ""
                 await client.send_message(message.channel, m)
-    if message.content.startswith("/withdrawall"):
-        currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-        await client.add_reaction(message, '👌')
-        message2 = message.content.replace('/withdrawall', '')
-        message3 = message2.replace(' ', '')
-        print (message3)
-        cmda = "monacoin-cli getbalance " + message.author.id + ""
-        ruta  =  subprocess.check_output( cmda.split(" ") )
-        balancea = ruta.decode()
-        fee = "0.005"
-        m ="<@" + message.author.id + ">, preparing your withdrawal, please wait."
-        await client.send_message(message.channel, m)
-        if balancea >= "0":
-                if balancea >= "0.01":
-                    m = "<@" + message.author.id + ">, executing your withdrawal to " + message3 + ""
-                    await client.send_message(message.channel, m)
-                    sum = float(balancea) - float(fee)
-                    sum = round(sum,5)
-                    sum = str(sum)
-                    print("monacoin-cli sendfrom " + message.author.id + " " + message3 + " " + sum + "")
-                    print("monacoin-cli move " + message.author.id + " fee " + fee + "")
-                    cmd = "monacoin-cli sendfrom " + message.author.id + " " + message3 + " " + sum + ""
-                    rut  =  subprocess.check_output( cmd.split(" ") )
-
-                    cmd = "monacoin-cli move " + message.author.id + " fee " + fee + ""
-                    ruta  =  subprocess.check_output( cmd.split(" ") )
-                    withdrawalldata = rut.decode()
-                    print(withdrawalldata)
-                    m = "<@" + message.author.id + ">, all of your Mona (except for fee) has been withdrawn to " + message3 + ". Transaction details can be found here: https://mona.chainsight.info/tx/" + withdrawalldata + "\n(message created on " + currenttime + ")"
-                    await client.send_message(message.channel, m)
-                else:
-                    m = "<@" + message.author.id + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
-                    await client.send_message(message.channel, m)
-        else:
-            m = "<@" + message.author.id + ">sorry, failed to complete your request: you do not have any mona at all!(message created on " + currenttime + ")"
-            await client.send_message(message.channel, m)
+#    if message.content.startswith("/withdrawall"):
+#        currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+#        await client.add_reaction(message, '👌')
+#        message2 = message.content.replace('/withdrawall', '')
+#        message3 = message2.replace(' ', '')
+#        print (message3)
+#        cmda = "monacoin-cli getbalance " + message.author.id + ""
+#        ruta  =  subprocess.check_output( cmda.split(" ") )
+#        balancea = ruta.decode()
+#        fee = "0.005"
+#        m ="<@" + message.author.id + ">, preparing your withdrawal, please wait."
+#        await client.send_message(message.channel, m)
+#        if balancea >= "0":
+#                if balancea >= "0.01":
+#                    m = "<@" + message.author.id + ">, executing your withdrawal to " + message3 + ""
+#                    await client.send_message(message.channel, m)
+#                    sum = float(balancea) - float(fee)
+#                    sum = round(sum,5)
+#                    sum = str(sum)
+#                    print("monacoin-cli sendfrom " + message.author.id + " " + message3 + " " + sum + "")
+#                    print("monacoin-cli move " + message.author.id + " fee " + fee + "")
+#                    cmd = "monacoin-cli sendfrom " + message.author.id + " " + message3 + " " + sum + ""
+#                    rut  =  subprocess.check_output( cmd.split(" ") )
+#                    cmd = "monacoin-cli move " + message.author.id + " fee " + fee + ""
+#                    ruta  =  subprocess.check_output( cmd.split(" ") )
+#                    withdrawalldata = rut.decode()
+#                    print(withdrawalldata)
+#                    m = "<@" + message.author.id + ">, all of your Mona (except for fee) has been withdrawn to " + message3 + ". Transaction details can be found here: https://mona.chainsight.info/tx/" + withdrawalldata + "\n(message created on " + currenttime + ")"
+#                    await client.send_message(message.channel, m)
+#               else:
+#                    m = "<@" + message.author.id + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
+#                    await client.send_message(message.channel, m)
+#        else:
+#            m = "<@" + message.author.id + ">sorry, failed to complete your request: you do not have any mona at all!(message created on " + currenttime + ")"
+#            await client.send_message(message.channel, m)
     if message.content.startswith("/withdraw"):
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
         #getbalance
@@ -226,7 +225,6 @@ async def on_message(message):
                     rut = rut.decode()
                     m = "<@" + message.author.id + ">, " + rewithdrawamount + "mona has been withdrawn to " + withdrawto + ". Transaction details can be found here: https://mona.chainsight.info/tx/" + rut + "\n(message created on " + currenttime + ")"
                     await client.send_message(message.channel, m)
-
 
                 else:
                     m = "<@" + message.author.id + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
