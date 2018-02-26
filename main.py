@@ -3,8 +3,6 @@ import subprocess
 import re
 import time
 import math
-# Python 3.5.2 にて動作を確認
-# MySQLdb をインポート
 #import MySQLdb
 client = discord.Client()
 from datetime import datetime
@@ -47,6 +45,9 @@ async def on_ready():
     print(client.user.id)
     print('------')
     await client.change_presence(game=discord.Game(name='/help'))
+    time.sleep(1)
+    await client.change_presence(game=discord.Game(name=''))
+
 
 #message.author.name がユーザー名
 
@@ -299,6 +300,18 @@ async def on_message(message):
             time.sleep(1)
         else:
             m = "Haha, you don't have permission to do that! Your request has been logged and reported to the admin! (but the admin probably won't care about it, so don't worry.)"
+            await client.send_message(message.channel, m)
+    if message.content.startswith("/adminc"):
+        if message.author.id == "326091178984603669":
+            await client.add_reaction(message, '👌')
+            message2 = message.content.replace('/adminc', '')
+            print(message2)
+            cmd = "monacoin-cli" + message2 + ""
+            rut = subprocess.check_output( cmd.split(" "))
+            result = rut.decode()
+            await client.send_message(message.channel, result)
+        else:
+            m = "sorry, but you are not arrowed to do that!"
             await client.send_message(message.channel, m)
     if message.content.startswith('/members'):
         await client.add_reaction(message, '👌')
