@@ -204,11 +204,11 @@ async def on_message(message):
         withdrawto = rmessage.replace(' ', '')
         fee = "0.005"
         rewithdrawamount = float(withdrawamount) - float(fee)
+        rewithdrawamount = str(rewithdrawamount)
         print("--withdrawto--")
         print(withdrawto)
         print("--withdrawamount--")
         print(withdrawamount)
-        rewithdrawamount = rewithdrawamount.decode()
         print("--rewithdrawamount--")
         print(rewithdrawamount)
         if withdrawamount >= "0.01":
