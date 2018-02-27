@@ -225,6 +225,9 @@ async def on_message(message):
                     rut = rut.decode()
                     m = "<@" + message.author.id + ">, " + rewithdrawamount + "mona has been withdrawn to " + withdrawto + ". Transaction details can be found here: https://mona.chainsight.info/tx/" + rut + "\n(message created on " + currenttime + ")"
                     await client.send_message(message.channel, m)
+                    cmda = "monacoin-cli getbalance " + message.author.id + ""
+                    ruta  =  subprocess.check_output( cmda.split(" ") )
+                    balancea = ruta.decode()
                     if balancea <= "0":
                         defo = "0"
                         amounttosendback = float(defo) - float(balancea)
