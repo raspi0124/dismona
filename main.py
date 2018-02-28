@@ -29,9 +29,9 @@ print('The sum of {0} and {1} is {2}'.format(num1, num2, sum))
 
 print(sum)
 data = "100000"
+data = float(data)
 data_size = int (math.log10(data) + 1)
 print(data_size)
-
 def sigint_handler(signum, frame):
     print ('Stop pressing the CTRL+C!')
 # データベース接続とカーソル生成
@@ -264,10 +264,18 @@ async def on_message(message):
         sum = float(raininfo[1]) / float(raininfo[0])
         print(sum)
         sum = str(sum)
-
         m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
         await client.send_message(message.channel, m)
-
+        cmd = "monacoin-cli listaccounts"
+        rut  =  subprocess.check_output( cmd.split(" ") )
+        data = rut.decode()
+        pattern = r'([+-]?[0-9]+\.?[0-9]*)'
+        print(re.findall(pattern,data))
+        data = re.findall(pattern,data)
+        data = float(data)
+        print(data)
+        data_size = int (math.log10(data) + 1)
+        print(data_size)
 
     if message.content.startswith("/tip"):
         await client.add_reaction(message, '👌')
