@@ -3,6 +3,7 @@ import subprocess
 import re
 import time
 import math
+import random
 #import MySQLdb
 client = discord.Client()
 from datetime import datetime
