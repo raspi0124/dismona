@@ -273,7 +273,7 @@ async def on_message(message):
         print(re.findall(pattern,data))
         data = re.findall(pattern,data)
         print(data)
-        data_size = int (math.log10(data) + 1)
+        data_size = int (math.log10(data[1]) + 1)
         print(data_size)
 
     if message.content.startswith("/tip"):
