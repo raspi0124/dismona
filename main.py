@@ -29,6 +29,9 @@ print('The sum of {0} and {1} is {2}'.format(num1, num2, sum))
 
 print(sum)
 
+data_size = int (math.log10(data) + 1)
+data = "100000"
+print(data_size)
 
 def sigint_handler(signum, frame):
     print ('Stop pressing the CTRL+C!')
