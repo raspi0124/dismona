@@ -255,31 +255,32 @@ async def on_message(message):
             m = "<@" + message.author.id + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
             await client.send_message(message.channel, m)
     if message.content.startswith("/rain"):
-        await client.add_reaction(message, '👌')
-        currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-        message2 = message.content.replace('/rain ', '')
-        pattern = r'([+-]?[0-9]+\.?[0-9]*)'
-        raininfo = re.findall(pattern,message2)
-        print("--numbertorain--")
-        print(raininfo[0])
-        print("--amounttorain--")
-        print(raininfo[1])
-        sum = float(raininfo[1]) / float(raininfo[0])
-        print(sum)
-        sum = str(sum)
-        m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
-        await client.send_message(message.channel, m)
-        cmd = "monacoin-cli listaccounts"
-        rut  =  subprocess.check_output( cmd.split(" ") )
-        data = rut.decode()
-        pattern = r'([+-]?[0-9]+\.?[0-9]*)'
-        print(re.findall(pattern,data))
-        data = re.findall(pattern,data)
-        print(data)
-        data = float(data[1])
-        data_size = int (math.log10(data[1]) + 1)
-        print(data_size)
-
+        if message.author.id == "326091178984603669":
+            await client.add_reaction(message, '👌')
+            currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+            message2 = message.content.replace('/rain ', '')
+            pattern = r'([+-]?[0-9]+\.?[0-9]*)'
+            raininfo = re.findall(pattern,message2)
+            print("--numbertorain--")
+            print(raininfo[0])
+            print("--amounttorain--")
+            print(raininfo[1])
+            sum = float(raininfo[1]) / float(raininfo[0])
+            print(sum)
+            sum = str(sum)
+            m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
+            await client.send_message(message.channel, m)
+            cmd = "monacoin-cli listaccounts"
+            rut  =  subprocess.check_output( cmd.split(" ") )
+            data = rut.decode()
+            pattern = r'([+-]?[0-9]+\.?[0-9]*)'
+            print(re.findall(pattern,data))
+            data = re.findall(pattern,data)
+            tosend = random.randrange(1, 50, 3)
+            print(raininfo[tosend])
+        else:
+            m = "currently only available for admin due to some problems.I am working on this,so come back again later!"
+            await client.send_message(message.channel, m)
     if message.content.startswith("/tip"):
         await client.add_reaction(message, '👌')
         currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
