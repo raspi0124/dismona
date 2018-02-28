@@ -34,7 +34,7 @@ data = float(data)
 data_size = int (math.log10(data) + 1)
 print(data_size)
 print(random.randrange(10, 20, 2))
-print(random.randrange(1, 50, 1))
+print(random.randrange(1, 50, 2))
 def sigint_handler(signum, frame):
     print ('Stop pressing the CTRL+C!')
 # データベース接続とカーソル生成
