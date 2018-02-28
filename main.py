@@ -272,7 +272,6 @@ async def on_message(message):
         pattern = r'([+-]?[0-9]+\.?[0-9]*)'
         print(re.findall(pattern,data))
         data = re.findall(pattern,data)
-        data = float(data)
         print(data)
         data_size = int (math.log10(data) + 1)
         print(data_size)
