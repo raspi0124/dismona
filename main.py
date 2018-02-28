@@ -32,6 +32,8 @@ data = "100000"
 data = float(data)
 data_size = int (math.log10(data) + 1)
 print(data_size)
+print(random.randrange(10, 20, 2))
+print(random.randrange(1, 50, 1))
 def sigint_handler(signum, frame):
     print ('Stop pressing the CTRL+C!')
 # データベース接続とカーソル生成
@@ -273,6 +275,7 @@ async def on_message(message):
         print(re.findall(pattern,data))
         data = re.findall(pattern,data)
         print(data)
+        data = float(data[1])
         data_size = int (math.log10(data[1]) + 1)
         print(data_size)
 
