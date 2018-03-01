@@ -284,7 +284,9 @@ async def on_message(message):
             print ("--loop start--")
             for var in range(0, raininfo[0]):
                 tosend = random.randrange(1, 50, 3)
+                print("--rondomfinish--")
                 tosend = data[tosend]
+                print("--startcommand--")
                 cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
                 rut  =  subprocess.check_output( cmd.split(" ") )
                 print(rut)
