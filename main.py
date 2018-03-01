@@ -279,6 +279,22 @@ async def on_message(message):
             data = re.findall(pattern,data)
             tosend = random.randrange(1, 50, 3)
             print(data[tosend])
+            foradmin = "1"
+            sum2 = float(raininfo[0]) - float(foradmin)
+            print(sum2)
+            sum2 = str(sum2)
+            for var in range(0, sum2):
+                tosend = random.randrange(1, 50, 3)
+                tosend = data[tosend]
+                cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + 
+                rut  =  subprocess.check_output( cmd.split(" ") )
+                print(rut)
+
+            cmd = "monacoin-cli move " + message.author.id + " fee " + sum +
+            rut  =  subprocess.check_output( cmd.split(" ") )
+            print(rut)
+
+
         else:
             m = "currently only available for admin due to some problems.I am working on this,so come back again later!"
             await client.send_message(message.channel, m)
