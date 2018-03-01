@@ -282,6 +282,7 @@ async def on_message(message):
             data = re.findall(pattern,data)
             tosend = random.randrange(1, 50, 3)
             print(data[tosend])
+            numbertosend = int(numbertosend)
             print ("--loop start--")
             for var in range(0, numbertosend):
                 tosend = random.randrange(1, 50, 3)
