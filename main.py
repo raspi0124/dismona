@@ -255,6 +255,9 @@ async def on_message(message):
             m = "<@" + message.author.id + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
             await client.send_message(message.channel, m)
     if message.content.startswith("/rain"):
+        cmda = "monacoin-cli getbalance " + message.author.id + ""
+        ruta  =  subprocess.check_output( cmda.split(" ") )
+        balancea = ruta.decode()
         if message.author.id == "326091178984603669":
             await client.add_reaction(message, '👌')
             currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
@@ -268,7 +271,7 @@ async def on_message(message):
             sum = float(raininfo[1]) / float(raininfo[0])
             print(sum)
             sum = str(sum)
-            if balancea >= raininfo[1]
+            if balancea >= raininfo[1]:
                 m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
                 await client.send_message(message.channel, m)
                 sum = str(sum)
