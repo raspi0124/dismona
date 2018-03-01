@@ -268,37 +268,40 @@ async def on_message(message):
             sum = float(raininfo[1]) / float(raininfo[0])
             print(sum)
             sum = str(sum)
-            m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
-            await client.send_message(message.channel, m)
-            sum = str(sum)
-            numbertosend = raininfo[0]
-            #sum=amount to rain for each person
-            cmd = "monacoin-cli listaccounts"
-            rut  =  subprocess.check_output( cmd.split(" ") )
-            data = rut.decode()
-            print(data[2])
-            pattern = r'([+-]?[0-9]+\.?[0-9]*)'
-            print(re.findall(pattern,data))
-            data = re.findall(pattern,data)
-            tosend = random.randrange(1, 50, 3)
-            print(data[tosend])
-            numbertosend = int(numbertosend)
-            print ("--loop start--")
-            for var in range(0, numbertosend):
-                tosend = random.randrange(1, 50, 3)
-                print("--rondomfinish--")
-                tosend = data[tosend]
-                print("--startcommand--")
-                cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
-                rut  =  subprocess.check_output( cmd.split(" ") )
-                print(rut)
-                m = "raining to <@" + tosend + ">.."
+            if balancea >= raininfo[1]
+                m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
                 await client.send_message(message.channel, m)
+                sum = str(sum)
+                numbertosend = raininfo[0]
+                #sum=amount to rain for each person
+                cmd = "monacoin-cli listaccounts"
+                rut  =  subprocess.check_output( cmd.split(" ") )
+                data = rut.decode()
+                print(data[2])
+                pattern = r'([+-]?[0-9]+\.?[0-9]*)'
+                print(re.findall(pattern,data))
+                data = re.findall(pattern,data)
+                tosend = random.randrange(1, 50, 3)
+                print(data[tosend])
+                numbertosend = int(numbertosend)
+                print ("--loop start--")
+                for var in range(0, numbertosend):
+                    tosend = random.randrange(1, 50, 3)
+                    print("--rondomfinish--")
+                    tosend = data[tosend]
+                    print("--startcommand--")
+                    cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
+                    rut  =  subprocess.check_output( cmd.split(" ") )
+                    print(rut)
+                    m = "raining to <@" + tosend + ">.."
+                    await client.send_message(message.channel, m)
 
-            m = "finished rain to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona!"
-            await client.send_message(message.channel, m)
-            print(rut)
-
+                m = "finished rain to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona!"
+                await client.send_message(message.channel, m)
+                print(rut)
+            else:
+                m = "not enough fund.. double check amount to rain."
+                await client.send_message(message.channel, m)
 
         else:
             m = "currently only available for admin due to some problems.I am working on this,so come back again later!"
