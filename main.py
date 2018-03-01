@@ -281,6 +281,7 @@ async def on_message(message):
             data = re.findall(pattern,data)
             tosend = random.randrange(1, 50, 3)
             print(data[tosend])
+            print ("--loop start--")
             for var in range(0, raininfo[0]):
                 tosend = random.randrange(1, 50, 3)
                 tosend = data[tosend]
