@@ -270,7 +270,7 @@ async def on_message(message):
             sum = str(sum)
             m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
             await client.send_message(message.channel, m)
-            sum = float(sum)
+            sum = int(sum)
             cmd = "monacoin-cli listaccounts"
             rut  =  subprocess.check_output( cmd.split(" ") )
             data = rut.decode()
