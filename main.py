@@ -58,7 +58,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    print("" + message.author.name + " said " + message.content + ". userid:" + message.author.id + " on ")
+    print("" + message.author.name + " said " + message.content + ". userid:" + message.author.id + "")
     file = open('/home/raspi0124/alllog.txt', 'a')  #追加書き込みモードでオープン
     allmessage = "" + message.author.name + " said " + message.content + " \n"
     file.writelines(allmessage)
@@ -273,11 +273,12 @@ async def on_message(message):
             cmd = "monacoin-cli listaccounts"
             rut  =  subprocess.check_output( cmd.split(" ") )
             data = rut.decode()
+            print(data[2])
             pattern = r'([+-]?[0-9]+\.?[0-9]*)'
             print(re.findall(pattern,data))
             data = re.findall(pattern,data)
             tosend = random.randrange(1, 50, 3)
-            print(raininfo[tosend])
+            print(data[tosend])
         else:
             m = "currently only available for admin due to some problems.I am working on this,so come back again later!"
             await client.send_message(message.channel, m)
