@@ -289,7 +289,7 @@ async def on_message(message):
                 numbertosend = int(numbertosend)
                 print ("--loop start--")
                 for var in range(0, numbertosend):
-                    tosend = random.randrange(1, 50, 3)
+                    tosend = random.randrange(1, 50, 1)
                     print("--rondomfinish--")
                     tosend = data[tosend]
                     print("--startcommand--")
@@ -300,7 +300,7 @@ async def on_message(message):
                         m = "raining to <@" + tosend + ">.."
                         await client.send_message(message.channel, m)
                     else:
-                        pass
+
 
                 m = "finished rain to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona!"
                 await client.send_message(message.channel, m)
@@ -443,7 +443,7 @@ async def on_message(message):
         \n /withdrawall - あなたの持っているmonaすべてを指定されたアドレスに送金します <Send all of your mona to specifyed address> \
         \n /tip - 指定されたmonaを指定されたユーザーに送ります <Tip specified amount of mona to specified user> \
         \n /withdraw - 指定されたmonaを指定されたアドレスに送ります <Withdraw specified amount of mona to specified address> \
-        \n /rain - 指定された金額のmonaをランダムに配ります。 (Working in progress)\
+        \n /rain - 指定された金額のmonaをランダムに配ります。<Tip specified amount to rondom people. you can chose the number of people to tip> (Currently for admin due to some problem.)\
         \n /admin info - 管理者専用コマンド。管理者がすぐに状況確認できるように作成しました <Admin only command>\
         \n ---使い方 <Usage>---\
         \n /withdrawall <送金先アドレス>\
@@ -452,6 +452,8 @@ async def on_message(message):
         \n /withdraw <amount to withdraw> <address to send> \
         \n /tip <ユーザー> <金額> <任意のコメント> \
         \n /tip <User to send mona> <amoun to tip> <comment (optional>> \
+        \n /rain <人数> <合計金額> \
+        \n /rain <number of people to tip> <total amount to tip> \
         \n Created message at " + currenttime + "```"
         await client.send_message(message.channel, m)
     
