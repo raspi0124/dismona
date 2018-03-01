@@ -288,8 +288,6 @@ async def on_message(message):
                 m = "raining to <@" + tosend + ">.."
                 await client.send_message(message.channel, m)
 
-            cmd = "monacoin-cli move " + message.author.id + " fee " + sum + ""
-            rut  =  subprocess.check_output( cmd.split(" ") )
             m = "finished rain to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona!"
             await client.send_message(message.channel, m)
             print(rut)
