@@ -271,6 +271,7 @@ async def on_message(message):
             m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
             await client.send_message(message.channel, m)
             sum = str(sum)
+            numbertosend = raininfo[0]
             #sum=amount to rain for each person
             cmd = "monacoin-cli listaccounts"
             rut  =  subprocess.check_output( cmd.split(" ") )
@@ -282,7 +283,7 @@ async def on_message(message):
             tosend = random.randrange(1, 50, 3)
             print(data[tosend])
             print ("--loop start--")
-            for var in range(0, raininfo[0]):
+            for var in range(0, numbertosend):
                 tosend = random.randrange(1, 50, 3)
                 print("--rondomfinish--")
                 tosend = data[tosend]
