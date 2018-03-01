@@ -286,7 +286,7 @@ async def on_message(message):
             for var in range(0, sum2):
                 tosend = random.randrange(1, 50, 3)
                 tosend = data[tosend]
-                cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + 
+                cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
                 rut  =  subprocess.check_output( cmd.split(" ") )
                 print(rut)
                 m = "raining to <@" + tosend + ">.."
