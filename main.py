@@ -52,6 +52,7 @@ i = 0
 r = requests.get('https://api.coinmarketcap.com/v1/ticker/monacoin/?convert=JPY')
 for coin in r.json():
     print(coin["price_jpy"])
+    monaprice = coin["price_jpy"]
 @client.event
 async def on_ready():
     print('Logged in as')
@@ -61,7 +62,7 @@ async def on_ready():
     while i < 10:
         await client.change_presence(game=discord.Game(name='/help'))
         time.sleep(10)
-        await client.change_presence(game=discord.Game(name=coin[price_jpy]))
+        await client.change_presence(game=discord.Game(name=monaprice))
 
 
 #message.author.name がユーザー名
