@@ -63,7 +63,7 @@ async def on_ready():
 #message.author.name がユーザー名
 
 @client.event
-async def on_reaction_add(reaction, user)
+async def on_reaction_add(reaction, user):
     print("reaction-add detected")
 async def on_message(message):
     print("" + message.author.name + " said " + message.content + ". userid:" + message.author.id + "")
