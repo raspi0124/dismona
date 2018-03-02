@@ -300,19 +300,11 @@ async def on_message(message):
                         m = "raining to <@" + tosend + ">.."
                         await client.send_message(message.channel, m)
                     else:
-                        cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
-                        rut  =  subprocess.check_output( cmd.split(" ") )
-                        print(rut)
-                        m = "raining to <@" + tosend + ">.."
-                        await client.send_message(message.channel, m)
-                        if tosend >= "1":
-                            pass
-                        else:
-                            pass
+                        pass
 
-                    m = "finished rain to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona!"
-                    await client.send_message(message.channel, m)
-                    print(rut)
+                m = "finished rain to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona!"
+                await client.send_message(message.channel, m)
+                print(rut)
             else:
                 m = "not enough fund.. double check amount to rain."
                 await client.send_message(message.channel, m)
