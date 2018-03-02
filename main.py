@@ -306,7 +306,7 @@ async def on_message(message):
                 print(data[tosend])
                 numbertosend = int(numbertosend)
                 print ("--loop start--")
-                tosend = "0"
+                tosend = "1"
                 while tosend > "1":
                     for var in range(0, numbertosend):
                         tosend = random.randrange(1, 50, 1)
