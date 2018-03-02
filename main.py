@@ -111,6 +111,11 @@ async def on_message(message):
             m = "<@" + message.author.id + ">, successfully created an account for you! Your new address is " + resultmore5 + ", enjoy!\n(message created on " + currenttime + ")"
             print ("---6---")
             await client.send_message(message.channel, m)
+
+    if message.content == "/test":
+        m = "test"
+        await client.send_message(message.channel, m)
+
     if message.content.startswith("/balance"):
         await client.add_reaction(message, '👌')
         # 送り主がBotだった場合反応したくないので
