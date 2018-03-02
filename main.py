@@ -59,13 +59,7 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
-    
-async def status_task():
-    while True:
-        await client.change_presence(game=discord.Game(name='/help'))
-        await asyncio.sleep(10)
-        await client.change_presence(game=discord.Game(name=monaprice))
-        await asyncio.sleep(10)
+    await client.change_presence(game=discord.Game(name='/help'))
 #message.author.name がユーザー名
 
 @client.event
@@ -510,7 +504,6 @@ async def on_message(message):
         \n ----------------------------------------------------------------------------------- \
         ```"
         await client.send_message(message.channel, m)
-    bot.loop.create_task(status_task())
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DVZidQ.1MTSYLrrPL2bNeLMXFVQDPc25Mg")
 
 
