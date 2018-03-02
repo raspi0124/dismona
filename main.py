@@ -307,17 +307,17 @@ async def on_message(message):
                 numbertosend = int(numbertosend)
                 print ("--loop start--")
                 tosend = "0"
-                    while tosend > "1":
-                        for var in range(0, numbertosend):
-                            tosend = random.randrange(1, 50, 1)
-                            print("--rondomfinish--")
-                            tosend = data[tosend]
-                            print("--startcommand--")
-                            cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
-                            rut  =  subprocess.check_output( cmd.split(" ") )
-                            print(rut)
-                            m = "raining to <@" + tosend + ">.."
-                            await client.send_message(message.channel, m)
+                while tosend > "1":
+                    for var in range(0, numbertosend):
+                        tosend = random.randrange(1, 50, 1)
+                        print("--rondomfinish--")
+                        tosend = data[tosend]
+                        print("--startcommand--")
+                        cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
+                        rut  =  subprocess.check_output( cmd.split(" ") )
+                        print(rut)
+                        m = "raining to <@" + tosend + ">.."
+                        await client.send_message(message.channel, m)
                 m = "finished rain to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona!"
                 await client.send_message(message.channel, m)
                 print(rut)
