@@ -311,7 +311,7 @@ async def on_message(message):
                     print("--rondomfinish--")
                     tosend = data[tosend]
                     print("--startcommand--")
-                    while tosend > 1:
+                    while tosend > "1":
                         cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
                         rut  =  subprocess.check_output( cmd.split(" ") )
                         print(rut)
