@@ -4,6 +4,9 @@ import re
 import time
 import math
 import random
+import json 
+import requests 
+
 #import MySQLdb
 client = discord.Client()
 from datetime import datetime
@@ -49,9 +52,15 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
-    await client.change_presence(game=discord.Game(name='/help'))
-    time.sleep(1)
-    await client.change_presence(game=discord.Game(name=''))
+
+    i = 0
+r = requests.get('https://api.coinmarketcap.com/v1/ticker/monacoin/?convert=JPY')
+for coin in r.json():
+    print(coin["price_jpy"])
+    while i < 10:
+        await client.change_presence(game=discord.Game(name='/help'))
+        time.sleep(10)
+        await client.change_presence(game=discord.Game(name=coin[price_jpy]))
 
 
 #message.author.name がユーザー名
