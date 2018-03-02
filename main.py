@@ -65,6 +65,8 @@ async def on_ready():
 async def on_reaction_add(reaction, user):
     print("reaction-add detected")
     print(reaction.message)
+    print(reaction.user)
+    print(emoji)
 
 @client.event
 async def on_message(message):
