@@ -313,13 +313,13 @@ async def on_message(message):
                     print("--startcommand--")
 
                     if tosend <= "1":
+                        tosend = random.randrange(1, 50, 1)
+                        tosend = data[tosend]
                         cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
                         rut  =  subprocess.check_output( cmd.split(" ") )
                         print(rut)
                         m = "raining to <@" + tosend + ">.."
                         await client.send_message(message.channel, m)
-                    else:
-                        pass
 
                 m = "finished rain to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona!"
                 await client.send_message(message.channel, m)
