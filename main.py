@@ -156,6 +156,7 @@ async def on_message(message):
                 address = rut.decode()
                 address2 = address.replace('[', '')
                 address3 = address2.replace(']', '')
+                address3 = address2.replace('\n', '')
                 currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
                 m = "<@" + message.author.id + ">, the following are your deposit addresses:" + address3 + "\n(message created on " + currenttime + ")"
                 await client.send_message(message.channel, m)
@@ -310,15 +311,12 @@ async def on_message(message):
                     print("--rondomfinish--")
                     tosend = data[tosend]
                     print("--startcommand--")
-                    if tosend >= "1":
+                    while tosend > 1:
                         cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
                         rut  =  subprocess.check_output( cmd.split(" ") )
                         print(rut)
                         m = "raining to <@" + tosend + ">.."
                         await client.send_message(message.channel, m)
-                    else:
-                        pass
-
                 m = "finished rain to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona!"
                 await client.send_message(message.channel, m)
                 print(rut)
