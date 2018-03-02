@@ -63,6 +63,8 @@ async def on_ready():
 #message.author.name がユーザー名
 
 @client.event
+async def on_reaction_add(reaction, user)
+    print("reaction-add detected")
 async def on_message(message):
     print("" + message.author.name + " said " + message.content + ". userid:" + message.author.id + "")
     file = open('/home/raspi0124/alllog.txt', 'a')  #追加書き込みモードでオープン
