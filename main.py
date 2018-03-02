@@ -63,8 +63,10 @@ async def on_ready():
 #message.author.name がユーザー名
 @client.event
 async def on_reaction_add(reaction, user):
-    (reaction, user):
-    user
+    print(user)
+    print(message.reactions)
+    print(reaction.message)
+    print(reaction.user)
 
 @client.event
 async def on_message(message):
