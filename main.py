@@ -46,17 +46,18 @@ def sigint_handler(signum, frame):
 #   host='localhost', user='root', passwd='laksjd', db='dismona', charset='utf8')
 #cursor = connection.cursor()
 #cursor.execute("CREATE TABLE IF NOT EXISTS dismona.id (id VARCHAR(20), address VARCHAR(50));")
+
+
+i = 0
+r = requests.get('https://api.coinmarketcap.com/v1/ticker/monacoin/?convert=JPY')
+for coin in r.json():
+    print(coin["price_jpy"])
 @client.event
 async def on_ready():
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
     print('------')
-
-    i = 0
-r = requests.get('https://api.coinmarketcap.com/v1/ticker/monacoin/?convert=JPY')
-for coin in r.json():
-    print(coin["price_jpy"])
     while i < 10:
         await client.change_presence(game=discord.Game(name='/help'))
         time.sleep(10)
