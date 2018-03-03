@@ -61,12 +61,12 @@ async def on_ready():
     print('------')
     await client.change_presence(game=discord.Game(name='/help'))
 #message.author.name がユーザー名
-@client.event
-async def on_reaction_add(reaction, user):
-    print(user)
-    print(message.reactions)
-    print(reaction.message)
-    print(reaction.user)
+#@client.event
+#async def on_reaction_add(reaction, user):
+#    print(user)
+#    print(message.reactions)
+#    print(reaction.message)
+#    print(reaction.user)
 
 @client.event
 async def on_message(message):
