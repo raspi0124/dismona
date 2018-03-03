@@ -298,8 +298,7 @@ async def on_message(message):
                 cmd = "monacoin-cli listaccounts"
                 rut  =  subprocess.check_output( cmd.split(" ") )
                 data = rut.decode()
-                print(data[2])
-                pattern = r'([+-]?[0-9]+\.?[0-9]*)'
+                pattern = r'(?[0-9]+?[0-9]*)'
                 print(re.findall(pattern,data))
                 data = re.findall(pattern,data)
                 tosend = random.randrange(1, 50, 3)
@@ -307,11 +306,11 @@ async def on_message(message):
                 numbertosend = int(numbertosend)
                 print ("--loop start--")
                 for var in range(0, numbertosend):
-                    tosend = random.randrange(1, 50, 1)
+                    tosend = random.randrange(21, 100, 1)
+
                     print("--rondomfinish--")
                     tosend = data[tosend]
                     print("--startcommand--")
-
                     if tosend <= "1":
                         tosend = random.randrange(1, 50, 1)
                         tosend = data[tosend]
@@ -321,41 +320,8 @@ async def on_message(message):
                         if tosend >= "1":
                             m = "raining to <@" + tosend + ">.."
                             await client.send_message(message.channel, m)
-                        else:
-                            pass
-                        if tosend <= "1":
-                            tosend = random.randrange(1, 50, 1)
-                            tosend = data[tosend]
-                            cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
-                            rut  =  subprocess.check_output( cmd.split(" ") )
-                            print(rut)
-                            if tosend >= "1":
-                                m = "raining to <@" + tosend + ">.."
-                                await client.send_message(message.channel, m)
-                            else:
-                                pass
-                            if tosend <= "1":
-                                tosend = random.randrange(1, 50, 1)
-                                tosend = data[tosend]
-                                cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
-                                rut  =  subprocess.check_output( cmd.split(" ") )
-                                print(rut)
-                                if tosend >= "1":
-                                    m = "raining to <@" + tosend + ">.."
-                                    await client.send_message(message.channel, m)
-                                else:
-                                    pass
-                                if tosend <= "1":
-                                    tosend = random.randrange(1, 50, 1)
-                                    tosend = data[tosend]
-                                    cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
-                                    rut  =  subprocess.check_output( cmd.split(" ") )
-                                    print(rut)
-                                    if tosend >= "1":
-                                        m = "raining to <@" + tosend + ">.."
-                                        await client.send_message(message.channel, m)
-                                    else:
-                                        pass
+
+
 
 
 
