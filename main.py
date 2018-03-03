@@ -298,10 +298,9 @@ async def on_message(message):
                 cmd = "monacoin-cli listaccounts"
                 rut  =  subprocess.check_output( cmd.split(" ") )
                 data = rut.decode()
-                pattern = r'(?[0-9]+?[0-9]*)'
+                pattern = r'([+-]?[0-9]+\.?[0-9]*)'
                 print(re.findall(pattern,data))
                 data = re.findall(pattern,data)
-                tosend = random.randrange(1, 50, 3)
                 print(data[tosend])
                 numbertosend = int(numbertosend)
                 print ("--loop start--")
