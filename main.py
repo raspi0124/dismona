@@ -301,7 +301,6 @@ async def on_message(message):
                 pattern = r'([+-]?[0-9]+\.?[0-9]*)'
                 print(re.findall(pattern,data))
                 data = re.findall(pattern,data)
-                print(data[tosend])
                 numbertosend = int(numbertosend)
                 print ("--loop start--")
                 for var in range(0, numbertosend):
