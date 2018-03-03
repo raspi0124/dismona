@@ -305,8 +305,9 @@ async def on_message(message):
                 print ("--loop start--")
                 for var in range(0, numbertosend):
                     tosend = random.randrange(21, 100, 1)
-
+                    print(tosend)
                     print("--rondomfinish--")
+                    
                     tosend = data[tosend]
                     print("--startcommand--")
                     if tosend <= "1":
