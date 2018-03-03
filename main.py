@@ -312,7 +312,6 @@ async def on_message(message):
                     tosend = data[tosend]
                     print("--startcommand--")
                     if tosend <= "1":
-                        tosend = random.randrange(1, 50, 1)
                         tosend = data[tosend]
                         cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
                         rut  =  subprocess.check_output( cmd.split(" ") )
