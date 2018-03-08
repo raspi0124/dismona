@@ -339,9 +339,6 @@ async def on_message(message):
 		else:
 			m = "not enough fund.. double check amount to rain."
 			await client.send_message(message.channel, m)
-	else:
-		m = "currently only available for admin due to some problems.I am working on this,so come back again later!"
-		await client.send_message(message.channel, m)
 	if message.content.startswith("/tip"):
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
