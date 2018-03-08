@@ -24,9 +24,10 @@ cursor.execute('SELECT * FROM rainregistered ORDER BY rainid')
 # 全件取得は cursor.fetchall()
 rainall = cursor.fetchall()
 print(rainall)
-pattern = r'([+-]?[0-9]+\.?[0-9]*)'
+rainall = str(rainall)
+pattern = r'([0-9]+\.?[0-9]*)'
 rainall = re.findall(pattern,rainall)
-
+print(rainall)
 client = discord.Client()
 from datetime import datetime
 print (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
