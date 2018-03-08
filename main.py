@@ -317,8 +317,9 @@ async def on_message(message):
 				sum = str(sum)
 				numbertosend = raininfo[0]
 				numbertosend = int(numbertosend)
+				maxrain = len(rainall)
 				for var in range(0, numbertosend):
-					tosend = random.randrange(1, 1000)
+					tosend = random.randrange(1, maxrain)
 					print(tosend)
 					print("--rondomfinish--")
 					tosend = int(tosend)
