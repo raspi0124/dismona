@@ -325,6 +325,7 @@ async def on_message(message):
 					print("--rondomfinish--")
 					tosend = int(tosend)
 					tosend = rainall[tosend]
+					tosend = str(tosend)
 					print("--startcommand--")
 					cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
 					rut  =  subprocess.check_output( cmd.split(" ") )
