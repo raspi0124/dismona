@@ -157,12 +157,22 @@ async def on_message(message):
 		# エラー処理（例外処理）
 		try:
 		# INSERT
-			cursor.execute("INSERT INTO rainregistered (rainid) VALUES (?)", (username,))
-			m = "Success"
-			await client.send_message(message.channel, m)
+		cmd = "monacoin-cli getbalance " + message.author.id + ""
+		rut  =  subprocess.check_output( cmd.split(" ") )
+		balance = rut.decode()
+			if balance > "0.01":
+				fee = "0.01"
+				cmd = "monacoin-cli move "  + message.author.id + " fee " + fee + ""
+				ruta  =  subprocess.check_output( cmd.split(" ") )
+				print(ruta)
+				cursor.execute("INSERT INTO rainregistered (rainid) VALUES (?)", (username,))
+				m = "Success"
+				await client.send_message(message.channel, m)
+			else:
+				m = "Not enough balance."
 		except sqlite3.Error as e:
 			print('sqlite3.Error occurred:', e.args[0])
-			m = "Error"
+			m = "なんかおかしいね。だけど眠いんだ。起きたら直すね。"
 			await client.send_message(message.channel, m)
 
 		# 保存を実行（忘れると保存されないので注意）
