@@ -167,9 +167,7 @@ async def on_message(message):
 		# エラー処理（例外処理）
 		try:
 		# INSERT
-			sen = "INSERT INTO {table}(rainid) VALUES ({word})"
-			word = (username)
-			c.execute("INSERT INTO rainregistered (rainid) VALUES (?)",
+			cursor.execute("INSERT INTO rainregistered (rainid) VALUES (?)",
 			(username))
 			m = "Success"
 			await client.send_message(message.channel, m)
