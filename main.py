@@ -300,54 +300,48 @@ async def on_message(message):
 		cmda = "monacoin-cli getbalance " + message.author.id + ""
 		ruta  =  subprocess.check_output( cmda.split(" ") )
 		balancea = ruta.decode()
-		if message.author.id == "326091178984603669":
-			await client.add_reaction(message, '👌')
-			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-			message2 = message.content.replace('/rain ', '')
-			pattern = r'([+-]?[0-9]+\.?[0-9]*)'
-			raininfo = re.findall(pattern,message2)
-			print("--numbertorain--")
-			print(raininfo[0])
-			print("--amounttorain--")
-			print(raininfo[1])
-			sum = float(raininfo[1]) / float(raininfo[0])
-			print(sum)
-			sum = str(sum)
-			if balancea >= raininfo[1]:
-				m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
-				await client.send_message(message.channel, m)
-				sum = str(sum)
-				numbertosend = raininfo[0]
-				numbertosend = int(numbertosend)
-				maxrain = len(rainall)
-				print(maxrain)
-				for var in range(0, numbertosend):
-					tosend = random.randrange(maxrain)
-					print(tosend)
-					print("--rondomfinish--")
-					tosend = int(tosend)
-					tosend = rainall[tosend]
-					tosend = str(tosend)
-					print("--startcommand--")
-					cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
-					rut  =  subprocess.check_output( cmd.split(" ") )
-					print(rut)
-					m = "raining to <@" + tosend + ">.."
-					await client.send_message(message.channel, m)
-				m = "finished rain to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona!"
-				await client.send_message(message.channel, m)
-				print(rut)
-			else:
-				m = "not enough fund.. double check amount to rain."
-				await client.send_message(message.channel, m)
-
-
-
-
-
-		else:
-			m = "currently only available for admin due to some problems.I am working on this,so come back again later!"
+		await client.add_reaction(message, '👌')
+		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+		message2 = message.content.replace('/rain ', '')
+		pattern = r'([+-]?[0-9]+\.?[0-9]*)'
+		raininfo = re.findall(pattern,message2)
+		print("--numbertorain--")
+		print(raininfo[0])
+		print("--amounttorain--")
+		print(raininfo[1])
+		sum = float(raininfo[1]) / float(raininfo[0])
+		print(sum)
+		sum = str(sum)
+		if balancea >= raininfo[1]:
+			m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
 			await client.send_message(message.channel, m)
+			sum = str(sum)
+			numbertosend = raininfo[0]
+			numbertosend = int(numbertosend)
+			maxrain = len(rainall)
+			print(maxrain)
+			for var in range(0, numbertosend):
+				tosend = random.randrange(maxrain)
+				print(tosend)
+				print("--rondomfinish--")
+				tosend = int(tosend)
+				tosend = rainall[tosend]
+				tosend = str(tosend)
+				print("--startcommand--")
+				cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
+				rut  =  subprocess.check_output( cmd.split(" ") )
+				print(rut)
+				m = "raining to <@" + tosend + ">.."
+				await client.send_message(message.channel, m)
+			m = "finished rain to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona!"
+			await client.send_message(message.channel, m)
+			print(rut)
+		else:
+			m = "not enough fund.. double check amount to rain."
+			await client.send_message(message.channel, m)
+	else:
+		m = "currently only available for admin due to some problems.I am working on this,so come back again later!"
+		await client.send_message(message.channel, m)
 	if message.content.startswith("/tip"):
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
