@@ -13,29 +13,17 @@ import sqlite3
 
 # データベースファイルのパス
 dbpath = '../dismona.sqlite'
-
-# データベース接続とカーソル生成
 connection = sqlite3.connect(dbpath)
 # 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
 # connection.isolation_level = None
 cursor = connection.cursor()
 
-# エラー処理（例外処理）
-try:
-	# CREATE
-	cursor.execute(
-		"CREATE TABLE IF NOT EXISTS rainregistered (rainid INTEGER PRIMARY KEY)")
-
-	# INSERT
-	cursor.execute("INSERT INTO rainregistered(rainid) VALUES (1)")
-except sqlite3.Error as e:
-	print('sqlite3.Error occurred:', e.args[0])
-
-# 保存を実行（忘れると保存されないので注意）
-connection.commit()
-
-# 接続を閉じる
-connection.close()
+# SELECT
+cursor.execute('SELECT * FROM rainregistered ORDER BY rainid')
+ 
+# 全件取得は cursor.fetchall()
+res = cursor.fetchall()
+print(res)
 
 
 client = discord.Client()
@@ -159,10 +147,6 @@ async def on_message(message):
 		await client.send_message(message.channel, m)
 	if message.content.startswith("/rera"):
 			# データベース接続とカーソル生成
-		connection = sqlite3.connect(dbpath)
-		# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
-		# connection.isolation_level = None
-		cursor = connection.cursor()
 		username = message.author.id
 		# エラー処理（例外処理）
 		try:
