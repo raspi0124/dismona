@@ -24,10 +24,10 @@ cursor = connection.cursor()
 try:
 	# CREATE
 	cursor.execute(
-		"CREATE TABLE IF NOT EXISTS rainregistered (id INTEGER PRIMARY KEY)")
+		"CREATE TABLE IF NOT EXISTS rainregistered (rainid INTEGER PRIMARY KEY)")
 
 	# INSERT
-	cursor.execute("INSERT INTO rainregistered(id) VALUES (1)")
+	cursor.execute("INSERT INTO rainregistered(rainid) VALUES (1)")
 except sqlite3.Error as e:
 	print('sqlite3.Error occurred:', e.args[0])
 
