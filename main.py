@@ -323,7 +323,7 @@ async def on_message(message):
 					tosend = random.randrange(maxrain)
 					print(tosend)
 					print("--rondomfinish--")
-					tosend = str(tosend)
+					tosend = int(tosend)
 					tosend = rainall[tosend]
 					print("--startcommand--")
 					cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
