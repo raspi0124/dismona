@@ -169,7 +169,7 @@ async def on_message(message):
 		# INSERT
 			sen = "INSERT INTO {table}(rainid) VALUES ({word})"
 			word = (username)
-			cursor.execute(sen.format(table="rainregistered"), sen.format(word=username))
+			cursor.execute(sen.format(table="rainregistered")(word=username))
 			m = "Success"
 			await client.send_message(message.channel, m)
 		except sqlite3.Error as e:
