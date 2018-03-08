@@ -167,9 +167,9 @@ async def on_message(message):
 		# エラー処理（例外処理）
 		try:
 		# INSERT
-			sen = "INSERT INTO {table}(rainid) VALUES (%s)"
+			sen = "INSERT INTO {table}(rainid) VALUES ({word})"
 			word = (username)
-			cursor.execute(sen.format(table="rainregistered"), word)
+			cursor.execute(sen.format(table="rainregistered"), sen.format(word="username"))
 			m = "Success"
 			await client.send_message(message.channel, m)
 		except sqlite3.Error as e:
