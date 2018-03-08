@@ -157,7 +157,9 @@ async def on_message(message):
 	if message.content == "/test":
 		m = "test"
 		await client.send_message(message.channel, m)
-	if message.content == "/rainregister"
+	if message.content == "/rainregister":
+		m = "test"
+		await client.send_message(message.channel, m)
 
 	if message.content.startswith("/balance"):
 		await client.add_reaction(message, '👌')
