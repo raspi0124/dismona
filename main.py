@@ -22,8 +22,8 @@ cursor = connection.cursor()
 cursor.execute('SELECT * FROM rainregistered ORDER BY rainid')
  
 # 全件取得は cursor.fetchall()
-res = cursor.fetchall()
-print(res)
+rainall = cursor.fetchall()
+print(rainall)
 
 
 client = discord.Client()
@@ -94,6 +94,9 @@ async def on_message(message):
 	file.writelines(allmessage)
 	# 「/register」で始まるか調べる
 	if message.content.startswith("/register"):
+		cmda = "monacoin-cli walletpassphrase 0124 10"
+		ruta  =  subprocess.check_output( cmda.split(" ") )
+		print(ruta)
 		await client.add_reaction(message, '👌')
 		# 送り主がBotだった場合反応したくないので
 		if client.user != message.author.name:
@@ -146,6 +149,7 @@ async def on_message(message):
 		m = "test"
 		await client.send_message(message.channel, m)
 	if message.content.startswith("/rera"):
+
 			# データベース接続とカーソル生成
 		username = message.author.id
 		# エラー処理（例外処理）
@@ -167,6 +171,9 @@ async def on_message(message):
 
 
 	if message.content.startswith("/balance"):
+		cmda = "monacoin-cli walletpassphrase 0124 10"
+		ruta  =  subprocess.check_output( cmda.split(" ") )
+		print(ruta)
 		await client.add_reaction(message, '👌')
 		# 送り主がBotだった場合反応したくないので
 		if client.user != message.author.name:
@@ -182,6 +189,9 @@ async def on_message(message):
 				print ("---6---")
 				await client.send_message(message.channel, m)
 	if message.content.startswith("/deposit"):
+		cmda = "monacoin-cli walletpassphrase 0124 10"
+		ruta  =  subprocess.check_output( cmda.split(" ") )
+		print(ruta)
 		await client.add_reaction(message, '👌')
 		# 送り主がBotだった場合反応したくないので
 		if client.user != message.author.name:
@@ -199,6 +209,9 @@ async def on_message(message):
 				m = "<@" + message.author.id + ">, the following are your deposit addresses:" + address3 + "\n(message created on " + currenttime + ")"
 				await client.send_message(message.channel, m)
 	if message.content.startswith("/list"):
+		cmda = "monacoin-cli walletpassphrase 0124 10"
+		ruta  =  subprocess.check_output( cmda.split(" ") )
+		print(ruta)
 		await client.add_reaction(message, '👌')
 		# 送り主がBotだった場合反応したくないので
 		if client.user != message.author.name:
@@ -215,6 +228,9 @@ async def on_message(message):
 				m = "<@"+ message.author.id + ">,your address is" + address3 + " \n Created message at " + currenttime + ""
 				await client.send_message(message.channel, m)
 	if message.content.startswith("/withdraw"):
+		cmda = "monacoin-cli walletpassphrase 0124 10"
+		ruta  =  subprocess.check_output( cmda.split(" ") )
+		print(ruta)
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		#getbalance
 		cmda = "monacoin-cli getbalance " + message.author.id + ""
@@ -276,6 +292,9 @@ async def on_message(message):
 			m = "<@" + message.author.id + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
 			await client.send_message(message.channel, m)
 	if message.content.startswith("/rain"):
+		cmda = "monacoin-cli walletpassphrase 0124 10"
+		ruta  =  subprocess.check_output( cmda.split(" ") )
+		print(ruta)
 		cmda = "monacoin-cli getbalance " + message.author.id + ""
 		ruta  =  subprocess.check_output( cmda.split(" ") )
 		balancea = ruta.decode()
@@ -297,30 +316,19 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 				sum = str(sum)
 				numbertosend = raininfo[0]
-				#sum=amount to rain for each person
-				cmd = "monacoin-cli listaccounts"
-				rut  =  subprocess.check_output( cmd.split(" ") )
-				data = rut.decode()
-				pattern = r'([+-]?[0-9]+\.?[0-9]*)'
-				print(re.findall(pattern,data))
-				data = re.findall(pattern,data)
 				numbertosend = int(numbertosend)
-				print ("--loop start--")
 				for var in range(0, numbertosend):
-					tosend = random.randrange(21, 100, 1)
+					tosend = random.randrange(1, 1000)
 					print(tosend)
 					print("--rondomfinish--")
 					tosend = int(tosend)
-					tosend = data[tosend]
+					tosend = rainall[tosend]
 					print("--startcommand--")
-					if tosend <= "1":
-						tosend = data[tosend]
-						cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
-						rut  =  subprocess.check_output( cmd.split(" ") )
-						print(rut)
-						if tosend >= "1":
-							m = "raining to <@" + tosend + ">.."
-							await client.send_message(message.channel, m)
+					cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
+					rut  =  subprocess.check_output( cmd.split(" ") )
+					print(rut)
+					m = "raining to <@" + tosend + ">.."
+					await client.send_message(message.channel, m)
 				m = "finished rain to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona!"
 				await client.send_message(message.channel, m)
 				print(rut)
@@ -328,10 +336,17 @@ async def on_message(message):
 				m = "not enough fund.. double check amount to rain."
 				await client.send_message(message.channel, m)
 
+
+
+
+
 		else:
 			m = "currently only available for admin due to some problems.I am working on this,so come back again later!"
 			await client.send_message(message.channel, m)
 	if message.content.startswith("/tip"):
+		cmda = "monacoin-cli walletpassphrase 0124 10"
+		ruta  =  subprocess.check_output( cmda.split(" ") )
+		print(ruta)
 		await client.add_reaction(message, '👌')
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		message2 = message.content.replace('/tip', '')
@@ -364,6 +379,9 @@ async def on_message(message):
 			m = "<@"+ message.author.id + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + ")"
 			await client.send_message(message.channel, m)
 	if message.content.startswith("/admin info"):
+		cmda = "monacoin-cli walletpassphrase 0124 10"
+		ruta  =  subprocess.check_output( cmda.split(" ") )
+		print(ruta)
 		await client.add_reaction(message, '👌')
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		cmd = "monacoin-cli getinfo"
@@ -399,6 +417,9 @@ async def on_message(message):
 			m = "Haha, you don't have permission to do that! Your request has been logged and reported to the admin! (but the admin probably won't care about it, so don't worry.)"
 			await client.send_message(message.channel, m)
 	if message.content.startswith("/adminc"):
+		cmda = "monacoin-cli walletpassphrase 0124 10"
+		ruta  =  subprocess.check_output( cmda.split(" ") )
+		print(ruta)
 		if message.author.id == "326091178984603669":
 			await client.add_reaction(message, '👌')
 			message2 = message.content.replace('/adminc', '')
@@ -411,6 +432,9 @@ async def on_message(message):
 			m = "sorry, but you are not allowed to do that!"
 			await client.send_message(message.channel, m)
 	if message.content.startswith('/members'):
+		cmda = "monacoin-cli walletpassphrase 0124 10"
+		ruta  =  subprocess.check_output( cmda.split(" ") )
+		print(ruta)
 		await client.add_reaction(message, '👌')
 		for server in client.servers:
 			for member in server.members.id:
@@ -418,6 +442,9 @@ async def on_message(message):
 				list_of_ids = [m.id  for m in server.members]
 				print(list_of_ids)
 	if message.content.startswith('/adminregister'):
+		cmda = "monacoin-cli walletpassphrase 0124 10"
+		ruta  =  subprocess.check_output( cmda.split(" ") )
+		print(ruta)
 		await client.add_reaction(message, '👌')
 		if message.author.id == "326091178984603669":
 			message2 = message.content.replace('/adminregister', '')
@@ -432,6 +459,9 @@ async def on_message(message):
 			m = "sorry, but you are not allowed to do that!"
 			await client.send_message(message.channel, m)
 	if message.content.startswith('/adminbalance'):
+		cmda = "monacoin-cli walletpassphrase 0124 10"
+		ruta  =  subprocess.check_output( cmda.split(" ") )
+		print(ruta)
 		await client.add_reaction(message, '👌')
 		if message.author.id == "326091178984603669":
 			message2 = message.content.replace('/adminbalance', '')
