@@ -157,9 +157,9 @@ async def on_message(message):
 		# エラー処理（例外処理）
 		try:
 		# INSERT
-		cmd = "monacoin-cli getbalance " + message.author.id + ""
-		rut  =  subprocess.check_output( cmd.split(" ") )
-		balance = rut.decode()
+			cmd = "monacoin-cli getbalance " + message.author.id + ""
+			rut  =  subprocess.check_output( cmd.split(" ") )
+			balance = rut.decode()
 			if balance > "0.01":
 				fee = "0.01"
 				cmd = "monacoin-cli move "  + message.author.id + " fee " + fee + ""
