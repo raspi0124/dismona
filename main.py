@@ -157,7 +157,7 @@ async def on_message(message):
 	if message.content == "/test":
 		m = "test"
 		await client.send_message(message.channel, m)
-	if message.content.startswith("/registerrain"):
+	if message.content.startswith("/rera"):
 			# データベース接続とカーソル生成
 		connection = sqlite3.connect(dbpath)
 		# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
@@ -167,7 +167,7 @@ async def on_message(message):
 		# エラー処理（例外処理）
 		try:
 		# INSERT
-			cursor.execute("INSERT INTO rainregistered(rainid) VALUES ( + username + )")
+			cursor.execute("INSERT INTO rainregistered(rainid) VALUES ( + message.author.id + )")
 			m = "Success"
 			await client.send_message(message.channel, m)
 		except sqlite3.Error as e:
