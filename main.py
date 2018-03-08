@@ -27,7 +27,7 @@ try:
 		"CREATE TABLE IF NOT EXISTS rainregistered (id INTEGER PRIMARY KEY)")
 
 	# INSERT
-	cursor.execute("INSERT INTO rainregistered VALUES (test)")
+	cursor.execute("INSERT INTO rainregistered(id) VALUES (1)")
 except sqlite3.Error as e:
 	print('sqlite3.Error occurred:', e.args[0])
 
