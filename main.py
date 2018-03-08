@@ -158,8 +158,25 @@ async def on_message(message):
 		m = "test"
 		await client.send_message(message.channel, m)
 	if message.content == "/rainregister":
-		m = "test"
-		await client.send_message(message.channel, m)
+			# データベース接続とカーソル生成
+		connection = sqlite3.connect(dbpath)
+		# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
+		# connection.isolation_level = None
+		cursor = connection.cursor()
+		username = message.author.id
+		# エラー処理（例外処理）
+		try:
+		# INSERT
+			cursor.execute("INSERT INTO rainregistered(rainid) VALUES ( + username + )")
+		except sqlite3.Error as e:
+			print('sqlite3.Error occurred:', e.args[0])
+
+		# 保存を実行（忘れると保存されないので注意）
+		connection.commit()
+
+		# 接続を閉じる
+		connection.close()
+
 
 	if message.content.startswith("/balance"):
 		await client.add_reaction(message, '👌')
