@@ -178,9 +178,6 @@ async def on_message(message):
 		# 保存を実行（忘れると保存されないので注意）
 		connection.commit()
 
-		# 接続を閉じる
-		connection.close()
-
 
 	if message.content.startswith("/balance"):
 		cmda = "monacoin-cli walletpassphrase 0124 10"
