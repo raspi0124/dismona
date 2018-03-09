@@ -330,30 +330,37 @@ async def on_message(message):
 		rainall = re.findall(pattern,rainall)
 		print(rainall)
 		if balancea >= raininfo[1]:
-			sum = str(sum)
-			m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
-			await client.send_message(message.channel, m)
-			sum = str(sum)
-			numbertosend = raininfo[0]
-			numbertosend = int(numbertosend)
-			maxrain = len(rainall)
-			print(maxrain)
-			for var in range(0, numbertosend):
-				tosend = random.randrange(maxrain)
-				print(tosend)
-				print("--rondomfinish--")
-				tosend = int(tosend)
-				tosend = rainall[tosend]
-				tosend = str(tosend)
-				print("--startcommand--")
-				cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
-				rut  =  subprocess.check_output( cmd.split(" ") )
-				print(rut)
-				m = "raining to <@" + tosend + ">.."
+			if raininfo[1] > "0.1":
+				if sum > "0.001"
+					sum = str(sum)
+					m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
+					await client.send_message(message.channel, m)
+					sum = str(sum)
+					numbertosend = raininfo[0]
+					numbertosend = int(numbertosend)
+					maxrain = len(rainall)
+					print(maxrain)
+					for var in range(0, numbertosend):
+						tosend = random.randrange(maxrain)
+						print(tosend)
+						print("--rondomfinish--")
+						tosend = int(tosend)
+						tosend = rainall[tosend]
+						tosend = str(tosend)
+						print("--startcommand--")
+						cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
+						rut  =  subprocess.check_output( cmd.split(" ") )
+						print(rut)
+						m = "raining to <@" + tosend + ">.."
+						await client.send_message(message.channel, m)
+					m = "finished rain to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona!"
+					await client.send_message(message.channel, m)
+					print(rut)
+				else:
+					m = "負荷軽減のため1人当たりのrainが0.001mona以下になるrainは制限しています。"
+			else:
+				m = "Due to Server load, it is not allowed to make total amount of rain less then 0.1."
 				await client.send_message(message.channel, m)
-			m = "finished rain to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona!"
-			await client.send_message(message.channel, m)
-			print(rut)
 		else:
 			m = "not enough fund.. double check amount to rain."
 			await client.send_message(message.channel, m)
