@@ -330,6 +330,7 @@ async def on_message(message):
 		rainall = re.findall(pattern,rainall)
 		print(rainall)
 		if balancea >= raininfo[1]:
+			sum = str(sum)
 			m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
 			await client.send_message(message.channel, m)
 			sum = str(sum)
