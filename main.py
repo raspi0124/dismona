@@ -540,6 +540,7 @@ async def on_message(message):
 		\n ポテト(クローズドアルファにおけるテスト) \
 		\n MGQ(アドバイス) \
 		\n Discordサーバー 「MGQ club」のみなさん(テスト全般) \
+		\n 人畜無害 (rainコマンドに関する助言) \
 		\n W.S Wsans(W.S 笑サンズ) (Discord.pyについてのアドバイス) \
 		\n ぱい (Discord.pyについてのアドバイス \
 		\n Monageと遊ぶ鯖に参加してくださった皆さん(テスト) \
