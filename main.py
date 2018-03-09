@@ -28,6 +28,7 @@ rainall = str(rainall)
 pattern = r'([0-9]+\.?[0-9]*)'
 rainall = re.findall(pattern,rainall)
 print(rainall)
+
 client = discord.Client()
 from datetime import datetime
 print (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
@@ -151,13 +152,13 @@ async def on_message(message):
 		m = "test"
 		await client.send_message(message.channel, m)
 	if message.content.startswith("/rera"):
-
 			# データベース接続とカーソル生成
 		username = message.author.id
+
 		# エラー処理（例外処理）
 		try:
 		# INSERT
-			cmd = "monacoin-cli getbalance " + message.author.id + ""
+			cmd = "monacoin-cli getbalance " + username1 + ""
 			rut  =  subprocess.check_output( cmd.split(" ") )
 			balance = rut.decode()
 			if balance > "0.01":
@@ -172,7 +173,7 @@ async def on_message(message):
 				m = "Not enough balance."
 		except sqlite3.Error as e:
 			print('sqlite3.Error occurred:', e.args[0])
-			m = "なんかおかしいね。だけど眠いんだ。起きたら直すね。"
+			m = "DB error. DB might removed or you already signed up."
 			await client.send_message(message.channel, m)
 
 		# 保存を実行（忘れると保存されないので注意）
@@ -319,6 +320,15 @@ async def on_message(message):
 		sum = float(raininfo[1]) / float(raininfo[0])
 		print(sum)
 		sum = str(sum)
+		cursor.execute('SELECT * FROM rainregistered ORDER BY rainid')
+ 
+		# 全件取得は cursor.fetchall()
+		rainall = cursor.fetchall()
+		print(rainall)
+		rainall = str(rainall)
+		pattern = r'([0-9]+\.?[0-9]*)'
+		rainall = re.findall(pattern,rainall)
+		print(rainall)
 		if balancea >= raininfo[1]:
 			m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
 			await client.send_message(message.channel, m)
@@ -497,6 +507,7 @@ async def on_message(message):
 		\n /withdraw - 指定されたmonaを指定されたアドレスに送ります <Withdraw specified amount of mona to specified address> \
 		\n /rain - 指定された金額のmonaをランダムに配ります。<Tip specified amount to rondom people. you can chose the number of people to tip> (Currently for admin due to some problem.)\
 		\n /admin info - 管理者専用コマンド。管理者がすぐに状況確認できるように作成しました <Admin only command>\
+		\n /rera - rain受け取りに参加します。手数料は0.01monaです。 <Sign up to be a rain-reciever. fee is 0.01 mona currently, and might go up.>\
 		\n ---使い方 <Usage>---\
 		\n /withdrawall <送金先アドレス>\
 		\n /withdrawall <address to send> \
