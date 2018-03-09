@@ -162,7 +162,6 @@ async def on_message(message):
 			balance = rut.decode()
 			if balance > "0.01":
 				fee = "0.01"
-				print(ruta)
 				cursor.execute("INSERT INTO rainregistered (rainid) VALUES (?)", (username,))
 				cmd = "monacoin-cli move "  + message.author.id + " fee " + fee + ""
 				ruta  =  subprocess.check_output( cmd.split(" ") )
