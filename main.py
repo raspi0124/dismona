@@ -12,7 +12,7 @@ import decimal
 # sqlite3 標準モジュールをインポート
 import sqlite3
 
-def round_down3(value):
+def round_down5(value):
     value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
     return str(value)
 
