@@ -175,7 +175,7 @@ async def on_message(message):
 				m = "Success"
 				await client.send_message(message.channel, m)
 			else:
-				m = "Not enough balance."
+				m = "Not enough balance to take fee. Please note that fee of 0.01mona will be charged for registering rain.(only once.)"
 				await client.send_message(message.channel, m)
 		except sqlite3.Error as e:
 			print('sqlite3.Error occurred:', e.args[0])
