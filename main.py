@@ -332,7 +332,7 @@ async def on_message(message):
 		print(rainall)
 		if balancea >= raininfo[1]:
 			if raininfo[1] > "0.1":
-				if sum > "0.001"
+				if sum > "0.001":
 					sum = str(sum)
 					m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
 					await client.send_message(message.channel, m)
