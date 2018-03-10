@@ -7,7 +7,7 @@ import random
 import json
 import requests
 import decimal
-
+from decimal import (Decimal, ROUND_DOWN)
 # Python 3.5.2 にて動作を確認
 # sqlite3 標準モジュールをインポート
 import sqlite3
