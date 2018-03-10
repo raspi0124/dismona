@@ -6,10 +6,15 @@ import math
 import random
 import json
 import requests
+import decimal
 
 # Python 3.5.2 にて動作を確認
 # sqlite3 標準モジュールをインポート
 import sqlite3
+
+def round_down3(value):
+    value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
+    return str(value)
 
 # データベースファイルのパス
 dbpath = '../dismona.sqlite'
@@ -321,6 +326,7 @@ async def on_message(message):
 		sum = float(raininfo[1]) / float(raininfo[0])
 		print(sum)
 		sum = str(sum)
+		sum = round_down5(sum)
 		cursor.execute('SELECT * FROM rainregistered ORDER BY rainid')
 
 		# 全件取得は cursor.fetchall()
