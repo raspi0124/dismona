@@ -327,6 +327,7 @@ async def on_message(message):
 		print(sum)
 		sum = int(sum)
 		sum = round_down5(sum)
+		print(sum)
 		cursor.execute('SELECT * FROM rainregistered ORDER BY rainid')
 
 		# 全件取得は cursor.fetchall()
