@@ -4,8 +4,8 @@ import re
 import time
 import math
 import random
-import json 
-import requests 
+import json
+import requests
 
 # Python 3.5.2 にて動作を確認
 # sqlite3 標準モジュールをインポート
@@ -20,7 +20,7 @@ cursor = connection.cursor()
 
 # SELECT
 cursor.execute('SELECT * FROM rainregistered ORDER BY rainid')
- 
+
 # 全件取得は cursor.fetchall()
 rainall = cursor.fetchall()
 print(rainall)
@@ -171,6 +171,7 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 			else:
 				m = "Not enough balance."
+                await client.send_message(message.channel, m)
 		except sqlite3.Error as e:
 			print('sqlite3.Error occurred:', e.args[0])
 			m = "DB error. DB might removed or you already signed up."
@@ -321,7 +322,7 @@ async def on_message(message):
 		print(sum)
 		sum = str(sum)
 		cursor.execute('SELECT * FROM rainregistered ORDER BY rainid')
- 
+
 		# 全件取得は cursor.fetchall()
 		rainall = cursor.fetchall()
 		print(rainall)
@@ -391,7 +392,7 @@ async def on_message(message):
 					await client.send_message(message.channel, m)
 				except subprocess.CalledProcessError as e:
 					eout = e.output.decode()
-					m = "<@" + message.author.id + ">, sorry, failed to complete your request: <@" + tipto + "> is not yet registered.\n(message created on " + currenttime + ")" 
+					m = "<@" + message.author.id + ">, sorry, failed to complete your request: <@" + tipto + "> is not yet registered.\n(message created on " + currenttime + ")"
 					await client.send_message(message.channel, m)
 			else:
 				m = "<@" + message.author.id + ">, sorry, failed to complete your request: your tip must meet the minimum of 10 watanabe (0.00000010 Mona).\n(message created on " + currenttime + ")"
@@ -527,10 +528,10 @@ async def on_message(message):
 		\n /rain <number of people to tip> <total amount to tip> \
 		\n Created message at " + currenttime + "```"
 		await client.send_message(message.channel, m)
-	
+
 	if message.content.startswith("/hello"):
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-		m = "こんにちは! <@" + message.author.id + "> さん！" 
+		m = "こんにちは! <@" + message.author.id + "> さん！"
 		await client.send_message(message.channel, m)
 		await client.add_reaction(message, '👌')
 
