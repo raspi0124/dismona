@@ -167,11 +167,11 @@ async def on_message(message):
 				cmd = "monacoin-cli move "  + message.author.id + " fee " + fee + ""
 				ruta  =  subprocess.check_output( cmd.split(" ") )
 				print(ruta)
-				m = "Success"
-				await client.send_message(message.channel, m)
+                m = "Success"
+                await client.send_message(message.channel, m)
 			else:
 				m = "Not enough balance."
-				await client.send_message(message.channel, m)
+                await client.send_message(message.channel, m)
 		except sqlite3.Error as e:
 			print('sqlite3.Error occurred:', e.args[0])
 			m = "DB error. DB might removed or you already signed up."
