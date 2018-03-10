@@ -331,7 +331,7 @@ async def on_message(message):
 		rainall = re.findall(pattern,rainall)
 		print(rainall)
 		if balancea >= raininfo[1]:
-			if raininfo[1] > "0.1":
+			if raininfo[1] > "0.01":
 				if sum > "0.001":
 					sum = str(sum)
 					m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
@@ -360,7 +360,7 @@ async def on_message(message):
 				else:
 					m = "負荷軽減のため1人当たりのrainが0.001mona以下になるrainは制限しています。"
 			else:
-				m = "Due to Server load, it is not allowed to make total amount of rain less then 0.1."
+				m = "Due to Server load, it is not allowed to make total amount of rain less then 0.01."
 				await client.send_message(message.channel, m)
 		else:
 			m = "not enough fund.. double check amount to rain."
