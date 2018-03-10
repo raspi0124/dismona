@@ -15,7 +15,7 @@ import sqlite3
 def round_down5(value):
     value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
     return value
-
+print(round_down5(188888.8888888))
 # データベースファイルのパス
 dbpath = '../dismona.sqlite'
 connection = sqlite3.connect(dbpath)
