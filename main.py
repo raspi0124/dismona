@@ -325,7 +325,7 @@ async def on_message(message):
 		print(raininfo[1])
 		sum = float(raininfo[1]) / float(raininfo[0])
 		print(sum)
-		sum = round(sum,2)
+		sum = round(sum,6)
 		print(sum)
 		sum = str(sum)
 		cursor.execute('SELECT * FROM rainregistered ORDER BY rainid')
