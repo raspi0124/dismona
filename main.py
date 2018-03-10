@@ -325,8 +325,9 @@ async def on_message(message):
 		print(raininfo[1])
 		sum = float(raininfo[1]) / float(raininfo[0])
 		print(sum)
-		sum = round_down5(sum)
+		sum = round(sum,4)
 		print(sum)
+		sum = str(sum)
 		cursor.execute('SELECT * FROM rainregistered ORDER BY rainid')
 
 		# 全件取得は cursor.fetchall()
@@ -339,7 +340,6 @@ async def on_message(message):
 		if balancea >= raininfo[1]:
 			if raininfo[1] > "0.01":
 				if sum > "0.001":
-					sum = str(sum)
 					m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
 					await client.send_message(message.channel, m)
 					sum = str(sum)
