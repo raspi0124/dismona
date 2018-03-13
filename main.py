@@ -389,7 +389,7 @@ async def on_message(message):
 		balance = rut.decode()
 		tipto = tipinfo[0]
 		tipamount = tipinfo[1]
-		tipamount = int(tipamount)
+		tipamount = float(tipamount)
 		tipamount = Decimal(tipamount)
 		tipamount = round(tipamount,8)
 		if tipamount <= balance:
