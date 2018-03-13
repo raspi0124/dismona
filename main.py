@@ -392,6 +392,7 @@ async def on_message(message):
 		tipamount = float(tipamount)
 		tipamount = Decimal(tipamount)
 		tipamount = round(tipamount,8)
+		tipamount = str(tipamount)
 		if tipamount <= balance:
 			if tipamount >= "0.0000001":
 				try:
