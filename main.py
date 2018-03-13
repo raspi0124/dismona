@@ -389,6 +389,7 @@ async def on_message(message):
 		balance = rut.decode()
 		tipto = tipinfo[0]
 		tipamount = tipinfo[1]
+		tipamount = round(tipamount,7)
 		if tipamount <= balance:
 			if tipamount >= "0.0000001":
 				try:
