@@ -402,6 +402,7 @@ async def on_message(message):
 			if tipamount >= minimumtip:
 				try:
 					tipamount = float(tipamount) / float(num2)
+					tipamount = str(tipamount)
 					cmd2 = "monacoin-cli move " + message.author.id + " " + tipto + " " + tipamount + ""
 					rut2  =  subprocess.check_output( cmd2.split(" ") )
 					m = "<@" + message.author.id + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ")"
