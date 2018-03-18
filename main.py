@@ -387,13 +387,15 @@ async def on_message(message):
 		balance = rut.decode()
 		num2 = 100000000
 		balance = float(balance) * float(num2)
+		print ("balance")
 		print(balance)
 		tipto = tipinfo[0]
 		tipamount = tipinfo[1]
+		print("tipamount")
 		print(tipamount)
 		tipamount = float(tipamount) * float(num2)
+		print("multiplyed tipamount")
 		print(tipamount)
-		tipamount = str(tipamount)
 		if tipamount <= balance:
 			if tipamount >= "1":
 				try:
