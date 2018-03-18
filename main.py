@@ -385,15 +385,19 @@ async def on_message(message):
 		cmd = "monacoin-cli getbalance " + message.author.id + ""
 		rut  =  subprocess.check_output( cmd.split(" ") )
 		balance = rut.decode()
+		num2 = 100000000
+		balance = float(balance) * float(num2)
+		print(balance)
 		tipto = tipinfo[0]
 		tipamount = tipinfo[1]
-		tipamount = float(tipamount)
-		tipamount = round(tipamount,7)
+		print(tipamount)
+		tipamount = float(tipamount) * float(num2)
 		print(tipamount)
 		tipamount = str(tipamount)
 		if tipamount <= balance:
-			if tipamount >= "0.0000001":
+			if tipamount >= "1":
 				try:
+					tipamount = float(tipamount) / float(num2)
 					cmd2 = "monacoin-cli move " + message.author.id + " " + tipto + " " + tipamount + ""
 					rut2  =  subprocess.check_output( cmd2.split(" ") )
 					m = "<@" + message.author.id + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ")"
