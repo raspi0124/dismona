@@ -396,8 +396,10 @@ async def on_message(message):
 		tipamount = float(tipamount) * float(num2)
 		print("multiplyed tipamount")
 		print(tipamount)
+		minimumtip = "1"
+		minimumtip = float(minimumtip)
 		if tipamount <= balance:
-			if tipamount >= "1":
+			if tipamount >= minimumtip:
 				try:
 					tipamount = float(tipamount) / float(num2)
 					cmd2 = "monacoin-cli move " + message.author.id + " " + tipto + " " + tipamount + ""
