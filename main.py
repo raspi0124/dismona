@@ -387,6 +387,7 @@ async def on_message(message):
 		balance = rut.decode()
 		tipto = tipinfo[0]
 		tipamount = tipinfo[1]
+		tipamount = int(tipamount)
 		tipamount = round(tipamount,7)
 		print(tipamount)
 		tipamount = str(tipamount)
