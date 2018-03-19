@@ -96,7 +96,7 @@ async def on_ready():
 @client.event
 async def on_reaction_add():
 	print("reaction has been added")
-	if reaction.content = "👌":
+	if reaction.content == "👌":
 		m = "Reaction detected!"
 		await client.send_message(message.channel, m)
 
