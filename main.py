@@ -94,7 +94,7 @@ async def on_ready():
 #    print(reaction.message)
 #    print(reaction.user)
 @client.event
-async def on_reaction_add():
+async def on_reaction_add(reaction,user):
 	print("reaction has been added")
 	if reaction.content == "👌":
 		m = "Reaction detected!"
