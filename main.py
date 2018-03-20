@@ -355,7 +355,7 @@ async def on_message(message):
 					numbertosend = int(numbertosend)
 					maxrain = len(rainall)
 					print(maxrain)
-					m = "Rain started by <@" + message.author.id + ">"
+					m = "Rain started by <@" + message.author.id + "> at #" + message.channel.name + ""
 					await client.send_message(rainnotify, m)
 					for var in range(0, numbertosend):
 						tosend = random.randrange(maxrain)
