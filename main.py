@@ -107,6 +107,7 @@ async def on_message(message):
 	allmessage = "" + message.author.name + " said " + message.content + " \n"
 	file.writelines(allmessage)
 	rainnotify = "425766935825743882"
+	rainnotify = self.get_channel(425766935825743882)
 	# 「/register」で始まるか調べる
 	if message.content.startswith("/register"):
 		cmda = "monacoin-cli walletpassphrase 0124 10"
