@@ -98,7 +98,7 @@ async def on_reaction_add(reaction,user):
 	print("reaction has been added")
 	if reaction == "👌":
 		m = "Reaction detected!"
-		await client.send_message(reaction.message.channel, m)
+		await client.send_message(aa, m)
 
 @client.event
 async def on_message(message):
@@ -106,6 +106,7 @@ async def on_message(message):
 	file = open('/home/raspi0124/alllog.txt', 'a')  #追加書き込みモードでオープン
 	allmessage = "" + message.author.name + " said " + message.content + " \n"
 	file.writelines(allmessage)
+	rainnotify = "425766935825743882"
 	# 「/register」で始まるか調べる
 	if message.content.startswith("/register"):
 		cmda = "monacoin-cli walletpassphrase 0124 10"
@@ -364,6 +365,8 @@ async def on_message(message):
 						cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
 						rut  =  subprocess.check_output( cmd.split(" ") )
 						print(rut)
+						m = "Raining" + sum + "mona to <@" + tosend + ">.."
+						await client.send_message(rainnotify, m)
 					m = "finished raining " + sum + "mona to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona!"
 					await client.send_message(message.channel, m)
 					print(rut)
