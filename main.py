@@ -355,6 +355,8 @@ async def on_message(message):
 					numbertosend = int(numbertosend)
 					maxrain = len(rainall)
 					print(maxrain)
+					m = "Rain started by <@" + message.author.id + ">"
+					await client.send_message(rainnotify, m)
 					for var in range(0, numbertosend):
 						tosend = random.randrange(maxrain)
 						print(tosend)
@@ -368,8 +370,10 @@ async def on_message(message):
 						print(rut)
 						m = "Raining" + sum + "mona to <@" + tosend + ">.."
 						await client.send_message(rainnotify, m)
-					m = "finished raining " + sum + "mona to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona!"
+					m = "finished raining " + sum + "mona to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona! Rained by <@" + message.author.id + ">"
 					await client.send_message(message.channel, m)
+					m = "finished raining " + sum + "mona to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona! Rained by <@" + message.author.id + ">"
+					await client.send_message(rainnotify, m)
 					print(rut)
 				else:
 					m = "負荷軽減のため1人当たりのrainが0.001mona以下になるrainは制限しています。"
