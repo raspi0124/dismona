@@ -96,14 +96,6 @@ async def on_ready():
 #    print(message.reactions)
 #    print(reaction.message)
 #    print(reaction.user)
-def omikuzirm():
-	cursor.execute("drop table gived")
-	connection.commit()
-	cursor.execute("create table gived(id)")
-	connection.commit()
-
-
-schedule.every().day.at("16:00").do(omikuzirm)
 
 while 1:
 	schedule.run_pending()
@@ -650,6 +642,14 @@ async def on_message(message):
 		```"
 		await client.send_message(message.channel, m)
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DVZidQ.1MTSYLrrPL2bNeLMXFVQDPc25Mg")
+def omikuzirm():
+	cursor.execute("drop table gived")
+	connection.commit()
+	cursor.execute("create table gived(id)")
+	connection.commit()
+
+
+schedule.every().day.at("16:00").do(omikuzirm)
 
 
 # https://qiita.com/PinappleHunter/items/af4ccdbb04727437477f
