@@ -590,6 +590,7 @@ async def on_message(message):
 			print("resultp")
 			print(resultp)
 			resultp = str(resultp)
+			result = str(result)
 			m = "貴方の今日の運勢は" + resultp + "です!\n0.0000" + result + "Mona送りますね！"
 			await client.send_message(message.channel, m)
 			cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
