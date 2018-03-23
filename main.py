@@ -570,6 +570,7 @@ async def on_message(message):
 		cursor.execute('SELECT * FROM gived')
 		# 全件取得は cursor.fetchall()
 		gived = cursor.fetchall()
+		print("gived")
 		print(gived)
 		gived = str(gived)
 		await client.add_reaction(message, '👌')
@@ -580,9 +581,11 @@ async def on_message(message):
 				return result
 			kuji = ["大吉", "中吉", "末吉", "凶"]
 			result = omikuji()
+			print("result")
 			print(result)
 			result = int(result)
 			resultp = kuji[result]
+			print("resultp")
 			print(resultp)
 			resultp = str(resultp)
 			m = "貴方の今日の運勢は%sです!\n0.0000" + result + "Mona送りますね！" % resultp
