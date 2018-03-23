@@ -567,6 +567,11 @@ async def on_message(message):
 		await client.add_reaction(message, '👌')
 	if message.content.startswith("/omikuzi"):
 		username = message.author.id
+		cursor.execute('SELECT * FROM gived')
+		# 全件取得は cursor.fetchall()
+		gived = cursor.fetchall()
+		print(gived)
+		gived = str(gived)
 		await client.add_reaction(message, '👌')
 		if username not in gived:
 			def omikuji():
