@@ -638,6 +638,7 @@ async def on_message(message):
 		await client.send_message(message.channel, m)
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DVZidQ.1MTSYLrrPL2bNeLMXFVQDPc25Mg")
 def omikuzirm():
+	print("omikuzirm")
 	cursor.execute("drop table gived")
 	connection.commit()
 	cursor.execute("create table gived(id)")
