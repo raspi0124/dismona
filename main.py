@@ -8,7 +8,7 @@ import json
 import requests
 import decimal
 from decimal import (Decimal, ROUND_DOWN)
-import schedule
+#import schedule
 
 # Python 3.5.2 にて動作を確認
 # sqlite3 標準モジュールをインポート
@@ -642,14 +642,6 @@ async def on_message(message):
 		```"
 		await client.send_message(message.channel, m)
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DVZidQ.1MTSYLrrPL2bNeLMXFVQDPc25Mg")
-def omikuzirm():
-	cursor.execute("drop table gived")
-	connection.commit()
-	cursor.execute("create table gived(id)")
-	connection.commit()
-
-
-#schedule.every().day.at("16:00").do(omikuzirm)
 
 
 # https://qiita.com/PinappleHunter/items/af4ccdbb04727437477f
