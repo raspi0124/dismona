@@ -581,6 +581,7 @@ async def on_message(message):
 			kuji = ["大吉", "中吉", "末吉", "凶"]
 			result = omikuji()
 			print(result)
+			result = int(result)
 			resultp = kuji[result]
 			print(resultp)
 			resultp = str(resultp)
