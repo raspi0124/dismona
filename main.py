@@ -597,6 +597,8 @@ async def on_message(message):
 			m = "/tip <@" + username + "> 0.000" + result + " おみくじtipです！次挑戦できるのは次のヨーロッパ標準時0時以降です！"
 			await client.send_message(message.channel, m)
 			connection.commit()
+		else:
+			m = "すでに今日におみくじをされているようです。。明日戻ってきてね！"
 
 
 
