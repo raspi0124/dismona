@@ -16,8 +16,8 @@ import sqlite3
 
 
 def round_down5(value):
-    value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
-    return value
+	value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
+	return value
 print(round_down5(188888.8888888))
 # データベースファイルのパス
 dbpath = '../dismona.sqlite'
@@ -97,7 +97,7 @@ async def on_ready():
 #    print(reaction.message)
 #    print(reaction.user)
 def omikuzirm():
-    cursor.execute("drop table gived")
+	cursor.execute("drop table gived")
 	connection.commit()
 	cursor.execute("create table gived(id)")
 	connection.commit()
@@ -106,8 +106,8 @@ def omikuzirm():
 schedule.every().day.at("16:00").do(omikuzirm)
 
 while 1:
-    schedule.run_pending()
-    time.sleep(1)
+	schedule.run_pending()
+	time.sleep(1)
 
 @client.event
 async def on_reaction_add(reaction,user):
