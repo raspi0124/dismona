@@ -644,8 +644,8 @@ def omikuzirm():
 	connection.commit()
 
 
-schedule.every().day.at("00:25").do(omikuzirm)
-
+schedule.every().day.at("00:30").do(omikuzirm)
+schedule.run_pending()
 
 # https://qiita.com/PinappleHunter/items/af4ccdbb04727437477f
 # https://qiita.com/komeiy/items/d6b5f25bf1778fa10e21
