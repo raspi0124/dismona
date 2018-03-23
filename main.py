@@ -580,7 +580,9 @@ async def on_message(message):
 				return result
 			kuji = ["大吉", "中吉", "末吉", "凶"]
 			result = omikuji()
+			print(result)
 			resultp = kuji[result]
+			print(resultp)
 			resultp = str(resultp)
 			m = "貴方の今日の運勢は%sです!\n0.0000" + result + "Mona送りますね！" % resultp
 			await client.send_message(message.channel, m)
