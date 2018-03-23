@@ -576,7 +576,9 @@ async def on_message(message):
 		if username not in gived:
 			def omikuji():
 				kuji = ["1","2","3","4"]
-				return random.choice(kuji)
+				result = random.choice(kuji)
+				kujire = str(result)
+				return kujire
 			kuji = ["大吉", "中吉", "末吉", "凶"]
 			result = omikuji()
 			resultp = kuji[result]
