@@ -649,7 +649,7 @@ def omikuzirm():
 	connection.commit()
 
 
-schedule.every().day.at("16:00").do(omikuzirm)
+#schedule.every().day.at("16:00").do(omikuzirm)
 
 
 # https://qiita.com/PinappleHunter/items/af4ccdbb04727437477f
