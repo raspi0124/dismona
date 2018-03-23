@@ -565,6 +565,24 @@ async def on_message(message):
 		m = "こんにちは! <@" + message.author.id + "> さん！"
 		await client.send_message(message.channel, m)
 		await client.add_reaction(message, '👌')
+	if message.content.startswith("/omikuzi"):
+		username = message.author.id
+		await client.add_reaction(message, '👌')
+		if username not in gived:
+			def omikuji():
+				kuji = ["1","2","3","4"]
+				return random.choice(kuji)
+			kuji = ["大吉", "中吉", "末吉", "凶"]
+			result = omikuji()
+			resultp = kuji[result]
+			m = "貴方の今日の運勢は%sです!\n0.0000" + result + "Mona送りますね！" % resultp
+			await client.send_message(message.channel, m)
+			cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
+			m = "/tip <@" + username + "> 0.0000" + result + " おみくじtipです！次挑戦できるのは次のヨーロッパ標準時0時以降です！"
+			await client.send_message(message.channel, m)
+			connection.commit()
+
+
 
 	if message.content.startswith("/credit"):
 		await client.add_reaction(message, '👌')
