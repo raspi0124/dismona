@@ -577,11 +577,11 @@ async def on_message(message):
 			def omikuji():
 				kuji = ["1","2","3","4"]
 				result = random.choice(kuji)
-				kujire = str(result)
 				return kujire
 			kuji = ["大吉", "中吉", "末吉", "凶"]
 			result = omikuji()
 			resultp = kuji[result]
+			resultp = str(resultp)
 			m = "貴方の今日の運勢は%sです!\n0.0000" + result + "Mona送りますね！" % resultp
 			await client.send_message(message.channel, m)
 			cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
