@@ -85,12 +85,7 @@ for coin in r.json():
 	monaprice = coin["price_jpy"]
 
 
-m = input('message :')
-channel = input("channel id: ")
-channel = str(channel)
-m = str(m)
-channel = client.get_channel(channel)
-await client.send_message(channel, m)
+
 @client.event
 async def on_ready():
 	print('Logged in as')
@@ -98,6 +93,15 @@ async def on_ready():
 	print(client.user.id)
 	print('------')
 	await client.change_presence(game=discord.Game(name='/help'))
+	m = input('message :')
+	channel = input("channel id: ")
+	channel = str(channel)
+	m = str(m)
+	channel = client.get_channel(channel)
+	await client.send_message(channel, m)
+
+
+
 
 @client.event
 
