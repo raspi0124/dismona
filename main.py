@@ -99,6 +99,7 @@ async def on_ready():
 @client.event
 async def on_reaction_add(reaction,user):
 	print("reaction has been added")
+	reaction = str(reaction)
 	print(reaction)
 
 @client.event
