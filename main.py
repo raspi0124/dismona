@@ -96,12 +96,12 @@ async def on_ready():
 #    print(message.reactions)
 #    print(reaction.message)
 #    print(reaction.user)
-
 @client.event
 with open('../image.jpg', 'rb') as f:
 	server = input('server id: ')
 	emoji = await client.create_custom_emoji(server, name="test", image=f)
 
+@client.event
 
 async def on_reaction_add(reaction,user):
 	print("reaction has been added")
