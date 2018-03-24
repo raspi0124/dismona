@@ -104,6 +104,8 @@ async def on_reaction_add(reaction,user):
 	print(reaction.message)
 	print("emoji")
 	print(reaction.emoji)
+	print("emoji-id")
+	print(reaction.emoji.id)
 	print("reaction-channel1")
 	print(reaction.message.channel)
 	print("reaction-channel-id")
