@@ -79,6 +79,14 @@ r = requests.get('https://api.coinmarketcap.com/v1/ticker/monacoin/?convert=JPY'
 for coin in r.json():
 	print(coin["price_jpy"])
 	monaprice = coin["price_jpy"]
+
+
+m = input('message :')
+channel = input("channel id: ")
+channel = str(channel)
+m = str(m)
+channel = client.get_channel(channel)
+await client.send_message(channel, m)
 @client.event
 async def on_ready():
 	print('Logged in as')
@@ -112,12 +120,6 @@ async def on_message(message):
 	file.writelines(allmessage)
 	rainnotify = "425766935825743882"
 	rainnotify = client.get_channel('425766935825743882')
-	m = input('message :')
-	channel = input("channel id: ")
-	channel = str(channel)
-	m = str(m)
-	channel = client.get_channel(channel)
-	await client.send_message(channel, m)
 	# 「/register」で始まるか調べる
 	if message.content.startswith("/register"):
 		cmda = "monacoin-cli walletpassphrase 0124 10"
