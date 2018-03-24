@@ -579,7 +579,7 @@ async def on_message(message):
 		await client.add_reaction(message, '👌')
 		if username not in gived:
 			def omikuji():
-				kuji = ["1","2","3","4"]
+				kuji = ["0","1","2","3"]
 				result = random.choice(kuji)
 				return result
 			kuji = ["大吉", "中吉", "末吉", "凶"]
@@ -593,6 +593,7 @@ async def on_message(message):
 			print("resultp")
 			print(resultp)
 			resultp = str(resultp)
+			result = float(result) + float("1")
 			result = str(result)
 			m = "貴方の今日の運勢は" + resultp + "です!\n0.000" + result + "Mona送りますね！"
 			await client.send_message(message.channel, m)
