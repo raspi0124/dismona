@@ -114,6 +114,7 @@ async def on_message(message):
 	rainnotify = client.get_channel('425766935825743882')
 	m = input('message :')
 	channel = input("channel id: ")
+	channel = str(channel)
 	channel = client.get_channel(channel)
 	await client.send_message(channel, m)
 	# 「/register」で始まるか調べる
