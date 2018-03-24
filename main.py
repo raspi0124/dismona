@@ -104,7 +104,10 @@ async def on_reaction_add(reaction,user):
 	print(reaction.message)
 	print("emoji")
 	print(reaction.emoji)
-
+	print("reaction-channel1")
+	print(reaction.message.channel)
+	print("reaction-channel2")
+	print(reaction.cahnnel)
 @client.event
 async def on_message(message):
 	print("" + message.author.name + " said " + message.content + ". userid:" + message.author.id + "")
