@@ -96,7 +96,12 @@ async def on_ready():
 #    print(message.reactions)
 #    print(reaction.message)
 #    print(reaction.user)
+
 @client.event
+with open("../test.png", "rb") as image:
+	emoji = await client.create_custom_emoji(server, name="test", image=image)
+
+
 async def on_reaction_add(reaction,user):
 	print("reaction has been added")
 	print(reaction)
@@ -592,10 +597,10 @@ async def on_message(message):
 		await client.add_reaction(message, '👌')
 		if username not in gived:
 			def omikuji():
-				kuji = ["0","1","2","3"]
+				kuji = ["0","1","2","3","0","1","2","8"]
 				result = random.choice(kuji)
 				return result
-			kuji = ["凶", "小吉", "中吉", "大吉"]
+			kuji = ["凶", "小吉", "中吉", "大吉","凶", "小吉", "中吉", "超大吉"]
 			result = omikuji()
 			print("result")
 			print(result)
@@ -609,7 +614,7 @@ async def on_message(message):
 			result = float(result) + float("1")
 			result = int(result)
 			result = str(result)
-			m = "貴方の今日の運勢は" + resultp + "です!\n0.000" + result + "Mona送りますね！"
+			m = "貴方の今日の運勢は" + resultp + "です!\n0.00" + result + "Mona送りますね！"
 			await client.send_message(message.channel, m)
 			cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
 			m = "/tip <@" + username + "> 0.000" + result + " おみくじtipです！次挑戦できるのは日本時間で明日です！"
