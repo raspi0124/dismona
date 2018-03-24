@@ -640,16 +640,6 @@ async def on_message(message):
 		```"
 		await client.send_message(message.channel, m)
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DVZidQ.1MTSYLrrPL2bNeLMXFVQDPc25Mg")
-def omikuzirm():
-	print("omikuzirm")
-	cursor.execute("drop table gived")
-	connection.commit()
-	cursor.execute("create table gived(id)")
-	connection.commit()
-
-
-schedule.every().day.at("00:30").do(omikuzirm)
-schedule.run_pending()
 
 # https://qiita.com/PinappleHunter/items/af4ccdbb04727437477f
 # https://qiita.com/komeiy/items/d6b5f25bf1778fa10e21
