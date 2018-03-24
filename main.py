@@ -11,8 +11,6 @@ from decimal import (Decimal, ROUND_DOWN)
 import keyboard
 if keyboard.is_pressed('q'):#if key 'q' is pressed
 	print('You Pressed A Key!')
-	break#finishing the loop
-
 # Python 3.5.2 にて動作を確認
 # sqlite3 標準モジュールをインポート
 import sqlite3
