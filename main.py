@@ -536,7 +536,7 @@ async def on_message(message):
 		with open('../image.jpg', 'rb') as f:
 			await client.send_file(message.channel, f)
 
-	if message.content.startswith("/help"):
+	if message.content == "/help":
 		await client.add_reaction(message, '👌')
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		m = "\
