@@ -109,7 +109,7 @@ async def on_reaction_add(reaction,user):
 	print(reaction.message.content)
 @client.event
 async def on_message(message):
-	print("" + message.author.name + " said " + message.content + ". userid:" + message.author.id + " channel id:" + message.channel.id + )
+	print("" + message.author.name + " said " + message.content + ". userid:" + message.author.id + " channel id:" + message.channel.id + "")
 	file = open('/home/raspi0124/alllog.txt', 'a')  #追加書き込みモードでオープン
 	allmessage = "" + message.author.name + " said " + message.content + " \n"
 	file.writelines(allmessage)
