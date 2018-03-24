@@ -89,11 +89,6 @@ async def on_ready():
 	print(client.user.id)
 	print('------')
 	await client.change_presence(game=discord.Game(name='/help'))
-@client.event
-
-with open('../image.jpg', 'rb') as f:
-	server = input('server id: ')
-	emoji = await client.create_custom_emoji(server, name="test", image=f)
 
 @client.event
 
