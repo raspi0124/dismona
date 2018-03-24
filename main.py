@@ -115,6 +115,7 @@ async def on_message(message):
 	m = input('message :')
 	channel = input("channel id: ")
 	channel = str(channel)
+	m = str(m)
 	channel = client.get_channel(channel)
 	await client.send_message(channel, m)
 	# 「/register」で始まるか調べる
