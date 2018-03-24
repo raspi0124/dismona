@@ -109,7 +109,7 @@ async def on_reaction_add(reaction,user):
 	print(reaction.message.content)
 @client.event
 async def on_message(message):
-	print("" + message.author.name + " said " + message.content + ". userid:" + message.author.id + " channel id:" + message.channel.id + "")
+	print("" + message.author.name + " said " + message.content + ". userid: " + message.author.id + " channel id: " + message.channel.id + "")
 	file = open('/home/raspi0124/alllog.txt', 'a')  #追加書き込みモードでオープン
 	allmessage = "" + message.author.name + " said " + message.content + " \n"
 	file.writelines(allmessage)
@@ -117,6 +117,7 @@ async def on_message(message):
 	rainnotify = client.get_channel('425766935825743882')
 	m = input('message :')
 	channel = input("channel id: ")
+	channel = client.get_channel(channel)
 	await client.send_message(channel, m)
 	# 「/register」で始まるか調べる
 	if message.content.startswith("/register"):
