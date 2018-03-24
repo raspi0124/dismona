@@ -539,7 +539,7 @@ async def on_message(message):
 	if message.content.startswith("/help"):
 		await client.add_reaction(message, '👌')
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-		m = "```----------------------------------------------------------------------------------- \
+		m = "\
 		\n /help - ヘルプを表示します <Show help> \
 		\n /register - あなたの財布を新しく作成します <Create your address> \
 		\n /balance - あなたの現在の残高を表示します <Show your current balance> \
@@ -551,6 +551,8 @@ async def on_message(message):
 		\n /rain - 指定された金額のmonaをランダムに配ります。<Tip specified amount to rondom people. you can chose the number of people to tip> (Currently for admin due to some problem.)\
 		\n /admin info - 管理者専用コマンド。管理者がすぐに状況確認できるように作成しました <Admin only command>\
 		\n /rera - rain受け取りに参加します。手数料は0.01monaです。 <Sign up to be a rain-reciever. fee is 0.01 mona currently, and might go up.>\
+		\n /omikuzi - おみくじです。１日１回まで実行可能。ほんのちょっとだけmonaを運によって差し上げます。\
+		\n /credit - クレジットを表示。 \
 		\n ---使い方 <Usage>---\
 		\n /withdrawall <送金先アドレス>\
 		\n /withdrawall <address to send> \
@@ -582,7 +584,7 @@ async def on_message(message):
 				kuji = ["0","1","2","3"]
 				result = random.choice(kuji)
 				return result
-			kuji = ["大吉", "中吉", "末吉", "凶"]
+			kuji = ["凶", "小吉", "中吉", "大吉"]
 			result = omikuji()
 			print("result")
 			print(result)
