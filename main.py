@@ -572,6 +572,7 @@ async def on_message(message):
 		await client.add_reaction(message, '👌')
 
 	if message.content.startswith("/test2"):
+		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		em = discord.Embed(title='Help', description="\
 		\n /help - ヘルプを表示します <Show help> \
 		\n /register - あなたの財布を新しく作成します <Create your address> \
