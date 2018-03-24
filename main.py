@@ -8,7 +8,6 @@ import json
 import requests
 import decimal
 from decimal import (Decimal, ROUND_DOWN)
-import schedule
 
 # Python 3.5.2 にて動作を確認
 # sqlite3 標準モジュールをインポート
@@ -67,8 +66,6 @@ data_size = int (math.log10(data) + 1)
 print(data_size)
 print(random.randrange(10, 20, 2))
 print(random.randrange(1, 50, 2))
-def sigint_handler(signum, frame):
-	print ('Stop pressing the CTRL+C!')
 # データベース接続とカーソル生成
 # 接続情報はダミーです。お手元の環境にあわせてください。
 #connection = MySQLdb.connect(
