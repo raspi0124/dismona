@@ -91,12 +91,6 @@ async def on_ready():
 	print(client.user.id)
 	print('------')
 	await client.change_presence(game=discord.Game(name='/help'))
-	m = input('message :')
-	channel = input("channel id: ")
-	channel = str(channel)
-	m = str(m)
-	channel = client.get_channel(channel)
-	await client.send_message(channel, m)
 
 
 
@@ -560,33 +554,19 @@ async def on_message(message):
 
 	if message.content == "/help":
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-		em = discord.Embed(title='Help', description="\
-		\n /help - ヘルプを表示します <Show help> \
-		\n /register - あなたの財布を新しく作成します <Create your address> \
-		\n /balance - あなたの現在の残高を表示します <Show your current balance> \
-		\n /deposit - あなたの所有しているアドレスを一覧表示します <List address you currently have> \
-		\n /list - あなたの所有しているアドレスを一覧表示します <List address you currently have (same as /deposit)>\
-		\n /withdrawall - あなたの持っているmonaすべてを指定されたアドレスに送金します <Send all of your mona to specifyed address> \
-		\n /tip - 指定されたmonaを指定されたユーザーに送ります <Tip specified amount of mona to specified user> \
-		\n /withdraw - 指定されたmonaを指定されたアドレスに送ります <Withdraw specified amount of mona to specified address> \
-		\n /rain - 指定された金額のmonaをランダムに配ります。<Tip specified amount to rondom people. you can chose the number of people to tip> (Currently for admin due to some problem.)\
-		\n /admin info - 管理者専用コマンド。管理者がすぐに状況確認できるように作成しました <Admin only command>\
-		\n /rera - rain受け取りに参加します。手数料は0.01monaです。 <Sign up to be a rain-reciever. fee is 0.01 mona currently, and might go up.>\
-		\n /omikuzi - おみくじです。１日１回まで実行可能。ほんのちょっとだけmonaを運によって差し上げます。\
-		\n /credit - クレジットを表示。 \
-		\n ---使い方 <Usage>---\
-		\n /withdrawall <送金先アドレス>\
-		\n /withdrawall <address to send> \
-		\n /withdraw <金額> <送金先アドレス> \
-		\n /withdraw <amount to withdraw> <address to send> \
-		\n /tip <ユーザー> <金額> <任意のコメント> \
-		\n /tip <User to send mona> <amoun to tip> <comment (optional>> \
-		\n /rain <人数> <合計金額> \
-		\n /rain <number of people to tip> <total amount to tip> \
-		\n Created message at " + currenttime + "\
-		", colour=0xDEADBF)
-		em.set_author(name='Monage Discord Edition', icon_url=client.user.default_avatar_url)
-		await client.send_message(message.channel, embed=em)
+		embed = discord.Embed(title="Monage Discord Edition - Help")
+		embed.set_footer(text=" Created message at | " + currenttime + "")
+		embed.add_field(name="/help", value=" ヘルプを表示します")
+		embed.add_field(name="/register", value="あなたの財布を新しく作成します <Create your address>")
+		embed.add_field(name="/deposit - /list", value="あなたの所有しているアドレスを一覧表示します <List all address you have generated>")
+		embed.add_field(name="/withdraw ``<address to send>``", value="指定されたmonaを指定されたアドレスに送ります <Withdraw specified amount of Mona available to specified address>")
+		embed.add_field(name="/withdrawall ``<amount to withdraw> <address to send>``", value="あなたの持っているmonaすべてを指定されたアドレスに送金します <Send all of your Mona available to specified address>")
+		embed.add_field(name="/tip ``<User to send Mona> <amount to tip> <Comment (optional)>``", value="指定されたmonaを指定されたユーザーに送ります <Tip specified amount of mona to specified user>")
+		embed.add_field(name="/rain ``<number of people to tip> <total amount to tip>``", value=" 指定された金額のmonaをランダムに配ります。<Tip specified amount to random multiple people. You can choose the number of people to tip (Currently for admin only due to technical difficulties.)>")
+		embed.add_field(name="/rera", value="rain受け取りに参加します。手数料は0.01monaです。 <Sign up to be a rain-reciever. fee is 0.01 mona currently, and might go up.>")
+		embed.add_field(name="/omikuzi", value="指定されたmonaを指定されたユーザーに送ります <Tip specified amount of mona to specified user>")
+		embed.add_field(name="/credit", value="クレジットを表示。")
+		await client.send_message(message.channel, embed=embed)
 	if message.content.startswith("/omikuzi"):
 		username = message.author.id
 		cursor.execute('SELECT * FROM gived')
