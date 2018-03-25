@@ -565,7 +565,7 @@ async def on_message(message):
 		embed.add_field(name="/rain ``<number of people to tip> <total amount to tip>``", value=" 指定された金額のmonaをランダムに配ります。<Tip specified amount to random multiple people. You can choose the number of people to tip (Currently for admin only due to technical difficulties.)>")
 		embed.add_field(name="/rera", value="rain受け取りに参加します。手数料は0.01monaです。 <Sign up to be a rain-reciever. fee is 0.01 mona currently, and might go up.>")
 		embed.add_field(name="/omikuzi", value="指定されたmonaを指定されたユーザーに送ります <Tip specified amount of mona to specified user>")
-		embed.add_field(name="/credit", value="クレジットを表示。")
+		embed.add_field(name="/credit", value="クレジットを表示。 <Show credit>")
 		await client.send_message(message.channel, embed=embed)
 	if message.content.startswith("/omikuzi"):
 		username = message.author.id
