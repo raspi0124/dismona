@@ -581,7 +581,7 @@ async def on_message(message):
 				kuji = ["0","1","2","3","0","1","2","8"]
 				result = random.choice(kuji)
 				return result
-			kuji = ["凶", "小吉", "中吉", "大吉","凶", "小吉", "中吉", "超大吉"]
+			kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
 			result = omikuji()
 			print("result")
 			print(result)
