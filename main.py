@@ -395,6 +395,23 @@ async def on_message(message):
 		else:
 			m = "not enough fund.. double check amount to rain."
 			await client.send_message(message.channel, m)
+	if message.content.startswith("/ban"):
+		username = message.author.id
+		banallow = ["326091178984603669"]
+		if username in banallow:
+			message = message.content
+			pattern = r'([+-]?[0-9]+\.?[0-9]*)'
+			tipinfo = re.findall(pattern,message)
+			print(tipinfo[0])
+			banto = tipinfo[0]
+			cursor.execute("INSERT INTO baned (banedid) VALUES (?)", (banto,))
+			connection.commit()
+			m = "<@" + username + "ユーザー <@" + banto + "> をおみくじの使用からBANしました。"
+			await client.send_message(message.channel, m)
+		else:
+			m = "You are not allowed to do that!"
+			await client.send_message(message.channel, m)
+
 	if message.content.startswith("/tip"):
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
