@@ -569,40 +569,52 @@ async def on_message(message):
 		await client.send_message(message.channel, embed=embed)
 	if message.content == "/omikuzi" or message.content == "/omikuji":
 		username = message.author.id
-		cursor.execute('SELECT * FROM gived')
+		cursor.execute('SELECT id FROM gived')
 		# 全件取得は cursor.fetchall()
 		gived = cursor.fetchall()
 		print("gived")
 		print(gived)
 		gived = str(gived)
+		cursor.execute('SELECT banedid FROM baned')
+		baned = cursor.fetchall()
+		print("banned")
+		print(baned)
+		baned = str(baned)
 		await client.add_reaction(message, '👌')
 		if username not in gived:
-			def omikuji():
-				kuji = ["0","1","2","3","0","1","2","9"]
-				result = random.choice(kuji)
-				return result
-			kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
-			result = omikuji()
-			print("result")
-			print(result)
-			result = int(result)
-			print("result2")
-			print(result)
-			resultp = kuji[result]
-			print("resultp")
-			print(resultp)
-			resultp = str(resultp)
-			result = float(result) + float("1")
-			result = int(result)
-			result = str(result)
-			m = "貴方の今日の運勢は" + resultp + "です!\n0.00" + result + "Mona送りますね！"
-			await client.send_message(message.channel, m)
-			cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
-			m = "/tip <@" + username + "> 0.00" + result + " おみくじtipです！次挑戦できるのは日本時間で明日です！"
-			await client.send_message(message.channel, m)
-			connection.commit()
-			if result == "9":
-				m = "超大吉おめでとうございます！ 開発者に報告させていただきます！ <@326091178984603669> "
+			if username not in baned:
+				def omikuji():
+					kuji = ["0", "1", "2", "3", "1", "2", "9"]
+					result = random.choice(kuji)
+					return result
+				kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
+				result = omikuji()
+				print("result")
+				print(result)
+				result = int(result)
+				print("result2")
+				print(result)
+				resultp = kuji[result]
+				print("resultp")
+				print(resultp)
+				resultp = str(resultp)
+				result = float(result) + float("1")
+				result = int(result)
+				result = str(result)
+				m = "貴方の今日の運勢は" + resultp + "です!\n0.00" + result + "Mona送りますね！"
+				await client.send_message(message.channel, m)
+				cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
+				m = "/tip <@" + username + "> 0.00" + result + " おみくじtipです！次挑戦できるのは日本時間で明日です！"
+				await client.send_message(message.channel, m)
+				connection.commit()
+				if result == "9":
+					m = "超大吉おめでとうございます！ 開発者に報告させていただきます！ <@326091178984603669> "
+					await client.send_message(message.channel, m)
+			else:
+				cursor.execute('SELECT banfromid FROM baned WHERE banedid = ' + username + '')
+				banfromid = cursor.fetchall()
+				banfromid = str(banfromid)
+				m = "You are not allowed to /omikuzi! \n Detail:You are baned by <@" + banfromid + ">"
 				await client.send_message(message.channel, m)
 		else:
 			m = "すでに今日におみくじをされているようです。。明日戻ってきてね！"
