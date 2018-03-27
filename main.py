@@ -398,16 +398,20 @@ async def on_message(message):
 	if message.content.startswith("/ban"):
 		username = message.author.id
 		banallow = ["326091178984603669"]
+		noban = ["326091178984603669"]
 		if username in banallow:
-			message = message.content
+			message2 = message.content
 			pattern = r'([+-]?[0-9]+\.?[0-9]*)'
-			tipinfo = re.findall(pattern,message)
+			tipinfo = re.findall(pattern,message2)
 			print(tipinfo[0])
 			banto = tipinfo[0]
-			cursor.execute("INSERT INTO baned (banedid) VALUES (?)", (banto,))
-			connection.commit()
-			m = "<@" + username + "ユーザー <@" + banto + "> をおみくじの使用からBANしました。"
-			await client.send_message(message.channel, m)
+			if banto not in noban:
+				cursor.execute("INSERT INTO baned (banedid) VALUES (?)", (banto,))
+				connection.commit()
+				m = "<@" + username + "ユーザー <@" + banto + "> をおみくじの使用からBANしました。"
+				await client.send_message(message.channel, m)
+			else:
+				m = "このユーザーをBANすることは禁止されています。"
 		else:
 			m = "You are not allowed to do that!"
 			await client.send_message(message.channel, m)
