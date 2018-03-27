@@ -567,7 +567,7 @@ async def on_message(message):
 		embed.add_field(name="/omikuzi", value="指定されたmonaを指定されたユーザーに送ります <Tip specified amount of mona to specified user>")
 		embed.add_field(name="/credit", value="クレジットを表示。 <Show credit>")
 		await client.send_message(message.channel, embed=embed)
-	if message.content.startswith("/omikuzi"):
+	if message.content == "/omikuzi" or message.content == "/omikuji":
 		username = message.author.id
 		cursor.execute('SELECT * FROM gived')
 		# 全件取得は cursor.fetchall()
@@ -578,7 +578,7 @@ async def on_message(message):
 		await client.add_reaction(message, '👌')
 		if username not in gived:
 			def omikuji():
-				kuji = ["0","1","2","3","0","1","2","8"]
+				kuji = ["0","1","2","3","0","1","2","9"]
 				result = random.choice(kuji)
 				return result
 			kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
@@ -601,6 +601,9 @@ async def on_message(message):
 			m = "/tip <@" + username + "> 0.00" + result + " おみくじtipです！次挑戦できるのは日本時間で明日です！"
 			await client.send_message(message.channel, m)
 			connection.commit()
+			if result == "9":
+				m = "超大吉おめでとうございます！ 開発者に報告させていただきます！ <@326091178984603669> "
+				await client.send_message(message.channel, m)
 		else:
 			m = "すでに今日におみくじをされているようです。。明日戻ってきてね！"
 			await client.send_message(message.channel, m)
