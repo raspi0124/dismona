@@ -408,7 +408,7 @@ async def on_message(message):
 			if banto not in noban:
 				cursor.execute("INSERT INTO baned (banedid) VALUES (?)", (banto,))
 				connection.commit()
-				m = "<@" + username + "ユーザー <@" + banto + "> をおみくじの使用からBANしました。"
+				m = "<@" + username + ">ユーザー <@" + banto + "> をおみくじの使用からBANしました。"
 				await client.send_message(message.channel, m)
 			else:
 				m = "このユーザーをBANすることは禁止されています。"
