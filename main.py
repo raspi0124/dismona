@@ -397,8 +397,8 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 	if message.content.startswith("/ban"):
 		username = message.author.id
-		banallow = ["326091178984603669"]
-		noban = ["326091178984603669"]
+		banallow = ["326091178984603669, 294470458013908992"]
+		noban = ["326091178984603669, 294470458013908992"]
 		if username in banallow:
 			message2 = message.content
 			pattern = r'([+-]?[0-9]+\.?[0-9]*)'
@@ -408,6 +408,7 @@ async def on_message(message):
 			if banto not in noban:
 				cursor.execute("INSERT INTO baned (banedid) VALUES (?)", (banto,))
 				connection.commit()
+				cursor.execute("INSERT INTO baned (banfromid) VALUES (?)", (username,))
 				m = "<@" + username + ">ユーザー <@" + banto + "> をおみくじの使用からBANしました。"
 				await client.send_message(message.channel, m)
 			else:
@@ -605,7 +606,7 @@ async def on_message(message):
 		if username not in gived:
 			if username not in baned:
 				def omikuji():
-					kuji = ["0", "1", "2", "3", "1", "2", "9"]
+					kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3"]
 					result = random.choice(kuji)
 					return result
 				kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
