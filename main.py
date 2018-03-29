@@ -397,8 +397,8 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 	if message.content.startswith("/ban"):
 		username = message.author.id
-		banallow = ["326091178984603669, 294470458013908992"]
-		noban = ["326091178984603669, 294470458013908992"]
+		banallow = ["326091178984603669", "294470458013908992"]
+		noban = ["326091178984603669", "294470458013908992"]
 		if username in banallow:
 			message2 = message.content
 			pattern = r'([+-]?[0-9]+\.?[0-9]*)'
