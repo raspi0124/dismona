@@ -623,13 +623,13 @@ async def on_message(message):
 				result = float(result) + float("1")
 				result = int(result)
 				result = str(result)
-				m = "貴方の今日の運勢は" + resultp + "です!\n0.00" + result + "Mona送りますね！"
+				m = "貴方の今日の運勢は" + resultp + "です!\n0.000" + result + "Mona送りますね！"
 				await client.send_message(message.channel, m)
 				cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
-				m = "/tip <@" + username + "> 0.00" + result + " おみくじtipです！次挑戦できるのは日本時間で明日です！"
+				m = "/tip <@" + username + "> 0.000" + result + " おみくじtipです！次挑戦できるのは日本時間で明日です！"
 				await client.send_message(message.channel, m)
 				connection.commit()
-				if result == "9":
+				if result == "7":
 					m = "超大吉おめでとうございます！ 開発者に報告させていただきます！ <@326091178984603669> "
 					await client.send_message(message.channel, m)
 			else:
