@@ -606,7 +606,7 @@ async def on_message(message):
 		if username not in gived:
 			if username not in baned:
 				def omikuji():
-					kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3"]
+					kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
 					result = random.choice(kuji)
 					return result
 				kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
@@ -629,9 +629,6 @@ async def on_message(message):
 				m = "/tip <@" + username + "> 0.000" + result + " おみくじtipです！次挑戦できるのは日本時間で明日です！"
 				await client.send_message(message.channel, m)
 				connection.commit()
-				if result == "7":
-					m = "超大吉おめでとうございます！ 開発者に報告させていただきます！ <@326091178984603669> "
-					await client.send_message(message.channel, m)
 			else:
 				cursor.execute('SELECT banfromid FROM baned WHERE banedid = ' + username + '')
 				banfromid = cursor.fetchall()
