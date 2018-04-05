@@ -604,8 +604,13 @@ async def on_message(message):
 		gived = str(gived)
 		cursor.execute('SELECT banedid FROM baned')
 		baned = cursor.fetchall()
-		cursor.execute('SELECT * FROM tiped')
+		cursor.execute('SELECT id FROM tiped')
 		tiped = cursor.fetchall()
+		tiped = cursor.fetchall()
+		print(tiped)
+		tiped = str(tiped)
+		pattern = r'([0-9]+\.?[0-9]*)'
+		tiped = re.findall(pattern,tiped)
 		print("banned")
 		print(baned)
 		print("tiped")
@@ -614,7 +619,8 @@ async def on_message(message):
 		cmd = "monacoin-cli getbalance " + username + ""
 		balance = subprocess.check_output( cmd.split(" "))
 		minlimit = "0.001"
-		balance = balance.decode()
+		balance = str(balance)
+		balance = re.findall(pattern,balance)
 		await client.add_reaction(message, '👌')
 		if username not in gived:
 			if username not in baned:
