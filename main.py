@@ -612,8 +612,6 @@ async def on_message(message):
 		balance = subprocess.check_output( cmd.split(" "))
 		minlimit = "0.001"
 		balance = balance.decode()
-		balance = int(balance)
-		minlimit = int(minlimit)
 		await client.add_reaction(message, '👌')
 		if username not in gived:
 			if username not in baned:
