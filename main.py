@@ -611,6 +611,7 @@ async def on_message(message):
 		cmd = "monacoin-cli getbalance " + username + ""
 		balance = subprocess.check_output( cmd.split(" "))
 		minlimit = "0.001"
+		balance = balance.decode()
 		balance = int(balance)
 		minlimit = int(minlimit)
 		await client.add_reaction(message, '👌')
