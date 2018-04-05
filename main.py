@@ -7,8 +7,10 @@ import random
 import json
 import requests
 import decimal
+import falcon
 from decimal import (Decimal, ROUND_DOWN)
 import keyboard
+import apim
 if keyboard.is_pressed('q'):#if key 'q' is pressed
 	print('You Pressed A Key!')
 # Python 3.5.2 にて動作を確認
@@ -112,6 +114,7 @@ async def on_reaction_add(reaction, user):
 	print(reaction.message.channel.id)
 	print("message-content")
 	print(reaction.message.content)
+
 @client.event
 async def on_message(message):
 	print("" + message.author.name + " said " + message.content + ". userid: " + message.author.id + " channel id: " + message.channel.id + "")
@@ -455,6 +458,8 @@ async def on_message(message):
 					rut2  =  subprocess.check_output( cmd2.split(" ") )
 					m = "<@" + message.author.id + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ")"
 					await client.send_message(message.channel, m)
+					cursor.execute("INSERT INTO tiped (id) VALUES (?)", (message.author.id,))
+					connection.commit()
 				except subprocess.CalledProcessError as e:
 					eout = e.output.decode()
 					m = "<@" + message.author.id + ">, sorry, failed to complete your request: <@" + tipto + "> is not yet registered.\n(message created on " + currenttime + ")"
@@ -581,12 +586,11 @@ async def on_message(message):
 		embed.add_field(name="/help", value=" ヘルプを表示します")
 		embed.add_field(name="/register", value="あなたの財布を新しく作成します <Create your address>")
 		embed.add_field(name="/deposit - /list", value="あなたの所有しているアドレスを一覧表示します <List all address you have generated>")
-		embed.add_field(name="/withdraw ``<address to send>``", value="指定されたmonaを指定されたアドレスに送ります <Withdraw specified amount of Mona available to specified address>")
-		embed.add_field(name="/withdrawall ``<amount to withdraw> <address to send>``", value="あなたの持っているmonaすべてを指定されたアドレスに送金します <Send all of your Mona available to specified address>")
+		embed.add_field(name="/withdraw ``<amount to withdraw> <address to send>``", value="指定されたmonaを指定されたアドレスに送ります <Withdraw specified amount of Mona available to specified address>")
 		embed.add_field(name="/tip ``<User to send Mona> <amount to tip> <Comment (optional)>``", value="指定されたmonaを指定されたユーザーに送ります <Tip specified amount of mona to specified user>")
 		embed.add_field(name="/rain ``<number of people to tip> <total amount to tip>``", value=" 指定された金額のmonaをランダムに配ります。<Tip specified amount to random multiple people. You can choose the number of people to tip (Currently for admin only due to technical difficulties.)>")
 		embed.add_field(name="/rera", value="rain受け取りに参加します。手数料は0.01monaです。 <Sign up to be a rain-reciever. fee is 0.01 mona currently, and might go up.>")
-		embed.add_field(name="/omikuzi", value="指定されたmonaを指定されたユーザーに送ります <Tip specified amount of mona to specified user>")
+		embed.add_field(name="/omikuzi", value="おみくじ。おまけでmonaもらえます<Let see how fortunate you are! You can also get some mona!>")
 		embed.add_field(name="/credit", value="クレジットを表示。 <Show credit>")
 		await client.send_message(message.channel, embed=embed)
 	if message.content == "/omikuzi" or message.content == "/omikuji":
@@ -599,36 +603,47 @@ async def on_message(message):
 		gived = str(gived)
 		cursor.execute('SELECT banedid FROM baned')
 		baned = cursor.fetchall()
+		cursor.execute('SELECT * FROM tiped')
+		tiped = cursor.fetchall()
 		print("banned")
 		print(baned)
 		baned = str(baned)
+		cmd = "monacoin-cli getbalance " + username + ""
+		balance = subprocess.check_output( cmd.split(" "))
+		minlimit = "0.001"
+		balance = int(balance)
+		minlimit = int(minlimit)
 		await client.add_reaction(message, '👌')
 		if username not in gived:
 			if username not in baned:
-				def omikuji():
-					kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
-					result = random.choice(kuji)
-					return result
-				kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
-				result = omikuji()
-				print("result")
-				print(result)
-				result = int(result)
-				print("result2")
-				print(result)
-				resultp = kuji[result]
-				print("resultp")
-				print(resultp)
-				resultp = str(resultp)
-				result = float(result) + float("1")
-				result = int(result)
-				result = str(result)
-				m = "貴方の今日の運勢は" + resultp + "です!\n0.000" + result + "Mona送りますね！"
-				await client.send_message(message.channel, m)
-				cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
-				m = "/tip <@" + username + "> 0.000" + result + " おみくじtipです！次挑戦できるのは日本時間で明日です！"
-				await client.send_message(message.channel, m)
-				connection.commit()
+				if username in tiped
+					def omikuji():
+						kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
+						result = random.choice(kuji)
+						return result
+					kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
+					result = omikuji()
+					print("result")
+					print(result)
+					result = int(result)
+					print("result2")
+					print(result)
+					resultp = kuji[result]
+					print("resultp")
+					print(resultp)
+					resultp = str(resultp)
+					result = float(result) + float("1")
+					result = int(result)
+					result = str(result)
+					m = "貴方の今日の運勢は" + resultp + "です!\n0.000" + result + "Mona送りますね！"
+					await client.send_message(message.channel, m)
+					cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
+					m = "/tip <@" + username + "> 0.000" + result + " おみくじtipです！次挑戦できるのは日本時間で明日です！"
+					await client.send_message(message.channel, m)
+					connection.commit()
+				else:
+					m = "一回もtipしたことない人には流石に上げれませんって。。主にスパム対策とかの面で。財政寄付除けば赤字なんですよ？ \n I don't want to give mona to people who never tiped before..Tip to someone and try again(tiping to <@326091178984603669> is highelly recommended)"
+					await client.send_message(message.channel, m)
 			else:
 				cursor.execute('SELECT banfromid FROM baned WHERE banedid = ' + username + '')
 				banfromid = cursor.fetchall()
