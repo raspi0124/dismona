@@ -606,7 +606,6 @@ async def on_message(message):
 		baned = cursor.fetchall()
 		cursor.execute('SELECT * FROM tiped')
 		tiped = cursor.fetchall()
-		tiped = cursor.fetchall()
 		print(tiped)
 		tiped = str(tiped)
 		pattern = r'([0-9]+\.?[0-9]*)'
