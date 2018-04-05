@@ -616,7 +616,7 @@ async def on_message(message):
 		await client.add_reaction(message, '👌')
 		if username not in gived:
 			if username not in baned:
-				if username in tiped
+				if username in tiped:
 					def omikuji():
 						kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
 						result = random.choice(kuji)
