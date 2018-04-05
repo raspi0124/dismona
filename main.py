@@ -650,7 +650,7 @@ async def on_message(message):
 					await client.send_message(message.channel, m)
 					connection.commit()
 				else:
-					m = "一回もtipしたことない人には流石に上げれませんって。。主にスパム対策とかの面で。財政寄付除けば赤字なんですよ？ \n I don't want to give mona to people who never tiped before..Tip to someone and try again(tiping to <@326091178984603669> is highelly recommended)"
+					m = "スパム対策のためにTipした、またはされたことのないひとはおみくじを実行することができません。。だれかにtipするかtipされてからもう一回実行おねがいします\nTo prevent spamming, user who never tip or tiped by someone before are not allowed to execute omikuji. please tip someone or get tiped by someone using /tip command."
 					await client.send_message(message.channel, m)
 			else:
 				cursor.execute('SELECT banfromid FROM baned WHERE banedid = ' + username + '')
