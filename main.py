@@ -452,13 +452,14 @@ async def on_message(message):
 		if tipamount <= balance:
 			if tipamount >= minimumtip:
 				try:
+					username = message.author.id
 					tipamount = float(tipamount) / float(num2)
 					tipamount = str(tipamount)
 					cmd2 = "monacoin-cli move " + message.author.id + " " + tipto + " " + tipamount + ""
 					rut2  =  subprocess.check_output( cmd2.split(" ") )
 					m = "<@" + message.author.id + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ")"
 					await client.send_message(message.channel, m)
-					cursor.execute("INSERT INTO tiped (id) VALUES (?)", (message.author.id,))
+					cursor.execute("INSERT INTO tiped (id) VALUES (?)", (username,))
 					connection.commit()
 				except subprocess.CalledProcessError as e:
 					eout = e.output.decode()
@@ -607,6 +608,8 @@ async def on_message(message):
 		tiped = cursor.fetchall()
 		print("banned")
 		print(baned)
+		print("tiped")
+		print(tiped)
 		baned = str(baned)
 		cmd = "monacoin-cli getbalance " + username + ""
 		balance = subprocess.check_output( cmd.split(" "))
