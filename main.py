@@ -461,6 +461,7 @@ async def on_message(message):
 					await client.send_message(message.channel, m)
 					cursor.execute("INSERT INTO tiped (id) VALUES (?)", (username,))
 					connection.commit()
+					cursor.execute("INSERT INTO tiped (id) VALUES (?)", (tipto,))
 				except subprocess.CalledProcessError as e:
 					eout = e.output.decode()
 					m = "<@" + message.author.id + ">, sorry, failed to complete your request: <@" + tipto + "> is not yet registered.\n(message created on " + currenttime + ")"
