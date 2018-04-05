@@ -604,7 +604,7 @@ async def on_message(message):
 		gived = str(gived)
 		cursor.execute('SELECT banedid FROM baned')
 		baned = cursor.fetchall()
-		cursor.execute('SELECT id FROM tiped')
+		cursor.execute('SELECT * FROM tiped')
 		tiped = cursor.fetchall()
 		tiped = cursor.fetchall()
 		print(tiped)
