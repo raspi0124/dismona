@@ -44,7 +44,7 @@ class API(object):
 		res.body = json.dumps(msg)
 		print("6")
 app = falcon.API()
-app.add_route("/", WalletAPI())
+app.add_route("/", API())
 if __name__ == "__main__":
 	from wsgiref import simple_server
 	httpd = simple_server.make_server("0.0.0.0", 8354, app)
