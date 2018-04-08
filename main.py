@@ -81,10 +81,10 @@ async def on_reaction_add(reaction, user):
 @client.event
 async def on_message(message):
 	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-	print("" + message.author.name + " said " + message.content + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + "")
+	towrite = "" + message.author.name + " said " + message.content + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + "\n"
 	file = open('/home/raspi0124/alllog.txt', 'a')  #追加書き込みモードでオープン
-	allmessage = "" + message.author.name + " said " + message.content + " \n"
-	file.writelines(allmessage)
+	file.writelines(towrite)
+	print(towrite)
 	rainnotify = "425766935825743882"
 	rainnotify = client.get_channel('425766935825743882')
 	# 「/register」で始まるか調べる
