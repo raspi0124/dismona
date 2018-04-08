@@ -86,9 +86,9 @@ async def on_reaction_add(reaction, user):
 	tipto = reaction.message.author.id
 	tipby = user.id
 	emoji = hash(reaction.emoji)
-	tip0.114114 = "-5974856490496190659"
+	tip0114114 = "-5974856490496190659"
 
-	if emoji == tip0.114114:
+	if emoji == tip0114114:
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
 		print(ruta)
@@ -132,7 +132,7 @@ async def on_reaction_add(reaction, user):
 		else:
 			m = "<@"+ message.author.id + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + "\n DEBUG: tipamount:" + tipamount + " balance:" + balance + " "
 			await client.send_message(message.channel, m)
-		
+
 
 @client.event
 async def on_message(message):
