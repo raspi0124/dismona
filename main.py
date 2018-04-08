@@ -78,10 +78,12 @@ async def on_reaction_add(reaction, user):
 	print("message-content")
 	print(reaction.message.content)
 	print("message-author")
-	print(reaction.message.author)
+	print(reaction.message.author.id)
+	print("reaction-name")
+	print(reaction.emoji.name)
 	print("reaction-by")
-	print(reaction.author)
-
+	print(user)
+	print(user.id)
 
 @client.event
 async def on_message(message):
