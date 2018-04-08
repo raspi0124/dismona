@@ -634,33 +634,66 @@ async def on_message(message):
 		balance = str(balance)
 		balance = re.findall(pattern,balance)
 		await client.add_reaction(message, '👌')
+		cursor.execute('SELECT * FROM loved')
+		loved = cursor.fetchall()
+		print(loved)
+		loved = str(loved)
+		pattern = r'([0-9]+\.?[0-9]*)'
+		loved = re.findall(pattern,loved)
+		
 		if username not in gived:
 			if username not in baned:
 				if username in tiped:
-					def omikuji():
-						kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
-						result = random.choice(kuji)
-						return result
-					kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
-					result = omikuji()
-					print("result")
-					print(result)
-					result = int(result)
-					print("result2")
-					print(result)
-					resultp = kuji[result]
-					print("resultp")
-					print(resultp)
-					resultp = str(resultp)
-					result = float(result) + float("1")
-					result = int(result)
-					result = str(result)
-					m = "貴方の今日の運勢は" + resultp + "です!\n0.000" + result + "Mona送りますね！"
-					await client.send_message(message.channel, m)
-					cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
-					m = "/tip <@" + username + "> 0.000" + result + " おみくじtipです！次挑戦できるのは日本時間で明日です！"
-					await client.send_message(message.channel, m)
-					connection.commit()
+					if username not in loved:
+						def omikuji():
+							kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
+							result = random.choice(kuji)
+							return result
+						kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
+						result = omikuji()
+						print("result")
+						print(result)
+						result = int(result)
+						print("result2")
+						print(result)
+						resultp = kuji[result]
+						print("resultp")
+						print(resultp)
+						resultp = str(resultp)
+						result = float(result) + float("1")
+						result = int(result)
+						result = str(result)
+						m = "貴方の今日の運勢は" + resultp + "です!\n0.000" + result + "Mona送りますね！"
+						await client.send_message(message.channel, m)
+						cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
+						m = "/tip <@" + username + "> 0.000" + result + " おみくじtipです！次挑戦できるのは日本時間で明日です！"
+						await client.send_message(message.channel, m)
+						connection.commit()
+					else:
+						def omikuji():
+							kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
+							result = random.choice(kuji)
+							return result
+						kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
+						result = omikuji()
+						print("result")
+						print(result)
+						result = int(result)
+						print("result2")
+						print(result)
+						resultp = kuji[result]
+						print("resultp")
+						print(resultp)
+						resultp = str(resultp)
+						result = float(result) + float("1")
+						result = int(result)
+						result = str(result)
+						m = "ダーリン、あなたの今日の運勢は" + resultp + "らしいですわよ。!\n0.00" + result + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。"
+						await client.send_message(message.channel, m)
+						cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
+						m = "/tip <@" + username + "> 0.00" + result + ""
+						await client.send_message(message.channel, m)
+						connection.commit()
 				else:
 					m = "スパム対策のためにTipした、またはされたことのないひとはおみくじを実行することができません。。だれかにtipするかtipされてからもう一回実行おねがいします\nTo prevent spamming, user who never tip or tiped by someone before are not allowed to execute omikuji. please tip someone or get tiped by someone using /tip command."
 					await client.send_message(message.channel, m)
