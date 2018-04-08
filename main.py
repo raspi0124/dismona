@@ -554,7 +554,7 @@ async def on_message(message):
 			result = random.choice(kuji)
 			return result
 		kuji = ["うーん。。お断りさせていただきます", "お友達から初めましょう", "。。。", "お友達から初めましょう。", "あなたのことなんか大っ嫌い!", "お友達で居ましょう。", "うーん。。お断りさせていただきます", "自分もあなたのことが好きでした"]
-		result = omikuji()
+		result = love()
 		print("result")
 		print(result)
 		result = int(result)
