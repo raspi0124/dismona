@@ -89,8 +89,8 @@ async def on_reaction_add(reaction, user):
 	print(reaction.emoji.id)
 	tipto = reaction.message.author.id
 	tipby = user.id
-	emoji = reaction.emoji.id
-	tip0114114 = "432590524071804939"
+	emoji = reaction.emoji.name
+	tip0114114 = "monage0114114"
 
 	if emoji == tip0114114:
 		cmda = "monacoin-cli walletpassphrase 0124 10"
