@@ -640,7 +640,7 @@ async def on_message(message):
 		loved = str(loved)
 		pattern = r'([0-9]+\.?[0-9]*)'
 		loved = re.findall(pattern,loved)
-		
+
 		if username not in gived:
 			if username not in baned:
 				if username in tiped:
@@ -671,10 +671,10 @@ async def on_message(message):
 						connection.commit()
 					else:
 						def omikuji():
-							kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
+							kuji = ["0", "1", "2", "3", "2", "4"]
 							result = random.choice(kuji)
 							return result
-						kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
+						kuji = ["凶", "小吉", "中吉", "大吉", "超大吉"]
 						result = omikuji()
 						print("result")
 						print(result)
@@ -687,8 +687,12 @@ async def on_message(message):
 						resultp = str(resultp)
 						result = float(result) + float("1")
 						result = int(result)
-						result = str(result)
-						m = "ダーリン、あなたの今日の運勢は" + resultp + "らしいですわよ。!\n0.00" + result + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。"
+						kyou = "0"
+						kyou = int(kyou)
+						if result == kyou:
+							m = "あなたの運勢…凶みたいだから、今日はそばにいてあげるんだからねっ！今日だけだからねっ"
+						else:
+							m = "ダーリン、あなたの今日の運勢は" + resultp + "らしいですわよ。!\n0.00" + result + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。"
 						await client.send_message(message.channel, m)
 						cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
 						m = "/tip <@" + username + "> 0.00" + result + ""
