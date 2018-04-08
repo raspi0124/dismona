@@ -83,7 +83,55 @@ async def on_reaction_add(reaction, user):
 	print(user.id)
 	print("emoji-hash")
 	print(hash(reaction.emoji))
+	tipto = reaction.message.author.id
+	tipby = user.id
+	emoji = hash(reaction.emoji)
+	tip0114114 = "-5974856490496190659"
 
+	if emoji == tip0114114:
+		cmda = "monacoin-cli walletpassphrase 0124 10"
+		ruta  =  subprocess.check_output( cmda.split(" ") )
+		print(ruta)
+		await client.add_reaction(message, '👌')
+		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+		cmd = "monacoin-cli getbalance " + tipby + ""
+		rut  =  subprocess.check_output( cmd.split(" ") )
+		balance = rut.decode()
+		num2 = 100000000
+		balance = float(balance) * float(num2)
+		print ("balance")
+		print(balance)
+		tipamount = "0.114114"
+		print("tipamount")
+		print(tipamount)
+		tipamount = float(tipamount) * float(num2)
+		print("multiplyed tipamount")
+		print(tipamount)
+		minimumtip = "1"
+		minimumtip = float(minimumtip)
+		if tipamount <= balance:
+			if tipamount >= minimumtip:
+				try:
+					username = tipby
+					tipamount = float(tipamount) / float(num2)
+					tipamount = str(tipamount)
+					cmd2 = "monacoin-cli move " + message.author.id + " " + tipto + " " + tipamount + ""
+					rut2  =  subprocess.check_output( cmd2.split(" ") )
+					m = "<@" + message.author.id + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ")"
+					await client.send_message(reaction.message.channel, m)
+					cursor.execute("INSERT INTO tiped (id) VALUES (?)", (username,))
+					connection.commit()
+					cursor.execute("INSERT INTO tiped (id) VALUES (?)", (tipto,))
+				except subprocess.CalledProcessError as e:
+					eout = e.output.decode()
+					m = "<@" + message.author.id + ">, sorry, failed to complete your request: <@" + tipto + "> is not yet registered.\n(message created on " + currenttime + ")"
+					await client.send_message(message.channel, m)
+			else:
+				m = "<@" + message.author.id + ">, sorry, failed to complete your request: your tip must meet the minimum of 10 watanabe (0.00000010 Mona).\n(message created on " + currenttime + ")"
+				await client.send_message(message.channel, m)
+		else:
+			m = "<@"+ message.author.id + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + "\n DEBUG: tipamount:" + tipamount + " balance:" + balance + " "
+			await client.send_message(message.channel, m)
 
 
 @client.event
