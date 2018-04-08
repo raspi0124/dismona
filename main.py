@@ -687,6 +687,7 @@ async def on_message(message):
 						resultp = str(resultp)
 						result = float(result) + float("1")
 						result = int(result)
+						result = str(result)
 						kyou = "0"
 						kyou = int(kyou)
 						if result == kyou:
