@@ -81,8 +81,6 @@ async def on_reaction_add(reaction, user):
 	print(reaction.message.author.id)
 	print("reaction-by")
 	print(user.id)
-	print("emoji-url")
-	print(reaction.emoji.url)
 	print("emoji-id")
 	print(reaction.emoji.id)
 
@@ -549,6 +547,22 @@ async def on_message(message):
 		m = "こんにちは! <@" + message.author.id + "> さん！"
 		await client.send_message(message.channel, m)
 		await client.add_reaction(message, '👌')
+	if message.content.startswith("/love"):
+		def love():
+			kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
+			result = random.choice(kuji)
+			return result
+		kuji = ["うーん。。お断りさせていただきます", "お友達から初めましょう", "。。。", "お友達から初めましょう。", "あなたのことなんか大っ嫌い!", "お友達で居ましょう。", "うーん。。お断りさせていただきます", "自分もあなたのことが好きでした"]
+		result = omikuji()
+		print("result")
+		print(result)
+		result = int(result)
+		m = kuji[result]
+		print("m")
+		print(m)
+		if result == "7":
+			await client.add_reaction(message, '👌')
+		await client.send_message(message.channel, m)
 
 	if message.content == "/help":
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
