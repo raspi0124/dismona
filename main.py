@@ -83,6 +83,10 @@ async def on_reaction_add(reaction, user):
 	print(user.id)
 	print("emoji-hash")
 	print(hash(reaction.emoji))
+	print("emoji-name")
+	print(reaction.emoji.name)
+	print("emoji-id")
+	print(reaction.emoji.id)
 	tipto = reaction.message.author.id
 	tipby = user.id
 	emoji = hash(reaction.emoji)
