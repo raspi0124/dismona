@@ -544,10 +544,16 @@ async def on_message(message):
 	if message.content.startswith("/hello"):
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		m = "こんにちは! <@" + message.author.id + "> さん！"
-		await client.send_message(message.channel, m)
+		await client.send_message(message.channel, m)351363656698560513
 		await client.add_reaction(message, '👌')
 	if message.content.startswith("/love"):
 		username = message,author.id
+		cursor.execute('SELECT * FROM loved')
+		loved = cursor.fetchall()
+		print(loved)
+		loved = str(loved)
+		pattern = r'([0-9]+\.?[0-9]*)'
+		loved = re.findall(pattern,loved)
 		if message.author.id == "406829226751295488":
 			m = "友達にもなりたくないです。二度と話しかけないでください"
 			await client.send_message(message.channel, m)
