@@ -783,6 +783,7 @@ async def on_message(message):
 		\n ぱい (Discord.pyについてのアドバイス \
 		\n Monageと遊ぶ鯖に参加してくださった皆さん(テスト) \
 		\n lae(アドバイス,英語文法監修) \
+		\n Limit(helpコマンドの編集、リアクションtip機能のアイデア) \
 		\n 両親(匿名にしておきます) \
 		\n ---使用させていただいたプログラム--- \
 		\n Python \
