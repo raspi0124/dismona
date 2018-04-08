@@ -541,34 +541,51 @@ async def on_message(message):
 		await client.add_reaction(message, '👌')
 		with open('../image.jpg', 'rb') as f:
 			await client.send_file(message.channel, f)
-
-
 	if message.content.startswith("/hello"):
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		m = "こんにちは! <@" + message.author.id + "> さん！"
 		await client.send_message(message.channel, m)
 		await client.add_reaction(message, '👌')
 	if message.content.startswith("/love"):
+		username = message,author.id
 		if message.author.id == "406829226751295488":
 			m = "友達にもなりたくないです。二度と話しかけないでください"
 			await client.send_message(message.channel, m)
 		else:
-			def love():
-				kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
-				result = random.choice(kuji)
-				return result
-			kuji = ["うーん。。お断りさせていただきます", "お友達から初めましょう", "。。。", "お友達から初めましょう。", "あなたのことなんか大っ嫌い!", "お友達で居ましょう。", "うーん。。お断りさせていただきます", "結婚してください！大好きです！"]
-			result = love()
-			print("result")
-			print(result)
-			result = int(result)
-			m = kuji[result]
-			print("m")
-			print(m)
-			if result == "7":
-				await client.add_reaction(message, '👌')
-			await client.send_message(message.channel, m)
-
+			if username not in loved:
+				def love():
+					kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
+					result = random.choice(kuji)
+					return result
+				kuji = ["うーん。。お断りさせていただきます", "お友達から初めましょう", "。。。", "お友達から初めましょう。", "あなたのことなんか大っ嫌い!", "お友達で居ましょう。", "うーん。。お断りさせていただきます", "結婚してください！大好きです！"]
+				result = love()
+				print("result")
+				print(result)
+				result = int(result)
+				m = kuji[result]
+				print("m")
+				print(m)
+				loven = "7"
+				loven = int(loven)
+				if result = loven:
+					cursor.execute("INSERT INTO loved (id) VALUES (?)", (username,))
+					connection.commit()
+				await client.send_message(message.channel, m)
+			else:
+				def loved():
+					kuji = ["0", "1", "2"]
+					result = random.choice(kuji)
+					return result
+				messeages = ["私も愛してるわよ。ダーリン。", "あなたのこと、大好きよ。", "実家に帰らさせていただきます！"]
+				result = loved()
+				result = int(result)
+				m = messages[result]
+				await client.send_message(message.channel, m)
+				lovedn = "2"
+				lovedn = int(lovedn)
+				if result = lovedn:
+					cursor.execute("DELETE FROM loved WHERE id = " + username + "")
+					connection.commit()
 	if message.content == "/help":
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		embed = discord.Embed(title="Monage Discord Edition - Help")
