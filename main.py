@@ -79,8 +79,6 @@ async def on_reaction_add(reaction, user):
 	print(reaction.message.content)
 	print("message-author")
 	print(reaction.message.author.id)
-	print("reaction-name")
-	print(reaction.emoji.name)
 	print("reaction-by")
 	print(user)
 	print(user.id)
