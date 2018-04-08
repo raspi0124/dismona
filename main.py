@@ -96,7 +96,7 @@ async def on_reaction_add(reaction, user):
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
 		print(ruta)
-		await client.add_reaction(message, '👌')
+		await client.add_reaction(reaction.message, '👌')
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		cmd = "monacoin-cli getbalance " + tipby + ""
 		rut  =  subprocess.check_output( cmd.split(" ") )
