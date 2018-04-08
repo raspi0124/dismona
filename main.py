@@ -81,9 +81,10 @@ async def on_reaction_add(reaction, user):
 	print(reaction.message.author.id)
 	print("reaction-by")
 	print(user.id)
-	print("emoji-id")
-	print(reaction.emoji.id)
-
+	print("emoji-hash")
+	print(hash(reaction.emoji))
+	print("emoji-str")
+	print(str(reaction.emoji))
 @client.event
 async def on_message(message):
 	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
