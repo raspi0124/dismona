@@ -585,7 +585,7 @@ async def on_message(message):
 				messeages = ["私も愛してるわよ。ダーリン。", "あなたのこと、大好きよ。", "実家に帰らさせていただきます！"]
 				result = loved()
 				result = int(result)
-				m = messages[result]
+				m = messeages[result]
 				await client.send_message(message.channel, m)
 				lovedn = "2"
 				lovedn = int(lovedn)
