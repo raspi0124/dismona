@@ -8,7 +8,6 @@ import random
 import json
 import requests
 import decimal
-import falcon
 from decimal import (Decimal, ROUND_DOWN)
 import apim
 import sqlite3
@@ -82,7 +81,7 @@ async def on_reaction_add(reaction, user):
 @client.event
 async def on_message(message):
 	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-	print("" + message.author.name + " said " + message.content + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + )
+	print("" + message.author.name + " said " + message.content + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + "")
 	file = open('/home/raspi0124/alllog.txt', 'a')  #追加書き込みモードでオープン
 	allmessage = "" + message.author.name + " said " + message.content + " \n"
 	file.writelines(allmessage)
