@@ -544,7 +544,7 @@ async def on_message(message):
 	if message.content.startswith("/hello"):
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		m = "こんにちは! <@" + message.author.id + "> さん！"
-		await client.send_message(message.channel, m)351363656698560513
+		await client.send_message(message.channel, m)
 		await client.add_reaction(message, '👌')
 	if message.content.startswith("/love"):
 		username = message,author.id
