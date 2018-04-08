@@ -81,7 +81,8 @@ async def on_reaction_add(reaction, user):
 
 @client.event
 async def on_message(message):
-	print("" + message.author.name + " said " + message.content + ". userid: " + message.author.id + " channel id: " + message.channel.id + "")
+	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+	print("" + message.author.name + " said " + message.content + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + )
 	file = open('/home/raspi0124/alllog.txt', 'a')  #追加書き込みモードでオープン
 	allmessage = "" + message.author.name + " said " + message.content + " \n"
 	file.writelines(allmessage)
@@ -140,9 +141,6 @@ async def on_message(message):
 			print ("---6---")
 			await client.send_message(message.channel, m)
 
-	if message.content == "/test":
-		m = "test"
-		await client.send_message(message.channel, m)
 	if message.content.startswith("/rera"):
 			# データベース接続とカーソル生成
 		username = message.author.id
