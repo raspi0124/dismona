@@ -547,7 +547,7 @@ async def on_message(message):
 		await client.send_message(message.channel, m)
 		await client.add_reaction(message, '👌')
 	if message.content.startswith("/love"):
-		username = message,author.id
+		username = message.author.id
 		cursor.execute('SELECT * FROM loved')
 		loved = cursor.fetchall()
 		print(loved)
