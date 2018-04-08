@@ -80,8 +80,11 @@ async def on_reaction_add(reaction, user):
 	print("message-author")
 	print(reaction.message.author.id)
 	print("reaction-by")
-	print(user)
 	print(user.id)
+	print("emoji-url")
+	print(reaction.emoji.url)
+	print("emoji-id")
+	print(reaction.emoji.id)
 
 @client.event
 async def on_message(message):
