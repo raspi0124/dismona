@@ -10,19 +10,13 @@ import requests
 import decimal
 import falcon
 from decimal import (Decimal, ROUND_DOWN)
-import keyboard
 import apim
-if keyboard.is_pressed('q'):#if key 'q' is pressed
-	print('You Pressed A Key!')
-# Python 3.5.2 にて動作を確認
-# sqlite3 標準モジュールをインポート
 import sqlite3
-
+from datetime import datetime
 
 def round_down5(value):
 	value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
 	return value
-print(round_down5(188888.8888888))
 # データベースファイルのパス
 dbpath = '../dismona.sqlite'
 connection = sqlite3.connect(dbpath)
@@ -35,42 +29,16 @@ cursor.execute('SELECT * FROM rainregistered ORDER BY rainid')
 
 # 全件取得は cursor.fetchall()
 rainall = cursor.fetchall()
-print(rainall)
 rainall = str(rainall)
 pattern = r'([0-9]+\.?[0-9]*)'
 rainall = re.findall(pattern,rainall)
-print(rainall)
 
 client = discord.Client()
-from datetime import datetime
-print (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-import signal
 
 cmda = "monacoin-cli walletpassphrase 0124 32140800"
 ruta  =  subprocess.check_output( cmda.split(" ") )
 print(ruta)
-number1 = "1"
-print(number1)
-print(5 - 0.5)
-# This program minus two numbers
-
-num1 = 1.4
-num2 = 0.01
-
-# Add two numbers
-sum = float(num1) - float(num2)
-
-# Display the sum
-print('The sum of {0} and {1} is {2}'.format(num1, num2, sum))
-
-print(sum)
-data = "100000"
-data = float(data)
-data_size = int (math.log10(data) + 1)
-print(data_size)
-print(random.randrange(10, 20, 2))
-print(random.randrange(1, 50, 2))
 # データベース接続とカーソル生成
 # 接続情報はダミーです。お手元の環境にあわせてください。
 #connection = MySQLdb.connect(
@@ -92,12 +60,9 @@ async def on_ready():
 	print('Logged in as')
 	print(client.user.name)
 	print(client.user.id)
+	print(currenttime)
 	print('------')
 	await client.change_presence(game=discord.Game(name='/help'))
-
-
-
-
 @client.event
 
 async def on_reaction_add(reaction, user):
