@@ -589,6 +589,7 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 				lovedn = "2"
 				lovedn = int(lovedn)
+				username = '"' + username + '"'
 				if result == lovedn:
 					cursor.execute("DELETE FROM loved WHERE id = " + username + "")
 					connection.commit()
