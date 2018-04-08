@@ -118,7 +118,7 @@ async def on_reaction_add(reaction, user):
 					username = tipby
 					tipamount = float(tipamount) / float(num2)
 					tipamount = str(tipamount)
-					cmd2 = "monacoin-cli move " + message.author.id + " " + tipto + " " + tipamount + ""
+					cmd2 = "monacoin-cli move " + tipby + " " + tipto + " " + tipamount + ""
 					rut2  =  subprocess.check_output( cmd2.split(" ") )
 					m = "<@" + tipby + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ")"
 					await client.send_message(reaction.message.channel, m)
@@ -128,13 +128,13 @@ async def on_reaction_add(reaction, user):
 				except subprocess.CalledProcessError as e:
 					eout = e.output.decode()
 					m = "<@" + tipby + ">, sorry, failed to complete your request: <@" + tipto + "> is not yet registered.\n(message created on " + currenttime + ")"
-					await client.send_message(message.channel, m)
+					await client.send_message(reaction.message.channel, m)
 			else:
 				m = "<@" + tipby + ">, sorry, failed to complete your request: your tip must meet the minimum of 10 watanabe (0.00000010 Mona).\n(message created on " + currenttime + ")"
-				await client.send_message(message.channel, m)
+				await client.send_message(reaction.message.channel, m)
 		else:
 			m = "<@"+ tipby + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + "\n DEBUG: tipamount:" + tipamount + " balance:" + balance + " "
-			await client.send_message(message.channel, m)
+			await client.send_message(reaction.message.channel, m)
 
 
 @client.event
