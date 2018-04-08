@@ -573,7 +573,7 @@ async def on_message(message):
 				print(m)
 				loven = "7"
 				loven = int(loven)
-				if result = loven:
+				if result == loven:
 					cursor.execute("INSERT INTO loved (id) VALUES (?)", (username,))
 					connection.commit()
 				await client.send_message(message.channel, m)
@@ -589,7 +589,7 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 				lovedn = "2"
 				lovedn = int(lovedn)
-				if result = lovedn:
+				if result == lovedn:
 					cursor.execute("DELETE FROM loved WHERE id = " + username + "")
 					connection.commit()
 	if message.content == "/help":
