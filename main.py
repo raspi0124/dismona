@@ -91,7 +91,7 @@ async def on_reaction_add(reaction, user):
 	tipby = user.id
 	emoji = reaction.emoji.name
 	tip0114114 = "monage0114114"
-
+	tip039 = "monage039"
 	if emoji == tip0114114:
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
@@ -136,6 +136,49 @@ async def on_reaction_add(reaction, user):
 			m = "<@"+ tipby + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + "\n DEBUG: tipamount:" + tipamount + " balance:" + balance + " "
 			await client.send_message(reaction.message.channel, m)
 
+	if emoji == tip039:
+		cmda = "monacoin-cli walletpassphrase 0124 10"
+		ruta  =  subprocess.check_output( cmda.split(" ") )
+		print(ruta)
+		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+		cmd = "monacoin-cli getbalance " + tipby + ""
+		rut  =  subprocess.check_output( cmd.split(" ") )
+		balance = rut.decode()
+		num2 = 100000000
+		balance = float(balance) * float(num2)
+		print ("balance")
+		print(balance)
+		tipamount = "0.39"
+		print("tipamount")
+		print(tipamount)
+		tipamount = float(tipamount) * float(num2)
+		print("multiplyed tipamount")
+		print(tipamount)
+		minimumtip = "1"
+		minimumtip = float(minimumtip)
+		if tipamount <= balance:
+			if tipamount >= minimumtip:
+				try:
+					username = tipby
+					tipamount = float(tipamount) / float(num2)
+					tipamount = str(tipamount)
+					cmd2 = "monacoin-cli move " + tipby + " " + tipto + " " + tipamount + ""
+					rut2  =  subprocess.check_output( cmd2.split(" ") )
+					m = "<@" + tipby + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ")"
+					await client.send_message(reaction.message.channel, m)
+					cursor.execute("INSERT INTO tiped (id) VALUES (?)", (username,))
+					connection.commit()
+					cursor.execute("INSERT INTO tiped (id) VALUES (?)", (tipto,))
+				except subprocess.CalledProcessError as e:
+					eout = e.output.decode()
+					m = "<@" + tipby + ">, sorry, failed to complete your request: <@" + tipto + "> is not yet registered.\n(message created on " + currenttime + ")"
+					await client.send_message(reaction.message.channel, m)
+			else:
+				m = "<@" + tipby + ">, sorry, failed to complete your request: your tip must meet the minimum of 10 watanabe (0.00000010 Mona).\n(message created on " + currenttime + ")"
+				await client.send_message(reaction.message.channel, m)
+		else:
+			m = "<@"+ tipby + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + "\n DEBUG: tipamount:" + tipamount + " balance:" + balance + " "
+			await client.send_message(reaction.message.channel, m)
 
 @client.event
 async def on_message(message):
@@ -161,7 +204,6 @@ async def on_message(message):
 			cmd = "monacoin-cli getnewaddress " + message.author.id + ""
 			rut  =  subprocess.check_output( cmd.split(" ") )
 			print ('Creating <' + message.author.id + ">s account.. user ID ")
-			print ("---1---")
 			#cursor.execute("insert into dismona.id(id,address) values('message_author', address);")
 			resultaddress = rut.decode()
 			resultmore = resultaddress.replace('[', '')
@@ -169,40 +211,15 @@ async def on_message(message):
 			resultmore3 = resultmore2.replace('"', '')
 			resultmore4 = resultmore3.replace("\n", "")
 			resultmore5 = resultmore4.replace(" ", "")
-			print ("---2---")
-			#DEBUG
-			print ("---decoded---")
-			print (resultaddress)
-			print ("-----------------")
-			print ("---address---")
-			print(resultaddress)
-			print ("----------------")
-			print ("---resultmoreaddress---")
-			print (resultmore3)
-			print ("------------------------------")
-			print ("---removednaddress---")
-			print (resultmore4)
-			print("-------------------------------")
-			print ("---removedsaddress---")
-			print (resultmore5)
-			print("-------------------------------")
-			#DEBUG FIN
-			print ("---3---")
-			#cursor.execute("INSERT INTO dismona.id(id, address) VALUES ('" + message.author.id + "', '" + resultmore5 + "' )")
-			print ("---4---")
-			#print ('----MYSQL COMMAND START----')
-			#print ("INSERT INTO dismona.id(id, address) VALUES ('" + message.author.id + "', '" + resultmore5 + "' )")
-			#print ('----MYSQL COMMAND END----')
-			print ("---5---")
+			cursor.execute("INSERT INTO addresses (username, address) VALUES (?, ?)", (username, resultmore5))
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			m = "<@" + message.author.id + ">, successfully created an account for you! Your new address is " + resultmore5 + ", enjoy!\n(message created on " + currenttime + ")"
-			print ("---6---")
 			await client.send_message(message.channel, m)
+			connection.commit()
 
 	if message.content.startswith("/rera"):
 			# データベース接続とカーソル生成
 		username = message.author.id
-
 		# エラー処理（例外処理）
 		try:
 		# INSERT
@@ -222,7 +239,7 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 		except sqlite3.Error as e:
 			print('sqlite3.Error occurred:', e.args[0])
-			m = "DB error. DB might removed or you already signed up."
+			m = "DB error. DB might locked or you already signed up."
 			await client.send_message(message.channel, m)
 
 		# 保存を実行（忘れると保存されないので注意）
@@ -444,7 +461,6 @@ async def on_message(message):
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
 		print(ruta)
-		await client.add_reaction(message, '👌')
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		message2 = message.content.replace('/tip', '')
 		print (message2)
@@ -737,7 +753,7 @@ async def on_message(message):
 						print("resultp")
 						print(resultp)
 						resultp = str(resultp)
-						result = float(result) + float("1")
+						result = float(result) + float("4")
 						result = int(result)
 						result = str(result)
 						kyou = "0"
