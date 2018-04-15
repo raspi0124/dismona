@@ -17,12 +17,6 @@ def round_down5(value):
 	value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
 	return value
 
-# 全件取得は cursor.fetchall()
-rainall = cursor.fetchall()
-rainall = str(rainall)
-pattern = r'([0-9]+\.?[0-9]*)'
-rainall = re.findall(pattern,rainall)
-
 client = discord.Client()
 currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 
