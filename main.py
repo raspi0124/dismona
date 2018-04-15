@@ -758,7 +758,6 @@ async def on_message(message):
 						print("resultp")
 						print(resultp)
 						resultp = str(resultp)
-						result = float(result) + float("1")
 						result = int(result)
 						result = str(result)
 						m = "貴方の今日の運勢は" + resultp + "です!\n0.000" + result + "Mona送りますね！"
@@ -783,7 +782,7 @@ async def on_message(message):
 						print("resultp")
 						print(resultp)
 						resultp = str(resultp)
-						result = float(result) + float("4")
+						result = float(result) + float("3")
 						result = int(result)
 						result = str(result)
 						kyou = "0"
