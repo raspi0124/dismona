@@ -16,15 +16,6 @@ from datetime import datetime
 def round_down5(value):
 	value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
 	return value
-# データベースファイルのパス
-dbpath = '../dismona.sqlite'
-connection = sqlite3.connect(dbpath)
-# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
-# connection.isolation_level = None
-cursor = connection.cursor()
-
-# SELECT
-cursor.execute('SELECT * FROM rainregistered ORDER BY rainid')
 
 # 全件取得は cursor.fetchall()
 rainall = cursor.fetchall()
@@ -65,6 +56,11 @@ async def on_ready():
 
 @client.event
 async def on_reaction_add(reaction, user):
+	dbpath = '../dismona.sqlite'
+	connection = sqlite3.connect(dbpath)
+	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
+	# connection.isolation_level = None
+	cursor = connection.cursor()
 	print("reaction has been added")
 	print(reaction)
 	print("message")
@@ -182,6 +178,11 @@ async def on_reaction_add(reaction, user):
 
 @client.event
 async def on_message(message):
+	dbpath = '../dismona.sqlite'
+	connection = sqlite3.connect(dbpath)
+	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
+	# connection.isolation_level = None
+	cursor = connection.cursor()
 	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 	towrite = "" + message.author.name + " said " + message.content + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + "\n"
 	file = open('/home/raspi0124/alllog.txt', 'a')  #追加書き込みモードでオープン
@@ -551,13 +552,13 @@ async def on_message(message):
 		ruta  =  subprocess.check_output( cmda.split(" ") )
 		print(ruta)
 		if message.author.id == "326091178984603669":
-			await client.add_reaction(message, '👌')
 			message2 = message.content.replace('/adminc', '')
 			print(message2)
 			cmd = "monacoin-cli" + message2 + ""
 			rut = subprocess.check_output( cmd.split(" "))
 			result = rut.decode()
 			await client.send_message(message.channel, result)
+			await client.add_reaction(message, '👌')
 		else:
 			m = "sorry, but you are not allowed to do that!"
 			await client.send_message(message.channel, m)
