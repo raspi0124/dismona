@@ -50,7 +50,7 @@ async def on_ready():
 
 @client.event
 async def on_reaction_add(reaction, user):
-	dbpath = '../dismona.sqlite'
+	dbpath = '/root/dismona.sqlite'
 	connection = sqlite3.connect(dbpath)
 	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
 	# connection.isolation_level = None
@@ -172,7 +172,7 @@ async def on_reaction_add(reaction, user):
 
 @client.event
 async def on_message(message):
-	dbpath = '../dismona.sqlite'
+	dbpath = '/root/dismona.sqlite'
 	connection = sqlite3.connect(dbpath)
 	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
 	# connection.isolation_level = None
