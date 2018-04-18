@@ -55,6 +55,7 @@ async def on_reaction_add(reaction, user):
 	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
 	# connection.isolation_level = None
 	cursor = connection.cursor()
+	'''
 	print("reaction has been added")
 	print(reaction)
 	print("message")
@@ -77,6 +78,7 @@ async def on_reaction_add(reaction, user):
 	print(reaction.emoji.name)
 	print("emoji-id")
 	print(reaction.emoji.id)
+	'''
 	tipto = reaction.message.author.id
 	tipby = user.id
 	emoji = reaction.emoji.name
