@@ -179,7 +179,7 @@ async def on_message(message):
 	cursor = connection.cursor()
 	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 	towrite = "" + message.author.name + " said " + message.content + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + "\n"
-	file = open('/home/raspi0124/alllog.txt', 'a')  #追加書き込みモードでオープン
+	file = open('../alllog2.txt', 'a')  #追加書き込みモードでオープン
 	file.writelines(towrite)
 	print(towrite)
 	rainnotify = "425766935825743882"
