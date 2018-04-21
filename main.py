@@ -841,7 +841,7 @@ async def on_message(message):
 		\n Ubuntu \
 		\n ---その他--- \
 		\n 脇山P (WordPressプラグイン、monage作成の際に頂いたmonaをVPS代にありがたくつぎ込ませてもらっています。) \n Created message at " + currenttime + "\
-		\n ----------------------------------------------------------------------------------- \
+		\n ---------------------------------------------------------------------------------- \
 		```"
 		await client.send_message(message.channel, m)
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DbzaFA.hPWfWE9cXQc5UjsUbo17diRoBOQ")
