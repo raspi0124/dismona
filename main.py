@@ -9,7 +9,7 @@ import json
 import requests
 import decimal
 from decimal import (Decimal, ROUND_DOWN)
-import apim
+#import apim
 import sqlite3
 from datetime import datetime
 
@@ -20,7 +20,7 @@ def round_down5(value):
 client = discord.Client()
 currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 
-echo "0101"
+print("0101")
 # データベース接続とカーソル生成
 # 接続情報はダミーです。お手元の環境にあわせてください。
 #connection = MySQLdb.connect(
