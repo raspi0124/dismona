@@ -20,23 +20,13 @@ def round_down5(value):
 client = discord.Client()
 currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 
-cmda = "monacoin-cli walletpassphrase 0124 32140800"
-ruta  =  subprocess.check_output( cmda.split(" ") )
-print(ruta)
+echo "0101"
 # データベース接続とカーソル生成
 # 接続情報はダミーです。お手元の環境にあわせてください。
 #connection = MySQLdb.connect(
 #   host='localhost', user='root', passwd='laksjd', db='dismona', charset='utf8')
 #cursor = connection.cursor()
 #cursor.execute("CREATE TABLE IF NOT EXISTS dismona.id (id VARCHAR(20), address VARCHAR(50));")
-
-
-i = "0"
-r = requests.get('https://api.coinmarketcap.com/v1/ticker/monacoin/?convert=JPY')
-for coin in r.json():
-	print(coin["price_jpy"])
-	monaprice = coin["price_jpy"]
-
 
 
 @client.event
