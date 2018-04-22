@@ -297,7 +297,7 @@ async def on_message(message):
 				address3 = address2.replace(']', '')
 				currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 				elapsed_time = time.time() - start
-				m = "<@"+ message.author.id + ">,your address is" + address3 + " \n Created message at " + currenttime + " . exectime: " + elapsed_time + " sec" "
+				m = "<@"+ message.author.id + ">,your address is" + address3 + " \n Created message at " + currenttime + " . exectime: " + elapsed_time + " sec"
 				await client.send_message(message.channel, m)
 	if message.content.startswith("/withdraw"):
 		start = time.time()
