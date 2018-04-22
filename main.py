@@ -748,6 +748,7 @@ async def on_message(message):
 						print(result)
 						addamount = "1"
 						result = float(result) + float(addamount)
+						result = int(result)
 						resultp = kuji[result]
 						print("resultp")
 						print(resultp)
