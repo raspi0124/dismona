@@ -178,6 +178,7 @@ async def on_message(message):
 	rainnotify = client.get_channel('425766935825743882')
 	# 「/register」で始まるか調べる
 	if message.content.startswith("/register"):
+		start = time.time()
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
 		print(ruta)
@@ -200,11 +201,13 @@ async def on_message(message):
 			resultmore5 = resultmore4.replace(" ", "")
 			cursor.execute("INSERT INTO addresses (username, address) VALUES (?, ?)", (username, resultmore5))
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-			m = "<@" + message.author.id + ">, successfully created an account for you! Your new address is " + resultmore5 + ", enjoy!\n(message created on " + currenttime + ")"
+			elapsed_time = time.time() - start
+			m = "<@" + message.author.id + ">, successfully created an account for you! Your new address is " + resultmore5 + ", enjoy!\n(message created on " + currenttime + " exectime: " + elapsed_time + " sec)"
 			await client.send_message(message.channel, m)
 			connection.commit()
 
 	if message.content.startswith("/rera"):
+		start = time.time()
 			# データベース接続とカーソル生成
 		username = message.author.id
 		# エラー処理（例外処理）
@@ -219,7 +222,7 @@ async def on_message(message):
 				cmd = "monacoin-cli move "  + message.author.id + " fee " + fee + ""
 				ruta  =  subprocess.check_output( cmd.split(" ") )
 				print(ruta)
-				m = "Success"
+				m = "Success. exectime: " + elapsed_time + " sec"
 				await client.send_message(message.channel, m)
 			else:
 				m = "Not enough balance to take fee. Please note that fee of 0.01mona will be charged for registering rain.(only once.)"
@@ -234,6 +237,7 @@ async def on_message(message):
 
 
 	if message.content.startswith("/balance"):
+		start = time.time()
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
 		print(ruta)
@@ -248,10 +252,12 @@ async def on_message(message):
 				rut  =  subprocess.check_output( cmd.split(" ") )
 				balance = rut.decode()
 				currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-				m = "<@" + message.author.id + ">, you currently have  " + balance + " mona!\n(message created on " + currenttime + ")"
+				elapsed_time = time.time() - start
+				m = "<@" + message.author.id + ">, you currently have  " + balance + " mona!\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec")"
 				print ("---6---")
 				await client.send_message(message.channel, m)
 	if message.content.startswith("/deposit"):
+		start = time.time()
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
 		print(ruta)
@@ -269,9 +275,11 @@ async def on_message(message):
 				address3 = address2.replace(']', '')
 				address3 = address2.replace('\n', '')
 				currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-				m = "<@" + message.author.id + ">, the following are your deposit addresses:" + address3 + "\n(message created on " + currenttime + ")"
+				elapsed_time = time.time() - start
+				m = "<@" + message.author.id + ">, the following are your deposit addresses:" + address3 + "\n(message created on " + currenttime + ") . exectime: " + elapsed_time + " sec"
 				await client.send_message(message.channel, m)
 	if message.content.startswith("/list"):
+		start = time.time()
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
 		print(ruta)
@@ -288,9 +296,11 @@ async def on_message(message):
 				address2 = address.replace('[', '')
 				address3 = address2.replace(']', '')
 				currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-				m = "<@"+ message.author.id + ">,your address is" + address3 + " \n Created message at " + currenttime + ""
+				elapsed_time = time.time() - start
+				m = "<@"+ message.author.id + ">,your address is" + address3 + " \n Created message at " + currenttime + " . exectime: " + elapsed_time + " sec" "
 				await client.send_message(message.channel, m)
 	if message.content.startswith("/withdraw"):
+		start = time.time()
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
 		print(ruta)
@@ -328,7 +338,8 @@ async def on_message(message):
 					ruta  =  subprocess.check_output( cmd.split(" ") )
 					print(rut)
 					rut = rut.decode()
-					m = "<@" + message.author.id + ">, " + rewithdrawamount + "mona has been withdrawn to " + withdrawto + ". Transaction details can be found here: https://mona.chainsight.info/tx/" + rut + "\n(message created on " + currenttime + ")"
+					elapsed_time = time.time() - start
+					m = "<@" + message.author.id + ">, " + rewithdrawamount + "mona has been withdrawn to " + withdrawto + ". Transaction details can be found here: https://mona.chainsight.info/tx/" + rut + "\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec")"
 					await client.send_message(message.channel, m)
 					cmda = "monacoin-cli getbalance " + message.author.id + ""
 					ruta  =  subprocess.check_output( cmda.split(" ") )
@@ -355,6 +366,7 @@ async def on_message(message):
 			m = "<@" + message.author.id + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
 			await client.send_message(message.channel, m)
 	if message.content.startswith("/rain"):
+		start = time.time()
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
 		print(ruta)
@@ -423,6 +435,7 @@ async def on_message(message):
 			m = "not enough fund.. double check amount to rain."
 			await client.send_message(message.channel, m)
 	if message.content.startswith("/ban"):
+		start = time.time()
 		username = message.author.id
 		banallow = ["326091178984603669", "294470458013908992"]
 		noban = ["326091178984603669", "294470458013908992"]
@@ -445,6 +458,7 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 
 	if message.content.startswith("/tip"):
+		start = time.time()
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
 		print(ruta)
@@ -480,7 +494,8 @@ async def on_message(message):
 					tipamount = str(tipamount)
 					cmd2 = "monacoin-cli move " + message.author.id + " " + tipto + " " + tipamount + ""
 					rut2  =  subprocess.check_output( cmd2.split(" ") )
-					m = "<@" + message.author.id + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ")"
+					elapsed_time = time.time() - start
+					m = "<@" + message.author.id + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec")"
 					await client.send_message(message.channel, m)
 					cursor.execute("INSERT INTO tiped (id) VALUES (?)", (username,))
 					connection.commit()
@@ -496,6 +511,7 @@ async def on_message(message):
 			m = "<@"+ message.author.id + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + "\n DEBUG: tipamount:" + tipamount + " balance:" + balance + " "
 			await client.send_message(message.channel, m)
 	if message.content.startswith("/admin info"):
+		start = time.time()
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
 		print(ruta)
@@ -602,6 +618,7 @@ async def on_message(message):
 		await client.send_message(message.channel, m)
 		await client.add_reaction(message, '👌')
 	if message.content.startswith("/love"):
+		start = time.time()
 		username = message.author.id
 		cursor.execute('SELECT * FROM loved')
 		loved = cursor.fetchall()
@@ -626,7 +643,7 @@ async def on_message(message):
 			if username not in loved:
 				minbal = "1"
 				minbal = int(minbal)
-				
+
 				if balance >= minbal:
 					def love():
 						kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
@@ -645,6 +662,9 @@ async def on_message(message):
 					if result == loven:
 						cursor.execute("INSERT INTO loved (id) VALUES (?)", (username,))
 						connection.commit()
+					await client.send_message(message.channel, m)
+					elapsed_time = time.time() - start
+					m = ". exectime: " + elapsed_time + " sec"
 					await client.send_message(message.channel, m)
 					await client.delete_message(message)
 				else:
@@ -704,6 +724,7 @@ async def on_message(message):
 						m = messeages[result]
 						await client.send_message(message.channel, m)
 	if message.content == "/help":
+		start = time.time()
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		embed = discord.Embed(title="Monage Discord Edition - Help")
 		embed.set_footer(text=" Created message at | " + currenttime + "")
@@ -717,7 +738,9 @@ async def on_message(message):
 		embed.add_field(name="/omikuzi", value="おみくじ。おまけでmonaもらえます<Let see how fortunate you are! You can also get some mona!>")
 		embed.add_field(name="/credit", value="クレジットを表示。 <Show credit>")
 		await client.send_message(message.channel, embed=embed)
+		elapsed_time = time.time() - start
 	if message.content == "/omikuzi" or message.content == "/omikuji":
+		start = time.time()
 		username = message.author.id
 		cursor.execute('SELECT id FROM gived')
 		# 全件取得は cursor.fetchall()
@@ -775,10 +798,11 @@ async def on_message(message):
 						resultp = str(resultp)
 						result = int(result)
 						result = str(result)
+						elapsed_time = time.time() - start
 						m = "貴方の今日の運勢は" + resultp + "です!\n0.000" + result + "Mona送りますね！"
 						await client.send_message(message.channel, m)
 						cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
-						m = "/tip <@" + username + "> 0.000" + result + " おみくじtipです！次挑戦できるのは日本時間で明日です！"
+						m = "/tip <@" + username + "> 0.000" + result + " おみくじtipです！次挑戦できるのは日本時間で明日です！ . exectime: " + elapsed_time + " sec"
 						await client.send_message(message.channel, m)
 						connection.commit()
 					else:
@@ -802,10 +826,11 @@ async def on_message(message):
 						result = str(result)
 						kyou = "0"
 						kyou = int(kyou)
+						elapsed_time = time.time() - start
 						if result == kyou:
 							m = "あなたの運勢…凶みたいだから、今日はそばにいてあげるんだからねっ！今日だけだからねっ"
 						else:
-							m = "ダーリン、あなたの今日の運勢は" + resultp + "らしいですわよ。!\n0.000" + result + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。"
+							m = "ダーリン、あなたの今日の運勢は" + resultp + "らしいですわよ。!\n0.000" + result + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。 . exectime: " + elapsed_time + " sec"
 						await client.send_message(message.channel, m)
 						cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
 						m = "/tip <@" + username + "> 0.000" + result + ""
@@ -826,8 +851,10 @@ async def on_message(message):
 
 
 	if message.content.startswith("/credit"):
+		start = time.time()
 		await client.add_reaction(message, '👌')
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+		elapsed_time = time.time() - start
 		m = "```-----------------------------------------------------------------------------------  \
 		\n このプログラムは以下の方たちの協力によって完成しました。この場にて改めて感謝します。(敬称略) \
 		\n ---開発、制作--- \
@@ -853,7 +880,7 @@ async def on_message(message):
 		\n Gitlab \
 		\n Ubuntu \
 		\n ---その他--- \
-		\n 脇山P (WordPressプラグイン、monage作成の際に頂いたmonaをVPS代にありがたくつぎ込ませてもらっています。) \n Created message at " + currenttime + "\
+		\n 脇山P (WordPressプラグイン、monage作成の際に頂いたmonaをVPS代にありがたくつぎ込ませてもらっています。) \n Created message at " + currenttime + " . exectime: " + elapsed_time + " sec\
 		\n ---------------------------------------------------------------------------------- \
 		```"
 		await client.send_message(message.channel, m)
