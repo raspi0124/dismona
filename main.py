@@ -252,7 +252,7 @@ async def on_message(message):
 				print ("---6---")
 				await client.send_message(message.channel, m)
 	if message.content.startswith("/deposit"):
-		cmda = "monacoin-cli walletpassphrase 0124 10"409090118956089344
+		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
 		print(ruta)
 		await client.add_reaction(message, '👌')
