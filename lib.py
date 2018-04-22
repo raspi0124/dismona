@@ -114,7 +114,6 @@ def withdraw(fromuser, to, amount):
 	if withdrawamount >= "0.01":
 		if balancea >= "0":
 			if balancea >= "0.01":
-				await client.add_reaction(message, '👌')
 				cmd = "monacoin-cli sendfrom " + fromuser + " " + withdrawto + " " + rewithdrawamount + ""
 				rut  =  subprocess.check_output( cmd.split(" ") )
 				cmd = "monacoin-cli move " + fromuser + " fee " + fee + ""
@@ -139,11 +138,11 @@ def withdraw(fromuser, to, amount):
 
 			else:
 				m = "<@" + fromuser + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
-				await client.send_message(message.channel, m)
+				
 		else:
 			m = "<@" + fromuser + ">sorry, failed to complete your request: you do not have any mona at all!(message created on " + currenttime + ")"
-			await client.send_message(message.channel, m)
+			
 	else:
 		m = "<@" + fromuser + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
-		await client.send_message(message.channel, m)
+		
 	return m
