@@ -618,7 +618,7 @@ async def on_message(message):
 		balance = re.findall(pattern,balance)
 		balance = balance[0]
 		print(balance)
-		balance = int(balance)
+		balance = float(balance)
 		if message.author.id == "406829226751295488":
 			m = "友達にもなりたくないです。二度と話しかけないでください"
 			await client.send_message(message.channel, m)
