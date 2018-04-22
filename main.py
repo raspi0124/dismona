@@ -339,7 +339,7 @@ async def on_message(message):
 					print(rut)
 					rut = rut.decode()
 					elapsed_time = time.time() - start
-					m = "<@" + message.author.id + ">, " + rewithdrawamount + "mona has been withdrawn to " + withdrawto + ". Transaction details can be found here: https://mona.chainsight.info/tx/" + rut + "\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec")"
+					m = "<@" + message.author.id + ">, " + rewithdrawamount + "mona has been withdrawn to " + withdrawto + ". Transaction details can be found here: https://mona.chainsight.info/tx/" + rut + "\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
 					await client.send_message(message.channel, m)
 					cmda = "monacoin-cli getbalance " + message.author.id + ""
 					ruta  =  subprocess.check_output( cmda.split(" ") )
