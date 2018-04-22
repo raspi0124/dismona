@@ -612,10 +612,12 @@ async def on_message(message):
 		cmd = "monacoin-cli getbalance " + message.author.id + ""
 		rut  =  subprocess.check_output( cmd.split(" ") )
 		balance = rut.decode()
+		print(balance)
 		balance = str(balance)
-		pattern = r'([0-9]+\.?[0-9]*)'
+		print(balance)
 		balance = re.findall(pattern,balance)
 		balance = balance[0]
+		print(balance)
 		balance = int(balance)
 		if message.author.id == "406829226751295488":
 			m = "友達にもなりたくないです。二度と話しかけないでください"
