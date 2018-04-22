@@ -252,7 +252,7 @@ async def on_message(message):
 				print ("---6---")
 				await client.send_message(message.channel, m)
 	if message.content.startswith("/deposit"):
-		cmda = "monacoin-cli walletpassphrase 0124 10"
+		cmda = "monacoin-cli walletpassphrase 0124 10"409090118956089344
 		ruta  =  subprocess.check_output( cmda.split(" ") )
 		print(ruta)
 		await client.add_reaction(message, '👌')
@@ -609,30 +609,41 @@ async def on_message(message):
 		loved = str(loved)
 		pattern = r'([0-9]+\.?[0-9]*)'
 		loved = re.findall(pattern,loved)
+		cmd = "monacoin-cli getbalance " + message.author.id + ""
+		rut  =  subprocess.check_output( cmd.split(" ") )
+		balance = rut.decode()
+		balance = int(balance)
 		if message.author.id == "406829226751295488":
 			m = "友達にもなりたくないです。二度と話しかけないでください"
 			await client.send_message(message.channel, m)
 		else:
 			if username not in loved:
-				def love():
-					kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
-					result = random.choice(kuji)
-					return result
-				kuji = ["うーん。。お断りさせていただきます", "お友達から初めましょう", "。。。", "お友達から初めましょう。", "あなたのことなんか大っ嫌い!", "お友達で居ましょう。", "うーん。。お断りさせていただきます", "結婚してください！大好きです！"]
-				result = love()
-				print("result")
-				print(result)
-				result = int(result)
-				m = kuji[result]
-				print("m")
-				print(m)
-				loven = "7"
-				loven = int(loven)
-				if result == loven:
-					cursor.execute("INSERT INTO loved (id) VALUES (?)", (username,))
-					connection.commit()
-				await client.send_message(message.channel, m)
-				await client.delete_message(message)
+				minbal = "1"
+				minbal = int(minbal)
+				if balance >= minbal:
+					def love():
+						kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
+						result = random.choice(kuji)
+						return result
+					kuji = ["うーん。。お断りさせていただきます", "お友達から初めましょう", "。。。", "お友達から初めましょう。", "あなたのことなんか大っ嫌い!", "お友達で居ましょう。", "うーん。。お断りさせていただきます", "結婚してください！大好きです！"]
+					result = love()
+					print("result")
+					print(result)
+					result = int(result)
+					m = kuji[result]
+					print("m")
+					print(m)
+					loven = "7"
+					loven = int(loven)
+					if result == loven:
+						cursor.execute("INSERT INTO loved (id) VALUES (?)", (username,))
+						connection.commit()
+					await client.send_message(message.channel, m)
+					await client.delete_message(message)
+				else:
+					m = "私お金のない人と付き合いたくないのよ。ごめんなさいね。"
+					await client.send_message(message.channel, m)
+
 			else:
 				def loved():
 					kuji = ["0", "1", "2"]
