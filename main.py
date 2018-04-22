@@ -632,6 +632,7 @@ async def on_message(message):
 					cursor.execute("INSERT INTO loved (id) VALUES (?)", (username,))
 					connection.commit()
 				await client.send_message(message.channel, m)
+				await client.delete_message(message)
 			else:
 				def loved():
 					kuji = ["0", "1", "2"]
@@ -648,6 +649,7 @@ async def on_message(message):
 				if result == lovedn:
 					cursor.execute("DELETE FROM loved WHERE id = " + username + "")
 					connection.commit()
+				await client.delete_message(message)
 
 		if message.content.startswith("/marryhim"):
 			if message.author.id == "326091178984603669":
