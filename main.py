@@ -202,6 +202,7 @@ async def on_message(message):
 			cursor.execute("INSERT INTO addresses (username, address) VALUES (?, ?)", (username, resultmore5))
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			elapsed_time = time.time() - start
+			elapsed_time = str(elapsed_time)
 			m = "<@" + message.author.id + ">, successfully created an account for you! Your new address is " + resultmore5 + ", enjoy!\n(message created on " + currenttime + " exectime: " + elapsed_time + " sec)"
 			await client.send_message(message.channel, m)
 			connection.commit()
@@ -253,6 +254,7 @@ async def on_message(message):
 				balance = rut.decode()
 				currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 				elapsed_time = time.time() - start
+				elapsed_time = str(elapsed_time)
 				m = "<@" + message.author.id + ">, you currently have  " + balance + " mona!\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
 				print ("---6---")
 				await client.send_message(message.channel, m)
@@ -276,6 +278,7 @@ async def on_message(message):
 				address3 = address2.replace('\n', '')
 				currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 				elapsed_time = time.time() - start
+				elapsed_time = str(elapsed_time)
 				m = "<@" + message.author.id + ">, the following are your deposit addresses:" + address3 + "\n(message created on " + currenttime + ") . exectime: " + elapsed_time + " sec"
 				await client.send_message(message.channel, m)
 	if message.content.startswith("/list"):
@@ -297,6 +300,7 @@ async def on_message(message):
 				address3 = address2.replace(']', '')
 				currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 				elapsed_time = time.time() - start
+				elapsed_time = str(elapsed_time)
 				m = "<@"+ message.author.id + ">,your address is" + address3 + " \n Created message at " + currenttime + " . exectime: " + elapsed_time + " sec"
 				await client.send_message(message.channel, m)
 	if message.content.startswith("/withdraw"):
@@ -339,6 +343,7 @@ async def on_message(message):
 					print(rut)
 					rut = rut.decode()
 					elapsed_time = time.time() - start
+					elapsed_time = str(elapsed_time)
 					m = "<@" + message.author.id + ">, " + rewithdrawamount + "mona has been withdrawn to " + withdrawto + ". Transaction details can be found here: https://mona.chainsight.info/tx/" + rut + "\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
 					await client.send_message(message.channel, m)
 					cmda = "monacoin-cli getbalance " + message.author.id + ""
@@ -495,6 +500,7 @@ async def on_message(message):
 					cmd2 = "monacoin-cli move " + message.author.id + " " + tipto + " " + tipamount + ""
 					rut2  =  subprocess.check_output( cmd2.split(" ") )
 					elapsed_time = time.time() - start
+					elapsed_time = str(elapsed_time)
 					m = "<@" + message.author.id + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
 					await client.send_message(message.channel, m)
 					cursor.execute("INSERT INTO tiped (id) VALUES (?)", (username,))
@@ -664,6 +670,7 @@ async def on_message(message):
 						connection.commit()
 					await client.send_message(message.channel, m)
 					elapsed_time = time.time() - start
+					elapsed_time = str(elapsed_time)
 					m = ". exectime: " + elapsed_time + " sec"
 					await client.send_message(message.channel, m)
 					await client.delete_message(message)
@@ -739,6 +746,7 @@ async def on_message(message):
 		embed.add_field(name="/credit", value="クレジットを表示。 <Show credit>")
 		await client.send_message(message.channel, embed=embed)
 		elapsed_time = time.time() - start
+		elapsed_time = str(elapsed_time)
 	if message.content == "/omikuzi" or message.content == "/omikuji":
 		start = time.time()
 		username = message.author.id
@@ -799,6 +807,7 @@ async def on_message(message):
 						result = int(result)
 						result = str(result)
 						elapsed_time = time.time() - start
+						elapsed_time = str(elapsed_time)
 						m = "貴方の今日の運勢は" + resultp + "です!\n0.000" + result + "Mona送りますね！"
 						await client.send_message(message.channel, m)
 						cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
@@ -855,6 +864,7 @@ async def on_message(message):
 		await client.add_reaction(message, '👌')
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		elapsed_time = time.time() - start
+		elapsed_time = str(elapsed_time)
 		m = "```-----------------------------------------------------------------------------------  \
 		\n このプログラムは以下の方たちの協力によって完成しました。この場にて改めて感謝します。(敬称略) \
 		\n ---開発、制作--- \
