@@ -253,7 +253,7 @@ async def on_message(message):
 				balance = rut.decode()
 				currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 				elapsed_time = time.time() - start
-				m = "<@" + message.author.id + ">, you currently have  " + balance + " mona!\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec")"
+				m = "<@" + message.author.id + ">, you currently have  " + balance + " mona!\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
 				print ("---6---")
 				await client.send_message(message.channel, m)
 	if message.content.startswith("/deposit"):
@@ -495,7 +495,7 @@ async def on_message(message):
 					cmd2 = "monacoin-cli move " + message.author.id + " " + tipto + " " + tipamount + ""
 					rut2  =  subprocess.check_output( cmd2.split(" ") )
 					elapsed_time = time.time() - start
-					m = "<@" + message.author.id + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec")"
+					m = "<@" + message.author.id + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
 					await client.send_message(message.channel, m)
 					cursor.execute("INSERT INTO tiped (id) VALUES (?)", (username,))
 					connection.commit()
