@@ -8,7 +8,6 @@ import random
 import json
 import requests
 import decimal
-import lib
 from decimal import (Decimal, ROUND_DOWN)
 #import apim
 import sqlite3
@@ -177,7 +176,6 @@ async def on_message(message):
 	print(towrite)
 	rainnotify = "425766935825743882"
 	rainnotify = client.get_channel('425766935825743882')
-	username = message.author.id
 	# 「/register」で始まるか調べる
 	if message.content.startswith("/register"):
 		cmda = "monacoin-cli walletpassphrase 0124 10"
@@ -190,9 +188,19 @@ async def on_message(message):
 			m = "<@" + message.author.id + "> さんのアカウントを作成しますね！"
 			# メッセージが送られてきたチャンネルへメッセージを送ります
 			await client.send_message(message.channel, m)
-			address = createaccount(username)
+			cmd = "monacoin-cli getnewaddress " + message.author.id + ""
+			rut  =  subprocess.check_output( cmd.split(" ") )
+			print ('Creating <' + message.author.id + ">s account.. user ID ")
+			#cursor.execute("insert into dismona.id(id,address) values('message_author', address);")
+			resultaddress = rut.decode()
+			resultmore = resultaddress.replace('[', '')
+			resultmore2 = resultmore.replace(']', '')
+			resultmore3 = resultmore2.replace('"', '')
+			resultmore4 = resultmore3.replace("\n", "")
+			resultmore5 = resultmore4.replace(" ", "")
+			cursor.execute("INSERT INTO addresses (username, address) VALUES (?, ?)", (username, resultmore5))
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-			m = "<@" + message.author.id + ">, successfully created an account for you! Your new address is " + address + ", enjoy!\n(message created on " + currenttime + ")"
+			m = "<@" + message.author.id + ">, successfully created an account for you! Your new address is " + resultmore5 + ", enjoy!\n(message created on " + currenttime + ")"
 			await client.send_message(message.channel, m)
 			connection.commit()
 
@@ -226,6 +234,9 @@ async def on_message(message):
 
 
 	if message.content.startswith("/balance"):
+		cmda = "monacoin-cli walletpassphrase 0124 10"
+		ruta  =  subprocess.check_output( cmda.split(" ") )
+		print(ruta)
 		await client.add_reaction(message, '👌')
 		# 送り主がBotだった場合反応したくないので
 		if client.user != message.author.name:
@@ -233,11 +244,17 @@ async def on_message(message):
 				m = "<@" + message.author.id + "> さんの残高チェック中.."
 			# メッセージが送られてきたチャンネルへメッセージを送ります
 				await client.send_message(message.channel, m)
-				balance = getbalance(username)
+				cmd = "monacoin-cli getbalance " + message.author.id + ""
+				rut  =  subprocess.check_output( cmd.split(" ") )
+				balance = rut.decode()
 				currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 				m = "<@" + message.author.id + ">, you currently have  " + balance + " mona!\n(message created on " + currenttime + ")"
+				print ("---6---")
 				await client.send_message(message.channel, m)
 	if message.content.startswith("/deposit"):
+		cmda = "monacoin-cli walletpassphrase 0124 10"
+		ruta  =  subprocess.check_output( cmda.split(" ") )
+		print(ruta)
 		await client.add_reaction(message, '👌')
 		# 送り主がBotだった場合反応したくないので
 		if client.user != message.author.name:
@@ -245,10 +262,19 @@ async def on_message(message):
 				m = "<@" + message.author.id + "> アドレスを確認中..."
 			# メッセージが送られてきたチャンネルへメッセージを送ります
 				await client.send_message(message.channel, m)
-				address = getaddress(username)
-				m = "<@" + message.author.id + ">, the following are your deposit addresses:" + address + "\n(message created on " + currenttime + ")"
+				cmd = "monacoin-cli getaddressesbyaccount " + message.author.id + ""
+				rut  =  subprocess.check_output( cmd.split(" ") )
+				address = rut.decode()
+				address2 = address.replace('[', '')
+				address3 = address2.replace(']', '')
+				address3 = address2.replace('\n', '')
+				currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+				m = "<@" + message.author.id + ">, the following are your deposit addresses:" + address3 + "\n(message created on " + currenttime + ")"
 				await client.send_message(message.channel, m)
 	if message.content.startswith("/list"):
+		cmda = "monacoin-cli walletpassphrase 0124 10"
+		ruta  =  subprocess.check_output( cmda.split(" ") )
+		print(ruta)
 		await client.add_reaction(message, '👌')
 		# 送り主がBotだった場合反応したくないので
 		if client.user != message.author.name:
@@ -830,7 +856,7 @@ async def on_message(message):
 		\n ---------------------------------------------------------------------------------- \
 		```"
 		await client.send_message(message.channel, m)
-		connection.close()
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DbzaFA.hPWfWE9cXQc5UjsUbo17diRoBOQ")
+cursor.close()
 # https://qiita.com/PinappleHunter/items/af4ccdbb04727437477f
 # https://qiita.com/komeiy/items/d6b5f25bf1778fa10e21
