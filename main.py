@@ -620,7 +620,12 @@ async def on_message(message):
 			await client.send_file(message.channel, f)
 	if message.content.startswith("/hello"):
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+		start = time.time()
 		m = "こんにちは! <@" + message.author.id + "> さん！"
+		await client.send_message(message.channel, m)
+		elapsed_time = time.time() - start
+		elapsed_time = str(elapsed_time)
+		m = "elapsed time:" + elapsed_time + "sec"
 		await client.send_message(message.channel, m)
 		await client.add_reaction(message, '👌')
 	if message.content.startswith("/love"):
