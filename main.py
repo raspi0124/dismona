@@ -177,7 +177,7 @@ async def on_message(message):
 	print(towrite)
 	rainnotify = "425766935825743882"
 	rainnotify = client.get_channel('425766935825743882')
-	username = message,author.id
+	username = message.author.id
 	# 「/register」で始まるか調べる
 	if message.content.startswith("/register"):
 		cmda = "monacoin-cli walletpassphrase 0124 10"
@@ -830,7 +830,7 @@ async def on_message(message):
 		\n ---------------------------------------------------------------------------------- \
 		```"
 		await client.send_message(message.channel, m)
+		connection.close()
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DbzaFA.hPWfWE9cXQc5UjsUbo17diRoBOQ")
-cursor.close()
 # https://qiita.com/PinappleHunter/items/af4ccdbb04727437477f
 # https://qiita.com/komeiy/items/d6b5f25bf1778fa10e21
