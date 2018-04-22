@@ -626,6 +626,7 @@ async def on_message(message):
 			if username not in loved:
 				minbal = "1"
 				minbal = int(minbal)
+				
 				if balance >= minbal:
 					def love():
 						kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
