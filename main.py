@@ -631,7 +631,7 @@ async def on_message(message):
 	if message.content.startswith("/rmomikuzi"):
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		start = time.time()
-		if message.author.id == "":
+		if message.author.id == "326091178984603669":
 			cmd = "sh dismona-rm.sh"
 			ruta  =  subprocess.check_output( cmd.split(" ") )
 			print(ruta)
