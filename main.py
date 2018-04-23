@@ -628,6 +628,20 @@ async def on_message(message):
 		m = "elapsed time:" + elapsed_time + "sec"
 		await client.send_message(message.channel, m)
 		await client.add_reaction(message, '👌')
+	if message.content.startswith("/rmomikuzi"):
+		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+		start = time.time()
+		if message.author.id == "":
+			cmd = "sh dismona-rm.sh"
+			ruta  =  subprocess.check_output( cmd.split(" ") )
+			print(ruta)
+			m = "True"
+			await client.send_message(message.channel, m)
+			elapsed_time = time.time() - start
+			elapsed_time = str(elapsed_time)
+			m = "elapsed time:" + elapsed_time + "sec"
+			await client.send_message(message.channel, m)
+			await client.add_reaction(message, '👌')
 	if message.content.startswith("/love"):
 		start = time.time()
 		username = message.author.id
