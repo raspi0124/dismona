@@ -841,6 +841,7 @@ async def on_message(message):
 						kyou = "0"
 						kyou = int(kyou)
 						elapsed_time = time.time() - start
+						elapsed_time = str(elapsed_time)
 						if result == kyou:
 							m = "あなたの運勢…凶みたいだから、今日はそばにいてあげるんだからねっ！今日だけだからねっ"
 						else:
