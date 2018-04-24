@@ -172,7 +172,6 @@ async def on_message(message):
 	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 	cursor.execute('SELECT * FROM disagreelog')
 	disagreelog = cursor.fetchall()
-	print(disagreelog)
 	disagreelog = str(disagreelog)
 	pattern = r'([0-9]+\.?[0-9]*)'
 	disagreelog = re.findall(pattern,disagreelog)
