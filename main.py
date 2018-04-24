@@ -176,12 +176,21 @@ async def on_message(message):
 	pattern = r'([0-9]+\.?[0-9]*)'
 	disagreelog = re.findall(pattern,disagreelog)
 	userid = message.author.id
-	if userid not in disagreelog:
+	if message.content.startswith("/"):
 		towrite = "" + message.author.name + " said " + message.content + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + "\n"
 		file = open('/root/alllog2.txt', 'a')  #追加書き込みモードでオープン
 		file.writelines(towrite)
 		print(towrite)
 		cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (?, ?, ?, ?, ?)", (message.author.name, message.content, message.author.id, message.channel.id, currenttime))
+		connection.commit()
+	else:
+		if userid not in disagreelog:
+			towrite = "" + message.author.name + " said " + message.content + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + "\n"
+			file = open('/root/alllog2.txt', 'a')  #追加書き込みモードでオープン
+			file.writelines(towrite)
+			print(towrite)
+			cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (?, ?, ?, ?, ?)", (message.author.name, message.content, message.author.id, message.channel.id, currenttime))
+			connection.commit()
 	rainnotify = "425766935825743882"
 	rainnotify = client.get_channel('425766935825743882')
 
