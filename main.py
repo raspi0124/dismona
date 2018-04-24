@@ -256,7 +256,7 @@ async def on_message(message):
 
 			fee = "0.01"
 			cursor.execute("INSERT INTO disagreelog (id) VALUES (?)", (username,))
-			m = "あなたをログ登録禁止者として登録しました。これよりあなたのメッセージはすべてログされなくなります。 exectime: " + elapsed_time + " sec"
+			m = "あなたをログ登録禁止者として登録しました。これよりあなたのメッセージはすべてログされなくなります。 "
 			await client.send_message(message.channel, m)
 		except sqlite3.Error as e:
 			print('sqlite3.Error occurred:', e.args[0])
