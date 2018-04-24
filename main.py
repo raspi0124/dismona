@@ -176,9 +176,9 @@ async def on_message(message):
 	pattern = r'([0-9]+\.?[0-9]*)'
 	disagreelog = re.findall(pattern,disagreelog)
 	userid = message.author.id
-	message.content = unicode(message.content.decode('utf-8'))
+	messagesql = message.content.encode('utf-8')
 	if message.content.startswith("/"):
-		towrite = "" + message.author.name + " said " + message + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + "\n"
+		towrite = "" + message.author.name + " said " + messagesql + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + "\n"
 		file = open('/root/alllog2.txt', 'a')  #追加書き込みモードでオープン
 		file.writelines(towrite)
 		print(towrite)
