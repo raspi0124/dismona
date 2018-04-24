@@ -183,16 +183,8 @@ async def on_message(message):
 		file = open('/root/alllog2.txt', 'a')  #追加書き込みモードでオープン
 		file.writelines(towrite)
 		print(towrite)
-		cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (?, ?, ?, ?, ?)", (message.author.name, message, message.author.id, message.channel.id, currenttime))
-		connection.commit()
-	else:
-		if userid not in disagreelog:
-			towrite = "" + message.author.name + " said " + message + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + "\n"
-			file = open('/root/alllog2.txt', 'a')  #追加書き込みモードでオープン
-			file.writelines(towrite)
-			print(towrite)
-			cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (?, ?, ?, ?, ?)", (message.author.name, message, message.author.id, message.channel.id, currenttime))
-			connection.commit()
+		#cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (?, ?, ?, ?, ?)", (message.author.name, message, message.author.id, message.channel.id, currenttime))
+		#connection.commit()
 	rainnotify = "425766935825743882"
 	rainnotify = client.get_channel('425766935825743882')
 
