@@ -174,10 +174,20 @@ async def on_message(message):
 	file = open('/root/alllog2.txt', 'a')  #追加書き込みモードでオープン
 	file.writelines(towrite)
 	print(towrite)
+	cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (?, ?, ?, ?, ?)", (message.author.name, message.content, message.author.id, message.channel.id, currenttime))
 	rainnotify = "425766935825743882"
 	rainnotify = client.get_channel('425766935825743882')
+	cursor.execute('SELECT * FROM rainregistered ORDER BY rainid')
+
+	# 全件取得は cursor.fetchall()
+	agreepos = cursor.fetchall()
+	print(agreepos)
+	agreepos = str(agreepos)
+	pattern = r'([0-9]+\.?[0-9]*)'
+	agreepos = re.findall(pattern,agreepos)
+	userid = message.author.id
 	# 「/register」で始まるか調べる
-	if message.content.startswith("/register"):
+	if message.content.startswith("/register") and userid in agreepos:
 		start = time.time()
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
@@ -207,7 +217,7 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 			connection.commit()
 
-	if message.content.startswith("/rera"):
+	if message.content.startswith("/rera") and userid in agreepos:
 		start = time.time()
 			# データベース接続とカーソル生成
 		username = message.author.id
@@ -237,7 +247,7 @@ async def on_message(message):
 		connection.commit()
 
 
-	if message.content.startswith("/balance"):
+	if message.content.startswith("/balance") and userid in agreepos:
 		start = time.time()
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
@@ -258,7 +268,7 @@ async def on_message(message):
 				m = "<@" + message.author.id + ">, you currently have  " + balance + " mona!\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
 				print ("---6---")
 				await client.send_message(message.channel, m)
-	if message.content.startswith("/deposit"):
+	if message.content.startswith("/deposit") and userid in agreepos:
 		start = time.time()
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
@@ -281,7 +291,7 @@ async def on_message(message):
 				elapsed_time = str(elapsed_time)
 				m = "<@" + message.author.id + ">, the following are your deposit addresses:" + address3 + "\n(message created on " + currenttime + ") . exectime: " + elapsed_time + " sec"
 				await client.send_message(message.channel, m)
-	if message.content.startswith("/list"):
+	if message.content.startswith("/list") and userid in agreepos:
 		start = time.time()
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
@@ -303,7 +313,7 @@ async def on_message(message):
 				elapsed_time = str(elapsed_time)
 				m = "<@"+ message.author.id + ">,your address is" + address3 + " \n Created message at " + currenttime + " . exectime: " + elapsed_time + " sec"
 				await client.send_message(message.channel, m)
-	if message.content.startswith("/withdraw"):
+	if message.content.startswith("/withdraw") and userid in agreepos:
 		start = time.time()
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
@@ -370,7 +380,7 @@ async def on_message(message):
 		else:
 			m = "<@" + message.author.id + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
 			await client.send_message(message.channel, m)
-	if message.content.startswith("/rain"):
+	if message.content.startswith("/rain") and userid in agreepos:
 		start = time.time()
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
@@ -439,7 +449,7 @@ async def on_message(message):
 		else:
 			m = "not enough fund.. double check amount to rain."
 			await client.send_message(message.channel, m)
-	if message.content.startswith("/ban"):
+	if message.content.startswith("/ban") and userid in agreepos:
 		start = time.time()
 		username = message.author.id
 		banallow = ["326091178984603669", "294470458013908992"]
@@ -462,7 +472,7 @@ async def on_message(message):
 			m = "You are not allowed to do that!"
 			await client.send_message(message.channel, m)
 
-	if message.content.startswith("/tip"):
+	if message.content.startswith("/tip") and userid in agreepos:
 		start = time.time()
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
@@ -516,7 +526,7 @@ async def on_message(message):
 		else:
 			m = "<@"+ message.author.id + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + "\n DEBUG: tipamount:" + tipamount + " balance:" + balance + " "
 			await client.send_message(message.channel, m)
-	if message.content.startswith("/admin info"):
+	if message.content.startswith("/admin info") and userid in agreepos:
 		start = time.time()
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
@@ -555,7 +565,7 @@ async def on_message(message):
 		else:
 			m = "Haha, you don't have permission to do that! Your request has been logged and reported to the admin! (but the admin probably won't care about it, so don't worry.)"
 			await client.send_message(message.channel, m)
-	if message.content.startswith("/adminc"):
+	if message.content.startswith("/adminc") and userid in agreepos:
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
 		print(ruta)
@@ -570,7 +580,7 @@ async def on_message(message):
 		else:
 			m = "sorry, but you are not allowed to do that!"
 			await client.send_message(message.channel, m)
-	if message.content.startswith('/members'):
+	if message.content.startswith('/members') and userid in agreepos:
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
 		print(ruta)
@@ -580,7 +590,7 @@ async def on_message(message):
 				print (member)
 				list_of_ids = [m.id  for m in server.members]
 				print(list_of_ids)
-	if message.content.startswith('/adminregister'):
+	if message.content.startswith('/adminregister') and userid in agreepos:
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
 		print(ruta)
@@ -597,7 +607,7 @@ async def on_message(message):
 		else:
 			m = "sorry, but you are not allowed to do that!"
 			await client.send_message(message.channel, m)
-	if message.content.startswith('/adminbalance'):
+	if message.content.startswith('/adminbalance') and userid in agreepos:
 		cmda = "monacoin-cli walletpassphrase 0124 10"
 		ruta  =  subprocess.check_output( cmda.split(" ") )
 		print(ruta)
@@ -614,11 +624,11 @@ async def on_message(message):
 		else:
 			m = "sorry, but you are not arrowed to do that!"
 			await client.send_message(message.channel, m)
-	if message.content.startswith("/image"):
+	if message.content.startswith("/image") and userid in agreepos:
 		await client.add_reaction(message, '👌')
 		with open('../image.jpg', 'rb') as f:
 			await client.send_file(message.channel, f)
-	if message.content.startswith("/hello"):
+	if message.content.startswith("/hello") and userid in agreepos:
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		start = time.time()
 		m = "こんにちは! <@" + message.author.id + "> さん！"
@@ -628,7 +638,7 @@ async def on_message(message):
 		m = "elapsed time:" + elapsed_time + "sec"
 		await client.send_message(message.channel, m)
 		await client.add_reaction(message, '👌')
-	if message.content.startswith("/rmomikuzi"):
+	if message.content.startswith("/rmomikuzi") and userid in agreepos:
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		start = time.time()
 		if message.author.id == "326091178984603669":
@@ -642,7 +652,7 @@ async def on_message(message):
 			m = "elapsed time:" + elapsed_time + "sec"
 			await client.send_message(message.channel, m)
 			await client.add_reaction(message, '👌')
-	if message.content.startswith("/love"):
+	if message.content.startswith("/love") and userid in agreepos:
 		start = time.time()
 		username = message.author.id
 		cursor.execute('SELECT * FROM loved')
@@ -749,7 +759,7 @@ async def on_message(message):
 						result = int(result)
 						m = messeages[result]
 						await client.send_message(message.channel, m)
-	if message.content == "/help":
+	if message.content == "/help" and userid in agreepos:
 		start = time.time()
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		embed = discord.Embed(title="Monage Discord Edition - Help")
@@ -766,7 +776,7 @@ async def on_message(message):
 		await client.send_message(message.channel, embed=embed)
 		elapsed_time = time.time() - start
 		elapsed_time = str(elapsed_time)
-	if message.content == "/omikuzi" or message.content == "/omikuji":
+	if message.content == "/omikuzi" or message.content == "/omikuji" and userid in agreepos:
 		start = time.time()
 		username = message.author.id
 		cursor.execute('SELECT id FROM gived')
@@ -879,7 +889,7 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 
 
-	if message.content.startswith("/credit"):
+	if message.content.startswith("/credit") and userid in agreepos:
 		start = time.time()
 		await client.add_reaction(message, '👌')
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
