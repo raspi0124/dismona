@@ -267,13 +267,17 @@ async def on_message(message):
 
 		# 保存を実行（忘れると保存されないので注意）
 		connection.commit()
-	if message.content.startswith("/forgetmylog"):
+	if message.content.startswith("/agreetos"):
+		m = "ARE YOU REALLY SURE YOU AGREED TOS? READ THE TOS AGAIN!\n TOS can be found here: https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt"
+		await client.send_message(message.channel, m)
+
+	if message.content.startswith("/cagreedtos"):
 		start = time.time()
 			# データベース接続とカーソル生成
 		username = message.author.id
 		# エラー処理（例外処理）
 		try:
-
+			await client.add_reaction(message, '👌')
 			fee = "0.01"
 			#cursor.execute("INSERT INTO disagreelog (id) VALUES (?)", (username,))
 			m = "<未実装の機能>あなたのログを削除しました。 exectime: " + elapsed_time + " sec"
