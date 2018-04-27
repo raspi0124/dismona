@@ -279,8 +279,8 @@ async def on_message(message):
 		try:
 			await client.add_reaction(message, '👌')
 			fee = "0.01"
-			#cursor.execute("INSERT INTO disagreelog (id) VALUES (?)", (username,))
-			m = "<未実装の機能>あなたのログを削除しました。 exectime: " + elapsed_time + " sec"
+			cursor.execute("INSERT INTO agreetos (id) VALUES (?)", (username,))
+			m = "利用規約への同意を確認しました。"
 			await client.send_message(message.channel, m)
 		except sqlite3.Error as e:
 			print('sqlite3.Error occurred:', e.args[0])
