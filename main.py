@@ -188,7 +188,7 @@ async def on_message(message):
 	rainnotify = "425766935825743882"
 	rainnotify = client.get_channel('425766935825743882')
 
-	if message.content.startswith("/") and message.content !== "/agreetos" and message.content !== "/cagreedtos" and userid in agreetos:
+	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/cagreedtos" and userid in agreetos:
 		# 全件取得は cursor.fetchall()
 		# 「/register」で始まるか調べる
 		if message.content.startswith("/register"):
@@ -928,33 +928,30 @@ async def on_message(message):
 			```"
 			await client.send_message(message.channel, m)
 
-	if message.content == "/agreetos":
-		m = "ARE YOU REALLY SURE YOU AGREED TOS? READ THE TOS AGAIN!\n TOS can be found here: https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt"
-		await client.send_message(message.channel, m)
 
-	if message.content == "/cagreedtos":
-		start = time.time()
-			# データベース接続とカーソル生成
-		username = message.author.id
-		# エラー処理（例外処理）
-		try:
-			await client.add_reaction(message, '👌')
-			fee = "0.01"
-			cursor.execute("INSERT INTO agreetos (id) VALUES (?)", (username,))
-			m = "利用規約への同意を確認しました。"
-			await client.send_message(message.channel, m)
-		except sqlite3.Error as e:
-			print('sqlite3.Error occurred:', e.args[0])
-			m = "DB error. DB might locked. Please try again later or contact @raspi0124."
-			await client.send_message(message.channel, m)
 
-		# 保存を実行（忘れると保存されないので注意）
-		connection.commit()
-	if message.content.startswith("/") and message.content !== "/agreetos" and message.content !== "/cagreedtos" and userid not in agreetos:
-		m = "<@" + userid +"> Monageを利用するには利用規約への同意が必要です。https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt お読みになってから/agreetosコマンドの入力をおねがいします。"
-		await client.send_message(message.channel, m)
-		m = "<@" + userid +"> In order to use Monage, you first need to accept ToS. Please read https://github.com/raspi0124/monage-term/blob/master/terms-en.txt , than accept it by /agreetos."
-		await client.send_message(message.channel, m)
+	if message.content.startswith("/"):
+		if message.content == "/cagreedtos":
+			start = time.time()
+				# データベース接続とカーソル生成
+			username = message.author.id
+			# エラー処理（例外処理）
+			try:
+				await client.add_reaction(message, '👌')
+				fee = "0.01"
+				cursor.execute("INSERT INTO agreetos (id) VALUES (?)", (username,))
+				m = "利用規約への同意を確認しました。"
+				await client.send_message(message.channel, m)
+			except sqlite3.Error as e:
+				print('sqlite3.Error occurred:', e.args[0])
+				m = "DB error. DB might locked. Please try again later or contact @raspi0124."
+				await client.send_message(message.channel, m)
+
+			# 保存を実行（忘れると保存されないので注意）
+			connection.commit()
+		if message.content == "/agreetos":
+			m = "ARE YOU REALLY SURE YOU AGREED TOS? READ THE TOS AGAIN!\n TOS can be found here: https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt"
+			await client.send_message(message.channel, m)
 	cursor.close()
 	connection.close()
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DbzaFA.hPWfWE9cXQc5UjsUbo17diRoBOQ")
