@@ -3,6 +3,7 @@ import json
 import subprocess
 import sqlite3
 import re
+import discord
 dbpath = '/root/monaparty.sqlite'
 connection = sqlite3.connect(dbpath)
 cursor = connection.cursor()
@@ -30,4 +31,3 @@ if message.content.startswith('/mp balance'):
     data = '{ "jsonrpc": "2.0", "id": 0, "method": "get_normalized_balances" "addresses": ' + addresses +' }'
     response = requests.post('https://wallet.monaparty.me/_api', headers=headers, data=data, auth=('rpc', 'hello'))
     m = "here is " + addresses + " balance" + response + ""
-    await client.send_message(reaction.message.channel, m)
