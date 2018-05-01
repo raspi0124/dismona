@@ -915,6 +915,7 @@ async def on_message(message):
 
 			#MONAPARTY関連スタート
 			if message.content.startswith('/mp info'):
+				print("1")
 				await client.add_reaction(message, '👌')
 				headers = {
 					'Content-Type': 'application/json; charset=UTF-8',
@@ -926,6 +927,7 @@ async def on_message(message):
 				await client.send_message(reaction.message.channel, m)
 
 			if message.content.startswith('/mp balance'):
+				print("1")
 				address = re.split('\W+', message.content)
 				addresses = address[2]
 				addresses = '"' + addresses + '"'
