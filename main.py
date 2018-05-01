@@ -922,7 +922,9 @@ async def on_message(message):
 				'Accept': 'application/json, text/javascript',
 			}
 			data = '{ "jsonrpc": "2.0", "id": 0, "method": "get_running_info" }'
+			print (data)
 			response = requests.post('https://api.monaparty.me/api/counterparty', headers=headers, data=data, auth=('rpc', 'hello'))
+			print(response)
 			m = str(response)
 			await client.send_message(reaction.message.channel, m)
 
