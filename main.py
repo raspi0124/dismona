@@ -844,7 +844,7 @@ async def on_message(message):
 					elapsed_time = time.time() - start
 					elapsed_time = str(elapsed_time)
 					resultp = str(resultp)
-					m = "貴方の今日の運勢は" + resultp + "です!
+					m = "貴方の今日の運勢は" + resultp + "です!"
 					await client.send_message(message.channel, m)
 					cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
 					connection.commit()
