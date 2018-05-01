@@ -823,19 +823,19 @@ async def on_message(message):
 							a = "a"
 							if a == a:
 								if result == "0":
-									with open('kyou.png', 'rb') as f:
+									with open('/root/dismona/kyou.png', 'rb') as f:
 										await client.send_file(message.channel, f)
 								if result == "1":
-									with open('syoukiti.png', 'rb') as f:
+									with open('/root/dismona/syoukiti.png', 'rb') as f:
 										await client.send_file(message.channel, f)
 								if result == "2":
-									with open('tyuukiti.png', 'rb') as f:
+									with open('/root/dismona/tyuukiti.png', 'rb') as f:
 										await client.send_file(message.channel, f)
 								if result == "3":
-									with open('daikiti.png', 'rb') as f:
+									with open('/root/dismona/daikiti.png', 'rb') as f:
 										await client.send_file(message.channel, f)
 								if result == "7":
-									with open('tyoudaikiti.png', 'rb') as f:
+									with open('/root/dismona/tyoudaikiti.png', 'rb') as f:
 										await client.send_file(message.channel, f)
 							elapsed_time = time.time() - start
 							elapsed_time = str(elapsed_time)
