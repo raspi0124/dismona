@@ -823,13 +823,13 @@ async def on_message(message):
 							a = "a"
 							if a == a:
 								if result == "0":
-									with open('kyo.jpg', 'rb') as f:
+									with open('kyou.jpg', 'rb') as f:
 										await client.send_file(message.channel, f)
 								if result == "1":
 									with open('syoukiti.jpg', 'rb') as f:
 										await client.send_file(message.channel, f)
 								if result == "2":
-									with open('tyuukiti.jpg', 'rb') as f:
+									with open('tyukiti.jpg', 'rb') as f:
 										await client.send_file(message.channel, f)
 								if result == "3":
 									with open('daikiti.jpg', 'rb') as f:
