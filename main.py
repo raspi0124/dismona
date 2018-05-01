@@ -916,9 +916,9 @@ async def on_message(message):
 			#MONAPARTY関連スタート
 			if message.content.startswith('/mp info'):
 				await client.add_reaction(message, '👌')
-			    headers = {
-			        'Content-Type': 'application/json; charset=UTF-8',
-			        'Accept': 'application/json, text/javascript',
+				headers = {
+					'Content-Type': 'application/json; charset=UTF-8',
+					'Accept': 'application/json, text/javascript',
 			    }
 			    data = '{ "jsonrpc": "2.0", "id": 0, "method": "get_running_info" }'
 			    response = requests.post('https://api.monaparty.me/api/counterparty', headers=headers, data=data, auth=('rpc', 'hello'))
