@@ -820,7 +820,7 @@ async def on_message(message):
 							result2 = int(result2)
 							result2 = str(result2)
 							result = str(result)
-							a = a
+							a = "a"
 							if a == a:
 								if result == "0":
 									with open('kyo.jpg', 'rb') as f:
