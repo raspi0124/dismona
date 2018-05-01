@@ -262,13 +262,24 @@ async def on_message(message):
 					m = "<@" + message.author.id + "> さんの残高チェック中.."
 				# メッセージが送られてきたチャンネルへメッセージを送ります
 					await client.send_message(message.channel, m)
+					import requests
+
+					headers = {
+					'Accept': 'application/json',
+					}
+					response = requests.get('https://public.bitbank.cc/mona_jpy/ticker', headers=headers)
+					response = json.load(f)
+					currentprice = response['last']
+					currentprice = int(currentprice)
 					cmd = "monacoin-cli getbalance " + message.author.id + ""
 					rut  =  subprocess.check_output( cmd.split(" ") )
 					balance = rut.decode()
+					balance = int(balance)
+					jpybalance = float(currentprice) * float(balance)
 					currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 					elapsed_time = time.time() - start
 					elapsed_time = str(elapsed_time)
-					m = "<@" + message.author.id + ">, you currently have  " + balance + " mona!\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
+					m = "<@" + message.author.id + ">, you currently have  " + balance + " mona! (" + jpybalance + " jpy)\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
 					print ("---6---")
 					await client.send_message(message.channel, m)
 		if message.content.startswith("/deposit"):
@@ -727,7 +738,6 @@ async def on_message(message):
 						cursor.execute("DELETE FROM loved WHERE id = " + username + "")
 						connection.commit()
 					await client.delete_message(message)
-
 			if message.content.startswith("/marryhim"):
 				if message.author.id == "326091178984603669":
 					username = message.author.id
@@ -762,6 +772,117 @@ async def on_message(message):
 							result = int(result)
 							m = messeages[result]
 							await client.send_message(message.channel, m)
+
+		if message.content == "/omikuzi -nomona" or message.content == "/omikuji -nomona":
+			start = time.time()
+			username = message.author.id
+			cursor.execute('SELECT id FROM gived')
+			# 全件取得は cursor.fetchall()
+			gived = cursor.fetchall()
+			print("gived")
+			print(gived)
+			gived = str(gived)
+			cursor.execute('SELECT banedid FROM baned')
+			baned = cursor.fetchall()
+			cursor.execute('SELECT * FROM tiped')
+			tiped = cursor.fetchall()
+			print(tiped)
+			tiped = str(tiped)
+			pattern = r'([0-9]+\.?[0-9]*)'
+			tiped = re.findall(pattern,tiped)
+			print("banned")
+			print(baned)
+			print("tiped")
+			print(tiped)
+			baned = str(baned)
+			await client.add_reaction(message, '👌')
+			cursor.execute('SELECT * FROM loved')
+			loved = cursor.fetchall()
+			print(loved)
+			loved = str(loved)
+			pattern = r'([0-9]+\.?[0-9]*)'
+			loved = re.findall(pattern,loved)
+
+			if username not in gived:
+				if username not in loved:
+					def omikuji():
+						kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
+						result = random.choice(kuji)
+						return result
+					kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
+					result = omikuji()
+					print("result")
+					print(result)
+					addamount = "1"
+					result = int(result)
+					resultp = kuji[result]
+					result2 = float(result) + float(addamount)
+					result2 = int(result2)
+					print("resultp")
+					print(resultp)
+					resultp = str(resultp)
+					result2 = int(result2)
+					result2 = str(result2)
+					result = str(result)
+					a = "a"
+					if a == a:
+						if result == "0":
+							with open('/root/dismona/kyou.png', 'rb') as f:
+								await client.send_file(message.channel, f)
+						if result == "1":
+							with open('/root/dismona/syoukiti.png', 'rb') as f:
+								await client.send_file(message.channel, f)
+						if result == "2":
+							with open('/root/dismona/tyuukiti.png', 'rb') as f:
+								await client.send_file(message.channel, f)
+						if result == "3":
+							with open('/root/dismona/daikiti.png', 'rb') as f:
+								await client.send_file(message.channel, f)
+						if result == "7":
+							with open('/root/dismona/tyoudaikiti.png', 'rb') as f:
+								await client.send_file(message.channel, f)
+					elapsed_time = time.time() - start
+					elapsed_time = str(elapsed_time)
+					m = "貴方の今日の運勢は" + resultp + "です!
+					await client.send_message(message.channel, m)
+					cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
+					connection.commit()
+				else:
+					def omikuji():
+						kuji = ["0", "1", "2", "3", "2", "4"]
+						result = random.choice(kuji)
+						return result
+					kuji = ["凶", "小吉", "中吉", "大吉", "超大吉"]
+					result = omikuji()
+					print("result")
+					print(result)
+					result = int(result)
+					print("resulta")
+					print(result)
+					resultp = kuji[result]
+					print("resultp")
+					print(resultp)
+					resultp = str(resultp)
+					result = float(result) + float("3")
+					result = int(result)
+					result = str(result)
+					kyou = "0"
+					kyou = int(kyou)
+					elapsed_time = time.time() - start
+					elapsed_time = str(elapsed_time)
+					if result == kyou:
+						m = "あなたの運勢…凶みたいだから、今日はそばにいてあげるんだからねっ！今日だけだからねっ"
+					else:
+						m = "ダーリン、あなたの今日の運勢は" + resultp + "らしいですわよ。! 今日も気をつけてね、ダーリン。 . exectime: " + elapsed_time + " sec"
+					await client.send_message(message.channel, m)
+					cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
+					m = "/tip <@" + username + "> 0.000" + result + ""
+					await client.send_message(message.channel, m)
+					connection.commit()
+			else:
+				m = "すでに今日におみくじをされているようです。。明日戻ってきてね！"
+				await client.send_message(message.channel, m)
+
 		if message.content == "/omikuzi" or message.content == "/omikuji":
 			start = time.time()
 			username = message.author.id
