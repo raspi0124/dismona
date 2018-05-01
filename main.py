@@ -810,7 +810,8 @@ async def on_message(message):
 							print("result")
 							print(result)
 							addamount = "1"
-							resultp = kuji[result2]
+							result = int(result)
+							resultp = kuji[result]
 							result2 = float(result) + float(addamount)
 							result2 = int(result2)
 							print("resultp")
@@ -818,6 +819,7 @@ async def on_message(message):
 							resultp = str(resultp)
 							result2 = int(result2)
 							result2 = str(result2)
+							result = str(result)
 							a = a
 							if a == a:
 								if result == "0":
@@ -837,10 +839,10 @@ async def on_message(message):
 										await client.send_file(message.channel, f)
 							elapsed_time = time.time() - start
 							elapsed_time = str(elapsed_time)
-							m = "貴方の今日の運勢は" + resultp + "です!\n0.000" + result2 + "Mona送りますね！"
+							m = "貴方の今日の運勢は" + resultp + "です!\n0.000" + resulta + "Mona送りますね！"
 							await client.send_message(message.channel, m)
 							cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
-							m = "/tip <@" + username + "> 0.000" + result2 + " おみくじtipです！次挑戦できるのは日本時間で明日です！ . exectime: " + elapsed_time + " sec"
+							m = "/tip <@" + username + "> 0.000" + resulta + " おみくじtipです！次挑戦できるのは日本時間で明日です！ . exectime: " + elapsed_time + " sec"
 							await client.send_message(message.channel, m)
 							connection.commit()
 						else:
@@ -853,7 +855,7 @@ async def on_message(message):
 							print("result")
 							print(result)
 							result = int(result)
-							print("result2")
+							print("resulta")
 							print(result)
 							resultp = kuji[result]
 							print("resultp")
