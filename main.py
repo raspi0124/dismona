@@ -268,7 +268,7 @@ async def on_message(message):
 					'Accept': 'application/json',
 					}
 					response = requests.get('https://public.bitbank.cc/mona_jpy/ticker', headers=headers)
-					response = json.load(f)
+					response = json.load(response)
 					currentprice = response['last']
 					currentprice = int(currentprice)
 					cmd = "monacoin-cli getbalance " + message.author.id + ""
