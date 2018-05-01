@@ -12,6 +12,7 @@ from decimal import (Decimal, ROUND_DOWN)
 #import apim
 import sqlite3
 from datetime import datetime
+import monaparty
 
 def round_down5(value):
 	value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
@@ -862,7 +863,7 @@ async def on_message(message):
 							await client.send_message(message.channel, m)
 							connection.commit()
 					else:
-						m = "スパム対策のためにTipした、またはされたことのないひとはおみくじを実行することができません。。だれかにtipするかtipされてからもう一回実行おねがいします\nTo prevent spamming, user who never tip or tiped by someone before are not allowed to execute omikuji. please tip someone or get tiped by someone using /tip command."
+						m = "スパム対策のためにTipしたことのないひとはおみくじを実行することができません。。だれかにtipしてもう一回実行おねがいします\nTo prevent spamming, user who never tiped before are not allowed to execute omikuji. please tip someone using /tip command."
 						await client.send_message(message.channel, m)
 				else:
 					cursor.execute('SELECT banfromid FROM baned WHERE banedid = ' + username + '')
