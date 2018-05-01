@@ -829,7 +829,7 @@ async def on_message(message):
 									with open('syoukiti.png', 'rb') as f:
 										await client.send_file(message.channel, f)
 								if result == "2":
-									with open('tyukiti.png', 'rb') as f:
+									with open('tyuukiti.png', 'rb') as f:
 										await client.send_file(message.channel, f)
 								if result == "3":
 									with open('daikiti.png', 'rb') as f:
