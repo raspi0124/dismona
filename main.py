@@ -809,24 +809,38 @@ async def on_message(message):
 							result = omikuji()
 							print("result")
 							print(result)
-							result = int(result)
-							print("result2")
-							print(result)
 							addamount = "1"
-							result = float(result) + float(addamount)
-							result = int(result)
-							resultp = kuji[result]
+							resultp = kuji[result2]
+							result2 = float(result) + float(addamount)
+							result2 = int(result2)
 							print("resultp")
 							print(resultp)
 							resultp = str(resultp)
-							result = int(result)
-							result = str(result)
+							result2 = int(result2)
+							result2 = str(result2)
+							a = a
+							if a == a:
+								if result == "0":
+									with open('kyo.jpg', 'rb') as f:
+										await client.send_file(message.channel, f)
+								if result == "1":
+									with open('syoukiti.jpg', 'rb') as f:
+										await client.send_file(message.channel, f)
+								if result == "2":
+									with open('tyuukiti.jpg', 'rb') as f:
+										await client.send_file(message.channel, f)
+								if result == "3":
+									with open('daikiti.jpg', 'rb') as f:
+										await client.send_file(message.channel, f)
+								if result == "7":
+									with open('tyoudaikiti.jpg', 'rb') as f:
+										await client.send_file(message.channel, f)
 							elapsed_time = time.time() - start
 							elapsed_time = str(elapsed_time)
-							m = "貴方の今日の運勢は" + resultp + "です!\n0.000" + result + "Mona送りますね！"
+							m = "貴方の今日の運勢は" + resultp + "です!\n0.000" + result2 + "Mona送りますね！"
 							await client.send_message(message.channel, m)
 							cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
-							m = "/tip <@" + username + "> 0.000" + result + " おみくじtipです！次挑戦できるのは日本時間で明日です！ . exectime: " + elapsed_time + " sec"
+							m = "/tip <@" + username + "> 0.000" + result2 + " おみくじtipです！次挑戦できるのは日本時間で明日です！ . exectime: " + elapsed_time + " sec"
 							await client.send_message(message.channel, m)
 							connection.commit()
 						else:
