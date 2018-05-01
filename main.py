@@ -629,7 +629,7 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 		if message.content.startswith("/image"):
 			await client.add_reaction(message, '👌')
-			with open('../image.jpg', 'rb') as f:
+			with open('../image.png', 'rb') as f:
 				await client.send_file(message.channel, f)
 		if message.content.startswith("/hello"):
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
@@ -823,19 +823,19 @@ async def on_message(message):
 							a = "a"
 							if a == a:
 								if result == "0":
-									with open('kyou.jpg', 'rb') as f:
+									with open('kyou.png', 'rb') as f:
 										await client.send_file(message.channel, f)
 								if result == "1":
-									with open('syoukiti.jpg', 'rb') as f:
+									with open('syoukiti.png', 'rb') as f:
 										await client.send_file(message.channel, f)
 								if result == "2":
-									with open('tyukiti.jpg', 'rb') as f:
+									with open('tyukiti.png', 'rb') as f:
 										await client.send_file(message.channel, f)
 								if result == "3":
-									with open('daikiti.jpg', 'rb') as f:
+									with open('daikiti.png', 'rb') as f:
 										await client.send_file(message.channel, f)
 								if result == "7":
-									with open('tyoudaikiti.jpg', 'rb') as f:
+									with open('tyoudaikiti.png', 'rb') as f:
 										await client.send_file(message.channel, f)
 							elapsed_time = time.time() - start
 							elapsed_time = str(elapsed_time)
