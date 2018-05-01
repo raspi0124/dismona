@@ -926,7 +926,7 @@ async def on_message(message):
 			response = requests.post('https://api.monaparty.me/api/counterparty', headers=headers, data=data, auth=('rpc', 'hello'))
 			print(response)
 			m = str(response)
-			await client.send_message(reaction.message.channel, m)
+			await client.send_message(message.channel, m)
 
 		if message.content.startswith('/mp balance'):
 			print("1")
