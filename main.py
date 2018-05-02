@@ -1152,7 +1152,7 @@ async def on_message(message):
 			elapsed_time = time.time() - start
 			elapsed_time = str(elapsed_time)
 		else:
-			m = "You need to agree tos in order to use Monage. Please type /help for more information."
+			m = "You need to agree tos in order to use Monage. Please type /help for more information.\n このコマンドを実行するには利用規約への同意が必要です。"
 			await client.send_message(message.channel, m)
 	cursor.close()
 	connection.close()
