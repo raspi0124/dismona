@@ -273,7 +273,7 @@ async def on_message(message):
 					print('price data：{}'.format(response['data']))
 					data = response['data']
 					currentprice = data['last']
-					currentprice = int(currentprice)
+					currentprice = float(currentprice)
 					print("currentprice:" + currentprice + "")
 					cmd = "monacoin-cli getbalance " + message.author.id + ""
 					rut  =  subprocess.check_output( cmd.split(" ") )
