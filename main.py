@@ -188,7 +188,7 @@ async def on_message(message):
 	rainnotify = "425766935825743882"
 	rainnotify = client.get_channel('425766935825743882')
 
-	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/cagreedtos" and userid in agreetos:
+	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/cagreedtos" and message.content != "/help" and userid in agreetos:
 		# 全件取得は cursor.fetchall()
 		# 「/register」で始まるか調べる
 		if message.content.startswith("/register"):
@@ -268,24 +268,17 @@ async def on_message(message):
 					'Accept': 'application/json',
 					}
 					response = requests.get('https://public.bitbank.cc/mona_jpy/ticker', headers=headers)
-					print(response.json())
-					response = response.json()
-					data = response['data']
-					currentprice = data['last']
-					currentprice = str(currentprice)
-					print("currentprice:" + currentprice + "")
-					currentprice = float(currentprice)
+					response = json.load(response)
+					currentprice = response['last']
+					currentprice = int(currentprice)
 					cmd = "monacoin-cli getbalance " + message.author.id + ""
 					rut  =  subprocess.check_output( cmd.split(" ") )
 					balance = rut.decode()
-					balance = float(balance)
+					balance = int(balance)
 					jpybalance = float(currentprice) * float(balance)
 					currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 					elapsed_time = time.time() - start
 					elapsed_time = str(elapsed_time)
-					currentprice = str(currentprice)
-					jpybalance = str(jpybalance)
-					balance = str(balance)
 					m = "<@" + message.author.id + ">, you currently have  " + balance + " mona! (" + jpybalance + " jpy)\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
 					print ("---6---")
 					await client.send_message(message.channel, m)
@@ -995,6 +988,21 @@ async def on_message(message):
 							result = str(result)
 							kyou = "0"
 							kyou = int(kyou)
+							if result == "0":
+								with open('/root/dismona/kyou.png', 'rb') as f:
+									await client.send_file(message.channel, f)
+							if result == "1":
+								with open('/root/dismona/syoukiti.png', 'rb') as f:
+									await client.send_file(message.channel, f)
+							if result == "2":
+								with open('/root/dismona/tyuukiti.png', 'rb') as f:
+									await client.send_file(message.channel, f)
+							if result == "3":
+								with open('/root/dismona/daikiti.png', 'rb') as f:
+									await client.send_file(message.channel, f)
+							if result == "4":
+								with open('/root/dismona/tyoudaikiti.png', 'rb') as f:
+									await client.send_file(message.channel, f)
 							elapsed_time = time.time() - start
 							elapsed_time = str(elapsed_time)
 							if result == kyou:
@@ -1016,27 +1024,9 @@ async def on_message(message):
 					m = "You are not allowed to /omikuzi! \n Detail:You are baned by <@" + banfromid + ">"
 					await client.send_message(message.channel, m)
 			else:
-				m = "すでに今日におみくじをされているようです。。明日戻ってきてね！"
+				m = "もう、" + message.author.id + "何やってるの！！\n おみくじは1日一回ってあんなに言ったでしょ！ 明日まで禁止よ！\nそこに座ってなさい！"
 				await client.send_message(message.channel, m)
 
-		if message.content == "/help":
-			start = time.time()
-			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-			embed = discord.Embed(title="Monage Discord Edition - Help")
-			embed.set_footer(text=" Created message at | " + currenttime + "")
-			embed.add_field(name="/help", value=" ヘルプを表示します")
-			embed.add_field(name="/register", value="あなたの財布を新しく作成します <Create your address>")
-			embed.add_field(name="/deposit - /list", value="あなたの所有しているアドレスを一覧表示します <List all address you have generated>")
-			embed.add_field(name="/withdraw ``<amount to withdraw> <address to send>``", value="指定されたmonaを指定されたアドレスに送ります <Withdraw specified amount of Mona available to specified address>")
-			embed.add_field(name="/tip ``<User to send Mona> <amount to tip> <Comment (optional)>``", value="指定されたmonaを指定されたユーザーに送ります <Tip specified amount of mona to specified user>")
-			embed.add_field(name="/rain ``<number of people to tip> <total amount to tip>``", value=" 指定された金額のmonaをランダムに配ります。<Tip specified amount to random multiple people. You can choose the number of people to tip (Currently for admin only due to technical difficulties.)>")
-			embed.add_field(name="/rera", value="rain受け取りに参加します。手数料は0.01monaです。 <Sign up to be a rain-reciever. fee is 0.01 mona currently, and might go up.>")
-			embed.add_field(name="/omikuzi", value="おみくじ。おまけでmonaもらえます<Let see how fortunate you are! You can also get some mona!>")
-			embed.add_field(name="/credit", value="クレジットを表示。 <Show credit>")
-			embed.add_field(name="/agreetos", value="利用規約に同意する。。と見せかけてただのコマンドです。実際に同意するためのコマンドは利用規約に書いてあるのできちんと読んでください()")
-			await client.send_message(message.channel, embed=embed)
-			elapsed_time = time.time() - start
-			elapsed_time = str(elapsed_time)
 
 		if message.content.startswith("/credit"):
 			start = time.time()
@@ -1111,7 +1101,7 @@ async def on_message(message):
 
 
 
-	if message.content.startswith("/") and userid not in agreetos:
+	if message.content.startswith("/"):
 		if message.content == "/cagreedtos":
 			start = time.time()
 				# データベース接続とカーソル生成
@@ -1151,9 +1141,6 @@ async def on_message(message):
 			await client.send_message(message.channel, embed=embed)
 			elapsed_time = time.time() - start
 			elapsed_time = str(elapsed_time)
-		else:
-			m = "You need to agree tos in order to use Monage. Please type /help for more information.\n このコマンドを実行するには利用規約への同意が必要です。"
-			await client.send_message(message.channel, m)
 	cursor.close()
 	connection.close()
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DbzaFA.hPWfWE9cXQc5UjsUbo17diRoBOQ")
