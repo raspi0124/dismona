@@ -285,6 +285,7 @@ async def on_message(message):
 					elapsed_time = str(elapsed_time)
 					currentprice = str(currentprice)
 					jpybalance = str(jpybalance)
+					balance = str(balance)
 					m = "<@" + message.author.id + ">, you currently have  " + balance + " mona! (" + jpybalance + " jpy)\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
 					print ("---6---")
 					await client.send_message(message.channel, m)
