@@ -874,6 +874,21 @@ async def on_message(message):
 					result = float(result) + float("3")
 					result = int(result)
 					result = str(result)
+					if result == "0":
+						with open('/root/dismona/kyou.png', 'rb') as f:
+							await client.send_file(message.channel, f)
+					if result == "1":
+						with open('/root/dismona/syoukiti.png', 'rb') as f:
+							await client.send_file(message.channel, f)
+					if result == "2":
+						with open('/root/dismona/tyuukiti.png', 'rb') as f:
+							await client.send_file(message.channel, f)
+					if result == "3":
+						with open('/root/dismona/daikiti.png', 'rb') as f:
+							await client.send_file(message.channel, f)
+					if result == "4":
+						with open('/root/dismona/tyoudaikiti.png', 'rb') as f:
+							await client.send_file(message.channel, f)
 					kyou = "0"
 					kyou = int(kyou)
 					elapsed_time = time.time() - start
