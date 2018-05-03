@@ -1042,35 +1042,22 @@ async def on_message(message):
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			elapsed_time = time.time() - start
 			elapsed_time = str(elapsed_time)
-			m = "```-----------------------------------------------------------------------------------  \
-			\n このプログラムは以下の方たちの協力によって完成しました。この場にて改めて感謝します。(敬称略) \
-			\n ---開発、制作--- \
-			\n raspi0124 \
-			\n ---開発協力--- \
-			\n はるまど(Gitlabの提供。勝手にモナオクのgitlab使っちゃってすみませんm(_ _)m) \
-			\n kakarichyo(クローズドアルファにおけるテスト) \
-			\n ポテト(クローズドアルファにおけるテスト) \
-			\n MGQ(アドバイス) \
-			\n Discordサーバー 「MGQ club」のみなさん(テスト全般) \
-			\n 人畜無害 (rainコマンドに関する助言) \
-			\n W.S Wsans(W.S 笑サンズ) (Discord.pyについてのアドバイス) \
-			\n ぱい (Discord.pyについてのアドバイス \
-			\n Monageと遊ぶ鯖に参加してくださった皆さん(テスト) \
-			\n lae(アドバイス,英語文法監修) \
-			\n Limit(helpコマンドの編集、リアクションtip機能のアイデア) \
-			\n 両親(匿名にしておきます) \
-			\n ---使用させていただいたプログラム--- \
-			\n Python \
-			\n Discord.py \
-			\n Sublime Text3 \
-			\n Nano \
-			\n Gitlab \
-			\n Ubuntu \
-			\n ---その他--- \
-			\n 脇山P (WordPressプラグイン、monage作成の際に頂いたmonaをVPS代にありがたくつぎ込ませてもらっています。) \n Created message at " + currenttime + " . exectime: " + elapsed_time + " sec\
-			\n ---------------------------------------------------------------------------------- \
-			```"
-			await client.send_message(message.channel, m)
+			embed = discord.Embed(title="Monage Discord Edition - Credit")
+			embed.set_footer(text=" Created message at | " + currenttime + "")
+			embed.add_field(name="raspi0124", value=" - 開発・制作")
+			embed.add_field(name="はるまど", value=" - Gitlabの提供")
+			embed.add_field(name="kakarichyo", value=" - クローズドアルファにおけるテスト")
+			embed.add_field(name="和梨(ポテト)", value=" - クローズドアルファにおけるテスト")
+			embed.add_field(name="MGQ", value=" - アドバイス、クローズドアルファにおけるテスト")
+			embed.add_field(name="その他、Discordサーバー「MGQclub」のみなさん", value=" - テスト全般")
+			embed.add_field(name="W.S Wsans", value=" - Discord.pyについてのアドバイス")
+			embed.add_field(name="ぱい", value=" - Discord.pyについてのアドバイス")
+			embed.add_field(name="lae", value=" - アドバイス、英語文法監修")
+			embed.add_field(name="Limit", value=" - helpコマンドの見やすさの向上、リアクションtipのアイデア")
+			embed.add_field(name="両親", value=" - 匿名にしておきます")
+			embed.add_field(name="脇山P(wakip)", value=" - 大量の資金的な援助及びアドバイス")
+			await client.send_message(message.channel, embed=embed)
+
 
 
 
