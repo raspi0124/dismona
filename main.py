@@ -283,6 +283,8 @@ async def on_message(message):
 					currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 					elapsed_time = time.time() - start
 					elapsed_time = str(elapsed_time)
+					balance = str(balance)
+					jpybalance = str(jpybalance)
 					m = "<@" + message.author.id + ">, you currently have  " + balance + " mona! (" + jpybalance + " jpy)\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
 					print ("---6---")
 					await client.send_message(message.channel, m)
