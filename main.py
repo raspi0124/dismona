@@ -262,15 +262,19 @@ async def on_message(message):
 					m = "<@" + message.author.id + "> さんの残高チェック中.."
 				# メッセージが送られてきたチャンネルへメッセージを送ります
 					await client.send_message(message.channel, m)
-					import requests
 
 					headers = {
 					'Accept': 'application/json',
 					}
 					response = requests.get('https://public.bitbank.cc/mona_jpy/ticker', headers=headers)
-					response = json.load(response)
-					currentprice = response['last']
-					currentprice = int(currentprice)
+					print(response.json())
+					response = response.json()
+					data = response['data']
+					currentprice = data['last']
+					currentprice = str(currentprice)
+					print("currentprice:" + currentprice + "")
+					currentprice = float(currentprice)
+
 					cmd = "monacoin-cli getbalance " + message.author.id + ""
 					rut  =  subprocess.check_output( cmd.split(" ") )
 					balance = rut.decode()
@@ -282,6 +286,7 @@ async def on_message(message):
 					m = "<@" + message.author.id + ">, you currently have  " + balance + " mona! (" + jpybalance + " jpy)\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
 					print ("---6---")
 					await client.send_message(message.channel, m)
+
 		if message.content.startswith("/deposit"):
 			start = time.time()
 			cmda = "monacoin-cli walletpassphrase 0124 10"
