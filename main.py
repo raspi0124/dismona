@@ -191,7 +191,7 @@ async def on_message(message):
 	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/cagreedtos" and message.content != "/help" and userid in agreetos:
 		# 全件取得は cursor.fetchall()
 		# 「/register」で始まるか調べる
-		
+
 		if message.content.startswith("/register"):
 			start = time.time()
 			cmda = "monacoin-cli walletpassphrase 0124 10"
@@ -1032,7 +1032,7 @@ async def on_message(message):
 					m = "You are not allowed to /omikuzi! \n Detail:You are baned by <@" + banfromid + ">"
 					await client.send_message(message.channel, m)
 			else:
-				m = "もう、<@" + message.author.id + ">何やってるの！！\n おみくじは1日一回ってあんなに言ったでしょ！ 明日まで禁止よ！\nそこに座ってなさい！"
+				m = "もう、<@" + message.author.id + "> 、何やってるの！！\n おみくじは1日一回ってあんなに言ったでしょ！ 明日まで禁止よ！\nそこに座ってなさい！"
 				await client.send_message(message.channel, m)
 
 
