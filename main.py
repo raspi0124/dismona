@@ -278,7 +278,7 @@ async def on_message(message):
 					cmd = "monacoin-cli getbalance " + message.author.id + ""
 					rut  =  subprocess.check_output( cmd.split(" ") )
 					balance = rut.decode()
-					balance = int(balance)
+					balance = float(balance)
 					jpybalance = float(currentprice) * float(balance)
 					currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 					elapsed_time = time.time() - start
