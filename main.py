@@ -191,6 +191,7 @@ async def on_message(message):
 	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/cagreedtos" and message.content != "/help" and userid in agreetos:
 		# 全件取得は cursor.fetchall()
 		# 「/register」で始まるか調べる
+		
 		if message.content.startswith("/register"):
 			start = time.time()
 			cmda = "monacoin-cli walletpassphrase 0124 10"
@@ -874,21 +875,6 @@ async def on_message(message):
 					result = float(result) + float("3")
 					result = int(result)
 					result = str(result)
-					if result == "0":
-						with open('/root/dismona/kyou.png', 'rb') as f:
-							await client.send_file(message.channel, f)
-					if result == "1":
-						with open('/root/dismona/syoukiti.png', 'rb') as f:
-							await client.send_file(message.channel, f)
-					if result == "2":
-						with open('/root/dismona/tyuukiti.png', 'rb') as f:
-							await client.send_file(message.channel, f)
-					if result == "3":
-						with open('/root/dismona/daikiti.png', 'rb') as f:
-							await client.send_file(message.channel, f)
-					if result == "4":
-						with open('/root/dismona/tyoudaikiti.png', 'rb') as f:
-							await client.send_file(message.channel, f)
 					kyou = "0"
 					kyou = int(kyou)
 					elapsed_time = time.time() - start
@@ -1046,7 +1032,7 @@ async def on_message(message):
 					m = "You are not allowed to /omikuzi! \n Detail:You are baned by <@" + banfromid + ">"
 					await client.send_message(message.channel, m)
 			else:
-				m = "もう、" + message.author.id + "何やってるの！！\n おみくじは1日一回ってあんなに言ったでしょ！ 明日まで禁止よ！\nそこに座ってなさい！"
+				m = "もう、<@" + message.author.id + ">何やってるの！！\n おみくじは1日一回ってあんなに言ったでしょ！ 明日まで禁止よ！\nそこに座ってなさい！"
 				await client.send_message(message.channel, m)
 
 
