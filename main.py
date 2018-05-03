@@ -1110,6 +1110,7 @@ async def on_message(message):
 
 
 	if message.content.startswith("/"):
+		#共用コマンド
 		if message.content == "/cagreedtos":
 			start = time.time()
 				# データベース接続とカーソル生成
@@ -1149,6 +1150,10 @@ async def on_message(message):
 			await client.send_message(message.channel, embed=embed)
 			elapsed_time = time.time() - start
 			elapsed_time = str(elapsed_time)
+		else:
+			m = "You need to agree tos in order to use Monage. Please type /help for more information.\n このコマンドを実行するには利用規約への同意が必要です。"
+			await client.send_message(message.channel, m)
+
 	cursor.close()
 	connection.close()
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DbzaFA.hPWfWE9cXQc5UjsUbo17diRoBOQ")
