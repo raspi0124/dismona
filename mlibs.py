@@ -85,7 +85,7 @@ def withdraw(userid, to, amount):
 	minamount = float(minamount)
 	balancea = float(balancea)
 	amount = float(amount)
-	if amount >= "0.01":
+	if amount >= minamount
 		if amount >= balancea:
 			cmd = "monacoin-cli sendfrom " + userid + " " + to + " " + reamount + ""
 			rut  =  subprocess.check_output( cmd.split(" ") )
