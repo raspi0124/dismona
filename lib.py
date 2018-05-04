@@ -12,7 +12,7 @@ from decimal import (Decimal, ROUND_DOWN)
 import sqlite3
 from datetime import datetime
 
-def getbalance(userid):
+def libgetbalance(userid):
 	cmdlib = "monacoin-cli walletpassphrase 0124 10"
 	rutlib  =  subprocess.check_output( cmdlib.split(" ") )
 	print(rutlib)
@@ -25,7 +25,7 @@ def getbalance(userid):
 	elapsed_timelib = str(elapsed_timelib)
 	balancelib = str(balancelib)
 	return balancelib
-def getjpybalance(userid):
+def libgetjpybalance(userid):
 	global getjpybalance
 	cmda = "monacoin-cli walletpassphrase 0124 10"
 	ruta  =  subprocess.check_output( cmda.split(" ") ) 
