@@ -21,12 +21,10 @@ def libgetbalance(userid):
 	balancelib = rutlib.decode()
 	balancelib = float(balancelib)
 	currenttimelib = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-	elapsed_timelib = time.time() - start
-	elapsed_timelib = str(elapsed_timelib)
 	balancelib = str(balancelib)
 	return balancelib
+
 def libgetjpybalance(userid):
-	global getjpybalance
 	cmda = "monacoin-cli walletpassphrase 0124 10"
 	ruta  =  subprocess.check_output( cmda.split(" ") ) 
 	print(ruta)
