@@ -298,7 +298,7 @@ async def on_message(message):
 			amount = withdrawinfo[0]
 			rmessage = rmessage.replace(amount, '')
 			to = rmessage.replace(' ', '')
-			withdraw_detail = mblibs.withdraw(userid, to, amount)
+			withdraw_detail = mlibs.withdraw(userid, to, amount)
 
 			if withdraw_detail == "1":
 				m = "<@" + userid + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
