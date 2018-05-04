@@ -116,6 +116,11 @@ def withdraw(userid, to, amount):
 	return m
 
 def tip(userid, to, amount):
+	dbpath = '/root/dismona.sqlite'
+	connection = sqlite3.connect(dbpath)
+	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
+	# connection.isolation_level = None
+	cursor = connection.cursor()
 	balance = libgetbalance(userid)
 	num2 = 100000000
 	balance = float(balance) * float(num2)
