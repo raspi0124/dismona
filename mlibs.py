@@ -109,8 +109,8 @@ def withdraw(userid, to, amount):
 
 		else:
 			#m = "<@" + userid + ">sorry, failed to complete your request: you do not have any mona at all!(message created on " + currenttime + ")"
-			m = "a"
+			m = "500"
 	else:
 		#m = "<@" + userid + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
-		m = "b"
+		m = "500"
 	return m
