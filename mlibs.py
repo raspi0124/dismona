@@ -80,9 +80,9 @@ def withdraw(userid, to, amount):
 	print("--reamount--")
 	print(reamount)
 	minbalance = "0.01"
-	minbalance = int(minbalance)
+	minbalance = float(minbalance)
 	minamount = "0.01"
-	minamount = int(minamount)
+	minamount = float(minamount)
 	if amount >= "0.01":
 		if amount >= balancea:
 			cmd = "monacoin-cli sendfrom " + userid + " " + to + " " + reamount + ""
