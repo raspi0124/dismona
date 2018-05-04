@@ -180,9 +180,7 @@ async def on_message(message):
 	userid = message.author.id
 	messagesql = message.content.encode('utf-8')
 	messagesql = str(messagesql)
-	useird = message.author.id
-	raspibalance = mlibs.libgetbalance("326091178984603669")
-	print(raspibalance)
+	useird = message.author.id	
 	if message.content.startswith("/"):
 		towrite = "" + message.author.name + " said " + messagesql + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + "\n"
 		file = open('/root/alllog2.txt', 'a')  #追加書き込みモードでオープン
@@ -257,13 +255,12 @@ async def on_message(message):
 			connection.commit()
 
 		if message.content.startswith("/balance"):
-			start = time.time()
 			await client.add_reaction(message, '👌')
 			m = "<@" + message.author.id + "> さんの残高チェック中.."
 		# メッセージが送られてきたチャンネルへメッセージを送ります
 			await client.send_message(message.channel, m)
-			balance = balance(userid)
-			jpybalance = jpybalance(userid)
+			balance = mlibs.libgetbalance(userid)
+			jpybalance = mlibs.libgetjpybalance(userid)
 			m = "<@" + message.author.id + ">, you currently have  " + balance + " mona! (" + jpybalance + " jpy)\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
 			print ("---6---")
 			await client.send_message(message.channel, m)
