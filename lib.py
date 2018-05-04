@@ -13,6 +13,7 @@ import sqlite3
 from datetime import datetime
 
 def getbalance(userid):
+	global getbalance
 	cmda = "monacoin-cli walletpassphrase 0124 10"
 	ruta  =  subprocess.check_output( cmda.split(" ") )
 	print(ruta)
@@ -40,6 +41,7 @@ def getbalance(userid):
 	jpybalance = str(jpybalance)
 	return balance
 def getjpybalance(userid):
+	global getjpybalance
 	cmda = "monacoin-cli walletpassphrase 0124 10"
 	ruta  =  subprocess.check_output( cmda.split(" ") )
 	print(ruta)
