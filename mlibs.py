@@ -114,3 +114,36 @@ def withdraw(userid, to, amount):
 		#m = "<@" + userid + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
 		m = "500"
 	return m
+
+def tip(userid, to, amount):
+	balance = libgetbalance(userid)
+	num2 = 100000000
+	balance = float(balance) * float(num2)
+	print ("balance")
+	print(balance)
+	print("amount")
+	print(amount)
+	amount = float(amount) * float(num2)
+	print("multiplyed amount")
+	print(amount)
+	minimumtip = "1"
+	minimumtip = float(minimumtip)
+	if amount <= balance:
+		if amount >= minimumtip:
+			username = userid
+			amount = float(amount) / float(num2)
+			amount = str(amount)
+			cmd2 = "monacoin-cli move " + userid + " " + to + " " + amount + ""
+			rut2  =  subprocess.check_output( cmd2.split(" ") )
+			#m = "<@" + message.author.id + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
+			m = "200"
+			cursor.execute("INSERT INTO tiped (id) VALUES (?)", (username,))
+			connection.commit()
+			cursor.execute("INSERT INTO tiped (id) VALUES (?)", (to,))
+		else:
+			#m = m = "<@" + message.author.id + ">, sorry, failed to complete your request: your tip must meet the minimum of 10 watanabe (0.00000010 Mona).\n(message created on " + currenttime + ")"
+			m = "e_10"
+	else:
+	#m = "<@"+ message.author.id + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + "\n DEBUG: tipamount:" + tipamount + " balance:" + balance + " "
+		m = "e_en"
+	return m
