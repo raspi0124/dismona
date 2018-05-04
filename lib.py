@@ -12,7 +12,7 @@ from decimal import (Decimal, ROUND_DOWN)
 import sqlite3
 from datetime import datetime
 
-def balance(userid):
+def getbalance(userid):
 	cmda = "monacoin-cli walletpassphrase 0124 10"
 	ruta  =  subprocess.check_output( cmda.split(" ") )
 	print(ruta)
@@ -39,7 +39,7 @@ def balance(userid):
 	balance = str(balance)
 	jpybalance = str(jpybalance)
 	return balance
-def jpybalance(userid):
+def getjpybalance(userid):
 	cmda = "monacoin-cli walletpassphrase 0124 10"
 	ruta  =  subprocess.check_output( cmda.split(" ") )
 	print(ruta)
