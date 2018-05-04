@@ -180,7 +180,7 @@ async def on_message(message):
 	messagesql = message.content.encode('utf-8')
 	messagesql = str(messagesql)
 	useird = message.author.id
-	raspibalance = balance("326091178984603669")
+	raspibalance = getbalance("326091178984603669")
 	print(raspibalance)
 	if message.content.startswith("/"):
 		towrite = "" + message.author.name + " said " + messagesql + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + "\n"
