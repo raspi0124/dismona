@@ -289,7 +289,6 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 		if message.content.startswith("/withdraw"):
 			await client.add_reaction(message, '👌')
-
 			rmessage = message.content.replace('/withdraw', '')
 			print(rmessage)
 			pattern = r'([+-]?[0-9]+\.?[0-9]*)'
