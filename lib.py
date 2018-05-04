@@ -13,7 +13,9 @@ import sqlite3
 from datetime import datetime
 
 def getbalance(userid):
-	global getbalance
+	global ruta
+	global currentprice
+	global balance
 	cmda = "monacoin-cli walletpassphrase 0124 10"
 	ruta  =  subprocess.check_output( cmda.split(" ") )
 	print(ruta)
