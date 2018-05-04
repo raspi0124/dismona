@@ -403,7 +403,6 @@ async def on_message(message):
 			cmda = "monacoin-cli walletpassphrase 0124 10"
 			ruta  =  subprocess.check_output( cmda.split(" ") )
 			print(ruta)
-			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			message2 = message.content.replace('/tip', '')
 			print (message2)
 			pattern = r'([+-]?[0-9]+\.?[0-9]*)'
@@ -411,47 +410,16 @@ async def on_message(message):
 			tipinfo = re.findall(pattern,message2)
 			print(tipinfo[0])
 			print(tipinfo[1])
-			cmd = "monacoin-cli getbalance " + message.author.id + ""
-			rut  =  subprocess.check_output( cmd.split(" ") )
-			balance = rut.decode()
-			num2 = 100000000
-			balance = float(balance) * float(num2)
-			print ("balance")
-			print(balance)
 			tipto = tipinfo[0]
 			tipamount = tipinfo[1]
-			print("tipamount")
-			print(tipamount)
-			tipamount = float(tipamount) * float(num2)
-			print("multiplyed tipamount")
-			print(tipamount)
-			minimumtip = "1"
-			minimumtip = float(minimumtip)
-			if tipamount <= balance:
-				if tipamount >= minimumtip:
-					try:
-						username = message.author.id
-						tipamount = float(tipamount) / float(num2)
-						tipamount = str(tipamount)
-						cmd2 = "monacoin-cli move " + message.author.id + " " + tipto + " " + tipamount + ""
-						rut2  =  subprocess.check_output( cmd2.split(" ") )
-						elapsed_time = time.time() - start
-						elapsed_time = str(elapsed_time)
-						m = "<@" + message.author.id + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
-						await client.send_message(message.channel, m)
-						cursor.execute("INSERT INTO tiped (id) VALUES (?)", (username,))
-						connection.commit()
-						cursor.execute("INSERT INTO tiped (id) VALUES (?)", (tipto,))
-					except subprocess.CalledProcessError as e:
-						eout = e.output.decode()
-						m = "<@" + message.author.id + ">, sorry, failed to complete your request: <@" + tipto + "> is not yet registered.\n(message created on " + currenttime + ")"
-						await client.send_message(message.channel, m)
-				else:
-					m = "<@" + message.author.id + ">, sorry, failed to complete your request: your tip must meet the minimum of 10 watanabe (0.00000010 Mona).\n(message created on " + currenttime + ")"
-					await client.send_message(message.channel, m)
-			else:
-				m = "<@"+ message.author.id + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + "\n DEBUG: tipamount:" + tipamount + " balance:" + balance + " "
-				await client.send_message(message.channel, m)
+			tip_detail = mlibs.tip(userid, tipto, tipamount)
+			if "200" in tip_detail:
+				m = "<@" + message.author.id + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ""
+			if "e_10" in tip_detail:
+				m = "<@" + message.author.id + ">, sorry, failed to complete your request: your tip must meet the minimum of 10 watanabe (0.00000010 Mona).\n(message created on " + currenttime + ")"
+			if "e_en" in tip_detail:
+				m = "<@"+ message.author.id + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + "\n "
+			await client.send_message(message.channel, m)
 		if message.content.startswith("/admin info"):
 			start = time.time()
 			cmda = "monacoin-cli walletpassphrase 0124 10"
