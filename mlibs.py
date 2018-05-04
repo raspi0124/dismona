@@ -54,7 +54,7 @@ def deposit(userid):
 	cmda = "monacoin-cli walletpassphrase 0124 10"
 	ruta  =  subprocess.check_output( cmda.split(" ") )
 	print(ruta)
-	cmd = "monacoin-cli getaddressesbyaccount " + message.author.id + ""
+	cmd = "monacoin-cli getaddressesbyaccount " + userid + ""
 	rut  =  subprocess.check_output( cmd.split(" ") )
 	address = rut.decode()
 	address2 = address.replace('[', '')
