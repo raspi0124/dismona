@@ -165,6 +165,7 @@ async def on_reaction_add(reaction, user):
 
 @client.event
 async def on_message(message):
+	import mlibs
 	dbpath = '/root/dismona.sqlite'
 	connection = sqlite3.connect(dbpath)
 	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
