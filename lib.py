@@ -16,6 +16,7 @@ def getbalance(userid):
 	global ruta
 	global currentprice
 	global balance
+	global getbalance
 	cmda = "monacoin-cli walletpassphrase 0124 10"
 	ruta  =  subprocess.check_output( cmda.split(" ") )
 	print(ruta)
