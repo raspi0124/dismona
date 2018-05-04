@@ -12,6 +12,7 @@ from decimal import (Decimal, ROUND_DOWN)
 #import apim
 import sqlite3
 from datetime import datetime
+import lib
 
 def round_down5(value):
 	value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
@@ -178,6 +179,7 @@ async def on_message(message):
 	userid = message.author.id
 	messagesql = message.content.encode('utf-8')
 	messagesql = str(messagesql)
+	useird = message.author.id
 	if message.content.startswith("/"):
 		towrite = "" + message.author.name + " said " + messagesql + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + "\n"
 		file = open('/root/alllog2.txt', 'a')  #追加書き込みモードでオープン
@@ -253,42 +255,15 @@ async def on_message(message):
 
 		if message.content.startswith("/balance"):
 			start = time.time()
-			cmda = "monacoin-cli walletpassphrase 0124 10"
-			ruta  =  subprocess.check_output( cmda.split(" ") )
-			print(ruta)
 			await client.add_reaction(message, '👌')
-			# 送り主がBotだった場合反応したくないので
-			if client.user != message.author.name:
-				# メッセージを書きます
-					m = "<@" + message.author.id + "> さんの残高チェック中.."
-				# メッセージが送られてきたチャンネルへメッセージを送ります
-					await client.send_message(message.channel, m)
-
-					headers = {
-					'Accept': 'application/json',
-					}
-					response = requests.get('https://public.bitbank.cc/mona_jpy/ticker', headers=headers)
-					print(response.json())
-					response = response.json()
-					data = response['data']
-					currentprice = data['last']
-					currentprice = str(currentprice)
-					print("currentprice:" + currentprice + "")
-					currentprice = float(currentprice)
-
-					cmd = "monacoin-cli getbalance " + message.author.id + ""
-					rut  =  subprocess.check_output( cmd.split(" ") )
-					balance = rut.decode()
-					balance = float(balance)
-					jpybalance = float(currentprice) * float(balance)
-					currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-					elapsed_time = time.time() - start
-					elapsed_time = str(elapsed_time)
-					balance = str(balance)
-					jpybalance = str(jpybalance)
-					m = "<@" + message.author.id + ">, you currently have  " + balance + " mona! (" + jpybalance + " jpy)\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
-					print ("---6---")
-					await client.send_message(message.channel, m)
+			m = "<@" + message.author.id + "> さんの残高チェック中.."
+		# メッセージが送られてきたチャンネルへメッセージを送ります
+			await client.send_message(message.channel, m)
+			balance = balance(userid)
+			jpybalance = jpybalance(userid)
+			m = "<@" + message.author.id + ">, you currently have  " + balance + " mona! (" + jpybalance + " jpy)\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
+			print ("---6---")
+			await client.send_message(message.channel, m)
 
 		if message.content.startswith("/deposit"):
 			start = time.time()
