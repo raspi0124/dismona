@@ -24,7 +24,7 @@ def getbalance(userid):
 	elapsed_timelib = time.time() - start
 	elapsed_timelib = str(elapsed_timelib)
 	balancelib = str(balancelib)
-	return balance
+	return balancelib
 def getjpybalance(userid):
 	global getjpybalance
 	cmda = "monacoin-cli walletpassphrase 0124 10"
