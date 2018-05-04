@@ -64,3 +64,51 @@ def deposit(userid):
 	elapsed_time = time.time() - start
 	elapsed_time = str(elapsed_time)
 	return address4
+def withdraw(userid, to, amount):
+	start = time.time()
+	cmda = "monacoin-cli walletpassphrase 0124 10"
+	ruta  =  subprocess.check_output( cmda.split(" ") )
+	print(ruta)
+	balancea = libgetbalance(userid)
+	fee = "0.005"
+	reamount = float(amount) - float(fee)
+	reamount = str(reamount)
+	print("--to--")
+	print(to)
+	print("--amount--")
+	print(amount)
+	print("--reamount--")
+	print(reamount)
+	if amount >= "0.01":
+		if balancea >= "0":
+			if balancea >= "0.01":
+				cmd = "monacoin-cli sendfrom " + userid + " " + to + " " + reamount + ""
+				rut  =  subprocess.check_output( cmd.split(" ") )
+				cmd = "monacoin-cli move " + userid + " fee " + fee + ""
+				ruta  =  subprocess.check_output( cmd.split(" ") )
+				print(rut)
+				rut = rut.decode()
+				elapsed_time = time.time() - start
+				elapsed_time = str(elapsed_time)
+				m = rut
+				balancea = libgetbalance(userid)
+				if balancea <= "0":
+					defo = "0"
+					amounttosendback = float(defo) - float(balancea)
+					print("--amounttosendback--")
+					print(amounttosendback)
+					amounttosendback = str(amounttosendback)
+					cmd = "monacoin-cli move fee "  + userid + " " + amounttosendback + ""
+					ruta  =  subprocess.check_output( cmd.split(" ") )
+					print(ruta)
+
+			else:
+				#m = "<@" + userid + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
+				m = "1"		
+		else:
+			#m = "<@" + userid + ">sorry, failed to complete your request: you do not have any mona at all!(message created on " + currenttime + ")"
+			m = "2"
+	else:
+		#m = "<@" + userid + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
+		m = "3"
+	return m
