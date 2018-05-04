@@ -59,8 +59,8 @@ def deposit(userid):
 	address = rut.decode()
 	address2 = address.replace('[', '')
 	address3 = address2.replace(']', '')
-	address3 = address2.replace('\n', '')
+	address4 = address3.replace('\n', '')
 	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 	elapsed_time = time.time() - start
 	elapsed_time = str(elapsed_time)
-	return address3
+	return address4
