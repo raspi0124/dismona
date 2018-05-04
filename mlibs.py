@@ -26,7 +26,7 @@ def libgetbalance(userid):
 
 def libgetjpybalance(userid):
 	cmda = "monacoin-cli walletpassphrase 0124 10"
-	ruta  =  subprocess.check_output( cmda.split(" ") ) 
+	ruta  =  subprocess.check_output( cmda.split(" ") )
 	print(ruta)
 	headers = {
 	'Accept': 'application/json',
@@ -79,36 +79,36 @@ def withdraw(userid, to, amount):
 	print(amount)
 	print("--reamount--")
 	print(reamount)
+	minbalance = "0.01"
+	minbalance = int(minbalance)
+	minamount = "0.01"
+	minamount = int(minamount)
 	if amount >= "0.01":
-		if balancea >= "0":
-			if balancea >= "0.01":
-				cmd = "monacoin-cli sendfrom " + userid + " " + to + " " + reamount + ""
-				rut  =  subprocess.check_output( cmd.split(" ") )
-				cmd = "monacoin-cli move " + userid + " fee " + fee + ""
+		if amount >= balancea:
+			cmd = "monacoin-cli sendfrom " + userid + " " + to + " " + reamount + ""
+			rut  =  subprocess.check_output( cmd.split(" ") )
+			cmd = "monacoin-cli move " + userid + " fee " + fee + ""
+			ruta  =  subprocess.check_output( cmd.split(" ") )
+			print(rut)
+			rut = rut.decode()
+			elapsed_time = time.time() - start
+			elapsed_time = str(elapsed_time)
+			m = rut
+			balancea = libgetbalance(userid)
+			if balancea <= "0":
+				defo = "0"
+				amounttosendback = float(defo) - float(balancea)
+				print("--amounttosendback--")
+				print(amounttosendback)
+				amounttosendback = str(amounttosendback)
+				cmd = "monacoin-cli move fee "  + userid + " " + amounttosendback + ""
 				ruta  =  subprocess.check_output( cmd.split(" ") )
-				print(rut)
-				rut = rut.decode()
-				elapsed_time = time.time() - start
-				elapsed_time = str(elapsed_time)
-				m = rut
-				balancea = libgetbalance(userid)
-				if balancea <= "0":
-					defo = "0"
-					amounttosendback = float(defo) - float(balancea)
-					print("--amounttosendback--")
-					print(amounttosendback)
-					amounttosendback = str(amounttosendback)
-					cmd = "monacoin-cli move fee "  + userid + " " + amounttosendback + ""
-					ruta  =  subprocess.check_output( cmd.split(" ") )
-					print(ruta)
+				print(ruta)
 
-			else:
-				#m = "<@" + userid + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
-				m = "1"		
 		else:
 			#m = "<@" + userid + ">sorry, failed to complete your request: you do not have any mona at all!(message created on " + currenttime + ")"
-			m = "2"
+			m = "1"
 	else:
 		#m = "<@" + userid + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
-		m = "3"
+		m = "2"
 	return m
