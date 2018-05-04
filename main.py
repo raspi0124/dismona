@@ -301,9 +301,9 @@ async def on_message(message):
 			withdraw_detail = mlibs.withdraw(userid, to, amount)
 			print(withdraw_detail)
 			withdraw_detail = str(withdraw_detail)
-			if withdraw_detail == "1":
+			if withdraw_detail == "a":
 				m = "<@" + userid + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
-			if withdraw_detail == "2":
+			if withdraw_detail == "b":
 				m = "<@" + userid + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
 			else:
 				m = "Withdraw successfull. TXID:" + withdraw_detail + ""
