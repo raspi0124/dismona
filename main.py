@@ -300,11 +300,11 @@ async def on_message(message):
 			to = rmessage.replace(' ', '')
 			withdraw_detail = withdraw(userid, to, amount)
 
-			if withdraw_detail = "1":
+			if withdraw_detail == "1":
 				m = "<@" + userid + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
-			if withdraw_detail = "2":
+			if withdraw_detail == "2":
 				m = "<@" + userid + ">sorry, failed to complete your request: you do not have any mona at all!(message created on " + currenttime + ")"
-			if withdraw_detail = "3":
+			if withdraw_detail == "3":
 				m = "<@" + userid + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
 			else:
 				m = "Withdraw successfull. TXID:" + withdraw_detail + ""
