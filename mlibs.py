@@ -142,9 +142,12 @@ def tip(userid, to, amount):
 			rut2  =  subprocess.check_output( cmd2.split(" ") )
 			#m = "<@" + message.author.id + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
 			m = "200"
-			cursor.execute("INSERT INTO tiped (id) VALUES (?)", (username,))
-			cursor.execute("INSERT INTO tiped (id) VALUES (?)", (to,))
-			connection.commit()
+			try:
+				cursor.execute("INSERT INTO tiped (id) VALUES (?)", (username,))
+				cursor.execute("INSERT INTO tiped (id) VALUES (?)", (to,))
+				connection.commit()
+			except sqlite3.OperationalError:
+				pass
 		else:
 			#m = m = "<@" + message.author.id + ">, sorry, failed to complete your request: your tip must meet the minimum of 10 watanabe (0.00000010 Mona).\n(message created on " + currenttime + ")"
 			m = "e_10"
