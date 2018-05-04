@@ -49,3 +49,19 @@ def libgetjpybalance(userid):
 	balance = str(balance)
 	jpybalance = str(jpybalance)
 	return jpybalance
+def deposit(userid):
+	start = time.time()
+	cmda = "monacoin-cli walletpassphrase 0124 10"
+	ruta  =  subprocess.check_output( cmda.split(" ") )
+	print(ruta)
+	await client.add_reaction(message, '👌')
+	cmd = "monacoin-cli getaddressesbyaccount " + message.author.id + ""
+	rut  =  subprocess.check_output( cmd.split(" ") )
+	address = rut.decode()
+	address2 = address.replace('[', '')
+	address3 = address2.replace(']', '')
+	address3 = address2.replace('\n', '')
+	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+	elapsed_time = time.time() - start
+	elapsed_time = str(elapsed_time)
+	return address3
