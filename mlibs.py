@@ -46,8 +46,6 @@ def libgetjpybalance(userid):
 	balance = float(balance)
 	jpybalance = float(currentprice) * float(balance)
 	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-	elapsed_time = time.time() - start
-	elapsed_time = str(elapsed_time)
 	balance = str(balance)
 	jpybalance = str(jpybalance)
 	return jpybalance
