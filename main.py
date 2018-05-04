@@ -261,7 +261,7 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 			balance = mlibs.libgetbalance(userid)
 			jpybalance = mlibs.libgetjpybalance(userid)
-			m = "<@" + message.author.id + ">, you currently have  " + balance + " mona! (" + jpybalance + " jpy)\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
+			m = "<@" + message.author.id + ">, you currently have  " + balance + " mona! (" + jpybalance + " jpy)\n(message created on " + currenttime + ")"
 			print ("---6---")
 			await client.send_message(message.channel, m)
 
