@@ -266,50 +266,27 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 
 		if message.content.startswith("/deposit"):
-			start = time.time()
-			cmda = "monacoin-cli walletpassphrase 0124 10"
-			ruta  =  subprocess.check_output( cmda.split(" ") )
-			print(ruta)
 			await client.add_reaction(message, '👌')
 			# 送り主がBotだった場合反応したくないので
 			if client.user != message.author.name:
-				# メッセージを書きます
-					m = "<@" + message.author.id + "> アドレスを確認中..."
-				# メッセージが送られてきたチャンネルへメッセージを送ります
-					await client.send_message(message.channel, m)
-					cmd = "monacoin-cli getaddressesbyaccount " + message.author.id + ""
-					rut  =  subprocess.check_output( cmd.split(" ") )
-					address = rut.decode()
-					address2 = address.replace('[', '')
-					address3 = address2.replace(']', '')
-					address3 = address2.replace('\n', '')
-					currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-					elapsed_time = time.time() - start
-					elapsed_time = str(elapsed_time)
-					m = "<@" + message.author.id + ">, the following are your deposit addresses:" + address3 + "\n(message created on " + currenttime + ") . exectime: " + elapsed_time + " sec"
-					await client.send_message(message.channel, m)
+			# メッセージを書きます
+				m = "<@" + message.author.id + "> アドレスを確認中..."
+			# メッセージが送られてきたチャンネルへメッセージを送ります
+				await client.send_message(message.channel, m)
+				address3 = mlibs.deposit(userid)
+				m = "<@" + message.author.id + ">, the following are your deposit addresses:" + address3 + "\n(message created on " + currenttime + ")"
+				await client.send_message(message.channel, m)
 		if message.content.startswith("/list"):
-			start = time.time()
-			cmda = "monacoin-cli walletpassphrase 0124 10"
-			ruta  =  subprocess.check_output( cmda.split(" ") )
-			print(ruta)
 			await client.add_reaction(message, '👌')
 			# 送り主がBotだった場合反応したくないので
 			if client.user != message.author.name:
-				# メッセージを書きます
-					m = "<@" + message.author.id + "> アドレスを確認中..."
-				# メッセージが送られてきたチャンネルへメッセージを送ります
-					await client.send_message(message.channel, m)
-					cmd = "monacoin-cli getaddressesbyaccount " + message.author.id + ""
-					rut  =  subprocess.check_output( cmd.split(" ") )
-					address = rut.decode()
-					address2 = address.replace('[', '')
-					address3 = address2.replace(']', '')
-					currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-					elapsed_time = time.time() - start
-					elapsed_time = str(elapsed_time)
-					m = "<@"+ message.author.id + ">,your address is" + address3 + " \n Created message at " + currenttime + " . exectime: " + elapsed_time + " sec"
-					await client.send_message(message.channel, m)
+			# メッセージを書きます
+				m = "<@" + message.author.id + "> アドレスを確認中..."
+			# メッセージが送られてきたチャンネルへメッセージを送ります
+				await client.send_message(message.channel, m)
+				address3 = mlibs.deposit(userid)
+				m = "<@" + message.author.id + ">, the following are your deposit addresses:" + address3 + "\n(message created on " + currenttime + ")"
+				await client.send_message(message.channel, m)
 		if message.content.startswith("/withdraw"):
 			start = time.time()
 			cmda = "monacoin-cli walletpassphrase 0124 10"
