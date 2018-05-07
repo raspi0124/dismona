@@ -926,6 +926,7 @@ async def on_message(message):
 			embed.add_field(name="ぱい", value=" - Discord.pyについてのアドバイス")
 			embed.add_field(name="lae", value=" - アドバイス、英語文法監修")
 			embed.add_field(name="Limit", value=" - helpコマンドの見やすさの向上、リアクションtipのアイデア")
+			embed.add_field(name="Ming", value=" - おみくじイラストの作成")
 			embed.add_field(name="両親", value=" - 匿名にしておきます")
 			embed.add_field(name="脇山P(wakip)", value=" - 大量の資金的な援助及びアドバイス")
 			await client.send_message(message.channel, embed=embed)
