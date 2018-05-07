@@ -952,7 +952,7 @@ async def on_message(message):
 		if message.content.startswith('/mp balance'):
 			print("1")
 			address = re.split('\W+', message.content)
-			addresses = address[2]
+			addresses = address[1]
 			addresses = '"' + addresses + '"'
 
 			headers = {
