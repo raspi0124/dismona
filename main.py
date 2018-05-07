@@ -628,8 +628,8 @@ async def on_message(message):
 				loved = str(loved)
 				pattern = r'([0-9]+\.?[0-9]*)'
 				loved = re.findall(pattern,loved)
-				message = message.content
-				tolove = re.findall(pattern,message)
+				message1 = message.content
+				tolove = re.findall(pattern,message1)
 				tolove = tolove[0]
 				if message.author.id == "aaa":
 					m = "友達にもなりたくないです。二度と話しかけないでください"
