@@ -943,7 +943,7 @@ async def on_message(message):
 				'Content-Type': 'application/json; charset=UTF-8',
 				'Accept': 'application/json, text/javascript',
 			}
-			data = { "jsonrpc": "2.0", "id": 0, "method": "get_running_info" }
+			data = '{ "jsonrpc": "2.0", "id": 0, "method": "get_running_info" }'
 			response = requests.post('https://api.monaparty.me/api/counterparty', headers=headers, data=data, auth=('rpc', 'hello'))
 			print(response)
 			m = str(response)
@@ -961,6 +961,7 @@ async def on_message(message):
 			}
 			data = '{ "jsonrpc": "2.0", "id": 0, "method": "get_normalized_balances" "addresses": ' + addresses +' }'
 			response = requests.post('https://wallet.monaparty.me/_api', headers=headers, data=data, auth=('rpc', 'hello'))
+			response = str(response)
 			m = "here is " + addresses + " balance" + response + ""
 
 
