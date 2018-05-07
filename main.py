@@ -618,40 +618,41 @@ async def on_message(message):
 						cursor.execute("DELETE FROM loved WHERE id = " + username + "")
 						connection.commit()
 					await client.delete_message(message)
-			if message.content.startswith("/marryhim"):
-				if message.author.id == "326091178984603669":
-					username = message.author.id
-					cursor.execute('SELECT * FROM loved')
-					loved = cursor.fetchall()
-					print(loved)
-					loved = str(loved)
-					pattern = r'([0-9]+\.?[0-9]*)'
-					loved = re.findall(pattern,loved)
-					message = message.content
-					tolove = re.findall(pattern,message)
-					tolove = tolove[0]
-					if message.author.id == "aaa":
-						m = "友達にもなりたくないです。二度と話しかけないでください"
+			await client.delete_message(message)
+		if message.content.startswith("/marryhim"):
+			if message.author.id == "326091178984603669":
+				username = message.author.id
+				cursor.execute('SELECT * FROM loved')
+				loved = cursor.fetchall()
+				print(loved)
+				loved = str(loved)
+				pattern = r'([0-9]+\.?[0-9]*)'
+				loved = re.findall(pattern,loved)
+				message = message.content
+				tolove = re.findall(pattern,message)
+				tolove = tolove[0]
+				if message.author.id == "aaa":
+					m = "友達にもなりたくないです。二度と話しかけないでください"
+					await client.send_message(message.channel, m)
+				else:
+					if tolove not in loved:
+						result = "1"
+						loven = "1"
+						m = "これもお家のため。。了解いたしました。たいへん不本意ですが <@" + tolove + "> と結婚させていただきます"
+						if result == loven:
+							cursor.execute("INSERT INTO loved (id) VALUES (?)", (tolove,))
+							connection.commit()
 						await client.send_message(message.channel, m)
 					else:
-						if tolove not in loved:
-							result = "1"
-							loven = "1"
-							m = "これもお家のため。。了解いたしました。たいへん不本意ですが <@" + tolove + "> と結婚させていただきます"
-							if result == loven:
-								cursor.execute("INSERT INTO loved (id) VALUES (?)", (tolove,))
-								connection.commit()
-							await client.send_message(message.channel, m)
-						else:
-							def loved():
-								kuji = ["0"]
-								result = random.choice(kuji)
-								return result
-							messeages = ["すでにあの方と結婚していますが何か?"]
-							result = loved()
-							result = int(result)
-							m = messeages[result]
-							await client.send_message(message.channel, m)
+						def loved():
+							kuji = ["0"]
+							result = random.choice(kuji)
+							return result
+						messeages = ["すでにあの方と結婚していますが何か?"]
+						result = loved()
+						result = int(result)
+						m = messeages[result]
+						await client.send_message(message.channel, m)
 
 		if message.content == "/omikuzi -nomona" or message.content == "/omikuji -nomona":
 			start = time.time()
