@@ -954,9 +954,7 @@ async def on_message(message):
 
 		if message.content.startswith('/mp balance'):
 			print("1")
-			address = re.split('\W+', message.content)
-			print(address)
-			addresses = address[3]
+			addresses = mlibs.deposit(message.author.id)
 			addresses = '"' + addresses + '"'
 			print(addresses)
 			headers = {
