@@ -57,13 +57,12 @@ def deposit(userid):
 	cmd = "monacoin-cli getaddressesbyaccount " + userid + ""
 	rut  =  subprocess.check_output( cmd.split(" ") )
 	address = rut.decode()
-	address2 = address.replace('[', '')
-	address3 = address2.replace(']', '')
-	address4 = address3.replace('\n', '')
+	address2 = address.replace('"', '')
+	address3 = address2.replace(',', '')
 	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 	elapsed_time = time.time() - start
 	elapsed_time = str(elapsed_time)
-	address = address.split()
+	address = address3.split()
 	print(address)
 	address = address[5]
 	return address
