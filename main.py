@@ -951,12 +951,14 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 			m = str(response.text)
 			await client.send_message(message.channel, m)
+
 		if message.content.startswith('/mp balance'):
 			print("1")
 			address = re.split('\W+', message.content)
+			print(address)
 			addresses = address[1]
 			addresses = '"' + addresses + '"'
-
+			print(addresses)
 			headers = {
 				'Content-Type': 'application/json; charset=UTF-8',
 				'Accept': 'application/json, text/javascript',
@@ -964,6 +966,8 @@ async def on_message(message):
 			data = '{ "jsonrpc": "2.0", "id": 0, "method": "get_normalized_balances" "addresses": ' + addresses +' }'
 			response = requests.post('https://wallet.monaparty.me/_api', headers=headers, data=data, auth=('rpc', 'hello'))
 			response = str(response)
+			print(response)
+			print(response.text)
 			m = "here is " + addresses + " balance" + response + ""
 
 
