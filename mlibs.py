@@ -64,7 +64,8 @@ def deposit(userid):
 	elapsed_time = time.time() - start
 	elapsed_time = str(elapsed_time)
 	address = address.split()
-	address = address[0]
+	print(address)
+	address = address[5]
 	return address
 def withdraw(userid, to, amount):
 	start = time.time()
