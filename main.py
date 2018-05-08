@@ -980,7 +980,7 @@ async def on_message(message):
 			responseresult = responsejson['result']
 			responseresult = str(responseresult)
 
-			m = "here is " + addresses + " balance: " + responseresult + ""
+			m = "balance: " + responseresult + ""
 			await client.send_message(message.channel, m)
 
 
