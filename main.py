@@ -963,7 +963,7 @@ async def on_message(message):
 				'Content-Type': 'application/json; charset=UTF-8',
 				'Accept': 'application/json, text/javascript',
 			}
-			data = '{ "jsonrpc": "2.0", "id": 0, "method": "get_normalized_balances" "addresses": [ + addresses + ] }'
+			data = '{ "jsonrpc": "2.0", "id": 0, "method": "get_normalized_balances" "addresses": [' + addresses + '] }'
 			print(data)
 			response = requests.post('https://wallet.monaparty.me/_api', headers=headers, data=data, auth=('rpc', 'hello'))
 			print(response)
