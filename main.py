@@ -842,10 +842,8 @@ async def on_message(message):
 										await client.send_file(message.channel, f)
 							elapsed_time = time.time() - start
 							elapsed_time = str(elapsed_time)
-							m = "貴方の今日の運勢は" + resultp + "です!\n0.0000" + result2 + "Mona送りますね！"
-							await client.send_message(message.channel, m)
 							cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
-							m = "/tip <@" + username + "> 0.0000" + result2 + " おみくじtipです！次挑戦できるのは日本時間で明日です！ . exectime: " + elapsed_time + " sec"
+							m = "/tip <@" + username + "> 0.0000" + result2 + " おみくじtipです！貴方の今日の運勢は" + resultp + "です!次挑戦できるのは日本時間で明日です！ . exectime: " + elapsed_time + " sec"
 							await client.send_message(message.channel, m)
 							connection.commit()
 						else:
