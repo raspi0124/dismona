@@ -977,7 +977,7 @@ async def on_message(message):
 			print(response.text)
 			responsetxt = str(response.text)
 			responsejson = response.json()
-			result = responsejson[result]
+			responseresult = responsejson[result]
 			m = "here is " + addresses + " balance: " + result + ""
 			await client.send_message(message.channel, m)
 
