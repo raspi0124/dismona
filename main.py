@@ -274,7 +274,7 @@ async def on_message(message):
 			# メッセージが送られてきたチャンネルへメッセージを送ります
 				await client.send_message(message.channel, m)
 				address3 = mlibs.deposit(userid)
-				m = "<@" + message.author.id + ">, the following are your deposit addresses:" + address3 + "\n(message created on " + currenttime + ")"
+				m = "<@" + message.author.id + ">, This is your deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
 				await client.send_message(message.channel, m)
 		if message.content.startswith("/list"):
 			await client.add_reaction(message, '👌')
