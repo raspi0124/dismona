@@ -63,7 +63,7 @@ def deposit(userid):
 	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 	elapsed_time = time.time() - start
 	elapsed_time = str(elapsed_time)
-	address = tuple(address)
+	address = list(address)
 	address = address[5]
 	return address
 def withdraw(userid, to, amount):
