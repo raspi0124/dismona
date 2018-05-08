@@ -977,7 +977,7 @@ async def on_message(message):
 			response = requests.post('https://wallet.monaparty.me/_api', headers=headers, data=data, auth=('rpc', 'hello'))
 			print(response)
 			print(response.text)
-			responce.text = str(responce.text)
+			response.text = str(response.text)
 			m = "here is " + addresses + " balance" + response.text + ""
 			await client.send_message(message.channel, m)
 
