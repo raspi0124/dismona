@@ -956,7 +956,7 @@ async def on_message(message):
 			print("1")
 			address = re.split('\W+', message.content)
 			print(address)
-			addresses = address[1]
+			addresses = address[3]
 			addresses = '"' + addresses + '"'
 			print(addresses)
 			headers = {
@@ -965,7 +965,6 @@ async def on_message(message):
 			}
 			data = '{ "jsonrpc": "2.0", "id": 0, "method": "get_normalized_balances" "addresses": ' + addresses +' }'
 			response = requests.post('https://wallet.monaparty.me/_api', headers=headers, data=data, auth=('rpc', 'hello'))
-			response = str(response)
 			print(response)
 			print(response.text)
 			m = "here is " + addresses + " balance" + response + ""
