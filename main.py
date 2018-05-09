@@ -981,8 +981,10 @@ async def on_message(message):
 			responseresult = responseresult.replace('[', '')
 			responseresult = responseresult.replace(']', '')
 			responseresult = responseresult.replace("'", '"')
+			responseresult = responseresult.replace('"owner":', '')
+			responseresult = responseresult.replace(' False,', '')
 			print(responseresult)
-
+			
 			responseresult = json.loads(responseresult)
 			assetname = responseresult['asset_longname']
 			assetamount = responseresult['normalized_quantity']
