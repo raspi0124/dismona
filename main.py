@@ -976,6 +976,7 @@ async def on_message(message):
 			responsetxt = str(response.text)
 			responsejson = response.json()
 			responseresult = responsejson['result']
+			responseresult = str(responseresult)
 			responseresult = responseresult.replace('[', '')
 			responseresult = responseresult.replace(']', '')
 			responseresult = responseresult.json()
