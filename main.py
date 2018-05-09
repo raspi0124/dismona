@@ -976,9 +976,14 @@ async def on_message(message):
 			responsetxt = str(response.text)
 			responsejson = response.json()
 			responseresult = responsejson['result']
-			responseresult = str(responseresult)
+			assetname = responseresult['asset_longname']
+			assetamount = responseresult['normalized_quantity']
 
-			m = "balance: " + responseresult + ""
+			responseresult = str(responseresult)
+			assetname = str(assetname)
+			assetamount = str(assetamount)
+
+			m = "balance: " + responseresult + ", asset name:" + assetname + ", asset amount:" + assetamount + ""
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/mp deposit"):
 			await client.add_reaction(message, '👌')
