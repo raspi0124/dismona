@@ -977,9 +977,12 @@ async def on_message(message):
 			responsejson = response.json()
 			responseresult = responsejson['result']
 			responseresult = str(responseresult)
+			print(responseresult)
 			responseresult = responseresult.replace('[', '')
 			responseresult = responseresult.replace(']', '')
 			responseresult = responseresult.replace('"', "'")
+			print(responseresult)
+
 			responseresult = json.loads(responseresult)
 			assetname = responseresult['asset_longname']
 			assetamount = responseresult['normalized_quantity']
@@ -990,6 +993,7 @@ async def on_message(message):
 
 			m = "balance: " + responseresult + ", asset name:" + assetname + ", asset amount:" + assetamount + ""
 			await client.send_message(message.channel, m)
+
 		if message.content.startswith("/mp deposit"):
 			await client.add_reaction(message, '👌')
 			# 送り主がBotだった場合反応したくないので
