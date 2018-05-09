@@ -980,7 +980,7 @@ async def on_message(message):
 			print(responseresult)
 			responseresult = responseresult.replace('[', '')
 			responseresult = responseresult.replace(']', '')
-			responseresult = responseresult.replace('"', "'")
+			responseresult = responseresult.replace("'", '"')
 			print(responseresult)
 
 			responseresult = json.loads(responseresult)
