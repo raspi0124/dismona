@@ -752,6 +752,21 @@ async def on_message(message):
 					kyou = int(kyou)
 					elapsed_time = time.time() - start
 					elapsed_time = str(elapsed_time)
+					if result == "0":
+						with open('/root/dismona/kyou.png', 'rb') as f:
+							await client.send_file(message.channel, f)
+					if result == "1":
+						with open('/root/dismona/syoukiti.png', 'rb') as f:
+							await client.send_file(message.channel, f)
+					if result == "2":
+						with open('/root/dismona/tyuukiti.png', 'rb') as f:
+							await client.send_file(message.channel, f)
+					if result == "3":
+						with open('/root/dismona/daikiti.png', 'rb') as f:
+							await client.send_file(message.channel, f)
+					if result == "7":
+						with open('/root/dismona/tyoudaikiti.png', 'rb') as f:
+							await client.send_file(message.channel, f)
 					if result == kyou:
 						m = "あなたの運勢…凶みたいだから、今日はそばにいてあげるんだからねっ！今日だけだからねっ"
 					else:
@@ -977,25 +992,9 @@ async def on_message(message):
 			responsejson = response.json()
 			responseresult = responsejson['result']
 			responseresult = str(responseresult)
-			print(responseresult)
-			responseresult = responseresult.replace('[', '')
-			responseresult = responseresult.replace(']', '')
-			responseresult = responseresult.replace("'", '"')
-			responseresult = responseresult.replace('"owner":', '')
-			responseresult = responseresult.replace(' False,', '')
-			print(responseresult)
-			
-			responseresult = json.loads(responseresult)
-			assetname = responseresult['asset_longname']
-			assetamount = responseresult['normalized_quantity']
 
-			responseresult = str(responseresult)
-			assetname = str(assetname)
-			assetamount = str(assetamount)
-
-			m = "balance: " + responseresult + ", asset name:" + assetname + ", asset amount:" + assetamount + ""
+			m = "balance: " + responseresult + ""
 			await client.send_message(message.channel, m)
-
 		if message.content.startswith("/mp deposit"):
 			await client.add_reaction(message, '👌')
 			# 送り主がBotだった場合反応したくないので
@@ -1059,6 +1058,6 @@ async def on_message(message):
 
 	cursor.close()
 	connection.close()
-client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DdSUcg._-OiY4vGsNWoIy8xISw-n-e-_c4")
+client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DbzaFA.hPWfWE9cXQc5UjsUbo17diRoBOQ")
 # https://qiita.com/PinappleHunter/items/af4ccdbb04727437477f
 # https://qiita.com/komeiy/items/d6b5f25bf1778fa10e21
