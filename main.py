@@ -172,6 +172,7 @@ async def on_message(message):
 	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 	cursor.execute('SELECT * FROM agreetos')
 	agreetos = cursor.fetchall()
+	agreetos = agreetos.decode()
 	agreetos = str(agreetos)
 	print(agreetos)
 	pattern = r'([0-9]+\.%s[0-9]*)'
