@@ -179,11 +179,13 @@ async def on_message(message):
 	agreetos = agreetos.replace(')', '')
 	agreetos = agreetos.replace("b'", '')
 	agreetos = agreetos.replace("'", '')
+	agreetos = agreetos.replace(",,", ',')
+	agreetos = list(agreetos)
 	print("aa")
 	print(agreetos)
-	pattern = r'([0-9]+\.%s[0-9]*)'
-	agreetos = re.findall(pattern,agreetos)
-	print(agreetos)
+	#pattern = r'([0-9]+\.%s[0-9]*)'
+	#agreetos = re.findall(pattern,agreetos)
+	#print(agreetos)
 	userid = message.author.id
 	messagesql = message.content.encode('utf-8')
 	messagesql = str(messagesql)
