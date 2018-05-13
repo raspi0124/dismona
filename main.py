@@ -10,7 +10,8 @@ import requests
 import decimal
 from decimal import (Decimal, ROUND_DOWN)
 #import apim
-import sqlite3
+#import sqlite3
+import MySQLdb
 from datetime import datetime
 import mlibs
 
@@ -41,8 +42,7 @@ async def on_ready():
 
 @client.event
 async def on_reaction_add(reaction, user):
-	dbpath = '/root/dismona.sqlite'
-	connection = sqlite3.connect(dbpath)
+	connection = MySQLdb.connect(db='dismona',user='root',passwd='laksjd',charset='utf8mb4')
 	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
 	# connection.isolation_level = None
 	cursor = connection.cursor()
@@ -165,9 +165,7 @@ async def on_reaction_add(reaction, user):
 
 @client.event
 async def on_message(message):
-	import mlibs
-	dbpath = '/root/dismona.sqlite'
-	connection = sqlite3.connect(dbpath)
+	connection = MySQLdb.connect(db='dismona',user='root',passwd='laksjd',charset='utf8mb4')
 	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
 	# connection.isolation_level = None
 	cursor = connection.cursor()
