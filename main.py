@@ -781,6 +781,7 @@ async def on_message(message):
 		if message.content == "/omikuzi" or message.content == "/omikuji":
 			start = time.time()
 			username = message.author.id
+			print("omikuzi executed 1")
 			cursor.execute('SELECT id FROM gived')
 			# 全件取得は cursor.fetchall()
 			gived = cursor.fetchall()
@@ -1022,6 +1023,10 @@ async def on_message(message):
 				cursor.execute("INSERT INTO agreetos (id) VALUES (%s)", (username,))
 				m = "利用規約への同意を確認しました。"
 				await client.send_message(message.channel, m)
+				cursor.execute('SELECT * FROM agreetos')
+				agreetos = cursor.fetchall()
+				print(agreetos)
+				
 			except sqlite3.Error as e:
 				print('sqlite3.Error occurred:', e.args[0])
 				m = "DB error. DB might locked. Please try again later or contact @raspi0124."
