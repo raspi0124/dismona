@@ -175,6 +175,10 @@ async def on_message(message):
 	agreetos = list(agreetos)
 	print(agreetos)
 	agreetos = str(agreetos)
+	agreetos = agreetos.replace('(', '')
+	agreetos = agreetos.replace(')', '')
+	agreetos = agreetos.replace("b'", '')
+	agreetos = agreetos.replace("'", '')
 	pattern = r'([0-9]+\.%s[0-9]*)'
 	agreetos = re.findall(pattern,agreetos)
 	print(agreetos)
