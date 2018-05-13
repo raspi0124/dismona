@@ -180,6 +180,8 @@ async def on_message(message):
 	agreetos = agreetos.replace("b'", '')
 	agreetos = agreetos.replace("'", '')
 	agreetos = agreetos.replace(",,", ',')
+	agreetos = agreetos.replace("[", '')
+	agreetos = agreetos.replace("]", '')
 	agreetos = agreetos.split(',')
 	print("aa")
 	print(agreetos)
