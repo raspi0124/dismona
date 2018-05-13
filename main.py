@@ -1054,7 +1054,7 @@ async def on_message(message):
 			m = "You need to agree tos in order to use Monage. Please type /help for more information.\n このコマンドを実行するには利用規約への同意が必要です。"
 			await client.send_message(message.channel, m)
 
-	cursor.close()
+	connection.commit()
 	connection.close()
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.Ddop9Q.K1wjAC3ZztBltTDp75ijN0baj-I")
 # https://qiita.com/PinappleHunter/items/af4ccdbb04727437477f
