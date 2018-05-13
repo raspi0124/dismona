@@ -105,9 +105,9 @@ async def on_reaction_add(reaction, user):
 					rut2  =  subprocess.check_output( cmd2.split(" ") )
 					m = "<@" + tipby + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ")"
 					await client.send_message(reaction.message.channel, m)
-					cursor.execute("INSERT INTO tiped (id) VALUES (?)", (username,))
+					cursor.execute("INSERT INTO tiped (id) VALUES (%s)", (username,))
 					connection.commit()
-					cursor.execute("INSERT INTO tiped (id) VALUES (?)", (tipto,))
+					cursor.execute("INSERT INTO tiped (id) VALUES (%s)", (tipto,))
 				except subprocess.CalledProcessError as e:
 					eout = e.output.decode()
 					m = "<@" + tipby + ">, sorry, failed to complete your request: <@" + tipto + "> is not yet registered.\n(message created on " + currenttime + ")"
@@ -149,9 +149,9 @@ async def on_reaction_add(reaction, user):
 					rut2  =  subprocess.check_output( cmd2.split(" ") )
 					m = "<@" + tipby + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ")"
 					await client.send_message(reaction.message.channel, m)
-					cursor.execute("INSERT INTO tiped (id) VALUES (?)", (username,))
+					cursor.execute("INSERT INTO tiped (id) VALUES (%s)", (username,))
 					connection.commit()
-					cursor.execute("INSERT INTO tiped (id) VALUES (?)", (tipto,))
+					cursor.execute("INSERT INTO tiped (id) VALUES (%s)", (tipto,))
 				except subprocess.CalledProcessError as e:
 					eout = e.output.decode()
 					m = "<@" + tipby + ">, sorry, failed to complete your request: <@" + tipto + "> is not yet registered.\n(message created on " + currenttime + ")"
@@ -173,7 +173,7 @@ async def on_message(message):
 	cursor.execute('SELECT * FROM agreetos')
 	agreetos = cursor.fetchall()
 	agreetos = str(agreetos)
-	pattern = r'([0-9]+\.?[0-9]*)'
+	pattern = r'([0-9]+\.%s[0-9]*)'
 	agreetos = re.findall(pattern,agreetos)
 	userid = message.author.id
 	messagesql = message.content.encode('utf-8')
@@ -184,7 +184,7 @@ async def on_message(message):
 		file = open('/root/alllog2.txt', 'a')  #追加書き込みモードでオープン
 		file.writelines(towrite)
 		print(towrite)
-		#cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (?, ?, ?, ?, ?)", (message.author.name, message, message.author.id, message.channel.id, currenttime))
+		#cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (message.author.name, message, message.author.id, message.channel.id, currenttime))
 		#connection.commit()
 	rainnotify = "425766935825743882"
 	rainnotify = client.get_channel('425766935825743882')
@@ -215,7 +215,7 @@ async def on_message(message):
 				resultmore3 = resultmore2.replace('"', '')
 				resultmore4 = resultmore3.replace("\n", "")
 				resultmore5 = resultmore4.replace(" ", "")
-				cursor.execute("INSERT INTO addresses (username, address) VALUES (?, ?)", (username, resultmore5))
+				cursor.execute("INSERT INTO addresses (username, address) VALUES (%s, %s)", (username, resultmore5))
 				currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 				elapsed_time = time.time() - start
 				elapsed_time = str(elapsed_time)
@@ -235,7 +235,7 @@ async def on_message(message):
 				balance = rut.decode()
 				if balance > "0.01":
 					fee = "0.01"
-					cursor.execute("INSERT INTO rainregistered (rainid) VALUES (?)", (username,))
+					cursor.execute("INSERT INTO rainregistered (rainid) VALUES (%s)", (username,))
 					cmd = "monacoin-cli move "  + message.author.id + " fee " + fee + ""
 					ruta  =  subprocess.check_output( cmd.split(" ") )
 					print(ruta)
@@ -289,7 +289,7 @@ async def on_message(message):
 			await client.add_reaction(message, '👌')
 			rmessage = message.content.replace('/withdraw', '')
 			print(rmessage)
-			pattern = r'([+-]?[0-9]+\.?[0-9]*)'
+			pattern = r'([+-]%s[0-9]+\.%s[0-9]*)'
 			print(re.findall(pattern,rmessage))
 			withdrawinfo = re.findall(pattern,rmessage)
 			print(withdrawinfo[0])
@@ -315,7 +315,7 @@ async def on_message(message):
 			await client.add_reaction(message, '👌')
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			message2 = message.content.replace('/rain ', '')
-			pattern = r'([+-]?[0-9]+\.?[0-9]*)'
+			pattern = r'([+-]%s[0-9]+\.%s[0-9]*)'
 			raininfo = re.findall(pattern,message2)
 			print("--numbertorain--")
 			print(raininfo[0])
@@ -332,7 +332,7 @@ async def on_message(message):
 			rainall = cursor.fetchall()
 			print(rainall)
 			rainall = str(rainall)
-			pattern = r'([0-9]+\.?[0-9]*)'
+			pattern = r'([0-9]+\.%s[0-9]*)'
 			rainall = re.findall(pattern,rainall)
 			print(rainall)
 			if balancea >= raininfo[1]:
@@ -380,14 +380,14 @@ async def on_message(message):
 			noban = ["326091178984603669", "294470458013908992"]
 			if username in banallow:
 				message2 = message.content
-				pattern = r'([+-]?[0-9]+\.?[0-9]*)'
+				pattern = r'([+-]%s[0-9]+\.%s[0-9]*)'
 				tipinfo = re.findall(pattern,message2)
 				print(tipinfo[0])
 				banto = tipinfo[0]
 				if banto not in noban:
-					cursor.execute("INSERT INTO baned (banedid) VALUES (?)", (banto,))
+					cursor.execute("INSERT INTO baned (banedid) VALUES (%s)", (banto,))
 					connection.commit()
-					cursor.execute("INSERT INTO baned (banfromid) VALUES (?)", (username,))
+					cursor.execute("INSERT INTO baned (banfromid) VALUES (%s)", (username,))
 					m = "<@" + username + ">ユーザー <@" + banto + "> をおみくじの使用からBANしました。"
 					await client.send_message(message.channel, m)
 				else:
@@ -403,7 +403,7 @@ async def on_message(message):
 			print(ruta)
 			message2 = message.content.replace('/tip', '')
 			print (message2)
-			pattern = r'([+-]?[0-9]+\.?[0-9]*)'
+			pattern = r'([+-]%s[0-9]+\.%s[0-9]*)'
 			print(re.findall(pattern,message2))
 			tipinfo = re.findall(pattern,message2)
 			print(tipinfo[0])
@@ -551,7 +551,7 @@ async def on_message(message):
 			loved = cursor.fetchall()
 			print(loved)
 			loved = str(loved)
-			pattern = r'([0-9]+\.?[0-9]*)'
+			pattern = r'([0-9]+\.%s[0-9]*)'
 			loved = re.findall(pattern,loved)
 			cmd = "monacoin-cli getbalance " + message.author.id + ""
 			rut  =  subprocess.check_output( cmd.split(" ") )
@@ -587,7 +587,7 @@ async def on_message(message):
 						loven = "7"
 						loven = int(loven)
 						if result == loven:
-							cursor.execute("INSERT INTO loved (id) VALUES (?)", (username,))
+							cursor.execute("INSERT INTO loved (id) VALUES (%s)", (username,))
 							connection.commit()
 						await client.send_message(message.channel, m)
 						elapsed_time = time.time() - start
@@ -624,7 +624,7 @@ async def on_message(message):
 				loved = cursor.fetchall()
 				print(loved)
 				loved = str(loved)
-				pattern = r'([0-9]+\.?[0-9]*)'
+				pattern = r'([0-9]+\.%s[0-9]*)'
 				loved = re.findall(pattern,loved)
 				message1 = message.content
 				tolove = re.findall(pattern,message1)
@@ -638,7 +638,7 @@ async def on_message(message):
 						loven = "1"
 						m = "これもお家のため。。了解いたしました。たいへん不本意ですが <@" + tolove + "> と結婚させていただきます"
 						if result == loven:
-							cursor.execute("INSERT INTO loved (id) VALUES (?)", (tolove,))
+							cursor.execute("INSERT INTO loved (id) VALUES (%s)", (tolove,))
 							connection.commit()
 						await client.send_message(message.channel, m)
 					else:
@@ -646,7 +646,7 @@ async def on_message(message):
 							kuji = ["0"]
 							result = random.choice(kuji)
 							return result
-						messeages = ["すでにあの方と結婚していますが何か?"]
+						messeages = ["すでにあの方と結婚していますが何か%s"]
 						result = loved()
 						result = int(result)
 						m = messeages[result]
@@ -667,7 +667,7 @@ async def on_message(message):
 			tiped = cursor.fetchall()
 			print(tiped)
 			tiped = str(tiped)
-			pattern = r'([0-9]+\.?[0-9]*)'
+			pattern = r'([0-9]+\.%s[0-9]*)'
 			tiped = re.findall(pattern,tiped)
 			print("banned")
 			print(baned)
@@ -679,7 +679,7 @@ async def on_message(message):
 			loved = cursor.fetchall()
 			print(loved)
 			loved = str(loved)
-			pattern = r'([0-9]+\.?[0-9]*)'
+			pattern = r'([0-9]+\.%s[0-9]*)'
 			loved = re.findall(pattern,loved)
 
 			if username not in gived:
@@ -725,7 +725,7 @@ async def on_message(message):
 					resultp = str(resultp)
 					m = "貴方の今日の運勢は" + resultp + "です!"
 					await client.send_message(message.channel, m)
-					cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
+					cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username,))
 					connection.commit()
 				else:
 					def omikuji():
@@ -770,7 +770,7 @@ async def on_message(message):
 					else:
 						m = "ダーリン、あなたの今日の運勢は" + resultp + "らしいですわよ。! 今日も気をつけてね、ダーリン。 . exectime: " + elapsed_time + " sec"
 					await client.send_message(message.channel, m)
-					cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
+					cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username,))
 					m = "/tip <@" + username + "> 0.000" + result + ""
 					await client.send_message(message.channel, m)
 					connection.commit()
@@ -793,7 +793,7 @@ async def on_message(message):
 			tiped = cursor.fetchall()
 			print(tiped)
 			tiped = str(tiped)
-			pattern = r'([0-9]+\.?[0-9]*)'
+			pattern = r'([0-9]+\.%s[0-9]*)'
 			tiped = re.findall(pattern,tiped)
 			print("banned")
 			print(baned)
@@ -810,7 +810,7 @@ async def on_message(message):
 			loved = cursor.fetchall()
 			print(loved)
 			loved = str(loved)
-			pattern = r'([0-9]+\.?[0-9]*)'
+			pattern = r'([0-9]+\.%s[0-9]*)'
 			loved = re.findall(pattern,loved)
 
 			if username not in gived:
@@ -855,7 +855,7 @@ async def on_message(message):
 										await client.send_file(message.channel, f)
 							elapsed_time = time.time() - start
 							elapsed_time = str(elapsed_time)
-							cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
+							cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username,))
 							m = "/tip <@" + username + "> 0.0000" + result2 + " おみくじtipです！貴方の今日の運勢は" + resultp + "です!次挑戦できるのは日本時間で明日です！ . exectime: " + elapsed_time + " sec"
 							await client.send_message(message.channel, m)
 							connection.commit()
@@ -902,7 +902,7 @@ async def on_message(message):
 							else:
 								m = "ダーリン、あなたの今日の運勢は" + resultp + "らしいですわよ。!\n0.000" + result + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。 . exectime: " + elapsed_time + " sec"
 							await client.send_message(message.channel, m)
-							cursor.execute("INSERT INTO gived (id) VALUES (?)", (username,))
+							cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username,))
 							m = "/tip <@" + username + "> 0.000" + result + ""
 							await client.send_message(message.channel, m)
 							connection.commit()
@@ -1019,7 +1019,7 @@ async def on_message(message):
 			try:
 				await client.add_reaction(message, '👌')
 				fee = "0.01"
-				cursor.execute("INSERT INTO agreetos (id) VALUES (?)", (username,))
+				cursor.execute("INSERT INTO agreetos (id) VALUES (%s)", (username,))
 				m = "利用規約への同意を確認しました。"
 				await client.send_message(message.channel, m)
 			except sqlite3.Error as e:
@@ -1030,7 +1030,7 @@ async def on_message(message):
 			# 保存を実行（忘れると保存されないので注意）
 			connection.commit()
 		if message.content == "/agreetos":
-			m = "ARE YOU REALLY SURE YOU AGREED TOS? READ THE TOS AGAIN!\n TOS can be found here: https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt"
+			m = "ARE YOU REALLY SURE YOU AGREED TOS%s READ THE TOS AGAIN!\n TOS can be found here: https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt"
 			await client.send_message(message.channel, m)
 		if message.content == "/help":
 			start = time.time()
