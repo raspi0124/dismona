@@ -1058,6 +1058,6 @@ async def on_message(message):
 
 	cursor.close()
 	connection.close()
-client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.DbzaFA.hPWfWE9cXQc5UjsUbo17diRoBOQ")
+client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.Ddop9Q.K1wjAC3ZztBltTDp75ijN0baj-I")
 # https://qiita.com/PinappleHunter/items/af4ccdbb04727437477f
 # https://qiita.com/komeiy/items/d6b5f25bf1778fa10e21
