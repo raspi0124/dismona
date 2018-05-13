@@ -173,6 +173,7 @@ async def on_message(message):
 	cursor.execute('SELECT * FROM agreetos')
 	agreetos = cursor.fetchall()
 	agreetos = str(agreetos)
+	print(agreetos)
 	pattern = r'([0-9]+\.%s[0-9]*)'
 	agreetos = re.findall(pattern,agreetos)
 	userid = message.author.id
@@ -1025,8 +1026,9 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 				cursor.execute('SELECT * FROM agreetos')
 				agreetos = cursor.fetchall()
+				agreetos = str(agreetos)
 				print(agreetos)
-				
+
 			except sqlite3.Error as e:
 				print('sqlite3.Error occurred:', e.args[0])
 				m = "DB error. DB might locked. Please try again later or contact @raspi0124."
