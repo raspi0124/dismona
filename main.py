@@ -844,6 +844,7 @@ async def on_message(message):
 			tiped = tiped.split(',')
 			tiped = str(tiped)
 			print(tiped)
+			gived = str(gived)
 			tiped = str(tiped)
 			cmd = "monacoin-cli getbalance " + username + ""
 			balance = subprocess.check_output( cmd.split(" "))
