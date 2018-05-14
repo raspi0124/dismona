@@ -813,8 +813,6 @@ async def on_message(message):
 			gived = gived.replace("]", '')
 			gived = gived.split(',')
 			gived = str(gived)
-			pattern = r'([0-9]+\.%s[0-9]*)'
-			gived = re.findall(pattern,gived)
 
 			cursor.execute('SELECT * FROM baned')
 			baned = cursor.fetchall()
@@ -842,6 +840,7 @@ async def on_message(message):
 			tiped = tiped.replace("[", '')
 			tiped = tiped.replace("]", '')
 			tiped = tiped.split(',')
+
 			tiped = str(tiped)
 			print(tiped)
 			gived = str(gived)
