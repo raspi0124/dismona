@@ -9,7 +9,8 @@ import requests
 import decimal
 from decimal import (Decimal, ROUND_DOWN)
 #import apim
-import sqlite3
+#import sqlite3
+import MyYSQLdb
 from datetime import datetime
 
 def libgetbalance(userid):
@@ -118,8 +119,7 @@ def withdraw(userid, to, amount):
 	return m
 
 def tip(userid, to, amount):
-	dbpath = '/root/dismona.sqlite'
-	connection = sqlite3.connect(dbpath)
+	connection = MySQLdb.connect(db='dismona',user='root',passwd='laksjd',charset='utf8mb4')
 	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
 	# connection.isolation_level = None
 	cursor = connection.cursor()
