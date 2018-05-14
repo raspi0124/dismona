@@ -950,6 +950,7 @@ async def on_message(message):
 									await client.send_file(message.channel, f)
 							elapsed_time = time.time() - start
 							elapsed_time = str(elapsed_time)
+							result = str(result)
 							if result == "0":
 								m = "あなたの運勢…凶みたいだから、今日はそばにいてあげるんだからねっ！今日だけだからねっ"
 							else:
