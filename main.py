@@ -299,7 +299,7 @@ async def on_message(message):
 			await client.add_reaction(message, '👌')
 			rmessage = message.content.replace('/withdraw', '')
 			print(rmessage)
-			pattern = r'([+-]%s[0-9]+\.%s[0-9]*)'
+			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
 			print(re.findall(pattern,rmessage))
 			withdrawinfo = re.findall(pattern,rmessage)
 			print(withdrawinfo[0])
