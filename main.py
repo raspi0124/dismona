@@ -933,6 +933,7 @@ async def on_message(message):
 							resulta = float(result) + float("3")
 							resulta = int(resulta)
 							resulta = str(resulta)
+							result = str(result)
 							if result == "0":
 								with open('/root/dismona/kyou.png', 'rb') as f:
 									await client.send_file(message.channel, f)
@@ -954,10 +955,10 @@ async def on_message(message):
 							if result == "0":
 								m = "あなたの運勢…凶みたいだから、今日はそばにいてあげるんだからねっ！今日だけだからねっ"
 							else:
-								m = "ダーリン、あなたの今日の運勢は" + resultp + "らしいですわよ。!\n0.000" + result + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。 . exectime: " + elapsed_time + " sec"
+								m = "ダーリン、あなたの今日の運勢は" + resultp + "らしいですわよ。!\n0.000" + resulta + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。 . exectime: " + elapsed_time + " sec"
 							await client.send_message(message.channel, m)
 							cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username,))
-							m = "/tip <@" + username + "> 0.000" + result + ""
+							m = "/tip <@" + username + "> 0.000" + resulta + ""
 							await client.send_message(message.channel, m)
 							connection.commit()
 					else:
