@@ -801,6 +801,7 @@ async def on_message(message):
 			start = time.time()
 			username = message.author.id
 			print("omikuzi executed 1")
+			
 			cursor.execute('SELECT * FROM gived')
 			gived = cursor.fetchall()
 			gived = list(gived)
@@ -858,7 +859,16 @@ async def on_message(message):
 			await client.add_reaction(message, '👌')
 			cursor.execute('SELECT * FROM loved')
 			loved = cursor.fetchall()
-			print(loved)
+			loved = list(loved)
+			loved = str(loved)
+			loved = loved.replace('(', '')
+			loved = loved.replace(')', '')
+			loved = loved.replace("b'", '')
+			loved = loved.replace("'", '')
+			loved = loved.replace(",,", ',')
+			loved = loved.replace("[", '')
+			loved = loved.replace("]", '')
+			loved = loved.split(',')
 			loved = str(loved)
 			pattern = r'([0-9]+\.%s[0-9]*)'
 			loved = re.findall(pattern,loved)
