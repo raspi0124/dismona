@@ -571,7 +571,7 @@ async def on_message(message):
 			balance = int(balance)
 			print(balance)
 			balance = balance.replace("\n", '')
-			balance = balance.replace("/\/n", '')
+			balance = balance.replace("\\n", '')
 			balance = float(balance)
 			if message.author.id == "406829226751295488":
 				m = "友達にもなりたくないです。二度と話しかけないでください"
