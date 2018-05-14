@@ -286,16 +286,9 @@ async def on_message(message):
 				m = "<@" + message.author.id + ">, This is your deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
 				await client.send_message(message.channel, m)
 		if message.content.startswith("/list"):
-			await client.add_reaction(message, '👌')
 			# 送り主がBotだった場合反応したくないので
-			if client.user != message.author.name:
-			# メッセージを書きます
-				m = "<@" + message.author.id + "> アドレスを確認中..."
-			# メッセージが送られてきたチャンネルへメッセージを送ります
-				await client.send_message(message.channel, m)
-				address3 = mlibs.deposit(userid)
-				m = "<@" + message.author.id + ">, the following are your deposit addresses:" + address3 + "\n(message created on " + currenttime + ")"
-				await client.send_message(message.channel, m)
+			m = "This command is no longer available. please use /deposit command instead."
+			await client.send_message(message.channel, m)
 		if message.content.startswith("/withdraw"):
 			await client.add_reaction(message, '👌')
 			rmessage = message.content.replace('/withdraw', '')
@@ -560,18 +553,22 @@ async def on_message(message):
 			username = message.author.id
 			cursor.execute('SELECT * FROM loved')
 			loved = cursor.fetchall()
-			print(loved)
+			loved = list(loved)
 			loved = str(loved)
-			pattern = r'([0-9]+\.%s[0-9]*)'
-			loved = re.findall(pattern,loved)
+			loved = loved.replace('(', '')
+			loved = loved.replace(')', '')
+			loved = loved.replace("b'", '')
+			loved = loved.replace("'", '')
+			loved = loved.replace(",,", ',')
+			loved = loved.replace("[", '')
+			loved = loved.replace("]", '')
+			loved = loved.split(',')
+			loved = str(loved)
 			cmd = "monacoin-cli getbalance " + message.author.id + ""
 			rut  =  subprocess.check_output( cmd.split(" ") )
 			balance = rut.decode()
 			print(balance)
-			balance = str(balance)
-			print(balance)
-			balance = re.findall(pattern,balance)
-			balance = balance[0]
+			balance = int(balance)
 			print(balance)
 			balance = float(balance)
 			if message.author.id == "406829226751295488":
@@ -933,11 +930,9 @@ async def on_message(message):
 							print("resultp")
 							print(resultp)
 							resultp = str(resultp)
-							result = float(result) + float("3")
-							result = int(result)
-							result = str(result)
-							kyou = "0"
-							kyou = int(kyou)
+							resulta = float(resulta) + float("3")
+							resulta = int(resulta)
+							resulta = str(resulta)
 							if result == "0":
 								with open('/root/dismona/kyou.png', 'rb') as f:
 									await client.send_file(message.channel, f)
@@ -1097,7 +1092,7 @@ async def on_message(message):
 			embed.set_footer(text=" Created message at | " + currenttime + "")
 			embed.add_field(name="/help", value=" ヘルプを表示します")
 			embed.add_field(name="/register", value="あなたの財布を新しく作成します <Create your address>")
-			embed.add_field(name="/deposit - /list", value="あなたの所有しているアドレスを一覧表示します <List all address you have generated>")
+			embed.add_field(name="/deposit", value="あなたの所有しているアドレスを一覧表示します <List all address you have generated>")
 			embed.add_field(name="/withdraw ``<amount to withdraw> <address to send>``", value="指定されたmonaを指定されたアドレスに送ります <Withdraw specified amount of Mona available to specified address>")
 			embed.add_field(name="/tip ``<User to send Mona> <amount to tip> <Comment (optional)>``", value="指定されたmonaを指定されたユーザーに送ります <Tip specified amount of mona to specified user>")
 			embed.add_field(name="/rain ``<number of people to tip> <total amount to tip>``", value=" 指定された金額のmonaをランダムに配ります。<Tip specified amount to random multiple people. You can choose the number of people to tip (Currently for admin only due to technical difficulties.)>")
