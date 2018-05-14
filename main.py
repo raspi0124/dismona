@@ -801,7 +801,7 @@ async def on_message(message):
 			start = time.time()
 			username = message.author.id
 			print("omikuzi executed 1")
-			
+
 			cursor.execute('SELECT * FROM gived')
 			gived = cursor.fetchall()
 			gived = list(gived)
@@ -836,7 +836,6 @@ async def on_message(message):
 
 			cursor.execute('SELECT * FROM tiped')
 			tiped = cursor.fetchall()
-			tiped = list(tiped)
 			tiped = str(tiped)
 			tiped = tiped.replace('(', '')
 			tiped = tiped.replace(')', '')
@@ -847,8 +846,6 @@ async def on_message(message):
 			tiped = tiped.replace("]", '')
 			tiped = tiped.split(',')
 			tiped = str(tiped)
-			pattern = r'([0-9]+\.%s[0-9]*)'
-			tiped = re.findall(pattern,tiped)
 			print(tiped)
 			tiped = str(tiped)
 			cmd = "monacoin-cli getbalance " + username + ""
