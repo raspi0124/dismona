@@ -832,7 +832,7 @@ async def on_message(message):
 			baned = str(baned)
 			pattern = r'([0-9]+\.%s[0-9]*)'
 			baned = re.findall(pattern,baned)
-			
+
 			cursor.execute('SELECT * FROM tiped')
 			tiped = cursor.fetchall()
 			tiped = list(tiped)
@@ -848,9 +848,7 @@ async def on_message(message):
 			tiped = str(tiped)
 			pattern = r'([0-9]+\.%s[0-9]*)'
 			tiped = re.findall(pattern,tiped)
-			print("banned")
-			print(baned)
-			baned = str(baned)
+			print(tiped)
 			cmd = "monacoin-cli getbalance " + username + ""
 			balance = subprocess.check_output( cmd.split(" "))
 			minlimit = "0.001"
