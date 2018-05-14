@@ -826,8 +826,6 @@ async def on_message(message):
 			baned = baned.replace("]", '')
 			baned = baned.split(',')
 			baned = str(baned)
-			pattern = r'([0-9]+\.%s[0-9]*)'
-			baned = re.findall(pattern,baned)
 
 			cursor.execute('SELECT * FROM tiped')
 			tiped = cursor.fetchall()
@@ -866,8 +864,6 @@ async def on_message(message):
 			loved = loved.replace("]", '')
 			loved = loved.split(',')
 			loved = str(loved)
-			pattern = r'([0-9]+\.%s[0-9]*)'
-			loved = re.findall(pattern,loved)
 
 			if username not in gived:
 				if username not in baned:
@@ -911,7 +907,7 @@ async def on_message(message):
 										await client.send_file(message.channel, f)
 							elapsed_time = time.time() - start
 							elapsed_time = str(elapsed_time)
-							cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username))
+							cursor.execute("INSERT INTO gived (id) VALUES (" + username + ")")
 							m = "/tip <@" + username + "> 0.0000" + result2 + " おみくじtipです！貴方の今日の運勢は" + resultp + "です!次挑戦できるのは日本時間で明日です！ . exectime: " + elapsed_time + " sec"
 							await client.send_message(message.channel, m)
 							connection.commit()
