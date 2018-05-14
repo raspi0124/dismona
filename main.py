@@ -568,8 +568,6 @@ async def on_message(message):
 			rut  =  subprocess.check_output( cmd.split(" ") )
 			balance = rut.decode()
 			print(balance)
-			balance = int(balance)
-			print(balance)
 			balance = balance.replace("\n", '')
 			balance = balance.replace("\\n", '')
 			balance = float(balance)
