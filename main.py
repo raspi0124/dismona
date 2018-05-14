@@ -910,6 +910,8 @@ async def on_message(message):
 							elapsed_time = str(elapsed_time)
 							username = int(username)
 							username = str(username)
+							print("INSERT INTO gived (id) VALUES (" + username + ")")
+							print("INSERT INTO gived (id) VALUES ( + username + )")
 							cursor.execute("INSERT INTO gived (id) VALUES (" + username + ")")
 							m = "/tip <@" + username + "> 0.0000" + result2 + " おみくじtipです！貴方の今日の運勢は" + resultp + "です!次挑戦できるのは日本時間で明日です！ . exectime: " + elapsed_time + " sec"
 							await client.send_message(message.channel, m)
