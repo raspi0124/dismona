@@ -962,7 +962,7 @@ async def on_message(message):
 							await client.send_message(message.channel, m)
 							connection.commit()
 					else:
-						m = "スパム対策のためにTipしたことのないひとはおみくじを実行することができません。。だれかにtipしてもう一回実行おねがいします\nTo prevent spamming, user who never tiped before are not allowed to execute omikuji. please tip someone using /tip command."
+						m = "スパム対策のために今日Tipされていない方ははおみくじを実行することができません。。だれかにtipしてもう一回実行おねがいします\nTo prevent spamming, user who never tiped today are not allowed to execute omikuji. please tip someone using /tip command."
 						await client.send_message(message.channel, m)
 				else:
 					cursor.execute('SELECT banfromid FROM baned WHERE banedid = ' + username + '')
