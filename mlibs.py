@@ -10,7 +10,7 @@ import decimal
 from decimal import (Decimal, ROUND_DOWN)
 #import apim
 #import sqlite3
-import MyYSQLdb
+import MYSQLdb
 from datetime import datetime
 
 def libgetbalance(userid):
