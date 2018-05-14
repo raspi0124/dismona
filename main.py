@@ -172,7 +172,6 @@ async def on_message(message):
 	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 	cursor.execute('SELECT * FROM agreetos')
 	agreetos = cursor.fetchall()
-	agreetos = list(agreetos)
 	agreetos = str(agreetos)
 	agreetos = agreetos.replace('(', '')
 	agreetos = agreetos.replace(')', '')
