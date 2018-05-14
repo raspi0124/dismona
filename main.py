@@ -173,7 +173,6 @@ async def on_message(message):
 	cursor.execute('SELECT * FROM agreetos')
 	agreetos = cursor.fetchall()
 	agreetos = list(agreetos)
-	print(agreetos)
 	agreetos = str(agreetos)
 	agreetos = agreetos.replace('(', '')
 	agreetos = agreetos.replace(')', '')
@@ -183,8 +182,6 @@ async def on_message(message):
 	agreetos = agreetos.replace("[", '')
 	agreetos = agreetos.replace("]", '')
 	agreetos = agreetos.split(',')
-	print("aa")
-	print(agreetos)
 	#pattern = r'([0-9]+\.%s[0-9]*)'
 	#agreetos = re.findall(pattern,agreetos)
 	#print(agreetos)
