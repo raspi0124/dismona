@@ -415,8 +415,8 @@ async def on_message(message):
 			tipto = tipinfo[0]
 			tipamount = tipinfo[1]
 			tiptolen = len(str(tipto))
-			if tiptolen != "18"
-				m = "送り先のユーザーIDが正確ではない可能性があります。デバッグ:送り先IDの幅:" + tiptolen + ". 本来のDiscord IDの幅:18"
+			if tiptolen != "18":
+				m = "送り先のユーザーIDが正確ではない可能性があります。メンションでユーザーをきちんと指定していますか? \n デバッグ:送り先IDの幅:" + tiptolen + ". 本来のDiscord IDの幅:18"
 			else:
 				tip_detail = mlibs.tip(userid, tipto, tipamount)
 			if "200" in tip_detail:
