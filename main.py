@@ -1106,7 +1106,7 @@ async def on_message(message):
 			await client.send_message(message.channel, embed=embed)
 			elapsed_time = time.time() - start
 			elapsed_time = str(elapsed_time)
-		elif userid not in agreetos:
+		elif userid not in agreetos and message.author.id != "409090118956089344":
 			m = "You need to agree tos in order to use Monage. Please type /help for more information.\n このコマンドを実行するには利用規約への同意が必要です。"
 			await client.send_message(message.channel, m)
 
