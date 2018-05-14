@@ -570,6 +570,7 @@ async def on_message(message):
 			print(balance)
 			balance = int(balance)
 			print(balance)
+			balance = loved.replace("\n", '')
 			balance = float(balance)
 			if message.author.id == "406829226751295488":
 				m = "友達にもなりたくないです。二度と話しかけないでください"
