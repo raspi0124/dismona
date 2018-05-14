@@ -577,7 +577,7 @@ async def on_message(message):
 			else:
 				if username not in loved:
 					minbal = "1"
-					minbal = int(minbal)
+					minbal = float(minbal)
 
 					if balance >= minbal:
 						def love():
