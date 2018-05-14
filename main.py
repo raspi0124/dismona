@@ -181,6 +181,8 @@ async def on_message(message):
 	agreetos = agreetos.replace("[", '')
 	agreetos = agreetos.replace("]", '')
 	agreetos = agreetos.split(',')
+	agreetos = str(agreetos)
+	print(agreetos)
 	#pattern = r'([0-9]+\.%s[0-9]*)'
 	#agreetos = re.findall(pattern,agreetos)
 	#print(agreetos)
@@ -838,9 +840,9 @@ async def on_message(message):
 			tiped = tiped.replace("[", '')
 			tiped = tiped.replace("]", '')
 			tiped = tiped.split(',')
-
 			tiped = str(tiped)
 			print(tiped)
+
 			gived = str(gived)
 			tiped = str(tiped)
 			print("--gived--")
