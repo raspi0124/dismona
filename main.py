@@ -801,14 +801,38 @@ async def on_message(message):
 			start = time.time()
 			username = message.author.id
 			print("omikuzi executed 1")
-			cursor.execute('SELECT id FROM gived')
-			# 全件取得は cursor.fetchall()
+			cursor.execute('SELECT * FROM gived')
 			gived = cursor.fetchall()
-			print("gived")
-			print(gived)
+			gived = list(gived)
 			gived = str(gived)
-			cursor.execute('SELECT banedid FROM baned')
+			gived = gived.replace('(', '')
+			gived = gived.replace(')', '')
+			gived = gived.replace("b'", '')
+			gived = gived.replace("'", '')
+			gived = gived.replace(",,", ',')
+			gived = gived.replace("[", '')
+			gived = gived.replace("]", '')
+			gived = gived.split(',')
+			gived = str(gived)
+			pattern = r'([0-9]+\.%s[0-9]*)'
+			gived = re.findall(pattern,gived)
+
+			cursor.execute('SELECT * FROM baned')
 			baned = cursor.fetchall()
+			baned = list(baned)
+			baned = str(baned)
+			baned = baned.replace('(', '')
+			baned = baned.replace(')', '')
+			baned = baned.replace("b'", '')
+			baned = baned.replace("'", '')
+			baned = baned.replace(",,", ',')
+			baned = baned.replace("[", '')
+			baned = baned.replace("]", '')
+			baned = baned.split(',')
+			baned = str(baned)
+			pattern = r'([0-9]+\.%s[0-9]*)'
+			baned = re.findall(pattern,baned)
+			
 			cursor.execute('SELECT * FROM tiped')
 			tiped = cursor.fetchall()
 			tiped = list(tiped)
@@ -1043,21 +1067,16 @@ async def on_message(message):
 				# データベース接続とカーソル生成
 			username = message.author.id
 			# エラー処理（例外処理）
-			try:
-				await client.add_reaction(message, '👌')
-				fee = "0.01"
-				cursor.execute("INSERT INTO agreetos (id) VALUES (%s)", (username,))
-				m = "利用規約への同意を確認しました。"
-				await client.send_message(message.channel, m)
-				cursor.execute('SELECT * FROM agreetos')
-				agreetos = cursor.fetchall()
-				agreetos = str(agreetos)
-				print(agreetos)
+			await client.add_reaction(message, '👌')
+			fee = "0.01"
+			cursor.execute("INSERT INTO agreetos (id) VALUES (%s)", (username,))
+			m = "利用規約への同意を確認しました。"
+			await client.send_message(message.channel, m)
+			cursor.execute('SELECT * FROM agreetos')
+			agreetos = cursor.fetchall()
+			agreetos = str(agreetos)
+			print(agreetos)
 
-			except sqlite3.Error as e:
-				print('sqlite3.Error occurred:', e.args[0])
-				m = "DB error. DB might locked. Please try again later or contact @raspi0124."
-				await client.send_message(message.channel, m)
 
 			# 保存を実行（忘れると保存されないので注意）
 			connection.commit()
