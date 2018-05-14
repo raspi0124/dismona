@@ -803,7 +803,6 @@ async def on_message(message):
 
 			cursor.execute('SELECT * FROM gived')
 			gived = cursor.fetchall()
-			gived = list(gived)
 			gived = str(gived)
 			gived = gived.replace('(', '')
 			gived = gived.replace(')', '')
@@ -819,7 +818,6 @@ async def on_message(message):
 
 			cursor.execute('SELECT * FROM baned')
 			baned = cursor.fetchall()
-			baned = list(baned)
 			baned = str(baned)
 			baned = baned.replace('(', '')
 			baned = baned.replace(')', '')
