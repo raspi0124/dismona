@@ -414,11 +414,8 @@ async def on_message(message):
 			print(tipinfo[1])
 			tipto = tipinfo[0]
 			tipamount = tipinfo[1]
-			tiptolen = len(str(tipto))
-			if tiptolen != "18":
-				m = "送り先のユーザーIDが正確ではない可能性があります。メンションでユーザーをきちんと指定していますか? \n デバッグ:送り先IDの幅:" + tiptolen + ". 本来のDiscord IDの幅:18"
-			else:
-				tip_detail = mlibs.tip(userid, tipto, tipamount)
+
+			tip_detail = mlibs.tip(userid, tipto, tipamount)
 			if "200" in tip_detail:
 				m = "<@" + message.author.id + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ""
 			if "e_10" in tip_detail:
