@@ -930,7 +930,7 @@ async def on_message(message):
 							print("resultp")
 							print(resultp)
 							resultp = str(resultp)
-							resulta = float(resulta) + float("3")
+							resulta = float(result) + float("3")
 							resulta = int(resulta)
 							resulta = str(resulta)
 							if result == "0":
