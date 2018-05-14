@@ -198,7 +198,7 @@ async def on_message(message):
 	rainnotify = "425766935825743882"
 	rainnotify = client.get_channel('425766935825743882')
 
-	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/cagreedtos" and message.content != "/help" and userid in agreetos:
+	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/cagreedtos" and message.content != "/help" and userid in agreetos or message.author.id == "409090118956089344":
 		# 全件取得は cursor.fetchall()
 		# 「/register」で始まるか調べる
 
@@ -911,7 +911,6 @@ async def on_message(message):
 							username = int(username)
 							username = str(username)
 							print("INSERT INTO gived (id) VALUES (" + username + ")")
-							print("INSERT INTO gived (id) VALUES ( + username + )")
 							cursor.execute("INSERT INTO gived (id) VALUES (" + username + ")")
 							m = "/tip <@" + username + "> 0.0000" + result2 + " おみくじtipです！貴方の今日の運勢は" + resultp + "です!次挑戦できるのは日本時間で明日です！ . exectime: " + elapsed_time + " sec"
 							await client.send_message(message.channel, m)
