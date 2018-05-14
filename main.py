@@ -849,6 +849,7 @@ async def on_message(message):
 			balance = subprocess.check_output( cmd.split(" "))
 			minlimit = "0.001"
 			balance = str(balance)
+			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
 			balance = re.findall(pattern,balance)
 			await client.add_reaction(message, '👌')
 			cursor.execute('SELECT * FROM loved')
