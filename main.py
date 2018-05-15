@@ -422,6 +422,9 @@ async def on_message(message):
 				m = "<@" + message.author.id + ">, sorry, failed to complete your request: your tip must meet the minimum of 10 watanabe (0.00000010 Mona).\n(message created on " + currenttime + ")"
 			if "e_en" in tip_detail:
 				m = "<@"+ message.author.id + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + "\n "
+			if "e_s" in tip_detail:
+				m = "<@" + message.author.id + "> , You cannnot tip yourself."
+
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/admin info"):
 			start = time.time()
