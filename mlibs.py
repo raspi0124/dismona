@@ -137,16 +137,19 @@ def tip(userid, to, amount):
 	minimumtip = float(minimumtip)
 	if amount <= balance:
 		if amount >= minimumtip:
-			username = userid
-			amount = float(amount) / float(num2)
-			amount = str(amount)
-			cmd2 = "monacoin-cli move " + userid + " " + to + " " + amount + ""
-			rut2  =  subprocess.check_output( cmd2.split(" ") )
-			#m = "<@" + message.author.id + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
-			m = "200"
-			cursor.execute("INSERT INTO tiped (id) VALUES (%s)", (username,))
-			cursor.execute("INSERT INTO tiped (id) VALUES (%s)", (to,))
-			connection.commit()
+			if userid != to:
+				username = userid
+				amount = float(amount) / float(num2)
+				amount = str(amount)
+				cmd2 = "monacoin-cli move " + userid + " " + to + " " + amount + ""
+				rut2  =  subprocess.check_output( cmd2.split(" ") )
+				#m = "<@" + message.author.id + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
+				m = "200"
+				cursor.execute("INSERT INTO tiped (id) VALUES (%s)", (username,))
+				cursor.execute("INSERT INTO tiped (id) VALUES (%s)", (to,))
+				connection.commit()
+			else:
+				m = "e_s"
 		else:
 			#m = m = "<@" + message.author.id + ">, sorry, failed to complete your request: your tip must meet the minimum of 10 watanabe (0.00000010 Mona).\n(message created on " + currenttime + ")"
 			m = "e_10"
