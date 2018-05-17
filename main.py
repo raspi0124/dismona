@@ -182,7 +182,6 @@ async def on_message(message):
 	agreetos = agreetos.replace("]", '')
 	agreetos = agreetos.split(',')
 	agreetos = str(agreetos)
-	print(agreetos)
 	#pattern = r'([0-9]+\.%s[0-9]*)'
 	#agreetos = re.findall(pattern,agreetos)
 	#print(agreetos)
@@ -195,8 +194,12 @@ async def on_message(message):
 		file = open('/root/alllog2.txt', 'a')  #追加書き込みモードでオープン
 		file.writelines(towrite)
 		print(towrite)
-		#cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (message.author.name, message, message.author.id, message.channel.id, currenttime))
-		#connection.commit()
+		authorname = message.author.name
+		authorid = message.author.id
+		channelid = message.channel.id
+
+		cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, message, authorid, channelid, currenttime))
+		connection.commit()
 	rainnotify = "425766935825743882"
 	rainnotify = client.get_channel('425766935825743882')
 
@@ -424,7 +427,6 @@ async def on_message(message):
 				m = "<@"+ message.author.id + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + "\n "
 			if "e_s" in tip_detail:
 				m = "<@" + message.author.id + "> , You cannnot tip yourself."
-
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/admin info"):
 			start = time.time()
