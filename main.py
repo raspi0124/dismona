@@ -296,15 +296,15 @@ async def on_message(message):
 		if message.content.startswith("/disagreetos"):
 			userid = message.author.id
 			await client.add_reaction(message, '👌')
-			m = "Roger that. Now proceeding work.."
+			m = "<@" + userid + "> Roger that. Now proceeding work.."
 			await client.send_message(message.channel, m)
-			m = "Following thing will not happen after unless you agree tos again.\n \
+			m = "<@" + userid + "> Following thing will not happen after unless you agree tos again.\n \
 			・ Loging message that starts with Monages prefix\n \
 			Dont worry, your balance is still alive after this. Like as people who got tiped but not agreed tos yet.\n \
 			If you want to start to use Monage again, just execute /agreetos again,read tos, than agree.\n \
 			and .. Thanks for using Monage!"
 			await client.send_message(message.channel, m)
-			m = "以下のことは利用規約に再度同意しない限り起こることはありません。\n \
+			m = "<@" + userid + "> 以下のことは利用規約に再度同意しない限り起こることはありません。\n \
 			・Monageのコマンド拡張子(prefix)から始まるメッセージの記録\n \
 			心配しないでください、あなたの残高はtipされたが利用規約にまだ同意していないような人と同じように残ります。\n \
 			もしMonageをまた使いたくなったら/agreetosを実行して利用規約を読んで同意するだけでまた使いはじめることができます。\n "
