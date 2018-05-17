@@ -312,7 +312,7 @@ async def on_message(message):
 			m = "Now, removing you from agreetos database..(Should only take a sec)"
 			await client.send_message(message.channel, m)
 			cursor.execute("DELETE FROM agreetos WHERE id = %s", (userid,))
-			cursor.commit()
+			connection.commit()
 			m = "Finished removing you from agreetos database! and once again, Thanks for using Monage! and I hope to see you again!"
 			await client.send_message(message.channel, m)
 			m = "あなたを利用規約の同意データベースから削除しました。そして、Monageを使ってくださりありがとうございました。"
