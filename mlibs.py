@@ -42,9 +42,7 @@ def libgetjpybalance(userid):
 	print("currentprice:" + currentprice + "")
 	currentprice = float(currentprice)
 
-	cmd = "monacoin-cli getbalance " + userid + ""
-	rut  =  subprocess.check_output( cmd.split(" ") )
-	balance = rut.decode()
+	balance = libgetbalance(userid)
 	balance = float(balance)
 	jpybalance = float(currentprice) * float(balance)
 	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
