@@ -82,7 +82,7 @@ async def on_reaction_add(reaction, user):
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		cmd = "monacoin-cli getbalance " + tipby + ""
 		rut  =  subprocess.check_output( cmd.split(" ") )
-		balance = rut.decode()
+		balance = rut.decode()await client.send_message(message.channel, m)
 		num2 = 100000000
 		balance = float(balance) * float(num2)
 		print ("balance")
@@ -186,27 +186,26 @@ async def on_message(message):
 	#agreetos = re.findall(pattern,agreetos)
 	#print(agreetos)
 	userid = message.author.id
-	messagesql = message.content.encode('utf-8')
-	messagesql = str(messagesql)
+	messagesql = str(message.content)
 	useird = message.author.id
-	if message.content.startswith("/"):
-		towrite = "" + message.author.name + " said " + messagesql + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + "\n"
-		file = open('/root/alllog2.txt', 'a')  #追加書き込みモードでオープン
-		file.writelines(towrite)
-		print(towrite)
-		authorname = message.author.name
-		authorid = message.author.id
-		channelid = message.channel.id
-
-		cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, message, authorid, channelid, currenttime))
-		connection.commit()
 	rainnotify = "425766935825743882"
 	rainnotify = client.get_channel('425766935825743882')
+	timestamp = str(time.time())
 
 	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/cagreedtos" and message.content != "/help" and userid in agreetos or message.author.id == "409090118956089344":
 		# 全件取得は cursor.fetchall()
 		# 「/register」で始まるか調べる
+		if message.content.startswith("/"):
+			towrite = "" + message.author.name + " said " + messagesql + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + "\n"
+			file = open('/root/alllog2.txt', 'a')  #追加書き込みモードでオープン
+			file.writelines(towrite)
+			print(towrite)
+			authorname = message.author.name
+			authorid = message.author.id
+			channelid = message.channel.id
 
+			cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, message, authorid, channelid, currenttime))
+			connection.commit()
 		if message.content.startswith("/register"):
 			start = time.time()
 			cmda = "monacoin-cli walletpassphrase 0124 10"
@@ -288,8 +287,39 @@ async def on_message(message):
 				address3 = mlibs.deposit(userid)
 				m = "<@" + message.author.id + ">, This is your deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
 				await client.send_message(message.channel, m)
+		if message.content.startswith("/deleteme"):
+			await client.add_reaction(message, '👌')
+			#m = "Roger that. Now proceeding work.."
+			m = "This command is not available yet, but will be available at latest at May 24 2018."
+			await client.send_message(message.channel, m)
+			#m = "Started to delete your log "
+		if message.content.startswith("/disagreetos"):
+			userid = message.author.id
+			await client.add_reaction(message, '👌')
+			m = "Roger that. Now proceeding work.."
+			await client.send_message(message.channel, m)
+			m = "Following thing will not happen after unless you agree tos again.\n \
+			・ Loging message that starts with Monages prefix\n \
+			Dont worry, your balance is still alive after this. Like as people who got tiped but not agreed tos yet.\n \
+			If you want to start to use Monage again, just execute /agreetos again,read tos, than agree.\n \
+			and .. Thanks for using Monage!"
+			await client.send_message(message.channel, m)
+			m = "以下のことは利用規約に再度同意しない限り起こることはありません。\n \
+			・Monageのコマンド拡張子(prefix)から始まるメッセージの記録\n \
+			心配しないでください、あなたの残高はtipされたが利用規約にまだ同意していないような人と同じように残ります。\n \
+			もしMonageをまた使いたくなったら/agreetosを実行して利用規約を読んで同意するだけでまた使いはじめることができます。\n "
+			await client.send_message(message.channel, m)
+			m = "Now, removing you from agreetos database..(Should only take a sec)"
+			await client.send_message(message.channel, m)
+			cursor.execute("DELETE FROM agreetos WHERE id = %s", (userid,))
+			cursor.commit()
+			m = "Finished removing you from agreetos database! and once again, Thanks for using Monage! and I hope to see you again!"
+			await client.send_message(message.channel, m)
+			m = "あなたを利用規約の同意データベースから削除しました。そして、Monageを使ってくださりありがとうございました。"
+
 		if message.content.startswith("/list"):
 			# 送り主がBotだった場合反応したくないので
+			"Thanks for using Monage, and I hope I will see you again."
 			m = "This command is no longer available. please use /deposit command instead."
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/withdraw"):
@@ -1108,6 +1138,7 @@ async def on_message(message):
 			embed.add_field(name="/omikuzi", value="おみくじ。おまけでmonaもらえます<Let see how fortunate you are! You can also get some mona!>")
 			embed.add_field(name="/credit", value="クレジットを表示。 <Show credit>")
 			embed.add_field(name="/agreetos", value="利用規約に同意する。。と見せかけてただのコマンドです。実際に同意するためのコマンドは利用規約に書いてあるのできちんと読んでください()")
+			embed.add_field(name="/disagreetos", value="利用規約への同意を取りやめるコマンドです。なお、残高は残り続けますし、利用規約に同意しなおすことでまた使うことができます。")
 			await client.send_message(message.channel, embed=embed)
 			elapsed_time = time.time() - start
 			elapsed_time = str(elapsed_time)
