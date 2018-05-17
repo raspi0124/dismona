@@ -82,7 +82,7 @@ async def on_reaction_add(reaction, user):
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		cmd = "monacoin-cli getbalance " + tipby + ""
 		rut  =  subprocess.check_output( cmd.split(" ") )
-		balance = rut.decode()await client.send_message(message.channel, m)
+		balance = rut.decode()
 		num2 = 100000000
 		balance = float(balance) * float(num2)
 		print ("balance")
