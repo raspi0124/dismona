@@ -17,7 +17,8 @@ def libgetbalance(userid):
 	cmdlib = "monacoin-cli walletpassphrase 0124 10"
 	rutlib  =  subprocess.check_output( cmdlib.split(" ") )
 	print(rutlib)
-	cmdlib = "monacoin-cli getbalance " + userid + ""
+	minconf = "40"
+	cmdlib = "monacoin-cli getbalance " + userid + " " + minconf + ""
 	rutlib  =  subprocess.check_output( cmdlib.split(" ") )
 	balancelib = rutlib.decode()
 	balancelib = float(balancelib)
