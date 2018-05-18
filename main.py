@@ -347,6 +347,11 @@ async def on_message(message):
 			cursor.execute('SELECT message FROM log WHERE userid=' + message.author.id + "")
 			log = cursor.fetchall
 			print(log)
+			filenumber = "1"
+			cursor.execute('SELECT message FROM log WHERE userid=' + message.author.id + ' INTO OUTFILE '/root/tmp' + filenumber + 'csv' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' ")
+			await client.send_file(channel, '/root/tmp' + filenumber + ".csv")
+			m = "Here are the log we took from you."
+			await client.send_message(message.channel, m)
 		if message.content.startswith("/rain"):
 			start = time.time()
 			cmda = "monacoin-cli walletpassphrase 0124 10"
