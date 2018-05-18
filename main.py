@@ -1105,7 +1105,7 @@ async def on_message(message):
 			responseresult = responseresult.replace(']', '}')
 			responseresult = responseresult.replace("'", '"')
 			print(responseresult)
-			responseresult = json.loads(responseresult, parse_float=Decimal)
+			responseresult =  json.loads(responseresult, parse_float=Decimal)
 
 			print(responseresult)
 			assetname = responseresult['asset']
