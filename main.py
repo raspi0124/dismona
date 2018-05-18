@@ -662,7 +662,7 @@ async def on_message(message):
 					await client.delete_message(message)
 			await client.delete_message(message)
 		if message.content.startswith("/checkbalance"):
-			cmdlib = "monacoin-cli getbalance '*'"
+			cmdlib = "monacoin-cli getbalance '*' 1"
 			rutlib  =  subprocess.check_output( cmdlib.split(" ") )
 			balanceall = rutlib.decode()
 			balanceall = float(balanceall)
