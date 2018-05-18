@@ -665,7 +665,7 @@ async def on_message(message):
 			cmdlib = "monacoin-cli getbalance '*'"
 			rutlib  =  subprocess.check_output( cmdlib.split(" ") )
 			balanceall = rutlib.decode()
-			balanceall = float(balanceliball)
+			balanceall = float(balanceall)
 			cmdlib = "monacoin-cli getbalance"
 			rutlib  =  subprocess.check_output( cmdlib.split(" ") )
 			balancelib = rutlib.decode()
