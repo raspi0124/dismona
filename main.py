@@ -713,7 +713,7 @@ async def on_message(message):
 						m = messeages[result]
 						await client.send_message(message.channel, m)
 		if message.content == "/shootizaya":
-			m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   :izaya:    ・∵. ﾀｰﾝ"
+			m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ"
 			await client.send_message(message.channel, m)
 
 		if message.content == "/omikuzi -nomona" or message.content == "/omikuji -nomona":
