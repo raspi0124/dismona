@@ -348,11 +348,6 @@ async def on_message(message):
 			log = cursor.fetchall
 			print(log)
 			filenumber = "1"
-			cursor.execute("SELECT message FROM log WHERE userid=" + message.author.id + " ISELECT order_id,product_name,qty\
-			INTO OUTFILE '/var/lib/mysql-files/orders.csv'\
-			FIELDS TERMINATED BY ','\
-			ENCLOSED BY '"'\
-			LINES TERMINATED BY '\\n'")
 			#await client.send_file(channel, '/root/tmp' + filenumber + ".csv")
 			m = "Here are the log we took from you."
 			await client.send_message(message.channel, m)
