@@ -661,6 +661,21 @@ async def on_message(message):
 						connection.commit()
 					await client.delete_message(message)
 			await client.delete_message(message)
+		if message.content.startswith("/checkbalance"):
+			cmdlib = "monacoin-cli getbalance '*'"
+			rutlib  =  subprocess.check_output( cmdlib.split(" ") )
+			balanceall = rutlib.decode()
+			balanceall = float(balanceliball)
+			cmdlib = "monacoin-cli getbalance"
+			rutlib  =  subprocess.check_output( cmdlib.split(" ") )
+			balancelib = rutlib.decode()
+			balancelib = float(balancelib)
+			balancelib = str(balancelib)
+			balanceall = str(balanceall)
+			m = "Wallet Balance:" + balancelib + " DB balance:" + balanceall + ""
+			await client.delete_message(message)
+			result = float(balancelib) - float(balanceall)
+			m = "Difference between DB balance and Wallet balance are " + result + " mona"
 		if message.content.startswith("/marryhim"):
 			if message.author.id == "326091178984603669":
 				username = message.author.id
