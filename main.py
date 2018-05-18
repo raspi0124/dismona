@@ -675,6 +675,7 @@ async def on_message(message):
 			m = "Wallet Balance:" + balancelib + " DB balance:" + balanceall + ""
 			await client.send_message(message.channel, m)
 			result = float(balancelib) - float(balanceall)
+			result = str(result)
 			m = "Difference between DB balance and Wallet balance are " + result + " mona"
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/marryhim"):
