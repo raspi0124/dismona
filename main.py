@@ -319,7 +319,6 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/list"):
 			# 送り主がBotだった場合反応したくないので
-			"Thanks for using Monage, and I hope I will see you again."
 			m = "This command is no longer available. please use /deposit command instead."
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/withdraw"):
@@ -1097,9 +1096,16 @@ async def on_message(message):
 			responsetxt = str(response.text)
 			responsejson = response.json()
 			responseresult = responsejson['result']
+			responseresult = responseresult.replace('[', '')
+			responseresult = responseresult.replace(']', '')
+			assetname = responsejson['asset']
+			if assetname.startswith("A"):
+				assetname = responsejson['asset_longname']
+
 			responseresult = str(responseresult)
 
-			m = "balance: " + responseresult + ""
+			print(assetname)
+			m = "balance: " + responseresult + " asset name:" + assetname + ""
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/mp deposit"):
 			await client.add_reaction(message, '👌')
