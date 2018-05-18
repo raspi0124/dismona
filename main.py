@@ -341,6 +341,12 @@ async def on_message(message):
 			else:
 				m = "Withdraw successfull. TXID:" + withdraw_detail + ""
 			await client.send_message(message.channel, m)
+		if message.content.startswith("/givemylog"):
+			m = "Sure, wait a min to get log. (Please note that we can only give you the log after 15 May since we were taking log with txt before.)"
+			await client.send_message(message.channel, m)
+			cursor.execute('SELECT message FROM log WHERE userid=' + message.author.id + "")
+			log = cursor.fetchall
+			print(log)
 		if message.content.startswith("/rain"):
 			start = time.time()
 			cmda = "monacoin-cli walletpassphrase 0124 10"
