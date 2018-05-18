@@ -1097,8 +1097,8 @@ async def on_message(message):
 			responsejson = response.json()
 			responseresult = responsejson['result']
 			responseresult = str(responseresult)
-			responseresult = responseresult.replace('[', '')
-			responseresult = responseresult.replace(']', '')
+			responseresult = responseresult.replace('[', '{')
+			responseresult = responseresult.replace(']', '}')
 			assetname = responsejson['asset']
 			if assetname.startswith("A"):
 				assetname = responsejson['asset_longname']
