@@ -711,6 +711,9 @@ async def on_message(message):
 						result = int(result)
 						m = messeages[result]
 						await client.send_message(message.channel, m)
+		if message.content == "/shootizaya":
+			m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   :izaya:    ・∵. ﾀｰﾝ"
+			await client.send_message(message.channel, m)
 
 		if message.content == "/omikuzi -nomona" or message.content == "/omikuji -nomona":
 			start = time.time()
