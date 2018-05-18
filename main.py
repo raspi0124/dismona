@@ -673,9 +673,10 @@ async def on_message(message):
 			balancelib = str(balancelib)
 			balanceall = str(balanceall)
 			m = "Wallet Balance:" + balancelib + " DB balance:" + balanceall + ""
-			await client.delete_message(message)
+			await client.send_message(message.channel, m)
 			result = float(balancelib) - float(balanceall)
 			m = "Difference between DB balance and Wallet balance are " + result + " mona"
+			await client.send_message(message.channel, m)
 		if message.content.startswith("/marryhim"):
 			if message.author.id == "326091178984603669":
 				username = message.author.id
