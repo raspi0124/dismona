@@ -725,6 +725,7 @@ async def on_message(message):
 				kuji = ["0", "1", "2", "3"]
 				result = random.choice(kuji)
 				return result
+			result = omikuzi()
 			if result == "0" or result == "1" or result == "2":
 				m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ"
 				await client.send_message(message.channel, m)
@@ -732,6 +733,8 @@ async def on_message(message):
 				m = "                  ｶﾝ∵.\n \
 				(´・ω);y==ｰｰｰｰｰ  ・ ・ ・     <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ"
 				await client.send_message(message.channel, m)
+			else:
+				m = "Izaya は、ど子かへ逃げてしまった！"
 
 		if message.content == "/omikuzi -nomona" or message.content == "/omikuji -nomona":
 			start = time.time()
