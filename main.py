@@ -720,7 +720,7 @@ async def on_message(message):
 						result = int(result)
 						m = messeages[result]
 						await client.send_message(message.channel, m)
-		if message.content == "":
+		if message.content == "/shootizaya":
 			def omikuji():
 				kuji = ["0", "1", "2", "3"]
 				result = random.choice(kuji)
