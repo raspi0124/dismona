@@ -734,7 +734,7 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 			else:
 				m = "Izaya は、どこかへ逃げてしまった！"
-
+				await client.send_message(message.channel, m)
 		if message.content == "/omikuzi -nomona" or message.content == "/omikuji -nomona":
 			start = time.time()
 			username = message.author.id
