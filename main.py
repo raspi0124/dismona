@@ -730,7 +730,7 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 			if result == "3":
 				m = "                  ｶﾝ∵.\n \
-				(´・ω);y==ｰｰｰｰｰ  ・ ・ ・     :biso: :izaya:＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ"
+				(´・ω);y==ｰｰｰｰｰ  ・ ・ ・     <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ"
 				await client.send_message(message.channel, m)
 
 		if message.content == "/omikuzi -nomona" or message.content == "/omikuji -nomona":
