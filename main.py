@@ -725,7 +725,7 @@ async def on_message(message):
 				kuji = ["0", "1", "2", "3"]
 				result = random.choice(kuji)
 				return result
-			result = omikuzi()
+			result = omikuji()
 			if result == "0" or result == "1" or result == "2":
 				m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ"
 				await client.send_message(message.channel, m)
