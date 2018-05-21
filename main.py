@@ -173,16 +173,7 @@ async def on_message(message):
 	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 	cursor.execute('SELECT * FROM agreetos')
 	agreetos = cursor.fetchall()
-	agreetos = str(agreetos)
-	agreetos = agreetos.replace('(', '')
-	agreetos = agreetos.replace(')', '')
-	agreetos = agreetos.replace("b'", '')
-	agreetos = agreetos.replace("'", '')
-	agreetos = agreetos.replace(",,", ',')
-	agreetos = agreetos.replace("[", '')
-	agreetos = agreetos.replace("]", '')
-	agreetos = agreetos.split(',')
-	agreetos = str(agreetos)
+	agreetos = mlibs.fixselect(agreetos)
 	#pattern = r'([0-9]+\.%s[0-9]*)'
 	#agreetos = re.findall(pattern,agreetos)
 	#print(agreetos)
@@ -372,9 +363,9 @@ async def on_message(message):
 			print(sum)
 			sum = str(sum)
 			cursor.execute('SELECT * FROM rainregistered ORDER BY rainid')
-
 			# 全件取得は cursor.fetchall()
 			rainall = cursor.fetchall()
+			rainall = mlibs.fixselect(rainall)
 			print(rainall)
 			rainall = str(rainall)
 			pattern = r'([0-9]+\.%s[0-9]*)'
@@ -815,7 +806,7 @@ async def on_message(message):
 					elapsed_time = time.time() - start
 					elapsed_time = str(elapsed_time)
 					resultp = str(resultp)
-					m = "貴方の今日の運勢は" + resultp + "です!"
+					m = "<@" + userid + "> 貴方の今日の運勢は" + resultp + "です!"
 					await client.send_message(message.channel, m)
 					cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username,))
 					connection.commit()
@@ -860,14 +851,14 @@ async def on_message(message):
 					if result == kyou:
 						m = "あなたの運勢…凶みたいだから、今日はそばにいてあげるんだからねっ！今日だけだからねっ"
 					else:
-						m = "ダーリン、あなたの今日の運勢は" + resultp + "らしいですわよ。! 今日も気をつけてね、ダーリン。 . exectime: " + elapsed_time + " sec"
+						m = "<@" + userid + "> ダーリン、あなたの今日の運勢は" + resultp + "らしいですわよ。! 今日も気をつけてね、ダーリン。 . exectime: " + elapsed_time + " sec"
 					await client.send_message(message.channel, m)
 					cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username,))
 					m = "/tip <@" + username + "> 0.000" + result + ""
 					await client.send_message(message.channel, m)
 					connection.commit()
 			else:
-				m = "すでに今日におみくじをされているようです。。明日戻ってきてね！"
+				m = "<@" + userid +"> すでに今日におみくじをされているようです。。明日戻ってきてね！"
 				await client.send_message(message.channel, m)
 
 		if message.content == "/omikuzi" or message.content == "/omikuji":
@@ -1030,20 +1021,20 @@ async def on_message(message):
 							if result == "0":
 								m = "あなたの運勢…凶みたいだから、今日はそばにいてあげるんだからねっ！今日だけだからねっ"
 							else:
-								m = "ダーリン、あなたの今日の運勢は" + resultp + "らしいですわよ。!\n0.000" + resulta + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。 . exectime: " + elapsed_time + " sec"
+								m = "<@" + userid +">ダーリン、あなたの今日の運勢は" + resultp + "らしいですわよ。!\n0.000" + resulta + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。 . exectime: " + elapsed_time + " sec"
 							await client.send_message(message.channel, m)
 							cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username,))
 							m = "/tip <@" + username + "> 0.000" + resulta + ""
 							await client.send_message(message.channel, m)
 							connection.commit()
 					else:
-						m = "スパム対策のために今日Tipされていない方ははおみくじを実行することができません。。だれかにtipしてもう一回実行おねがいします\nTo prevent spamming, user who never tiped today are not allowed to execute omikuji. please tip someone using /tip command."
+						m = "<@" + userid +">スパム対策のために今日Tipした、またはされていない方ははおみくじを実行することができません。。だれかにtipするかtipされてからもう一回実行おねがいします\nTo prevent spamming, user who never tiped today or user  who never get tiped today are not allowed to execute omikuji. please tip someone using /tip command."
 						await client.send_message(message.channel, m)
 				else:
 					cursor.execute('SELECT banfromid FROM baned WHERE banedid = ' + username + '')
 					banfromid = cursor.fetchall()
 					banfromid = str(banfromid)
-					m = "You are not allowed to /omikuzi! \n Detail:You are baned by <@" + banfromid + ">"
+					m = "<@" + userid + ">You are not allowed to /omikuzi! \n Detail:You are baned by <@" + banfromid + ">"
 					await client.send_message(message.channel, m)
 			else:
 				m = "もう、<@" + message.author.id + "> 、何やってるの！！\n おみくじは1日一回ってあんなに言ったでしょ！ 明日まで禁止よ！\nそこに座ってなさい！"
