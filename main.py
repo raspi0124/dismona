@@ -732,7 +732,7 @@ async def on_message(message):
 			if result == "3":
 				m = "(´・ω);y==ｰｰｰｰｰ  ・ ・ ・   ｶﾝ∵.  <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ"
 				await client.send_message(message.channel, m)
-			if result == "5"
+			if result == "5":
 				m = "Izaya は、どこかへ逃げてしまった！"
 				await client.send_message(message.channel, m)
 		if message.content == "/omikuzi -nomona" or message.content == "/omikuji -nomona":
