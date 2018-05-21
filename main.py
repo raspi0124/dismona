@@ -192,6 +192,7 @@ async def on_message(message):
 	rainnotify = "425766935825743882"
 	rainnotify = client.get_channel('425766935825743882')
 	timestamp = str(time.time())
+	userid = message.author.id
 
 	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/cagreedtos" and message.content != "/help" and userid in agreetos or message.author.id == "409090118956089344":
 		# 全件取得は cursor.fetchall()
@@ -295,7 +296,6 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 			#m = "Started to delete your log "
 		if message.content.startswith("/disagreetos"):
-			userid = message.author.id
 			await client.add_reaction(message, '👌')
 			m = "<@" + userid + "> Roger that. Now proceeding work.."
 			await client.send_message(message.channel, m)
@@ -356,13 +356,11 @@ async def on_message(message):
 			cmda = "monacoin-cli walletpassphrase 0124 10"
 			ruta  =  subprocess.check_output( cmda.split(" ") )
 			print(ruta)
-			cmda = "monacoin-cli getbalance " + message.author.id + ""
-			ruta  =  subprocess.check_output( cmda.split(" ") )
-			balancea = ruta.decode()
+			balancea = mlibs.balance(userid)
 			await client.add_reaction(message, '👌')
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			message2 = message.content.replace('/rain ', '')
-			pattern = r'([+-]%s[0-9]+\.%s[0-9]*)'
+			pattern = r'([+-]?[0-9]+\.?[0-9]*)'
 			raininfo = re.findall(pattern,message2)
 			print("--numbertorain--")
 			print(raininfo[0])
@@ -384,7 +382,7 @@ async def on_message(message):
 			print(rainall)
 			if balancea >= raininfo[1]:
 				if raininfo[1] > "0.01":
-					if sum > "0.001":
+					if sum > "0.0001":
 						m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
 						await client.send_message(message.channel, m)
 						sum = str(sum)
@@ -413,7 +411,7 @@ async def on_message(message):
 						await client.send_message(rainnotify, m)
 						print(rut)
 					else:
-						m = "負荷軽減のため1人当たりのrainが0.001mona以下になるrainは制限しています。"
+						m = "負荷軽減のため1人当たりのrainが0.0001mona以下になるrainは制限しています。"
 				else:
 					m = "Due to Server load, it is not allowed to make total amount of rain less then 0.01."
 					await client.send_message(message.channel, m)
