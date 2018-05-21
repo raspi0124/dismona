@@ -156,3 +156,16 @@ def tip(userid, to, amount):
 	#m = "<@"+ message.author.id + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + "\n DEBUG: tipamount:" + tipamount + " balance:" + balance + " "
 		m = "e_en"
 	return m
+
+def fixselect(string):
+	string = str(string)
+	string = string.replace('(', '')
+	string = string.replace(')', '')
+	string = string.replace("b'", '')
+	string = string.replace("'", '')
+	string = string.replace(",,", ',')
+	string = string.replace("[", '')
+	string = string.replace("]", '')
+	string = string.split(',')
+	string = str(string)
+	return string
