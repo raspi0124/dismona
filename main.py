@@ -356,7 +356,7 @@ async def on_message(message):
 			cmda = "monacoin-cli walletpassphrase 0124 10"
 			ruta  =  subprocess.check_output( cmda.split(" ") )
 			print(ruta)
-			balancea = mlibs.balance(userid)
+			balancea = mlibs.libgetbalance(userid)
 			await client.add_reaction(message, '👌')
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			message2 = message.content.replace('/rain ', '')
@@ -732,7 +732,7 @@ async def on_message(message):
 			if result == "3":
 				m = "(´・ω);y==ｰｰｰｰｰ  ・ ・ ・   ｶﾝ∵.  <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ"
 				await client.send_message(message.channel, m)
-			else:
+			if result == "5"
 				m = "Izaya は、どこかへ逃げてしまった！"
 				await client.send_message(message.channel, m)
 		if message.content == "/omikuzi -nomona" or message.content == "/omikuji -nomona":
