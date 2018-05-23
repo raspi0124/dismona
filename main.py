@@ -198,7 +198,7 @@ async def on_message(message):
 			channelid = message.channel.id
 
 			cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, message, authorid, channelid, currenttime))
-			#cursor.execute("INSERT INTO tmplog (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, message, authorid, channelid, currenttime))
+			cursor.execute("INSERT INTO tmplog (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, message, authorid, channelid, currenttime))
 
 			connection.commit()
 		if message.content.startswith("/register"):
@@ -282,12 +282,18 @@ async def on_message(message):
 				address3 = mlibs.deposit(userid)
 				m = "<@" + message.author.id + ">, This is your deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
 				await client.send_message(message.channel, m)
-		if message.content.startswith("/deleteme"):
+		if message.content.startswith("/deletemylog"):
 			await client.add_reaction(message, '👌')
-			#m = "Roger that. Now proceeding work.."
-			m = "This command is not available yet, but will be available at latest at May 24 2018."
+			m = "Roger that. Now proceeding work.."
+			m = "ATTENTION!  Please note that the nearest 72 hour log will be keeped due to security reason. Of course those log will be removed in 72 hour."
 			await client.send_message(message.channel, m)
-			#m = "Started to delete your log "
+			m = "Now removing your log.."
+			await client.send_message(message.channel, m)
+			cursor.execute("DELETE FROM log WHERE userid = %s", (userid,))
+			connection.commit()
+			m = "Finished!"
+			await client.send_message(message.channel, m)
+
 		if message.content.startswith("/disagreetos"):
 			await client.add_reaction(message, '👌')
 			m = "<@" + userid + "> Roger that. Now proceeding work.."
