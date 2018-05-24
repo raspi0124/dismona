@@ -1118,7 +1118,7 @@ async def on_message(message):
 			print(response.text)
 			responsetxt = str(response.text)
 			responsejson = response.json()
-			responsejson = str(responsejson)
+			responsejson = "'''" + responsejson + "'''"
 			#responsejson = json.loads(responsejson)[0]
 			#assetname = responseresult['asset']
 			#if assetname.startswith("A"):
