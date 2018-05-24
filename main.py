@@ -370,7 +370,7 @@ async def on_message(message):
 			rainall = mlibs.fixselect(rainall)
 			print(rainall)
 			rainall = str(rainall)
-			pattern = r'([0-9]+\.%s[0-9]*)'
+			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
 			rainall = re.findall(pattern,rainall)
 			print(rainall)
 			if balancea >= raininfo[1]:
