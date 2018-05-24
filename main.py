@@ -1119,6 +1119,7 @@ async def on_message(message):
 			responsetxt = str(response.text)
 			responsejson = response.json()
 			responsejson = mlibs.fixselect(responsejson)
+			print(responsejson)
 			responseresult = json.loads(responsejson)[0]
 			assetname = responseresult['asset']
 			#if assetname.startswith("A"):
