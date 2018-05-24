@@ -1119,13 +1119,13 @@ async def on_message(message):
 			responsetxt = str(response.text)
 			responsejson = response.json()
 			responsejson = "'''" + responsejson + "'''"
-			#responsejson = json.loads(responsejson)[0]
-			#assetname = responseresult['asset']
+			responseresult = json.loads(responsejson)[0]
+			assetname = responseresult['asset']
 			#if assetname.startswith("A"):
 			#	assetname = responsejson['asset_longname']
 
 			responseresult = str(responsejson)
-
+			print(assetname)
 			#print(assetname)
 			m = "balance: " + responseresult + ""
 			await client.send_message(message.channel, m)
