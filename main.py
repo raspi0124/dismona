@@ -1119,14 +1119,14 @@ async def on_message(message):
 			responsetxt = str(response.text)
 			responsejson = response.json()
 			responsejson = str(responsejson)
-			responsejson = json.loads(responsejson)[0]
-			assetname = responseresult['asset']
-			if assetname.startswith("A"):
-				assetname = responsejson['asset_longname']
+			#responsejson = json.loads(responsejson)[0]
+			#assetname = responseresult['asset']
+			#if assetname.startswith("A"):
+			#	assetname = responsejson['asset_longname']
 
-			responseresult = str(responseresult)
+			responseresult = str(responsejson)
 
-			print(assetname)
+			#print(assetname)
 			m = "balance: " + responseresult + " asset name:" + assetname + ""
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/mp deposit"):
