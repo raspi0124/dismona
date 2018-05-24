@@ -198,7 +198,7 @@ async def on_message(message):
 			channelid = message.channel.id
 
 			cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, message, authorid, channelid, currenttime))
-			#cursor.execute("INSERT INTO tmplog (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, message, authorid, channelid, currenttime))
+			cursor.execute("INSERT INTO tmplog (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, message, authorid, channelid, currenttime))
 
 			connection.commit()
 		if message.content.startswith("/register"):
@@ -282,18 +282,12 @@ async def on_message(message):
 				address3 = mlibs.deposit(userid)
 				m = "<@" + message.author.id + ">, This is your deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
 				await client.send_message(message.channel, m)
-		if message.content.startswith("/deletemylog"):
+		if message.content.startswith("/deleteme"):
 			await client.add_reaction(message, '👌')
-			m = "Roger that. Now proceeding work.."
-			m = "ATTENTION!  Please note that the nearest 72 hour log will be keeped due to security reason. Of course those log will be removed in 72 hour."
+			#m = "Roger that. Now proceeding work.."
+			m = "This command is not available yet, but will be available at latest at May 24 2018."
 			await client.send_message(message.channel, m)
-			m = "Now removing your log.."
-			await client.send_message(message.channel, m)
-			cursor.execute("DELETE FROM log WHERE userid = %s", (userid,))
-			connection.commit()
-			m = "Finished!"
-			await client.send_message(message.channel, m)
-
+			#m = "Started to delete your log "
 		if message.content.startswith("/disagreetos"):
 			await client.add_reaction(message, '👌')
 			m = "<@" + userid + "> Roger that. Now proceeding work.."
@@ -380,19 +374,17 @@ async def on_message(message):
 			rainall = re.findall(pattern,rainall)
 			print(rainall)
 			if balancea >= raininfo[1]:
-				if raininfo[1] > "0.01":
+				if raininfo[1] >= "0.01":
 					if sum > "0.0001":
 						m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
 						await client.send_message(message.channel, m)
 						sum = str(sum)
 						numbertosend = raininfo[0]
 						numbertosend = int(numbertosend)
-						maxrain = len(rainall)
-						print(maxrain)
 						m = "Rain started by <@" + message.author.id + "> at #" + message.channel.name + ""
 						await client.send_message(rainnotify, m)
 						for var in range(0, numbertosend):
-							tosend = random.randrange(maxrain)
+							tosend = random.choice(rainall)
 							print(tosend)
 							print("--rondomfinish--")
 							tosend = int(tosend)
@@ -1082,7 +1074,6 @@ async def on_message(message):
 			headers = {
 				'Content-Type': 'application/json; charset=UTF-8',
 				'Accept': 'application/json, text/javascript',
-				'Client': 'Monage Monaparty Service'
 			}
 			data = '{ "jsonrpc": "2.0", "id": 0, "method": "get_running_info" }'
 			response = requests.post('https://api.monaparty.me/api/counterparty', headers=headers, data=data, auth=('rpc', 'hello'))
@@ -1118,17 +1109,23 @@ async def on_message(message):
 			print(response.text)
 			responsetxt = str(response.text)
 			responsejson = response.json()
-			responsejson = mlibs.fixselect(responsejson)
-			print(responsejson)
-			responseresult = json.loads(responsejson)[0]
-			assetname = responseresult['asset']
-			#if assetname.startswith("A"):
-			#	assetname = responsejson['asset_longname']
+			responseresult = responsejson['result']
+			responseresult = str(responseresult)
+			responseresult = responseresult.replace('[', '{')
+			responseresult = responseresult.replace(']', '}')
+			responseresult = responseresult.replace("'", '"')
+			print(responseresult)
+			responseresult =  json.loads(responseresult, parse_float=Decimal)
 
-			responseresult = str(responsejson)
+			print(responseresult)
+			assetname = responseresult['asset']
+			if assetname.startswith("A"):
+				assetname = responsejson['asset_longname']
+
+			responseresult = str(responseresult)
+
 			print(assetname)
-			#print(assetname)
-			m = "balance: " + responseresult + ""
+			m = "balance: " + responseresult + " asset name:" + assetname + ""
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/mp deposit"):
 			await client.add_reaction(message, '👌')
