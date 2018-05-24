@@ -1082,6 +1082,7 @@ async def on_message(message):
 			headers = {
 				'Content-Type': 'application/json; charset=UTF-8',
 				'Accept': 'application/json, text/javascript',
+				'Client': 'Monage Monaparty Service'
 			}
 			data = '{ "jsonrpc": "2.0", "id": 0, "method": "get_running_info" }'
 			response = requests.post('https://api.monaparty.me/api/counterparty', headers=headers, data=data, auth=('rpc', 'hello'))
@@ -1117,15 +1118,7 @@ async def on_message(message):
 			print(response.text)
 			responsetxt = str(response.text)
 			responsejson = response.json()
-			responseresult = responsejson['result']
-			responseresult = str(responseresult)
-			responseresult = responseresult.replace('[', '{')
-			responseresult = responseresult.replace(']', '}')
-			responseresult = responseresult.replace("'", '"')
-			print(responseresult)
-			responseresult =  json.loads(responseresult, parse_float=Decimal)
-
-			print(responseresult)
+			json1_data = json.loads(responsejson)[0]
 			assetname = responseresult['asset']
 			if assetname.startswith("A"):
 				assetname = responsejson['asset_longname']
