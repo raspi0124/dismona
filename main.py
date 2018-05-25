@@ -249,7 +249,7 @@ async def on_message(message):
 					print(ruta)
 					m = "Success. exectime: " + elapsed_time + " sec"
 					await client.send_message(message.channel, m)
-					connection.commit()
+					#connection.commit()
 				else:
 					m = "Not enough balance to take fee. Please note that fee of 0.01mona will be charged for registering rain.(only once.)"
 					await client.send_message(message.channel, m)
