@@ -236,23 +236,22 @@ async def on_message(message):
 				# データベース接続とカーソル生成
 			username = message.author.id
 			# エラー処理（例外処理）
-			try:
 			# INSERT
-				cmd = "monacoin-cli getbalance " + username + ""
-				rut  =  subprocess.check_output( cmd.split(" ") )
-				balance = rut.decode()
-				if balance > "0.01":
-					fee = "0.01"
-					cursor.execute("INSERT INTO rainregistered (rainid) VALUES (%s)", (username,))
-					cmd = "monacoin-cli move "  + message.author.id + " fee " + fee + ""
-					ruta  =  subprocess.check_output( cmd.split(" ") )
-					print(ruta)
-					m = "Success. exectime: " + elapsed_time + " sec"
-					await client.send_message(message.channel, m)
-					#connection.commit()
-				else:
-					m = "Not enough balance to take fee. Please note that fee of 0.01mona will be charged for registering rain.(only once.)"
-					await client.send_message(message.channel, m)
+			cmd = "monacoin-cli getbalance " + username + ""
+			rut  =  subprocess.check_output( cmd.split(" ") )
+			balance = rut.decode()
+			if balance > "0.01":
+				fee = "0.01"
+				cursor.execute("INSERT INTO rainregistered (rainid) VALUES (%s)", (username,))
+				cmd = "monacoin-cli move "  + message.author.id + " fee " + fee + ""
+				ruta  =  subprocess.check_output( cmd.split(" ") )
+				print(ruta)
+				m = "Success. exectime: " + elapsed_time + " sec"
+				await client.send_message(message.channel, m)
+				connection.commit()
+			else:
+				m = "Not enough balance to take fee. Please note that fee of 0.01mona will be charged for registering rain.(only once.)"
+				await client.send_message(message.channel, m)
 
 		if message.content.startswith("/balance"):
 			await client.add_reaction(message, '👌')
