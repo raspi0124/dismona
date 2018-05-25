@@ -252,8 +252,8 @@ async def on_message(message):
 				else:
 					m = "Not enough balance to take fee. Please note that fee of 0.01mona will be charged for registering rain.(only once.)"
 					await client.send_message(message.channel, m)
-			except sqlite3.Error as e:
-				print('sqlite3.Error occurred:', e.args[0])
+			except _mysql_exceptions.DataError: as e:
+				print('_mysql_exceptions.DataError:', e.args[0])
 				m = "DB error. DB might locked or you already signed up."
 				await client.send_message(message.channel, m)
 
@@ -713,19 +713,19 @@ async def on_message(message):
 						await client.send_message(message.channel, m)
 		if message.content == "/shootizaya":
 			def omikuji():
-				kuji = ["0", "1", "2", "3", "5"]
+				kuji = ["0", "1", "2", "3", "4", "5"]
 				result = random.choice(kuji)
 				return result
 			result = omikuji()
 			if result == "0" or result == "1" or result == "2":
 				m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ"
-				await client.send_message(message.channel, m)
 			if result == "3":
 				m = "(´・ω);y==ｰｰｰｰｰ  ・ ・ ・   ｶﾝ∵.  <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ"
-				await client.send_message(message.channel, m)
+			if result == "4":
+				m = "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: <:poop:>       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0"
 			if result == "5":
 				m = "Izaya は、どこかへ逃げてしまった！"
-				await client.send_message(message.channel, m)
+			await client.send_message(message.channel, m)
 		if message.content == "/omikuzi -nomona" or message.content == "/omikuji -nomona":
 			start = time.time()
 			username = message.author.id
