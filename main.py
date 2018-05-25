@@ -715,7 +715,7 @@ async def on_message(message):
 			if result == "3":
 				m = "(´・ω);y==ｰｰｰｰｰ  ・ ・ ・   ｶﾝ∵.  <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ"
 			if result == "4":
-				m = "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: <:poop:>       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0"
+				m = "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0"
 			if result == "5":
 				m = "Izaya は、どこかへ逃げてしまった！"
 			await client.send_message(message.channel, m)
