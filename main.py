@@ -252,10 +252,10 @@ async def on_message(message):
 				else:
 					m = "Not enough balance to take fee. Please note that fee of 0.01mona will be charged for registering rain.(only once.)"
 					await client.send_message(message.channel, m)
-			except _mysql_exceptions.DataError: as e:
-				print('_mysql_exceptions.DataError:', e.args[0])
-				m = "DB error. DB might locked or you already signed up."
-				await client.send_message(message.channel, m)
+			#except _mysql_exceptions.DataError: as e:
+			#	print('_mysql_exceptions.DataError:', e.args[0])
+			#	m = "DB error. DB might locked or you already signed up."
+			#	await client.send_message(message.channel, m)
 
 			# 保存を実行（忘れると保存されないので注意）
 			connection.commit()
