@@ -254,8 +254,7 @@ async def on_message(message):
 					await client.send_message(message.channel, m)
 
 			# 保存を実行（忘れると保存されないので注意）
-			connection.commit()
-
+				connection.commit()
 		if message.content.startswith("/balance"):
 			await client.add_reaction(message, '👌')
 			m = "<@" + message.author.id + "> さんの残高チェック中.."
