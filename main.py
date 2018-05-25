@@ -26,10 +26,10 @@ currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 print("0101")
 # データベース接続とカーソル生成
 # 接続情報はダミーです。お手元の環境にあわせてください。
-#connection = MySQLdb.connect(
-#   host='localhost', user='root', passwd='laksjd', db='dismona', charset='utf8')
-#cursor = connection.cursor()
-#cursor.execute("CREATE TABLE IF NOT EXISTS dismona.id (id VARCHAR(20), address VARCHAR(50));")
+connection = MySQLdb.connect(
+   host='localhost', user='root', passwd='laksjd', db='dismona', charset='utf8')
+cursor = connection.cursor()
+cursor.execute("CREATE TABLE IF NOT EXISTS dismona.id (id VARCHAR(20), address VARCHAR(50));")
 
 
 @client.event
