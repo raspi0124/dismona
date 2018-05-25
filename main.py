@@ -249,12 +249,11 @@ async def on_message(message):
 					print(ruta)
 					m = "Success. exectime: " + elapsed_time + " sec"
 					await client.send_message(message.channel, m)
+					connection.commit()
 				else:
 					m = "Not enough balance to take fee. Please note that fee of 0.01mona will be charged for registering rain.(only once.)"
 					await client.send_message(message.channel, m)
 
-			# 保存を実行（忘れると保存されないので注意）
-				connection.commit()
 		if message.content.startswith("/balance"):
 			await client.add_reaction(message, '👌')
 			m = "<@" + message.author.id + "> さんの残高チェック中.."
