@@ -340,7 +340,7 @@ async def on_message(message):
 			sqlcommand = command + sql
 			print(sqlcommand)
 			cmd = sqlcommand
-			rut  =  subprocess.check_output( cmd.split("_") )
+			rut  =  subprocess.check_output( cmd.split("_"),  shell=True )
 			cmd = "touch tmp/tmplog.txt"
 			rutaaa  =  subprocess.check_output( cmd.split(" ") )
 			file = open('/root/tmp/tmplog.txt', 'a')  #追加書き込みモードでオープン
