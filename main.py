@@ -337,9 +337,15 @@ async def on_message(message):
 			sql = "SELECT * FROM log WHERE userid='" + userid + "'"
 			sql = '"' + sql + '"'
 			command = "mysql -uroot -plaksjd dismona -e"
-			sqlcommand = sql + command
+			sqlcommand = command + sql
 			print(sqlcommand)
-			#await client.send_file(channel, '/root/tmp' + filenumber + ".csv")
+			cmd = sqlcommand
+			rut  =  subprocess.check_output( cmd.split(" ") )
+			cmd = "touch tmp/tmplog.txt"
+			rutaaa  =  subprocess.check_output( cmd.split(" ") )
+			file = open('/root/tmp/tmplog.txt', 'a')  #追加書き込みモードでオープン
+			file.writelines(rut)
+			await client.send_file(channel, '/root/tmp/tmplog.txt')
 			m = "Here are the log we took from you."
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/rain"):
