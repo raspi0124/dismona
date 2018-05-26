@@ -330,13 +330,17 @@ async def on_message(message):
 		if message.content.startswith("/givemylog"):
 			m = "Sure, wait a min to get log. (Please note that we can only give you the log after 15 May since we were taking log with txt before.)"
 			await client.send_message(message.channel, m)
-			cursor.execute("SELECT * FROM log WHERE userid='" + userid + "'")
+			cursor.execute('SELECT message FROM log WHERE userid=' + message.author.id + '')
 			log = cursor.fetchall
-			print(list(cursor))
 			print(log)
 			filenumber = "1"
 			sql = "SELECT * FROM log WHERE userid='" + userid + "';"
-
+			sql = '"' + sql + '"'
+			command = "mysql -uroot -plaksjd dismona -e "
+			sqlcommand = command + sql
+			print(sqlcommand)
+			cmd = sqlcommand
+			rut  =  subprocess.check_output( cmd.split("_") )
 			cmd = "touch tmp/tmplog.txt"
 			rutaaa  =  subprocess.check_output( cmd.split(" ") )
 			file = open('/root/tmp/tmplog.txt', 'a')  #追加書き込みモードでオープン
