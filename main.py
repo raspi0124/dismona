@@ -332,6 +332,7 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 			cursor.execute("SELECT * FROM log WHERE userid='" + userid + "'")
 			log = cursor.fetchall
+			print(cursor)
 			print(log)
 			filenumber = "1"
 			sql = "SELECT * FROM log WHERE userid='" + userid + "'"
