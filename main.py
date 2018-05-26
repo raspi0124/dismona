@@ -336,7 +336,7 @@ async def on_message(message):
 			filenumber = "1"
 			sql = "SELECT * FROM log WHERE userid='" + userid + "'"
 			sql = '"' + sql + '"'
-			command = "mysql -uroot -plaksjd dismona -e"
+			command = "mysql -uroot -plaksjd dismona -e "
 			sqlcommand = command + sql
 			print(sqlcommand)
 			cmd = sqlcommand
