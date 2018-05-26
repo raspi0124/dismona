@@ -197,7 +197,7 @@ async def on_message(message):
 			authorid = message.author.id
 			channelid = message.channel.id
 
-			cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, message, authorid, channelid, currenttime))
+			cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, message.content, authorid, channelid, currenttime))
 			#cursor.execute("INSERT INTO tmplog (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, message, authorid, channelid, currenttime))
 
 			connection.commit()
@@ -330,10 +330,11 @@ async def on_message(message):
 		if message.content.startswith("/givemylog"):
 			m = "Sure, wait a min to get log. (Please note that we can only give you the log after 15 May since we were taking log with txt before.)"
 			await client.send_message(message.channel, m)
-			cursor.execute('SELECT message FROM log WHERE userid=' + message.author.id + "")
+			cursor.execute('SELECT message FROM log WHERE userid=' + message.author.id + '')
 			log = cursor.fetchall
 			print(log)
 			filenumber = "1"
+
 			#await client.send_file(channel, '/root/tmp' + filenumber + ".csv")
 			m = "Here are the log we took from you."
 			await client.send_message(message.channel, m)
