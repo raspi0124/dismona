@@ -335,7 +335,7 @@ async def on_message(message):
 			print(list(cursor))
 			print(log)
 			filenumber = "1"
-			sql = "SELECT * FROM log WHERE userid='" + userid + "'"
+			sql = "SELECT * FROM log WHERE userid='" + userid + "';"
 
 			cmd = "touch tmp/tmplog.txt"
 			rutaaa  =  subprocess.check_output( cmd.split(" ") )
