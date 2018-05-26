@@ -334,16 +334,18 @@ async def on_message(message):
 			log = cursor.fetchall
 			print(log)
 			filenumber = "1"
-			sql = "SELECT * FROM log WHERE userid='" + userid + "';"
+			sql = "SELECT * FROM log WHERE userid='" + userid + "'"
 			sql = '"' + sql + '"'
 			command = "mysql -uroot -plaksjd dismona -e "
 			sqlcommand = command + sql
 			print(sqlcommand)
 			cmd = sqlcommand
-			rut  =  subprocess.check_output( cmd.split("_"),  shell=True )
+			rut  =  subprocess.check_output( cmd,  shell=True )
 			cmd = "touch tmp/tmplog.txt"
 			rutaaa  =  subprocess.check_output( cmd.split(" ") )
 			file = open('/root/tmp/tmplog.txt', 'a')  #追加書き込みモードでオープン
+			rut = rut.decode()
+			rut = str(rut)
 			file.writelines(rut)
 			await client.send_file(channel, '/root/tmp/tmplog.txt')
 			m = "Here are the log we took from you."
