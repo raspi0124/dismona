@@ -7,6 +7,7 @@ import json
 import requests
 import decimal
 import falcon
+import mlibs
 from decimal import (Decimal, ROUND_DOWN)
 class API(object):
 	print("1")
@@ -30,10 +31,17 @@ class API(object):
 			username = data['username']
 			if prohibate not in username:
 				username = data['username']
-				string = "" + currenttime + " Address requested with username:" + username + ""
-				ruta = getaddress(username)
+				string = "Address requested with username:" + username + ""
+				ruta = mlibs.deposit(username)
 				ruta = str(ruta)
 				msg = { "message": "" + ruta + "" }
+		if action == "getbalance":
+			username = data['username']
+			username = data['username']
+			string = "Balance requested with username:" + username + ""
+			ruta = mlibs.libgetbalance(username)
+			ruta = str(ruta)
+			msg = { "message": "" + ruta + "" }
 		if action == "ping":
 			msg = {
 			"message": "pong"
