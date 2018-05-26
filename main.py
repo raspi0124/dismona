@@ -336,11 +336,11 @@ async def on_message(message):
 			filenumber = "1"
 			sql = "SELECT * FROM log WHERE userid='" + userid + "'"
 			sql = '"' + sql + '"'
-			command = "mysql -uroot -plaksjd dismona -e "
+			command = "mysql_-uroot_-plaksjd_dismona_-e_"
 			sqlcommand = command + sql
 			print(sqlcommand)
 			cmd = sqlcommand
-			rut  =  subprocess.check_output( cmd.split(" ") )
+			rut  =  subprocess.check_output( cmd.split("_") )
 			cmd = "touch tmp/tmplog.txt"
 			rutaaa  =  subprocess.check_output( cmd.split(" ") )
 			file = open('/root/tmp/tmplog.txt', 'a')  #追加書き込みモードでオープン
