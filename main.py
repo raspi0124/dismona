@@ -340,9 +340,9 @@ async def on_message(message):
 			sqlcommand = command + sql
 			print(sqlcommand)
 			cmd = sqlcommand
-			rut  =  subprocess.call(cmd)
+			rut  =  subprocess.check_output( cmd.split(" ") )
 			cmd = "touch tmp/tmplog.txt"
-			rutaaa  =  subprocess.call(cmd)
+			rutaaa  =  subprocess.check_output( cmd.split(" ") )
 			file = open('/root/tmp/tmplog.txt', 'a')  #追加書き込みモードでオープン
 			file.writelines(rut)
 			await client.send_file(channel, '/root/tmp/tmplog.txt')
