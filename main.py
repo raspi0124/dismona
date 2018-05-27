@@ -1187,6 +1187,7 @@ async def on_message(message):
 			embed.add_field(name="/rera", value="rain受け取りに参加します。手数料は0.01monaです。 <Sign up to be a rain-reciever. fee is 0.01 mona currently, and might go up.>")
 			embed.add_field(name="/omikuzi", value="おみくじ。おまけでmonaもらえます<Let see how fortunate you are! You can also get some mona!>")
 			embed.add_field(name="/credit", value="クレジットを表示。 <Show credit>")
+			embed.add_field(name="/givemylog", value="あなたのログをエクスポート。そのままチャンネルに吐き出すのでDMでの実行を強くおすすめします。<Export log. Executing this command in DM is highly recommended.>")
 			embed.add_field(name="/agreetos", value="利用規約に同意する。。と見せかけてただのコマンドです。実際に同意するためのコマンドは利用規約に書いてあるのできちんと読んでください()")
 			embed.add_field(name="/disagreetos", value="利用規約への同意を取りやめるコマンドです。なお、残高は残り続けますし、利用規約に同意しなおすことでまた使うことができます。")
 			await client.send_message(message.channel, embed=embed)
