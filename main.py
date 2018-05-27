@@ -330,9 +330,6 @@ async def on_message(message):
 		if message.content.startswith("/givemylog"):
 			m = "Sure, wait a min to get log. (Please note that we can only give you the log after 15 May since we were taking log with txt before.)"
 			await client.send_message(message.channel, m)
-			cursor.execute('SELECT message FROM log WHERE userid=' + message.author.id + '')
-			log = cursor.fetchall
-			print(log)
 			filenumber = "1"
 			sql = "SELECT * FROM log WHERE userid='" + userid + "'"
 			sql = '"' + sql + '"'
@@ -341,6 +338,8 @@ async def on_message(message):
 			print(sqlcommand)
 			cmd = sqlcommand
 			rut  =  subprocess.check_output( cmd,  shell=True )
+			cmd = "rm tmp/tmplog.txt"
+			rutaaa  =  subprocess.check_output( cmd.split(" ") )
 			cmd = "touch tmp/tmplog.txt"
 			rutaaa  =  subprocess.check_output( cmd.split(" ") )
 			file = open('/root/tmp/tmplog.txt', 'a')  #追加書き込みモードでオープン
@@ -350,6 +349,8 @@ async def on_message(message):
 			await client.send_file(message.channel, '/root/tmp/tmplog.txt')
 			m = "Here are the log we took from you."
 			await client.send_message(message.channel, m)
+			cmd = "rm tmp/tmplog.txt"
+			rutaaa  =  subprocess.check_output( cmd.split(" ") )
 		if message.content.startswith("/rain"):
 			start = time.time()
 			cmda = "monacoin-cli walletpassphrase 0124 10"
