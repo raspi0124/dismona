@@ -344,7 +344,7 @@ async def on_message(message):
 			file = open('/root/tmp/tmplog.txt', 'a')  #追加書き込みモードでオープン
 			print(rut)
 			rut = str(rut)
-			file.writelines(rut)
+			file.write(rut)
 			await client.send_file(message.channel, '/root/tmp/tmplog.txt')
 			m = "Here are the log we took from you."
 			await client.send_message(message.channel, m)
