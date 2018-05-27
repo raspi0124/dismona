@@ -338,9 +338,9 @@ async def on_message(message):
 			print(sqlcommand)
 			cmd = sqlcommand
 			rut  =  subprocess.check_output( cmd,  shell=True )
-			cmd = "rm tmp/tmplog.txt"
+			cmd = "rm /root/tmp/tmplog.txt"
 			rutaaa  =  subprocess.check_output( cmd,  shell=True )
-			cmd = "touch tmp/tmplog.txt"
+			cmd = "touch /root/tmp/tmplog.txt"
 			rutaaa  =  subprocess.check_output( cmd,  shell=True )
 			file = open('/root/tmp/tmplog.txt', 'a')  #追加書き込みモードでオープン
 			rut = rut.decode()
@@ -349,8 +349,6 @@ async def on_message(message):
 			await client.send_file(message.channel, '/root/tmp/tmplog.txt')
 			m = "Here are the log we took from you."
 			await client.send_message(message.channel, m)
-			cmd = "rm tmp/tmplog.txt"
-			rutaaa  =  subprocess.check_output( cmd,  shell=True )
 		if message.content.startswith("/rain"):
 			start = time.time()
 			cmda = "monacoin-cli walletpassphrase 0124 10"
