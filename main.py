@@ -343,6 +343,7 @@ async def on_message(message):
 			rutaaa  =  subprocess.check_output( cmd,  shell=True )
 			file = open('/root/tmp/tmplog.txt', 'a')  #追加書き込みモードでオープン
 			print(rut)
+			rut = rut.decode()
 			rut = str(rut)
 			file.write(rut)
 			await client.send_file(message.channel, '/root/tmp/tmplog.txt')
