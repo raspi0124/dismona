@@ -328,7 +328,7 @@ async def on_message(message):
 				m = "Withdraw successfull. TXID:" + withdraw_detail + ""
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/givemylog"):
-			m = "Sure, wait a min to get log. (Please note that we can only give you the log after 15 May since we were taking log with txt before.)"
+			m = "Sure, wait a min to get log. (Please note that we can only give you the log after 24 April since we were taking log with txt before that.)"
 			await client.send_message(message.channel, m)
 			filenumber = "1"
 			sql = "SELECT * FROM log WHERE userid='" + userid + "'"
