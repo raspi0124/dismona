@@ -331,19 +331,14 @@ async def on_message(message):
 			m = "Sure, wait a min to get log. (Please note that we can only give you the log after 15 May since we were taking log with txt before.)"
 			await client.send_message(message.channel, m)
 			filenumber = "1"
-			sql = "SELECT * FROM log WHERE userid='" + userid + "'"
-			sql = '"' + sql + '"'
-			command = "mysql -uroot -plaksjd dismona -e "
-			sqlcommand = command + sql
-			print(sqlcommand)
 			cmd = sqlcommand
 			rut  =  subprocess.check_output( cmd,  shell=True )
 			cmd = "rm /root/tmp/tmplog.txt"
 			rutaaa  =  subprocess.check_output( cmd,  shell=True )
 			cmd = "touch /root/tmp/tmplog.txt"
 			rutaaa  =  subprocess.check_output( cmd,  shell=True )
+			print(rut)
 			file = open('/root/tmp/tmplog.txt', 'a')  #追加書き込みモードでオープン
-			rut = rut.decode()
 			rut = str(rut)
 			file.writelines(rut)
 			await client.send_file(message.channel, '/root/tmp/tmplog.txt')
