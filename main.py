@@ -347,7 +347,7 @@ async def on_message(message):
 			rut = rut.decode()
 			rut = str(rut)
 			file.writelines(rut)
-			await client.send_file(channel, '/root/tmp/tmplog.txt')
+			await client.send_file(message.channel, '/root/tmp/tmplog.txt')
 			m = "Here are the log we took from you."
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/rain"):
