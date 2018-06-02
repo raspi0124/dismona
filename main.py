@@ -1135,6 +1135,7 @@ async def on_message(message):
 			responseresult = responseresult.replace("False", 'false')
 			responseresult = responseresult.replace("True", 'true')
 			print(responseresult)
+			responseresult = json.dumps(responseresult)
 			responseresult =  json.loads(responseresult, parse_float=Decimal)
 
 			print(responseresult)
