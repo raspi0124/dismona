@@ -1129,21 +1129,25 @@ async def on_message(message):
 			responsejson = response.json()
 			responseresult = responsejson['result']
 			responseresult = str(responseresult)
-			#responseresult = responseresult.replace('[', '{')
-			#responseresult = responseresult.replace(']', '}')
-			#responseresult = responseresult.replace("'", '"')
-			#print(responseresult)
-			#responseresult =  json.loads(responseresult, parse_float=Decimal)
+			responseresult = responseresult.replace('[', '')
+			responseresult = responseresult.replace(']', '')
+			responseresult = responseresult.replace("'", '"')
+			responseresult = responseresult.replace("False", 'false')
+			responseresult = responseresult.replace("True", 'true')
+			print(responseresult)
+			responseresult =  json.loads(responseresult, parse_float=Decimal)
 
 			print(responseresult)
-			#assetname = responseresult['asset']
-			#if assetname.startswith("A"):
-				#assetname = responsejson['asset_longname']
+			assetname = responseresult['asset']
+			if assetname.startswith("A"):
+				assetname = responsejson['asset_longname']
 
 			responseresult = str(responseresult)
 
 			#print(assetname)
 			m = "response:" + responseresult + ""
+			await client.send_message(message.channel, m)
+			m = "asset: " + assetname + ""
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/mp deposit"):
 			await client.add_reaction(message, '👌')
