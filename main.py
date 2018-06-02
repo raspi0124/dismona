@@ -1093,10 +1093,10 @@ async def on_message(message):
 			result = responsejson['result']
 			bitcoin_block_count = result['bitcoin_block_count']
 			running_testnet = result['running_testnet']
-			m = bitcoin_block_count
+			m = "block数:" + bitcoin_block_count + ""
 			print(m)
 			await client.send_message(message.channel, m)
-			m = running_testnet
+			m = "testnet" + running_testnet + ""
 			print(m)
 			await client.send_message(message.channel, m)
 
@@ -1127,21 +1127,21 @@ async def on_message(message):
 			responsejson = response.json()
 			responseresult = responsejson['result']
 			responseresult = str(responseresult)
-			responseresult = responseresult.replace('[', '{')
-			responseresult = responseresult.replace(']', '}')
-			responseresult = responseresult.replace("'", '"')
-			print(responseresult)
-			responseresult =  json.loads(responseresult, parse_float=Decimal)
+			#responseresult = responseresult.replace('[', '{')
+			#responseresult = responseresult.replace(']', '}')
+			#responseresult = responseresult.replace("'", '"')
+			#print(responseresult)
+			#responseresult =  json.loads(responseresult, parse_float=Decimal)
 
 			print(responseresult)
-			assetname = responseresult['asset']
-			if assetname.startswith("A"):
-				assetname = responsejson['asset_longname']
+			#assetname = responseresult['asset']
+			#if assetname.startswith("A"):
+				#assetname = responsejson['asset_longname']
 
 			responseresult = str(responseresult)
 
-			print(assetname)
-			m = "balance: " + responseresult + " asset name:" + assetname + ""
+			#print(assetname)
+			m = "response:" + responseresult + ""
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/mp deposit"):
 			await client.add_reaction(message, '👌')
