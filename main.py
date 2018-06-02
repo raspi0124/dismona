@@ -1082,11 +1082,22 @@ async def on_message(message):
 			}
 			data = '{ "jsonrpc": "2.0", "id": 0, "method": "get_running_info" }'
 			response = requests.post('https://api.monaparty.me/api/counterparty', headers=headers, data=data, auth=('rpc', 'hello'))
+			print("2")
 			print(response)
 			print(response.text)
 			m = str(response)
 			await client.send_message(message.channel, m)
 			m = str(response.text)
+			await client.send_message(message.channel, m)
+			responsejson = response.json()
+			result = responsejson['result']
+			bitcoin_block_count = result['bitcoin_block_count']
+			running_testnet = result['running_testnet']
+			m = bitcoin_block_count
+			print(m)
+			await client.send_message(message.channel, m)
+			m = running_testnet
+			print(m)
 			await client.send_message(message.channel, m)
 
 		if message.content.startswith('/mp balance'):
