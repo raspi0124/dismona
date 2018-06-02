@@ -1092,7 +1092,9 @@ async def on_message(message):
 			responsejson = response.json()
 			result = responsejson['result']
 			bitcoin_block_count = result['bitcoin_block_count']
+			bitcoin_block_count = str(bitcoin_block_count)
 			running_testnet = result['running_testnet']
+			running_testnet = str(running_testnet)
 			m = "block数:" + bitcoin_block_count + ""
 			print(m)
 			await client.send_message(message.channel, m)
