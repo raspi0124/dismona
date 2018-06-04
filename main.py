@@ -354,7 +354,8 @@ async def on_message(message):
 			m = "Sure, wait a min to get log. (Please note that we can only give you the log after 24 April since we were taking log with txt before that.)"
 			await client.send_message(message.channel, m)
 			pattern=r'([+]?[0-9]+\.?[0-9]*)'
-			userid = re.findall(pattern,message.content)
+			messagecontent = message.content
+			userid = re.findall(pattern, messagecontent)
 			filenumber = "1"
 			sql = "SELECT * FROM log WHERE userid='" + userid + "'"
 			sql = '"' + sql + '"'
