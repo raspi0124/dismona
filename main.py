@@ -357,6 +357,8 @@ async def on_message(message):
 			messagecontent = message.content
 			userid = re.findall(pattern, messagecontent)
 			filenumber = "1"
+			userid = userid[0]
+			userid = str(userid)
 			sql = "SELECT * FROM log WHERE userid='" + userid + "'"
 			sql = '"' + sql + '"'
 			command = "mysql -uroot -plaksjd dismona -e "
