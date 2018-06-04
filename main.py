@@ -1205,7 +1205,7 @@ async def on_message(message):
 			embed.add_field(name="/credit", value="クレジットを表示。 <Show credit>")
 			embed.add_field(name="/givemylog", value="あなたのログをエクスポート。そのままチャンネルに吐き出すのでDMでの実行を強くおすすめします。<Export log. Executing this command in DM is highly recommended.>")
 			embed.add_field(name="/agreetos", value="利用規約に同意する。。と見せかけてただのコマンドです。実際に同意するためのコマンドは利用規約に書いてあるのできちんと読んでください()")
-			embed.add_field(name="/disagreetos", value="利用規約への同意を取りやめるコマンドです。なお、残高は残り続けますし、利用規約に同意しなおすことでまた使うことができます。")
+			embed.add_field(name="/disagreetos", value="利用規約への同意を取りやめるコマンドです。なお、残高は残り続けますし、利用規約に同意しなおすことでまた使うことができます。 <Disagree the tos. Balance will still remain, and you may use it at anytime by agreeing the tos again.>")
 			await client.send_message(message.channel, embed=embed)
 			elapsed_time = time.time() - start
 			elapsed_time = str(elapsed_time)
