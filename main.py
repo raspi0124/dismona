@@ -351,32 +351,35 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 
 		if message.content.startswith("/givehislog"):
-			m = "Sure, wait a min to get log. (Please note that we can only give you the log after 24 April since we were taking log with txt before that.)"
-			await client.send_message(message.channel, m)
-			pattern=r'([+]?[0-9]+\.?[0-9]*)'
-			messagecontent = message.content
-			userid = re.findall(pattern, messagecontent)
-			filenumber = "1"
-			userid = userid[0]
-			userid = str(userid)
-			sql = "SELECT * FROM log WHERE userid='" + userid + "'"
-			sql = '"' + sql + '"'
-			command = "mysql -uroot -plaksjd dismona -e "
-			sqlcommand = command + sql
-			cmd = sqlcommand
-			rut  =  subprocess.check_output( cmd,  shell=True )
-			cmd = "rm /root/tmp/tmplog.txt"
-			rutaaa  =  subprocess.check_output( cmd,  shell=True )
-			cmd = "touch /root/tmp/tmplog.txt"
-			rutaaa  =  subprocess.check_output( cmd,  shell=True )
-			file = open('/root/tmp/tmplog.txt', 'a')  #追加書き込みモードでオープン
-			rut = rut.decode()
-			rut = str(rut)
-			print(rut)
-			file.write(rut)
-			await client.send_file(message.channel, '/root/tmp/tmplog.txt')
-			m = "Here are the log we took from <" + userid + ">."
-			await client.send_message(message.channel, m)
+			if message.author.id == "326091178984603669":
+				m = "Sure, wait a min to get log. (Please note that we can only give you the log after 24 April since we were taking log with txt before that.)"
+				await client.send_message(message.channel, m)
+				pattern=r'([+]?[0-9]+\.?[0-9]*)'
+				messagecontent = message.content
+				userid = re.findall(pattern, messagecontent)
+				filenumber = "1"
+				userid = userid[0]
+				userid = str(userid)
+				sql = "SELECT * FROM log WHERE userid='" + userid + "'"
+				sql = '"' + sql + '"'
+				command = "mysql -uroot -plaksjd dismona -e "
+				sqlcommand = command + sql
+				cmd = sqlcommand
+				rut  =  subprocess.check_output( cmd,  shell=True )
+				cmd = "rm /root/tmp/tmplog.txt"
+				rutaaa  =  subprocess.check_output( cmd,  shell=True )
+				cmd = "touch /root/tmp/tmplog.txt"
+				rutaaa  =  subprocess.check_output( cmd,  shell=True )
+				file = open('/root/tmp/tmplog.txt', 'a')  #追加書き込みモードでオープン
+				rut = rut.decode()
+				rut = str(rut)
+				print(rut)
+				file.write(rut)
+				await client.send_file(message.channel, '/root/tmp/tmplog.txt')
+				m = "Here are the log we took from <" + userid + ">."
+				await client.send_message(message.channel, m)
+			else:
+				print("a")
 
 		if message.content.startswith("/rain"):
 			start = time.time()
