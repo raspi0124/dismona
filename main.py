@@ -349,6 +349,32 @@ async def on_message(message):
 			await client.send_file(message.channel, '/root/tmp/tmplog.txt')
 			m = "Here are the log we took from you."
 			await client.send_message(message.channel, m)
+
+		if message.content.startswith("/givehislog"):
+			m = "Sure, wait a min to get log. (Please note that we can only give you the log after 24 April since we were taking log with txt before that.)"
+			await client.send_message(message.channel, m)
+			pattern=r'([+]?[0-9]+\.?[0-9]*)'
+			userid = re.findall(pattern,message.content)
+			filenumber = "1"
+			sql = "SELECT * FROM log WHERE userid='" + userid + "'"
+			sql = '"' + sql + '"'
+			command = "mysql -uroot -plaksjd dismona -e "
+			sqlcommand = command + sql
+			cmd = sqlcommand
+			rut  =  subprocess.check_output( cmd,  shell=True )
+			cmd = "rm /root/tmp/tmplog.txt"
+			rutaaa  =  subprocess.check_output( cmd,  shell=True )
+			cmd = "touch /root/tmp/tmplog.txt"
+			rutaaa  =  subprocess.check_output( cmd,  shell=True )
+			file = open('/root/tmp/tmplog.txt', 'a')  #追加書き込みモードでオープン
+			rut = rut.decode()
+			rut = str(rut)
+			print(rut)
+			file.write(rut)
+			await client.send_file(message.channel, '/root/tmp/tmplog.txt')
+			m = "Here are the log we took from <" + userid + ">."
+			await client.send_message(message.channel, m)
+
 		if message.content.startswith("/rain"):
 			start = time.time()
 			cmda = "monacoin-cli walletpassphrase 0124 10"
@@ -716,6 +742,8 @@ async def on_message(message):
 						result = int(result)
 						m = messeages[result]
 						await client.send_message(message.channel, m)
+
+
 		if message.content == "/shootizaya":
 			def omikuji():
 				kuji = ["0", "1", "2", "3", "4", "5"]
