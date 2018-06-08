@@ -977,6 +977,8 @@ async def on_message(message):
 			loved = loved.replace("]", '')
 			loved = loved.split(',')
 			loved = str(loved)
+			balance = float(balance)
+			minlimit = float(minlimit)
 
 			if username not in gived:
 				if balance > minlimit:
