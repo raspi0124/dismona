@@ -959,7 +959,7 @@ async def on_message(message):
 			print(gived)
 			cmd = "monacoin-cli getbalance " + username + ""
 			balance = subprocess.check_output( cmd.split(" "))
-			minlimit = "0.001"
+			minlimit = "0.005"
 			balance = str(balance)
 			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
 			balance = re.findall(pattern,balance)
@@ -979,30 +979,75 @@ async def on_message(message):
 			loved = str(loved)
 
 			if username not in gived:
-				if username not in baned:
-					if username in tiped:
-						if username not in loved:
-							def omikuji():
-								kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
-								result = random.choice(kuji)
-								return result
-							kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
-							result = omikuji()
-							print("result")
-							print(result)
-							addamount = "1"
-							result = int(result)
-							resultp = kuji[result]
-							result2 = float(result) + float(addamount)
-							result2 = int(result2)
-							print("resultp")
-							print(resultp)
-							resultp = str(resultp)
-							result2 = int(result2)
-							result2 = str(result2)
-							result = str(result)
-							a = "a"
-							if a == a:
+				if balance > minlimit:
+					if username not in baned:
+						if username in tiped:
+							if username not in loved:
+								def omikuji():
+									kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
+									result = random.choice(kuji)
+									return result
+								kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
+								result = omikuji()
+								print("result")
+								print(result)
+								addamount = "1"
+								result = int(result)
+								resultp = kuji[result]
+								result2 = float(result) + float(addamount)
+								result2 = int(result2)
+								print("resultp")
+								print(resultp)
+								resultp = str(resultp)
+								result2 = int(result2)
+								result2 = str(result2)
+								result = str(result)
+								a = "a"
+								if a == a:
+									if result == "0":
+										with open('/root/dismona/kyou.png', 'rb') as f:
+											await client.send_file(message.channel, f)
+									if result == "1":
+										with open('/root/dismona/syoukiti.png', 'rb') as f:
+											await client.send_file(message.channel, f)
+									if result == "2":
+										with open('/root/dismona/tyuukiti.png', 'rb') as f:
+											await client.send_file(message.channel, f)
+									if result == "3":
+										with open('/root/dismona/daikiti.png', 'rb') as f:
+											await client.send_file(message.channel, f)
+									if result == "7":
+										with open('/root/dismona/tyoudaikiti.png', 'rb') as f:
+											await client.send_file(message.channel, f)
+								elapsed_time = time.time() - start
+								elapsed_time = str(elapsed_time)
+								username = int(username)
+								username = str(username)
+								print("INSERT INTO gived (id) VALUES (" + username + ")")
+								cursor.execute("INSERT INTO gived (id) VALUES (" + username + ")")
+								m = "/tip <@" + username + "> 0.0000" + result2 + " おみくじtipです！貴方の今日の運勢は" + resultp + "です!次挑戦できるのは日本時間で明日です！ . exectime: " + elapsed_time + " sec"
+								await client.send_message(message.channel, m)
+								connection.commit()
+							else:
+								def omikuji():
+									kuji = ["0", "1", "2", "3", "2", "4"]
+									result = random.choice(kuji)
+									return result
+								kuji = ["凶", "小吉", "中吉", "大吉", "超大吉"]
+								result = omikuji()
+								print("result")
+								print(result)
+								result = int(result)
+								print("resulta")
+								print(result)
+								resultp = kuji[result]
+								print("resultp")
+								print(resultp)
+								resultp = str(resultp)
+								resulta = float(result) + float("3")
+								resulta = int(resulta)
+								resulta = str(resulta)
+								result = str(result)
 								if result == "0":
 									with open('/root/dismona/kyou.png', 'rb') as f:
 										await client.send_file(message.channel, f)
@@ -1015,74 +1060,32 @@ async def on_message(message):
 								if result == "3":
 									with open('/root/dismona/daikiti.png', 'rb') as f:
 										await client.send_file(message.channel, f)
-								if result == "7":
+								if result == "4":
 									with open('/root/dismona/tyoudaikiti.png', 'rb') as f:
 										await client.send_file(message.channel, f)
-							elapsed_time = time.time() - start
-							elapsed_time = str(elapsed_time)
-							username = int(username)
-							username = str(username)
-							print("INSERT INTO gived (id) VALUES (" + username + ")")
-							cursor.execute("INSERT INTO gived (id) VALUES (" + username + ")")
-							m = "/tip <@" + username + "> 0.0000" + result2 + " おみくじtipです！貴方の今日の運勢は" + resultp + "です!次挑戦できるのは日本時間で明日です！ . exectime: " + elapsed_time + " sec"
-							await client.send_message(message.channel, m)
-							connection.commit()
+								elapsed_time = time.time() - start
+								elapsed_time = str(elapsed_time)
+								result = str(result)
+								if result == "0":
+									m = "あなたの運勢…凶みたいだから、今日はそばにいてあげるんだからねっ！今日だけだからねっ"
+								else:
+									m = "<@" + userid +">ダーリン、あなたの今日の運勢は" + resultp + "らしいですわよ。!\n0.000" + resulta + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。 . exectime: " + elapsed_time + " sec"
+								await client.send_message(message.channel, m)
+								cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username,))
+								m = "/tip <@" + username + "> 0.000" + resulta + ""
+								await client.send_message(message.channel, m)
+								connection.commit()
 						else:
-							def omikuji():
-								kuji = ["0", "1", "2", "3", "2", "4"]
-								result = random.choice(kuji)
-								return result
-							kuji = ["凶", "小吉", "中吉", "大吉", "超大吉"]
-							result = omikuji()
-							print("result")
-							print(result)
-							result = int(result)
-							print("resulta")
-							print(result)
-							resultp = kuji[result]
-							print("resultp")
-							print(resultp)
-							resultp = str(resultp)
-							resulta = float(result) + float("3")
-							resulta = int(resulta)
-							resulta = str(resulta)
-							result = str(result)
-							if result == "0":
-								with open('/root/dismona/kyou.png', 'rb') as f:
-									await client.send_file(message.channel, f)
-							if result == "1":
-								with open('/root/dismona/syoukiti.png', 'rb') as f:
-									await client.send_file(message.channel, f)
-							if result == "2":
-								with open('/root/dismona/tyuukiti.png', 'rb') as f:
-									await client.send_file(message.channel, f)
-							if result == "3":
-								with open('/root/dismona/daikiti.png', 'rb') as f:
-									await client.send_file(message.channel, f)
-							if result == "4":
-								with open('/root/dismona/tyoudaikiti.png', 'rb') as f:
-									await client.send_file(message.channel, f)
-							elapsed_time = time.time() - start
-							elapsed_time = str(elapsed_time)
-							result = str(result)
-							if result == "0":
-								m = "あなたの運勢…凶みたいだから、今日はそばにいてあげるんだからねっ！今日だけだからねっ"
-							else:
-								m = "<@" + userid +">ダーリン、あなたの今日の運勢は" + resultp + "らしいですわよ。!\n0.000" + resulta + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。 . exectime: " + elapsed_time + " sec"
+							m = "<@" + userid +">スパム対策のために今日Tipした、またはされていない方ははおみくじを実行することができません。。だれかにtipするかtipされてからもう一回実行おねがいします\nTo prevent spamming, user who never tiped today or user  who never get tiped today are not allowed to execute omikuji. please tip someone using /tip command."
 							await client.send_message(message.channel, m)
-							cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username,))
-							m = "/tip <@" + username + "> 0.000" + resulta + ""
-							await client.send_message(message.channel, m)
-							connection.commit()
 					else:
-						m = "<@" + userid +">スパム対策のために今日Tipした、またはされていない方ははおみくじを実行することができません。。だれかにtipするかtipされてからもう一回実行おねがいします\nTo prevent spamming, user who never tiped today or user  who never get tiped today are not allowed to execute omikuji. please tip someone using /tip command."
+						cursor.execute('SELECT banfromid FROM baned WHERE banedid = ' + username + '')
+						banfromid = cursor.fetchall()
+						banfromid = str(banfromid)
+						m = "<@" + userid + ">You are not allowed to /omikuzi! \n Detail:You are baned by <@" + banfromid + ">"
 						await client.send_message(message.channel, m)
 				else:
-					cursor.execute('SELECT banfromid FROM baned WHERE banedid = ' + username + '')
-					banfromid = cursor.fetchall()
-					banfromid = str(banfromid)
-					m = "<@" + userid + ">You are not allowed to /omikuzi! \n Detail:You are baned by <@" + banfromid + ">"
-					await client.send_message(message.channel, m)
+					m = "残高がMinlimit(0.005mona)に達していないためおみくじを実行することはできません。"
 			else:
 				m = "もう、<@" + message.author.id + "> 、何やってるの！！\n おみくじは1日一回ってあんなに言ったでしょ！ 明日まで禁止よ！\nそこに座ってなさい！"
 				await client.send_message(message.channel, m)
