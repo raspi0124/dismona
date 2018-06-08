@@ -957,12 +957,8 @@ async def on_message(message):
 			tiped = str(tiped)
 			print("--gived--")
 			print(gived)
-			cmd = "monacoin-cli getbalance " + username + ""
-			balance = subprocess.check_output( cmd.split(" "))
 			minlimit = "0.005"
-			balance = str(balance)
-			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
-			balance = re.findall(pattern,balance)
+			balance = mlibs.libgetbalance(userid)
 			await client.add_reaction(message, '👌')
 			cursor.execute('SELECT * FROM loved')
 			loved = cursor.fetchall()
