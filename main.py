@@ -773,7 +773,7 @@ async def on_message(message):
 				nowhp = currenthp - int("5")
 				nowhp = str(nowhp)
 				print(nowhp)
-				cursor.execute("UPDATE shootizaya SET hp = " + nowhp + " WHERE id = 1")
+				cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
 				m = "Izayaの現在のHPは " + nowhp + " だ。"
 				await client.send_message(message.channel, m)
 			if result == "3":
@@ -791,7 +791,7 @@ async def on_message(message):
 				nowhp = currenthp - int("10")
 				nowhp = str(nowhp)
 				print(nowhp)
-				cursor.execute("UPDATE shootizaya SET hp = " + nowhp + " WHERE id = 1")
+				cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
 				m = "Izayaの現在のHPは " + nowhp + " だ。"
 				await client.send_message(message.channel, m)
 			if result == "5":
