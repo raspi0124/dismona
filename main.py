@@ -759,9 +759,12 @@ async def on_message(message):
 			cursor.execute("SELECT hp FROM hp WHERE id = 1")
 			currenthp = cursor.fetchall()
 			print(currenthp)
-			currenthp = separator.join(currenthp)
-			print(currenthp)
-			currenthp = int(currenthp)
+			currenthp = str(currenthp)
+			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
+			print(re.findall(pattern,currenthp))
+			currenthp = re.findall(pattern,currenthp)
+			print(currenthp[0])
+			currenthp = int(currenthp[0])
 			if result == "0" or result == "1" or result == "2":
 				m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ"
 				await client.send_message(message.channel, m)
