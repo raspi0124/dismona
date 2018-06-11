@@ -759,6 +759,7 @@ async def on_message(message):
 			currenthp = cursor.fetchall()
 			print(currenthp)
 			currenthp = currenthp[0]
+			print(currenthp)
 			currenthp = int(currenthp)
 
 			if result == "0" or result == "1" or result == "2":
