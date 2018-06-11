@@ -755,7 +755,7 @@ async def on_message(message):
 				result = random.choice(kuji)
 				return result
 			result = result()
-			cursor.execute("SELECT hp FROM shootizaya WHERE id = 1")
+			cursor.execute("SELECT hp FROM hp WHERE id = 1")
 			currenthp = cursor.fetchall()
 			currenthp = int(currenthp)
 
