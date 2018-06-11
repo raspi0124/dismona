@@ -170,3 +170,18 @@ def fixselect(string):
 	string = string.split(',')
 	string = str(string)
 	return string
+def register(userid):
+	cmd = "monacoin-cli getnewaddress " + userid + ""
+	rut  =  subprocess.check_output( cmd.split(" ") )
+	print ('Creating <' + userid + ">s account..")
+	#cursor.execute("insert into dismona.id(id,address) values('message_author', address);")
+	resultaddress = rut.decode()
+	resultmore = resultaddress.replace('[', '')
+	resultmore2 = resultmore.replace(']', '')
+	resultmore3 = resultmore2.replace('"', '')
+	resultmore4 = resultmore3.replace("\n", "")
+	resultmore5 = resultmore4.replace(" ", "")
+	cursor.execute("INSERT INTO addresses (username, address) VALUES (%s, %s)", (userid, resultmore5))
+	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+	connection.commit()
+	return resultmore5
