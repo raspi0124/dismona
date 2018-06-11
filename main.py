@@ -758,7 +758,7 @@ async def on_message(message):
 			cursor.execute("SELECT hp FROM hp WHERE id = 1")
 			currenthp = cursor.fetchall()
 			print(currenthp)
-			currenthp = ''.join(currenthp)
+			currenthp = join(currenthp)
 			print(currenthp)
 			currenthp = int(currenthp)
 
