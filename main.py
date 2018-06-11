@@ -264,8 +264,8 @@ async def on_message(message):
 					m = "<@" + message.author.id + ">, This is your deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
 					await client.send_message(message.channel, m)
 				else:
-					m = "Please execute /register to get deposit address.\n まず/registerコマンドを実行し、アドレスを取得してください"
-					await client.send_message(message.channel, m)
+					address = mlibs.register(userid)
+					m = "<@" + userid + ">, This is your deposit address: " + address + ""
 		if message.content.startswith("/deleteme"):
 			await client.add_reaction(message, '👌')
 			#m = "Roger that. Now proceeding work.."
