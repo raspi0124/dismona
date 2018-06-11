@@ -202,10 +202,10 @@ async def on_message(message):
 
 			connection.commit()
 		if message.content.startswith("/register"):
-			start = time.time()
 			cmda = "monacoin-cli walletpassphrase 0124 10"
 			ruta  =  subprocess.check_output( cmda.split(" ") )
 			print(ruta)
+			userid = message.author.id
 			await client.add_reaction(message, '👌')
 			# 送り主がBotだった場合反応したくないので
 			if client.user != message.author.name:
@@ -213,21 +213,8 @@ async def on_message(message):
 				m = "<@" + message.author.id + "> さんのアカウントを作成しますね！"
 				# メッセージが送られてきたチャンネルへメッセージを送ります
 				await client.send_message(message.channel, m)
-				cmd = "monacoin-cli getnewaddress " + message.author.id + ""
-				rut  =  subprocess.check_output( cmd.split(" ") )
-				print ('Creating <' + message.author.id + ">s account.. user ID ")
-				#cursor.execute("insert into dismona.id(id,address) values('message_author', address);")
-				resultaddress = rut.decode()
-				resultmore = resultaddress.replace('[', '')
-				resultmore2 = resultmore.replace(']', '')
-				resultmore3 = resultmore2.replace('"', '')
-				resultmore4 = resultmore3.replace("\n", "")
-				resultmore5 = resultmore4.replace(" ", "")
-				cursor.execute("INSERT INTO addresses (username, address) VALUES (%s, %s)", (username, resultmore5))
-				currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-				elapsed_time = time.time() - start
-				elapsed_time = str(elapsed_time)
-				m = "<@" + message.author.id + ">, successfully created an account for you! Your new address is " + resultmore5 + ", enjoy!\n(message created on " + currenttime + " exectime: " + elapsed_time + " sec)"
+				resultmore5 = mlibs.register(userid)
+				m = "<@" + message.author.id + ">, successfully created an account for you! Your new address is " + resultmore5 + ", enjoy!"
 				await client.send_message(message.channel, m)
 				connection.commit()
 
@@ -278,6 +265,7 @@ async def on_message(message):
 					await client.send_message(message.channel, m)
 				else:
 					m = "Please execute /register to get deposit address.\n まず/registerコマンドを実行し、アドレスを取得してください"
+					await client.send_message(message.channel, m)
 		if message.content.startswith("/deleteme"):
 			await client.add_reaction(message, '👌')
 			#m = "Roger that. Now proceeding work.."
