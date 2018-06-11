@@ -817,11 +817,11 @@ async def on_message(message):
 
 
 			if currenthp <= MINHP:
-				m = "討伐おめでとう！"
+				m = "討伐を達成しました"
 				await client.send_message(message.channel, m)
-				m = "討伐報酬をプレゼント！これからも頑張ってね！(未実装)"
+				m = "クエスト報酬を獲得しました！(未実装)"
 				await client.send_message(message.channel, m)
-				m = "スポンサー: https://discord.gg/RmRevCV"
+				m = ":scroll:上位クエスト:scroll:が解放されました！(スポンサー） \n https://discord.gg/RmRevCV"
 				await client.send_message(message.channel, m)				
 				cursor.execute("UPDATE hp SET hp = 100 WHERE id = 1")
 
