@@ -759,7 +759,7 @@ async def on_message(message):
 			cursor.execute("SELECT hp FROM hp WHERE id = 1")
 			currenthp = cursor.fetchall()
 			print(currenthp)
-			currenthp = separator.join(t)
+			currenthp = separator.join(currenthp)
 			print(currenthp)
 			currenthp = int(currenthp)
 			if result == "0" or result == "1" or result == "2":
