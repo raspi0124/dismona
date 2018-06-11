@@ -754,14 +754,14 @@ async def on_message(message):
 				kuji = ["0", "1", "2", "3", "4", "5"]
 				result = random.choice(kuji)
 				return result
+			separator = '-'
 			result = result()
 			cursor.execute("SELECT hp FROM hp WHERE id = 1")
 			currenthp = cursor.fetchall()
 			print(currenthp)
-			currenthp = join(currenthp)
+			currenthp = separator.join(t)
 			print(currenthp)
 			currenthp = int(currenthp)
-
 			if result == "0" or result == "1" or result == "2":
 				m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ"
 				await client.send_message(message.channel, m)
