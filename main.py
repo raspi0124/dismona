@@ -1084,6 +1084,7 @@ async def on_message(message):
 						await client.send_message(message.channel, m)
 				else:
 					m = "残高がMinlimit(0.005mona)に達していないためおみくじを実行することはできません。"
+					await client.send_message(message.channel, m)
 			else:
 				m = "もう、<@" + message.author.id + "> 、何やってるの！！\n おみくじは1日一回ってあんなに言ったでしょ！ 明日まで禁止よ！\nそこに座ってなさい！"
 				await client.send_message(message.channel, m)
@@ -1230,7 +1231,7 @@ async def on_message(message):
 			# 保存を実行（忘れると保存されないので注意）
 			connection.commit()
 		if message.content == "/agreetos":
-			m = "ARE YOU REALLY SURE YOU AGREED TOS%s READ THE TOS AGAIN!\n TOS can be found here: https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt"
+			m = "利用規約はきちんと読みましたか？もう一度確認してみましょう。→　https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt\n Please read tos and try again. Tos can be found at → https://github.com/raspi0124/monage-term/blob/master/terms-en.txt"
 			await client.send_message(message.channel, m)
 		if message.content == "/help":
 			start = time.time()
