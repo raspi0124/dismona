@@ -65,6 +65,7 @@ def deposit(userid):
 	address = address3.split()
 	print(address)
 	address = address[1]
+	address = address.replace(']', '')
 	return address
 def withdraw(userid, to, amount):
 	start = time.time()
