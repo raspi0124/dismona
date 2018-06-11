@@ -803,7 +803,27 @@ async def on_message(message):
 				currenthp = str(currenthp)
 				m = "Izayaの現在のHPは " + currenthp + " だ。"
 				await client.send_message(message.channel, m)
+			cursor.execute("SELECT hp FROM hp WHERE id = 1")
+			currenthp = cursor.fetchall()
+			print(currenthp)
+			currenthp = str(currenthp)
+			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
+			print(re.findall(pattern,currenthp))
+			currenthp = re.findall(pattern,currenthp)
+			print(currenthp[0])
+			currenthp = int(currenthp[0])
+			#define hp
+			MINHP = int("0")
 
+
+			if currenthp <= MINHP:
+				m = "討伐おめでとう！"
+				await client.send_message(message.channel, m)
+				m = "討伐報酬をプレゼント！これからも頑張ってね！(未実装)"
+				await client.send_message(message.channel, m)
+				m = "スポンサー: https://discord.gg/RmRevCV"
+				await client.send_message(message.channel, m)				
+				cursor.execute("UPDATE hp SET hp = 100 WHERE id = 1")
 
 		if message.content == "/omikuzi -nomona" or message.content == "/omikuji -nomona":
 			start = time.time()
