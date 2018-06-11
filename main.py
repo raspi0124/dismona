@@ -781,6 +781,7 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 				m = "残念。。防がれてしまった。。"
 				await client.send_message(message.channel, m)
+				currenthp = str(currenthp)
 				m = "Izayaの現在のHPは " + currenthp + " だ。"
 				await client.send_message(message.channel, m)
 			if result == "4":
@@ -799,6 +800,7 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 				m = "残念。。当てられなかった.."
 				await client.send_message(message.channel, m)
+				currenthp = str(currenthp)
 				m = "Izayaの現在のHPは " + currenthp + " だ。"
 				await client.send_message(message.channel, m)
 
