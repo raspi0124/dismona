@@ -750,20 +750,53 @@ async def on_message(message):
 
 
 		if message.content == "/shootizaya":
-			def omikuji():
+			def result():
 				kuji = ["0", "1", "2", "3", "4", "5"]
 				result = random.choice(kuji)
 				return result
-			result = omikuji()
+			result = result()
+			cursor.execute("SELECT hp FROM shootizaya WHERE id = 1")
+			currenthp = cursor.fetchall()
+			currenthp = int(currenthp)
+
 			if result == "0" or result == "1" or result == "2":
 				m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ"
+				await client.send_message(message.channel, m)
+				m = "Izayaに 5 ダメージを与えた！"
+				await client.send_message(message.channel, m)
+				nowhp = currenthp - int("5")
+				nowhp = str(nowhp)
+				print(nowhp)
+				cursor.execute("UPDATE shootizaya SET hp = " + nowhp + " WHERE id = 1")
+				m = "Izayaの現在のHPは " + nowhp + " だ。"
+				await client.send_message(message.channel, m)
 			if result == "3":
 				m = "(´・ω);y==ｰｰｰｰｰ  ・ ・ ・   ｶﾝ∵.  <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ"
+				await client.send_message(message.channel, m)
+				m = "残念。。防がれてしまった。。"
+				await client.send_message(message.channel, m)
+				m = "Izayaの現在のHPは " + currenthp + " だ。"
+				await client.send_message(message.channel, m)
 			if result == "4":
 				m = "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0"
+				await client.send_message(message.channel, m)
+				m = "Izayaに 10 ダメージを与えた！"
+				await client.send_message(message.channel, m)
+				nowhp = currenthp - int("10")
+				nowhp = str(nowhp)
+				print(nowhp)
+				cursor.execute("UPDATE shootizaya SET hp = " + nowhp + " WHERE id = 1")
+				m = "Izayaの現在のHPは " + nowhp + " だ。"
+				await client.send_message(message.channel, m)
 			if result == "5":
 				m = "Izaya は、どこかへ逃げてしまった！"
-			await client.send_message(message.channel, m)
+				await client.send_message(message.channel, m)
+				m = "残念。。当てられなかった.."
+				await client.send_message(message.channel, m)
+				m = "Izayaの現在のHPは " + currenthp + " だ。"
+				await client.send_message(message.channel, m)
+
+
 		if message.content == "/omikuzi -nomona" or message.content == "/omikuji -nomona":
 			start = time.time()
 			username = message.author.id
