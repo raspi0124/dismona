@@ -21,7 +21,7 @@ def limited(until):
     duration = int(round(until - time.time()))
     print('Rate limited, sleeping for {:d} seconds'.format(duration))
 
-rate_limiter = RateLimiter(max_calls=5, period=3, callback=limited)
+rate_limiter = RateLimiter(max_calls=3, period=1, callback=limited)
 
 
 def round_down5(value):
