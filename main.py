@@ -166,7 +166,7 @@ async def on_reaction_add(reaction, user):
 			await client.send_message(reaction.message.channel, m)
 
 @client.event
-@commands.cooldown(1, 3, commands.BucketType.user)
+@commands.cooldown(1, 5, commands.BucketType.user)
 async def on_message(message):
 	connection = MySQLdb.connect(db='dismona',user='root',passwd='laksjd',charset='utf8mb4')
 	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
