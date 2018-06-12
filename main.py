@@ -17,6 +17,8 @@ from datetime import datetime
 import mlibs
 from discord.ext import commands
 from ratelimiter import RateLimiter
+from discord.ext.commands.cooldowns import BucketType
+
 
 def limited(until):
     duration = int(round(until - time.time()))
@@ -156,7 +158,7 @@ async def on_reaction_add(reaction, user):
 			await client.send_message(reaction.message.channel, m)
 
 
-@commands.command(pass_context=True, aliases=['lc'])
+@client.event
 @commands.cooldown(1, 5, commands.BucketType.user)
 async def on_message(message):
 	connection = MySQLdb.connect(db='dismona',user='root',passwd='laksjd',charset='utf8mb4')
