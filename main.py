@@ -739,23 +739,25 @@ async def on_message(message):
 						m = messeages[result]
 						await client.send_message(message.channel, m)
 
-		with rate_limiter:
-			if message.content == "/shootizaya":
-				def result():
-					kuji = ["0", "1", "2", "3", "4", "5"]
-					result = random.choice(kuji)
-					return result
-				separator = '-'
-				result = result()
+	
+		if message.content == "/shootizaya":
+			def result():
+				kuji = ["0", "1", "2", "3", "4", "5"]
+				result = random.choice(kuji)
+				return result
+			separator = '-'
+			result = result()
+			with rate_limiter:
 				cursor.execute("SELECT hp FROM hp WHERE id = 1")
-				currenthp = cursor.fetchall()
-				print(currenthp)
-				currenthp = str(currenthp)
-				pattern=r'([+-]?[0-9]+\.?[0-9]*)'
-				print(re.findall(pattern,currenthp))
-				currenthp = re.findall(pattern,currenthp)
-				print(currenthp[0])
-				currenthp = int(currenthp[0])
+			currenthp = cursor.fetchall()
+			print(currenthp)
+			currenthp = str(currenthp)
+			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
+			print(re.findall(pattern,currenthp))
+			currenthp = re.findall(pattern,currenthp)
+			print(currenthp[0])
+			currenthp = int(currenthp[0])
+			with rate_limiter:
 				if result == "0" or result == "1" or result == "2":
 					m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ"
 					await client.send_message(message.channel, m)
@@ -795,26 +797,26 @@ async def on_message(message):
 					m = "Izayaの現在のHPは " + currenthp + " だ。"
 					await client.send_message(message.channel, m)
 				cursor.execute("SELECT hp FROM hp WHERE id = 1")
-				currenthp = cursor.fetchall()
-				print(currenthp)
-				currenthp = str(currenthp)
-				pattern=r'([+-]?[0-9]+\.?[0-9]*)'
-				print(re.findall(pattern,currenthp))
-				currenthp = re.findall(pattern,currenthp)
-				print(currenthp[0])
-				currenthp = int(currenthp[0])
-				#define hp
-				MINHP = int("0")
+			currenthp = cursor.fetchall()
+			print(currenthp)
+			currenthp = str(currenthp)
+			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
+			print(re.findall(pattern,currenthp))
+			currenthp = re.findall(pattern,currenthp)
+			print(currenthp[0])
+			currenthp = int(currenthp[0])
+			#define hp
+			MINHP = int("0")
 
 
-				if currenthp <= MINHP:
-					m = "討伐を達成しました"
-					await client.send_message(message.channel, m)
-					m = "クエスト報酬を獲得しました！(未実装)"
-					await client.send_message(message.channel, m)
-					m = ":scroll:上位クエスト:scroll:が解放されました！(スポンサー） \n https://discord.gg/RmRevCV"
-					await client.send_message(message.channel, m)				
-					cursor.execute("UPDATE hp SET hp = 100 WHERE id = 1")
+			if currenthp <= MINHP:
+				m = "討伐を達成しました"
+				await client.send_message(message.channel, m)
+				m = "クエスト報酬を獲得しました！(未実装)"
+				await client.send_message(message.channel, m)
+				m = ":scroll:上位クエスト:scroll:が解放されました！(スポンサー） \n https://discord.gg/RmRevCV"
+				await client.send_message(message.channel, m)				
+				cursor.execute("UPDATE hp SET hp = 100 WHERE id = 1")
 
 		if message.content == "/omikuzi -nomona" or message.content == "/omikuji -nomona":
 			start = time.time()
