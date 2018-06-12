@@ -15,6 +15,14 @@ from decimal import Decimal
 import MySQLdb
 from datetime import datetime
 import mlibs
+from ratelimiter import RateLimiter
+
+def limited(until):
+    duration = int(round(until - time.time()))
+    print('Rate limited, sleeping for {:d} seconds'.format(duration))
+
+rate_limiter = RateLimiter(max_calls=2, period=1, callback=limited)
+
 
 def round_down5(value):
 	value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
@@ -748,82 +756,82 @@ async def on_message(message):
 						m = messeages[result]
 						await client.send_message(message.channel, m)
 
-
-		if message.content == "/shootizaya":
-			def result():
-				kuji = ["0", "1", "2", "3", "4", "5"]
-				result = random.choice(kuji)
-				return result
-			separator = '-'
-			result = result()
-			cursor.execute("SELECT hp FROM hp WHERE id = 1")
-			currenthp = cursor.fetchall()
-			print(currenthp)
-			currenthp = str(currenthp)
-			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
-			print(re.findall(pattern,currenthp))
-			currenthp = re.findall(pattern,currenthp)
-			print(currenthp[0])
-			currenthp = int(currenthp[0])
-			if result == "0" or result == "1" or result == "2":
-				m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ"
-				await client.send_message(message.channel, m)
-				m = "Izayaに 5 ダメージを与えた！"
-				await client.send_message(message.channel, m)
-				nowhp = currenthp - int("5")
-				nowhp = str(nowhp)
-				print(nowhp)
-				cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
-				m = "Izayaの現在のHPは " + nowhp + " だ。"
-				await client.send_message(message.channel, m)
-			if result == "3":
-				m = "(´・ω);y==ｰｰｰｰｰ  ・ ・ ・   ｶﾝ∵.  <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ"
-				await client.send_message(message.channel, m)
-				m = "残念。。防がれてしまった。。"
-				await client.send_message(message.channel, m)
+		with rate_limiter:
+			if message.content == "/shootizaya":
+				def result():
+					kuji = ["0", "1", "2", "3", "4", "5"]
+					result = random.choice(kuji)
+					return result
+				separator = '-'
+				result = result()
+				cursor.execute("SELECT hp FROM hp WHERE id = 1")
+				currenthp = cursor.fetchall()
+				print(currenthp)
 				currenthp = str(currenthp)
-				m = "Izayaの現在のHPは " + currenthp + " だ。"
-				await client.send_message(message.channel, m)
-			if result == "4":
-				m = "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0"
-				await client.send_message(message.channel, m)
-				m = "Izayaに 10 ダメージを与えた！"
-				await client.send_message(message.channel, m)
-				nowhp = currenthp - int("10")
-				nowhp = str(nowhp)
-				print(nowhp)
-				cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
-				m = "Izayaの現在のHPは " + nowhp + " だ。"
-				await client.send_message(message.channel, m)
-			if result == "5":
-				m = "Izaya は、どこかへ逃げてしまった！"
-				await client.send_message(message.channel, m)
-				m = "残念。。当てられなかった.."
-				await client.send_message(message.channel, m)
+				pattern=r'([+-]?[0-9]+\.?[0-9]*)'
+				print(re.findall(pattern,currenthp))
+				currenthp = re.findall(pattern,currenthp)
+				print(currenthp[0])
+				currenthp = int(currenthp[0])
+				if result == "0" or result == "1" or result == "2":
+					m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ"
+					await client.send_message(message.channel, m)
+					m = "Izayaに 5 ダメージを与えた！"
+					await client.send_message(message.channel, m)
+					nowhp = currenthp - int("5")
+					nowhp = str(nowhp)
+					print(nowhp)
+					cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
+					m = "Izayaの現在のHPは " + nowhp + " だ。"
+					await client.send_message(message.channel, m)
+				if result == "3":
+					m = "(´・ω);y==ｰｰｰｰｰ  ・ ・ ・   ｶﾝ∵.  <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ"
+					await client.send_message(message.channel, m)
+					m = "残念。。防がれてしまった。。"
+					await client.send_message(message.channel, m)
+					currenthp = str(currenthp)
+					m = "Izayaの現在のHPは " + currenthp + " だ。"
+					await client.send_message(message.channel, m)
+				if result == "4":
+					m = "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0"
+					await client.send_message(message.channel, m)
+					m = "Izayaに 10 ダメージを与えた！"
+					await client.send_message(message.channel, m)
+					nowhp = currenthp - int("10")
+					nowhp = str(nowhp)
+					print(nowhp)
+					cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
+					m = "Izayaの現在のHPは " + nowhp + " だ。"
+					await client.send_message(message.channel, m)
+				if result == "5":
+					m = "Izaya は、どこかへ逃げてしまった！"
+					await client.send_message(message.channel, m)
+					m = "残念。。当てられなかった.."
+					await client.send_message(message.channel, m)
+					currenthp = str(currenthp)
+					m = "Izayaの現在のHPは " + currenthp + " だ。"
+					await client.send_message(message.channel, m)
+				cursor.execute("SELECT hp FROM hp WHERE id = 1")
+				currenthp = cursor.fetchall()
+				print(currenthp)
 				currenthp = str(currenthp)
-				m = "Izayaの現在のHPは " + currenthp + " だ。"
-				await client.send_message(message.channel, m)
-			cursor.execute("SELECT hp FROM hp WHERE id = 1")
-			currenthp = cursor.fetchall()
-			print(currenthp)
-			currenthp = str(currenthp)
-			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
-			print(re.findall(pattern,currenthp))
-			currenthp = re.findall(pattern,currenthp)
-			print(currenthp[0])
-			currenthp = int(currenthp[0])
-			#define hp
-			MINHP = int("0")
+				pattern=r'([+-]?[0-9]+\.?[0-9]*)'
+				print(re.findall(pattern,currenthp))
+				currenthp = re.findall(pattern,currenthp)
+				print(currenthp[0])
+				currenthp = int(currenthp[0])
+				#define hp
+				MINHP = int("0")
 
 
-			if currenthp <= MINHP:
-				m = "討伐を達成しました"
-				await client.send_message(message.channel, m)
-				m = "クエスト報酬を獲得しました！(未実装)"
-				await client.send_message(message.channel, m)
-				m = ":scroll:上位クエスト:scroll:が解放されました！(スポンサー） \n https://discord.gg/RmRevCV"
-				await client.send_message(message.channel, m)				
-				cursor.execute("UPDATE hp SET hp = 100 WHERE id = 1")
+				if currenthp <= MINHP:
+					m = "討伐を達成しました"
+					await client.send_message(message.channel, m)
+					m = "クエスト報酬を獲得しました！(未実装)"
+					await client.send_message(message.channel, m)
+					m = ":scroll:上位クエスト:scroll:が解放されました！(スポンサー） \n https://discord.gg/RmRevCV"
+					await client.send_message(message.channel, m)				
+					cursor.execute("UPDATE hp SET hp = 100 WHERE id = 1")
 
 		if message.content == "/omikuzi -nomona" or message.content == "/omikuji -nomona":
 			start = time.time()
