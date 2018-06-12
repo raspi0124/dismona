@@ -15,14 +15,7 @@ from decimal import Decimal
 import MySQLdb
 from datetime import datetime
 import mlibs
-from ratelimiter import RateLimiter
-
-def limited(until):
-    duration = int(round(until - time.time()))
-    print('Rate limited, sleeping for {:d} seconds'.format(duration))
-
-rate_limiter = RateLimiter(max_calls=2, period=1, callback=limited)
-
+from discord import commands
 
 def round_down5(value):
 	value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
@@ -106,12 +99,21 @@ async def on_reaction_add(reaction, user):
 		minimumtip = float(minimumtip)
 		if tipamount <= balance:
 			if tipamount >= minimumtip:
-				username = tipby
-				tipamount = float(tipamount) / float(num2)
-				tipamount = str(tipamount)
-				mlibs.tip(tipby, to, tipamount)
-				m = "<@" + tipby + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ")"
-				await client.send_message(reaction.message.channel, m)
+				try:
+					username = tipby
+					tipamount = float(tipamount) / float(num2)
+					tipamount = str(tipamount)
+					cmd2 = "monacoin-cli move " + tipby + " " + tipto + " " + tipamount + ""
+					rut2  =  subprocess.check_output( cmd2.split(" ") )
+					m = "<@" + tipby + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ")"
+					await client.send_message(reaction.message.channel, m)
+					cursor.execute("INSERT INTO tiped (id) VALUES (%s)", (username,))
+					connection.commit()
+					cursor.execute("INSERT INTO tiped (id) VALUES (%s)", (tipto,))
+				except subprocess.CalledProcessError as e:
+					eout = e.output.decode()
+					m = "<@" + tipby + ">, sorry, failed to complete your request: <@" + tipto + "> is not yet registered.\n(message created on " + currenttime + ")"
+					await client.send_message(reaction.message.channel, m)
 			else:
 				m = "<@" + tipby + ">, sorry, failed to complete your request: your tip must meet the minimum of 10 watanabe (0.00000010 Mona).\n(message created on " + currenttime + ")"
 				await client.send_message(reaction.message.channel, m)
@@ -141,13 +143,21 @@ async def on_reaction_add(reaction, user):
 		minimumtip = float(minimumtip)
 		if tipamount <= balance:
 			if tipamount >= minimumtip:
-				username = tipby
-				tipamount = float(tipamount) / float(num2)
-				tipamount = str(tipamount)
-				cmd2 = "monacoin-cli move " + tipby + " " + tipto + " " + tipamount + ""
-				mlibs.tip(tipby, to, tipamount)
-				m = "<@" + tipby + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ")"
-				await client.send_message(reaction.message.channel, m)
+				try:
+					username = tipby
+					tipamount = float(tipamount) / float(num2)
+					tipamount = str(tipamount)
+					cmd2 = "monacoin-cli move " + tipby + " " + tipto + " " + tipamount + ""
+					rut2  =  subprocess.check_output( cmd2.split(" ") )
+					m = "<@" + tipby + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ")"
+					await client.send_message(reaction.message.channel, m)
+					cursor.execute("INSERT INTO tiped (id) VALUES (%s)", (username,))
+					connection.commit()
+					cursor.execute("INSERT INTO tiped (id) VALUES (%s)", (tipto,))
+				except subprocess.CalledProcessError as e:
+					eout = e.output.decode()
+					m = "<@" + tipby + ">, sorry, failed to complete your request: <@" + tipto + "> is not yet registered.\n(message created on " + currenttime + ")"
+					await client.send_message(reaction.message.channel, m)
 			else:
 				m = "<@" + tipby + ">, sorry, failed to complete your request: your tip must meet the minimum of 10 watanabe (0.00000010 Mona).\n(message created on " + currenttime + ")"
 				await client.send_message(reaction.message.channel, m)
@@ -156,6 +166,7 @@ async def on_reaction_add(reaction, user):
 			await client.send_message(reaction.message.channel, m)
 
 @client.event
+@commands.cooldown(1, 5, commands.BucketType.user)
 async def on_message(message):
 	connection = MySQLdb.connect(db='dismona',user='root',passwd='laksjd',charset='utf8mb4')
 	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
@@ -739,7 +750,7 @@ async def on_message(message):
 						m = messeages[result]
 						await client.send_message(message.channel, m)
 
-	
+
 		if message.content == "/shootizaya":
 			def result():
 				kuji = ["0", "1", "2", "3", "4", "5"]
@@ -747,8 +758,7 @@ async def on_message(message):
 				return result
 			separator = '-'
 			result = result()
-			with rate_limiter:
-				cursor.execute("SELECT hp FROM hp WHERE id = 1")
+			cursor.execute("SELECT hp FROM hp WHERE id = 1")
 			currenthp = cursor.fetchall()
 			print(currenthp)
 			currenthp = str(currenthp)
@@ -757,46 +767,45 @@ async def on_message(message):
 			currenthp = re.findall(pattern,currenthp)
 			print(currenthp[0])
 			currenthp = int(currenthp[0])
-			with rate_limiter:
-				if result == "0" or result == "1" or result == "2":
-					m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ"
-					await client.send_message(message.channel, m)
-					m = "Izayaに 5 ダメージを与えた！"
-					await client.send_message(message.channel, m)
-					nowhp = currenthp - int("5")
-					nowhp = str(nowhp)
-					print(nowhp)
-					cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
-					m = "Izayaの現在のHPは " + nowhp + " だ。"
-					await client.send_message(message.channel, m)
-				if result == "3":
-					m = "(´・ω);y==ｰｰｰｰｰ  ・ ・ ・   ｶﾝ∵.  <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ"
-					await client.send_message(message.channel, m)
-					m = "残念。。防がれてしまった。。"
-					await client.send_message(message.channel, m)
-					currenthp = str(currenthp)
-					m = "Izayaの現在のHPは " + currenthp + " だ。"
-					await client.send_message(message.channel, m)
-				if result == "4":
-					m = "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0"
-					await client.send_message(message.channel, m)
-					m = "Izayaに 10 ダメージを与えた！"
-					await client.send_message(message.channel, m)
-					nowhp = currenthp - int("10")
-					nowhp = str(nowhp)
-					print(nowhp)
-					cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
-					m = "Izayaの現在のHPは " + nowhp + " だ。"
-					await client.send_message(message.channel, m)
-				if result == "5":
-					m = "Izaya は、どこかへ逃げてしまった！"
-					await client.send_message(message.channel, m)
-					m = "残念。。当てられなかった.."
-					await client.send_message(message.channel, m)
-					currenthp = str(currenthp)
-					m = "Izayaの現在のHPは " + currenthp + " だ。"
-					await client.send_message(message.channel, m)
-				cursor.execute("SELECT hp FROM hp WHERE id = 1")
+			if result == "0" or result == "1" or result == "2":
+				m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ"
+				await client.send_message(message.channel, m)
+				m = "Izayaに 5 ダメージを与えた！"
+				await client.send_message(message.channel, m)
+				nowhp = currenthp - int("5")
+				nowhp = str(nowhp)
+				print(nowhp)
+				cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
+				m = "Izayaの現在のHPは " + nowhp + " だ。"
+				await client.send_message(message.channel, m)
+			if result == "3":
+				m = "(´・ω);y==ｰｰｰｰｰ  ・ ・ ・   ｶﾝ∵.  <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ"
+				await client.send_message(message.channel, m)
+				m = "残念。。防がれてしまった。。"
+				await client.send_message(message.channel, m)
+				currenthp = str(currenthp)
+				m = "Izayaの現在のHPは " + currenthp + " だ。"
+				await client.send_message(message.channel, m)
+			if result == "4":
+				m = "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0"
+				await client.send_message(message.channel, m)
+				m = "Izayaに 10 ダメージを与えた！"
+				await client.send_message(message.channel, m)
+				nowhp = currenthp - int("10")
+				nowhp = str(nowhp)
+				print(nowhp)
+				cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
+				m = "Izayaの現在のHPは " + nowhp + " だ。"
+				await client.send_message(message.channel, m)
+			if result == "5":
+				m = "Izaya は、どこかへ逃げてしまった！"
+				await client.send_message(message.channel, m)
+				m = "残念。。当てられなかった.."
+				await client.send_message(message.channel, m)
+				currenthp = str(currenthp)
+				m = "Izayaの現在のHPは " + currenthp + " だ。"
+				await client.send_message(message.channel, m)
+			cursor.execute("SELECT hp FROM hp WHERE id = 1")
 			currenthp = cursor.fetchall()
 			print(currenthp)
 			currenthp = str(currenthp)
@@ -815,7 +824,7 @@ async def on_message(message):
 				m = "クエスト報酬を獲得しました！(未実装)"
 				await client.send_message(message.channel, m)
 				m = ":scroll:上位クエスト:scroll:が解放されました！(スポンサー） \n https://discord.gg/RmRevCV"
-				await client.send_message(message.channel, m)				
+				await client.send_message(message.channel, m)
 				cursor.execute("UPDATE hp SET hp = 100 WHERE id = 1")
 
 		if message.content == "/omikuzi -nomona" or message.content == "/omikuji -nomona":
