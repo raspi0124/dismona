@@ -618,9 +618,7 @@ async def on_message(message):
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			start = time.time()
 			if message.author.id == "326091178984603669":
-				cmd = 'mysql -uroot -plaksjd dismona -e"drop table shooted;"'
-				ruta  =  subprocess.check_output( cmd.split(" ") )
-				cmd = 'mysql -uroot -plaksjd dismona  -e"create table shooted (id varchar(100))"'
+				cmd = 'sh dismona-rmshoot.sh'
 				ruta  =  subprocess.check_output( cmd.split(" ") )
 				print(ruta)
 				m = "True"
