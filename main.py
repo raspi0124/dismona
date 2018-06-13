@@ -494,12 +494,11 @@ async def on_message(message):
 				re3 = float("0.2")
 				re1 = float("0.01")
 				if tipamount >= re1:
+                    m = "ありがとうございます！あなたのshootizayaの弾数を全弾復活させました！"
+                    await client.send_message(message.channel, m)
 					cursor.execute("DELETE FROM shooted WHERE id = " + userid + "")
 					cursor.execute("DELETE FROM shooted2 WHERE id = " + userid + "")
 					cursor.execute("DELETE FROM shooted3 WHERE id = " + userid + "")
-
-					m = "ありがとうございます！あなたのshootizayaの弾数を全弾復活させました！"
-                    await client.send_message(message.channel, m)
 
 		if message.content.startswith("/admin info"):
 			start = time.time()
