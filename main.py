@@ -1380,24 +1380,6 @@ async def on_message(message):
 			response = requests.post('https://wallet.monaparty.me/_api', headers=headers, data=data, auth=('rpc', 'hello'))
 			print(response)
 			print(response.text)
-			responsetxt = str(response.text)
-			responsejson = response.json()
-			responseresult = responsejson['result']
-			responseresult = str(responseresult)
-			responseresult = responseresult.replace('[', '')
-			responseresult = responseresult.replace(']', '')
-			responseresult = responseresult.replace("'", '"')
-			responseresult = responseresult.replace("False", 'false')
-			responseresult = responseresult.replace("True", 'true')
-			print(responseresult)
-			responseresult = json.dumps(responseresult)
-			responseresult =  json.loads(responseresult, parse_float=Decimal)
-
-			print(responseresult)
-			assetname = responseresult['asset']
-			if assetname.startswith("A"):
-				assetname = responsejson['asset_longname']
-
 			responseresult = str(responseresult)
 
 			#print(assetname)
