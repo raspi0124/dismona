@@ -798,179 +798,166 @@ async def on_message(message):
 			shooted3 = shooted3.split(',')
 			shooted3 = str(shooted3)
 			print(shooted3)
-			if message.author.id == "326091178984603669":
 				#Izaya鯖かそれ以外化で表示等を分ける。なお最初はIzaya鯖でないときの処理、次がIzaya鯖の時の処理
-				if message.server.id != "392277276470804480":
-					def result():
-						kuji = ["0", "1", "2", "3", "4", "5"]
-						result = random.choice(kuji)
-						return result
-					separator = '-'
-					result = result()
-					with rate_limiter:
-						cursor.execute("SELECT hp FROM hp WHERE id = 1")
-					currenthp = cursor.fetchall()
-					print(currenthp)
-					currenthp = str(currenthp)
-					pattern=r'([+-]?[0-9]+\.?[0-9]*)'
-					print(re.findall(pattern,currenthp))
-					currenthp = re.findall(pattern,currenthp)
-					print(currenthp[0])
-					currenthp = int(currenthp[0])
-					with rate_limiter:
-						if userid not in shooted3:
-							if result == "0" or result == "1" or result == "2":
-								nowhp = currenthp - int("5")
-								nowhp = str(nowhp)
-								print(nowhp)
-								m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
-								await client.send_message(message.channel, m)
-								cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
-							if result == "3":
-								currenthp = str(currenthp)
-								m = "(´・ω);y==ｰｰｰｰｰ  ・ ・ ・   ｶﾝ∵.  <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ\n残念。。防がれてしまった。。\nIzayaの現在のHPは " + currenthp + " だ。"
-								await client.send_message(message.channel, m)
-							if result == "4":
-								nowhp = currenthp - int("10")
-								nowhp = str(nowhp)
-								print(nowhp)
-								m = "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0\nIzayaに 10 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
-								await client.send_message(message.channel, m)
-								cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
-							if result == "5":
-								currenthp = str(currenthp)
-								m = "Izaya は、どこかへ逃げてしまった！\n残念。。当てられなかった..\nIzayaの現在のHPは " + currenthp + " だ。"
-								await client.send_message(message.channel, m)
-							mlibs.tip("izaya", userid, "0.00000001")
-							m = "攻撃報酬 1 watanabeを送りました!！\nこれからも討伐協力よろしくお願いします！"
+			if message.server.id != "392277276470804480":
+				def result():
+					kuji = ["0", "1", "2", "3", "4", "5"]
+					result = random.choice(kuji)
+					return result
+				separator = '-'
+				result = result()
+				with rate_limiter:
+					cursor.execute("SELECT hp FROM hp WHERE id = 1")
+				currenthp = cursor.fetchall()
+				print(currenthp)
+				currenthp = str(currenthp)
+				pattern=r'([+-]?[0-9]+\.?[0-9]*)'
+				print(re.findall(pattern,currenthp))
+				currenthp = re.findall(pattern,currenthp)
+				print(currenthp[0])
+				currenthp = int(currenthp[0])
+				with rate_limiter:
+					if userid not in shooted3:
+						if result == "0" or result == "1" or result == "2":
+							nowhp = currenthp - int("5")
+							nowhp = str(nowhp)
+							print(nowhp)
+							m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
 							await client.send_message(message.channel, m)
-							cursor.execute("SELECT hp FROM hp WHERE id = 1")
-							currenthp = cursor.fetchall()
-							print(currenthp)
+							cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
+						if result == "3":
 							currenthp = str(currenthp)
-							pattern=r'([+-]?[0-9]+\.?[0-9]*)'
-							print(re.findall(pattern,currenthp))
-							currenthp = re.findall(pattern,currenthp)
-							print(currenthp[0])
-							currenthp = int(currenthp[0])
-							#define hp
-							MINHP = int("0")
-
-
-
-							if currenthp <= MINHP:
-								m = "討伐を達成しました\nクエスト報酬を獲得しました！(100watanabe)"
-								await client.send_message(message.channel, m)
-								mlibs.tip("izaya", userid, "0.00000100")
-								m = ":scroll:上位クエスト:scroll:が解放されました！(スポンサー） \n https://discord.gg/RmRevCV"
-								await client.send_message(message.channel, m)
-								cursor.execute("UPDATE hp SET hp = 100 WHERE id = 1")
-							if userid not in shooted2 and userid in shooted and userid not in shooted3:
-								m = "あなたはあと１回shootizayaを使うことができます！"
-								await client.send_message(message.channel, m)
-								cursor.execute("INSERT INTO shooted2 (id) VALUES (%s)", (userid,))
-							if userid not in shooted:
-								m = "あなたはあと２回shootizayaを実行できます！"
-								await client.send_message(message.channel, m)
-								cursor.execute("INSERT INTO shooted (id) VALUES (%s)", (userid,))
-							if userid in shooted2:
-								m = "あなたはあと0回shootizayaを実行できます！"
-								await client.send_message(message.channel, m)
-								cursor.execute("INSERT INTO shooted3 (id) VALUES (%s)", (userid,))
-						elif userid in shooted3:
-							m = "1日3回しか実行できません。"
+							m = "(´・ω);y==ｰｰｰｰｰ  ・ ・ ・   ｶﾝ∵.  <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ\n残念。。防がれてしまった。。\nIzayaの現在のHPは " + currenthp + " だ。"
 							await client.send_message(message.channel, m)
-				else:
-					cursor.execute('SELECT * FROM shooted')
-					shooted = cursor.fetchall()
-					shooted = str(shooted)
-					shooted = shooted.replace('(', '')
-					shooted = shooted.replace(')', '')
-					shooted = shooted.replace("b'", '')
-					shooted = shooted.replace("'", '')
-					shooted = shooted.replace(",,", ',')
-					shooted = shooted.replace("[", '')
-					shooted = shooted.replace("]", '')
-					shooted = shooted.split(',')
-					shooted = str(shooted)
-					print(shooted)
-					def result():
-						kuji = ["0", "1", "2", "3", "4", "5"]
-						result = random.choice(kuji)
-						return result
-					separator = '-'
-					result = result()
-					with rate_limiter:
-						cursor.execute("SELECT hp FROM hp WHERE id = 1")
-					currenthp = cursor.fetchall()
-					print(currenthp)
-					currenthp = str(currenthp)
-					pattern=r'([+-]?[0-9]+\.?[0-9]*)'
-					print(re.findall(pattern,currenthp))
-					currenthp = re.findall(pattern,currenthp)
-					print(currenthp[0])
-					currenthp = int(currenthp[0])
-					with rate_limiter:
-						if userid not in shooted3:
-							if result == "0" or result == "1" or result == "2":
-								nowhp = currenthp - int("5")
-								nowhp = str(nowhp)
-								print(nowhp)
-								m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
-								await client.send_message(message.channel, m)
-								cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
-							if result == "3":
-								currenthp = str(currenthp)
-								m = "(´・ω);y==ｰｰｰｰｰ  ・ ・ ・   ｶﾝ∵.  <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ\n残念。。防がれてしまった。。\nIzayaの現在のHPは " + currenthp + " だ。"
-								await client.send_message(message.channel, m)
-							if result == "4":
-								nowhp = currenthp - int("10")
-								nowhp = str(nowhp)
-								print(nowhp)
-								m = "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0\nIzayaに 10 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
-								await client.send_message(message.channel, m)
-								cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
-							if result == "5":
-								currenthp = str(currenthp)
-								m = "Izaya は、どこかへ逃げてしまった！\n残念。。当てられなかった..\nIzayaの現在のHPは " + currenthp + " だ。"
-								await client.send_message(message.channel, m)
-							mlibs.tip("izaya", userid, "0.00000002")
-							m = "攻撃報酬 2 watanabeを送りました!！\nこれからも討伐協力よろしくお願いします！"
+						if result == "4":
+							nowhp = currenthp - int("10")
+							nowhp = str(nowhp)
+							print(nowhp)
+							m = "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0\nIzayaに 10 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
 							await client.send_message(message.channel, m)
-
-							cursor.execute("SELECT hp FROM hp WHERE id = 1")
-							currenthp = cursor.fetchall()
-							print(currenthp)
+							cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
+						if result == "5":
 							currenthp = str(currenthp)
-							pattern=r'([+-]?[0-9]+\.?[0-9]*)'
-							print(re.findall(pattern,currenthp))
-							currenthp = re.findall(pattern,currenthp)
-							print(currenthp[0])
-							currenthp = int(currenthp[0])
-							#define hp
-							MINHP = int("0")
+							m = "Izaya は、どこかへ逃げてしまった！\n残念。。当てられなかった..\nIzayaの現在のHPは " + currenthp + " だ。"
+							await client.send_message(message.channel, m)
+						mlibs.tip("izaya", userid, "0.00000001")
+						m = "攻撃報酬 1 watanabeを送りました!！\nこれからも討伐協力よろしくお願いします！"
+						await client.send_message(message.channel, m)
+						cursor.execute("SELECT hp FROM hp WHERE id = 1")
+						currenthp = cursor.fetchall()
+						print(currenthp)
+						currenthp = str(currenthp)
+						pattern=r'([+-]?[0-9]+\.?[0-9]*)'
+						print(re.findall(pattern,currenthp))
+						currenthp = re.findall(pattern,currenthp)
+						print(currenthp[0])
+						currenthp = int(currenthp[0])
+						#define hp
+						MINHP = int("0")
+
+
+
+						if currenthp <= MINHP:
+							m = "討伐を達成しました\nクエスト報酬を獲得しました！(100watanabe)"
+							await client.send_message(message.channel, m)
+							mlibs.tip("izaya", userid, "0.00000100")
+							m = ":scroll:上位クエスト:scroll:が解放されました！(スポンサー） \n https://discord.gg/RmRevCV"
+							await client.send_message(message.channel, m)
+							cursor.execute("UPDATE hp SET hp = 100 WHERE id = 1")
+						if userid not in shooted2 and userid in shooted and userid not in shooted3:
+							m = "あなたはあと１回shootizayaを使うことができます！"
+							await client.send_message(message.channel, m)
+							cursor.execute("INSERT INTO shooted2 (id) VALUES (%s)", (userid,))
+						if userid not in shooted:
+							m = "あなたはあと２回shootizayaを実行できます！"
+							await client.send_message(message.channel, m)
 							cursor.execute("INSERT INTO shooted (id) VALUES (%s)", (userid,))
-
-
-							if currenthp <= MINHP:
-								m = "討伐を達成しました\nクエスト報酬を獲得しました! (100watanabe)"
-								await client.send_message(message.channel, m)
-								mlibs.tip("izaya", userid, "0.00000200")
-								m = ":scroll:上位クエスト:scroll:が解放されました！(スポンサー） \n https://discord.gg/RmRevCV"
-								await client.send_message(message.channel, m)
-								cursor.execute("UPDATE hp SET hp = 100 WHERE id = 1")
-							if userid in shooted2:
-								m = "あなたはあと１回shootizayaを使うことができます！"
-								await client.send_message(message.channel, m)
-							if userid in shooted and userid not in shooted2:
-								m = "あなたはあと２回shootizayaを実行できます！"
-								await client.send_message(message.channel, m)
-						else:
-							m = "1日3回しか実行できません。"
+						if userid in shooted2:
+							m = "あなたはあと0回shootizayaを実行できます！"
 							await client.send_message(message.channel, m)
+							cursor.execute("INSERT INTO shooted3 (id) VALUES (%s)", (userid,))
+					elif userid in shooted3:
+						m = "1日3回しか実行できません。"
+						await client.send_message(message.channel, m)
 			else:
-				m = "不測の事態が発生しないようにraspi0124の睡眠中及び対応できない時間はshootizayaは停止されています。"
-				await client.send_message(message.channel, m)
+				def result():
+					kuji = ["0", "1", "2", "3", "4", "5"]
+					result = random.choice(kuji)
+					return result
+				separator = '-'
+				result = result()
+				with rate_limiter:
+					cursor.execute("SELECT hp FROM hp WHERE id = 1")
+				currenthp = cursor.fetchall()
+				print(currenthp)
+				currenthp = str(currenthp)
+				pattern=r'([+-]?[0-9]+\.?[0-9]*)'
+				print(re.findall(pattern,currenthp))
+				currenthp = re.findall(pattern,currenthp)
+				print(currenthp[0])
+				currenthp = int(currenthp[0])
+				with rate_limiter:
+					if userid not in shooted3:
+						if result == "0" or result == "1" or result == "2":
+							nowhp = currenthp - int("5")
+							nowhp = str(nowhp)
+							print(nowhp)
+							m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
+							await client.send_message(message.channel, m)
+							cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
+						if result == "3":
+							currenthp = str(currenthp)
+							m = "(´・ω);y==ｰｰｰｰｰ  ・ ・ ・   ｶﾝ∵.  <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ\n残念。。防がれてしまった。。\nIzayaの現在のHPは " + currenthp + " だ。"
+							await client.send_message(message.channel, m)
+						if result == "4":
+							nowhp = currenthp - int("10")
+							nowhp = str(nowhp)
+							print(nowhp)
+							m = "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0\nIzayaに 10 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
+							await client.send_message(message.channel, m)
+							cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
+						if result == "5":
+							currenthp = str(currenthp)
+							m = "Izaya は、どこかへ逃げてしまった！\n残念。。当てられなかった..\nIzayaの現在のHPは " + currenthp + " だ。"
+							await client.send_message(message.channel, m)
+						mlibs.tip("izaya", userid, "0.00000002")
+						m = "攻撃報酬 2 watanabeを送りました!！\nこれからも討伐協力よろしくお願いします！"
+						await client.send_message(message.channel, m)
+
+						cursor.execute("SELECT hp FROM hp WHERE id = 1")
+						currenthp = cursor.fetchall()
+						print(currenthp)
+						currenthp = str(currenthp)
+						pattern=r'([+-]?[0-9]+\.?[0-9]*)'
+						print(re.findall(pattern,currenthp))
+						currenthp = re.findall(pattern,currenthp)
+						print(currenthp[0])
+						currenthp = int(currenthp[0])
+						#define hp
+						MINHP = int("0")
+
+						if currenthp <= MINHP:
+							m = "討伐を達成しました\nクエスト報酬を獲得しました! (100watanabe)"
+							await client.send_message(message.channel, m)
+							mlibs.tip("izaya", userid, "0.00000200")
+							m = ":scroll:上位クエスト:scroll:が解放されました！(スポンサー） \n https://discord.gg/RmRevCV"
+							await client.send_message(message.channel, m)
+							cursor.execute("UPDATE hp SET hp = 100 WHERE id = 1")
+						if userid not in shooted2 and userid in shooted and userid not in shooted3:
+							m = "あなたはあと１回shootizayaを使うことができます！"
+							await client.send_message(message.channel, m)
+							cursor.execute("INSERT INTO shooted2 (id) VALUES (%s)", (userid,))
+						if userid not in shooted:
+							m = "あなたはあと２回shootizayaを実行できます！"
+							await client.send_message(message.channel, m)
+							cursor.execute("INSERT INTO shooted (id) VALUES (%s)", (userid,))
+						if userid in shooted2:
+							m = "あなたはあと0回shootizayaを実行できます！"
+							await client.send_message(message.channel, m)
+							cursor.execute("INSERT INTO shooted3 (id) VALUES (%s)", (userid,))
+					else:
+						m = "1日3回しか実行できません。"
+						await client.send_message(message.channel, m)
 		if message.content == "/omikuzi -nomona" or message.content == "/omikuji -nomona":
 			start = time.time()
 			username = message.author.id
