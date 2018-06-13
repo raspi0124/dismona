@@ -1380,6 +1380,17 @@ async def on_message(message):
 			response = requests.post('https://wallet.monaparty.me/_api', headers=headers, data=data, auth=('rpc', 'hello'))
 			print(response)
 			print(response.text)
+			responsetxt = str(response.text)
+			responsejson = response.json()
+			responseresult = responsejson['result']
+			responseresult = str(responseresult)
+            splitresult = responseresult.split("},")
+            print(len(splitresult))
+            print(splitresult)
+
+
+			print(responseresult)
+
 			responseresult = str(responseresult)
 
 			#print(assetname)
