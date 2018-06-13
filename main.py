@@ -1388,6 +1388,8 @@ async def on_message(message):
 			print(len(splitresult))
 			print("--splitresult--")
 			print(splitresult)
+			print(splitresult[0])
+			print(splitresult[1])
 
 
 			print(responseresult)
