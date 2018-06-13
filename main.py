@@ -488,6 +488,12 @@ async def on_message(message):
 			if "e_s" in tip_detail:
 				m = "<@" + message.author.id + "> , You cannnot tip yourself."
 			await client.send_message(message.channel, m)
+			tipto = str(tipto)
+			tipamount = float(tipamount)
+			if tipto = "326091178984603669":
+				if tipamount => float("0.1"):
+					m = "ありがとうございます！あなたのshootizayaの弾数をリセットしました！"
+					await client.send_message(message.channel, m)
 		if message.content.startswith("/admin info"):
 			start = time.time()
 			cmda = "monacoin-cli walletpassphrase 0124 10"
