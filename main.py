@@ -873,6 +873,10 @@ async def on_message(message):
 								m = "あなたはあと２回shootizayaを実行できます！"
 								await client.send_message(message.channel, m)
 								cursor.execute("INSERT INTO shooted (id) VALUES (%s)", (userid,))
+							if userid in shooted2:
+								m = "あなたはあと0回shootizayaを実行できます！"
+								await client.send_message(message.channel, m)
+								cursor.execute("INSERT INTO shooted3 (id) VALUES (%s)", (userid,))
 						elif userid in shooted3:
 							m = "1日3回しか実行できません。"
 							await client.send_message(message.channel, m)
