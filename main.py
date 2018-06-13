@@ -490,11 +490,13 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 			tipto = str(tipto)
 			tipamount = float(tipamount)
-			if tipto == "326091178984603669":
+			if tipto == "326091178984603669" and "200" in tip_detail:
 				minimumgettip = float("0.1")
 				if tipamount >= minimumgettip:
+					cursor.execute("DELETE FROM shooted WHERE id = " + userid + "")
 					m = "ありがとうございます！あなたのshootizayaの弾数をリセットしました！"
 					await client.send_message(message.channel, m)
+
 		if message.content.startswith("/admin info"):
 			start = time.time()
 			cmda = "monacoin-cli walletpassphrase 0124 10"
