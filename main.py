@@ -499,7 +499,7 @@ async def on_message(message):
 					cursor.execute("DELETE FROM shooted3 WHERE id = " + userid + "")
 					m = "ありがとうございます！あなたのshootizayaの弾数を全弾復活させました！"
 
-		if message.content.star tswith("/admin info"):
+		if message.content.startswith("/admin info"):
 			start = time.time()
 			cmda = "monacoin-cli walletpassphrase 0124 10"
 			ruta  =  subprocess.check_output( cmda.split(" ") )
