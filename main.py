@@ -832,6 +832,7 @@ async def on_message(message):
 							mlibs.tip("izaya", userid, "0.00000001")
 							m = "攻撃報酬 1 watanabeを送りました!！\nこれからも討伐協力よろしくお願いします！"
 							await client.send_message(message.channel, m)
+							cursor.execute("INSERT INTO shooted (id) VALUES (%s)", (userid,))
 							cursor.execute("SELECT hp FROM hp WHERE id = 1")
 							currenthp = cursor.fetchall()
 							print(currenthp)
@@ -860,7 +861,7 @@ async def on_message(message):
 							if userid in shooted and userid not in shooted2:
 								m = "あなたはあと２回shootizayaを実行できます！"
 								await client.send_message(message.channel, m)
-								cursor.execute("INSERT INTO shooted (id) VALUES (%s)", (userid,))
+								cursor.execute("INSERT INTO shooted2 (id) VALUES (%s)", (userid,))
 						else:
 							m = "1日3回しか実行できません。"
 							await client.send_message(message.channel, m)
