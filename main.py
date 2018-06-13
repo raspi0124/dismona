@@ -492,12 +492,8 @@ async def on_message(message):
 			tipamount = float(tipamount)
 			if tipto == "326091178984603669" and "200" in tip_detail:
 				re3 = float("0.2")
-				re1 = float("0.1")
+				re1 = float("0.01")
 				if tipamount >= re1:
-					cursor.execute("DELETE FROM shooted3 WHERE id = " + userid + "")
-					m = "ありがとうございます！あなたのshootizayaの弾数を1弾復活しました！"
-					await client.send_message(message.channel, m)
-				if tipamount >= re3:
 					cursor.execute("DELETE FROM shooted WHERE id = " + userid + "")
 					cursor.execute("DELETE FROM shooted2 WHERE id = " + userid + "")
 					cursor.execute("DELETE FROM shooted3 WHERE id = " + userid + "")
