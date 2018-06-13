@@ -1367,14 +1367,14 @@ async def on_message(message):
 				'Accept': 'application/json, text/javascript',
 			}
 			data = '{\
-  			"jsonrpc":"2.0",\
-  			"id":0,\
-  			"method":"get_normalized_balances",\
-  			"params":{\
-    		"addresses":[\
-      		' + addresses + '\
-    		]\
-  			}\
+			"jsonrpc":"2.0",\
+			"id":0,\
+			"method":"get_normalized_balances",\
+			"params":{\
+			"addresses":[\
+			' + addresses + '\
+			]\
+			}\
 			}'
 			print(data)
 			response = requests.post('https://wallet.monaparty.me/_api', headers=headers, data=data, auth=('rpc', 'hello'))
@@ -1384,9 +1384,9 @@ async def on_message(message):
 			responsejson = response.json()
 			responseresult = responsejson['result']
 			responseresult = str(responseresult)
-            splitresult = responseresult.split("},")
-            print(len(splitresult))
-            print(splitresult)
+			splitresult = responseresult.split("},")
+			print(len(splitresult))
+			print(splitresult)
 
 
 			print(responseresult)
