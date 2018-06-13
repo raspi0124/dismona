@@ -805,6 +805,8 @@ async def on_message(message):
 					currenthp = int(currenthp[0])
 					with rate_limiter:
 						if userid not in shooted3:
+							if userid in shooted2:
+								cursor.execute("INSERT INTO shooted3 (id) VALUES (%s)", (userid,))
 							if result == "0" or result == "1" or result == "2":
 								nowhp = currenthp - int("5")
 								nowhp = str(nowhp)
@@ -841,7 +843,6 @@ async def on_message(message):
 							currenthp = int(currenthp[0])
 							#define hp
 							MINHP = int("0")
-							cursor.execute("INSERT INTO shooted (id) VALUES (%s)", (userid,))
 
 
 
@@ -855,12 +856,15 @@ async def on_message(message):
 							if userid in shooted2:
 								m = "あなたはあと１回shootizayaを使うことができます！"
 								await client.send_message(message.channel, m)
+								cursor.execute("INSERT INTO shooted2 (id) VALUES (%s)", (userid,))
 							if userid in shooted and userid not in shooted2:
 								m = "あなたはあと２回shootizayaを実行できます！"
 								await client.send_message(message.channel, m)
+								cursor.execute("INSERT INTO shooted (id) VALUES (%s)", (userid,))
 						else:
 							m = "1日3回しか実行できません。"
 							await client.send_message(message.channel, m)
+							cursor.execute("INSERT INTO shooted3 (id) VALUES (%s)", (userid,))
 				else:
 					cursor.execute('SELECT * FROM shooted')
 					shooted = cursor.fetchall()
