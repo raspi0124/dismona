@@ -745,22 +745,48 @@ async def on_message(message):
 
 
 		if message.content == "/shootizaya":
+			cursor.execute('SELECT * FROM shooted')
+			shooted = cursor.fetchall()
+			shooted = str(shooted)
+			shooted = shooted.replace('(', '')
+			shooted = shooted.replace(')', '')
+			shooted = shooted.replace("b'", '')
+			shooted = shooted.replace("'", '')
+			shooted = shooted.replace(",,", ',')
+			shooted = shooted.replace("[", '')
+			shooted = shooted.replace("]", '')
+			shooted = shooted.split(',')
+			shooted = str(shooted)
+			print(shooted)
+			cursor.execute('SELECT * FROM shooted2')
+			shooted2 = cursor.fetchall()
+			shooted2 = str(shooted2)
+			shooted2 = shooted2.replace('(', '')
+			shooted2 = shooted2.replace(')', '')
+			shooted2 = shooted2.replace("b'", '')
+			shooted2 = shooted2.replace("'", '')
+			shooted2 = shooted2.replace(",,", ',')
+			shooted2 = shooted2.replace("[", '')
+			shooted2 = shooted2.replace("]", '')
+			shooted2 = shooted2.split(',')
+			shooted2 = str(shooted2)
+			print(shooted2)
+			cursor.execute('SELECT * FROM shooted3')
+			shooted3 = cursor.fetchall()
+			shooted3 = str(shooted3)
+			shooted3 = shooted3.replace('(', '')
+			shooted3 = shooted3.replace(')', '')
+			shooted3 = shooted3.replace("b'", '')
+			shooted3 = shooted3.replace("'", '')
+			shooted3 = shooted3.replace(",,", ',')
+			shooted3 = shooted3.replace("[", '')
+			shooted3 = shooted3.replace("]", '')
+			shooted3 = shooted3.split(',')
+			shooted3 = str(shooted3)
+			print(shooted3)
 			if message.author.id == "326091178984603669":
 				#Izaya鯖かそれ以外化で表示等を分ける。なお最初はIzaya鯖でないときの処理、次がIzaya鯖の時の処理
 				if message.server.id != "392277276470804480":
-					cursor.execute('SELECT * FROM shooted')
-					shooted = cursor.fetchall()
-					shooted = str(shooted)
-					shooted = shooted.replace('(', '')
-					shooted = shooted.replace(')', '')
-					shooted = shooted.replace("b'", '')
-					shooted = shooted.replace("'", '')
-					shooted = shooted.replace(",,", ',')
-					shooted = shooted.replace("[", '')
-					shooted = shooted.replace("]", '')
-					shooted = shooted.split(',')
-					shooted = str(shooted)
-					print(shooted)
 					def result():
 						kuji = ["0", "1", "2", "3", "4", "5"]
 						result = random.choice(kuji)
@@ -778,7 +804,7 @@ async def on_message(message):
 					print(currenthp[0])
 					currenthp = int(currenthp[0])
 					with rate_limiter:
-						if userid not in shooted:
+						if userid not in shooted3:
 							if result == "0" or result == "1" or result == "2":
 								nowhp = currenthp - int("5")
 								nowhp = str(nowhp)
@@ -801,6 +827,9 @@ async def on_message(message):
 								currenthp = str(currenthp)
 								m = "Izaya は、どこかへ逃げてしまった！\n残念。。当てられなかった..\nIzayaの現在のHPは " + currenthp + " だ。"
 								await client.send_message(message.channel, m)
+							mlibs.tip("izaya", userid, "0.00000001")
+							m = "攻撃報酬 1 watanabeを送りました!！\nこれからも討伐協力よろしくお願いします！"
+							await client.send_message(message.channel, m)
 							cursor.execute("SELECT hp FROM hp WHERE id = 1")
 							currenthp = cursor.fetchall()
 							print(currenthp)
@@ -817,13 +846,20 @@ async def on_message(message):
 
 
 							if currenthp <= MINHP:
-								m = "討伐を達成しました\nクエスト報酬を獲得しました！(未実装)"
+								m = "討伐を達成しました\nクエスト報酬を獲得しました！(100watanabe)"
 								await client.send_message(message.channel, m)
+								mlibs.tip("izaya", userid, "0.00000100")
 								m = ":scroll:上位クエスト:scroll:が解放されました！(スポンサー） \n https://discord.gg/RmRevCV"
 								await client.send_message(message.channel, m)
 								cursor.execute("UPDATE hp SET hp = 100 WHERE id = 1")
+							if userid in shooted2:
+								m = "あなたはあと１回shootizayaを使うことができます！"
+								await client.send_message(message.channel, m)
+							if userid in shooted and userid not in shooted2:
+								m = "あなたはあと２回shootizayaを実行できます！"
+								await client.send_message(message.channel, m)
 						else:
-							m = "1日1回しか実行できません。"
+							m = "1日3回しか実行できません。"
 							await client.send_message(message.channel, m)
 				else:
 					cursor.execute('SELECT * FROM shooted')
@@ -856,7 +892,7 @@ async def on_message(message):
 					print(currenthp[0])
 					currenthp = int(currenthp[0])
 					with rate_limiter:
-						if userid not in shooted:
+						if userid not in shooted3:
 							if result == "0" or result == "1" or result == "2":
 								nowhp = currenthp - int("5")
 								nowhp = str(nowhp)
@@ -879,6 +915,10 @@ async def on_message(message):
 								currenthp = str(currenthp)
 								m = "Izaya は、どこかへ逃げてしまった！\n残念。。当てられなかった..\nIzayaの現在のHPは " + currenthp + " だ。"
 								await client.send_message(message.channel, m)
+							mlibs.tip("izaya", userid, "0.00000002")
+							m = "攻撃報酬 2 watanabeを送りました!！\nこれからも討伐協力よろしくお願いします！"
+							await client.send_message(message.channel, m)
+
 							cursor.execute("SELECT hp FROM hp WHERE id = 1")
 							currenthp = cursor.fetchall()
 							print(currenthp)
@@ -894,13 +934,20 @@ async def on_message(message):
 
 
 							if currenthp <= MINHP:
-								m = "討伐を達成しました\nクエスト報酬を獲得しました！(未実装)"
+								m = "討伐を達成しました\nクエスト報酬を獲得しました! (100watanabe)"
 								await client.send_message(message.channel, m)
+								mlibs.tip("izaya", userid, "0.00000200")
 								m = ":scroll:上位クエスト:scroll:が解放されました！(スポンサー） \n https://discord.gg/RmRevCV"
 								await client.send_message(message.channel, m)
 								cursor.execute("UPDATE hp SET hp = 100 WHERE id = 1")
+							if userid in shooted2:
+								m = "あなたはあと１回shootizayaを使うことができます！"
+								await client.send_message(message.channel, m)
+							if userid in shooted and userid not in shooted2:
+								m = "あなたはあと２回shootizayaを実行できます！"
+								await client.send_message(message.channel, m)
 						else:
-							m = "1日１回しか実行できません。"
+							m = "1日3回しか実行できません。"
 							await client.send_message(message.channel, m)
 			else:
 				m = "不測の事態が発生しないようにraspi0124の睡眠中及び対応できない時間はshootizayaは停止されています。"
