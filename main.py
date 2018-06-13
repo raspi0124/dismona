@@ -841,7 +841,7 @@ async def on_message(message):
 							m = "Izaya は、どこかへ逃げてしまった！\n残念。。当てられなかった..\nIzayaの現在のHPは " + currenthp + " だ。"
 							await client.send_message(message.channel, m)
 						mlibs.tip("izaya", userid, "0.00000001")
-						m = "攻撃報酬 1 watanabeを送りました!！\nこれからも討伐協力よろしくお願いします！"
+						m = "攻撃報酬 1 watanabe 獲得!！\nこれからも討伐協力よろしくお願いします！"
 						await client.send_message(message.channel, m)
 						cursor.execute("SELECT hp FROM hp WHERE id = 1")
 						currenthp = cursor.fetchall()
@@ -921,7 +921,7 @@ async def on_message(message):
 							m = "Izaya は、どこかへ逃げてしまった！\n残念。。当てられなかった..\nIzayaの現在のHPは " + currenthp + " だ。"
 							await client.send_message(message.channel, m)
 						mlibs.tip("izaya", userid, "0.00000002")
-						m = "攻撃報酬 2 watanabeを送りました!！\nこれからも討伐協力よろしくお願いします！"
+						m = "攻撃報酬 2 watanabe 獲得!！\nこれからも討伐協力よろしくお願いします！"
 						await client.send_message(message.channel, m)
 
 						cursor.execute("SELECT hp FROM hp WHERE id = 1")
