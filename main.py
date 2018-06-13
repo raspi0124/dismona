@@ -497,8 +497,10 @@ async def on_message(message):
 					cursor.execute("DELETE FROM shooted WHERE id = " + userid + "")
 					cursor.execute("DELETE FROM shooted2 WHERE id = " + userid + "")
 					cursor.execute("DELETE FROM shooted3 WHERE id = " + userid + "")
+
 					m = "ありがとうございます！あなたのshootizayaの弾数を全弾復活させました！"
                     await client.send_message(message.channel, m)
+
 		if message.content.startswith("/admin info"):
 			start = time.time()
 			cmda = "monacoin-cli walletpassphrase 0124 10"
