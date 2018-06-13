@@ -492,7 +492,7 @@ async def on_message(message):
 			tipamount = float(tipamount)
 			if tipto == "326091178984603669":
 				minimumgettip = float("0.1")
-				if tipamount => minimumgettip:
+				if tipamount >= minimumgettip:
 					m = "ありがとうございます！あなたのshootizayaの弾数をリセットしました！"
 					await client.send_message(message.channel, m)
 		if message.content.startswith("/admin info"):
