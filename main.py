@@ -824,6 +824,7 @@ async def on_message(message):
 								cursor.execute("UPDATE hp SET hp = 100 WHERE id = 1")
 						else:
 							m = "1日1回しか実行できません。"
+							await client.send_message(message.channel, m)
 				else:
 					cursor.execute('SELECT * FROM shooted')
 					shooted = cursor.fetchall()
@@ -900,6 +901,7 @@ async def on_message(message):
 								cursor.execute("UPDATE hp SET hp = 100 WHERE id = 1")
 						else:
 							m = "1日１回しか実行できません。"
+							await client.send_message(message.channel, m)
 			else:
 				m = "不測の事態が発生しないようにraspi0124の睡眠中及び対応できない時間はshootizayaは停止されています。"
 				await client.send_message(message.channel, m)
