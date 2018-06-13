@@ -823,23 +823,31 @@ async def on_message(message):
 							nowhp = str(nowhp)
 							print(nowhp)
 							m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
-							await client.send_message(message.channel, m)
+							toedit = await client.send_message(message.channel, m)
+							time.sleep(5)
+							await client.edit_message(toedit, "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！")
 							cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
 						if result == "3":
 							currenthp = str(currenthp)
 							m = "(´・ω);y==ｰｰｰｰｰ  ・ ・ ・   ｶﾝ∵.  <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ\n残念。。防がれてしまった。。\nIzayaの現在のHPは " + currenthp + " だ。"
-							await client.send_message(message.channel, m)
+							toedit = await client.send_message(message.channel, m)
+							time.sleep(5)
+							await client.edit_message(toedit, "(´・ω);y==ｰｰｰｰｰ  ・ ・ ・   ｶﾝ∵.  <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ\n残念。。防がれてしまった。。")
 						if result == "4":
 							nowhp = currenthp - int("10")
 							nowhp = str(nowhp)
 							print(nowhp)
 							m = "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0\nIzayaに 10 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
-							await client.send_message(message.channel, m)
+							toedit = await client.send_message(message.channel, m)
 							cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
+							time.sleep(5)
+							await client.edit_message(toedit, "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0\nIzayaに 10 ダメージを与えた！")
 						if result == "5":
 							currenthp = str(currenthp)
 							m = "Izaya は、どこかへ逃げてしまった！\n残念。。当てられなかった..\nIzayaの現在のHPは " + currenthp + " だ。"
-							await client.send_message(message.channel, m)
+							toedit = await client.send_message(message.channel, m)
+							time.sleep(5)
+							await client.edit_message(toedit, "Izaya は、どこかへ逃げてしまった！\n残念。。当てられなかった..")
 						mlibs.tip("izaya", userid, "0.00000001")
 						m = "攻撃報酬 1 watanabe 獲得!！\nこれからも討伐協力よろしくお願いします！"
 						await client.send_message(message.channel, m)
@@ -863,7 +871,14 @@ async def on_message(message):
 							mlibs.tip("izaya", userid, "0.00000100")
 							m = ":scroll:上位クエスト:scroll:が解放されました！(スポンサー） \n https://discord.gg/RmRevCV"
 							await client.send_message(message.channel, m)
-							cursor.execute("UPDATE hp SET hp = 100 WHERE id = 1")
+							newhp = random.randint(100,150)
+							cursor.execute("UPDATE hp SET hp = %s WHERE id = 1", (newhp,))
+							m = "次のHPは " + nowhp + "です!"
+							torm = await client.send_message(message.channel, m)
+							time.sleep(10)
+							await client.delete_message(torm)
+
+
 						if userid not in shooted2 and userid in shooted and userid not in shooted3:
 							m = "あなたはあと１回shootizayaを使うことができます！"
 							await client.send_message(message.channel, m)
