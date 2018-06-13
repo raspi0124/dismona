@@ -1386,6 +1386,7 @@ async def on_message(message):
 			responseresult = str(responseresult)
 			splitresult = responseresult.split("},")
 			print(len(splitresult))
+			print("--splitresult--")
 			print(splitresult)
 
 
@@ -1395,8 +1396,6 @@ async def on_message(message):
 
 			#print(assetname)
 			m = "response:" + responseresult + ""
-			await client.send_message(message.channel, m)
-			m = "asset: " + assetname + ""
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/mp deposit"):
 			await client.add_reaction(message, '👌')
