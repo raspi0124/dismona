@@ -865,7 +865,7 @@ async def on_message(message):
 								m = ":scroll:上位クエスト:scroll:が解放されました！(スポンサー） \n https://discord.gg/RmRevCV"
 								await client.send_message(message.channel, m)
 								cursor.execute("UPDATE hp SET hp = 100 WHERE id = 1")
-							if userid in shooted:
+							if userid not in shooted2 and userid in shooted and userid not in shooted3:
 								m = "あなたはあと１回shootizayaを使うことができます！"
 								await client.send_message(message.channel, m)
 								cursor.execute("INSERT INTO shooted2 (id) VALUES (%s)", (userid,))
