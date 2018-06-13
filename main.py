@@ -490,7 +490,7 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 			tipto = str(tipto)
 			tipamount = float(tipamount)
-			if tipto = "326091178984603669":
+			if tipto == "326091178984603669":
 				if tipamount => float("0.1"):
 					m = "ありがとうございます！あなたのshootizayaの弾数をリセットしました！"
 					await client.send_message(message.channel, m)
