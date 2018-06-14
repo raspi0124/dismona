@@ -1,5 +1,6 @@
 import sqlite3
 import MySQLdb
+import re
 
 mconnection = MySQLdb.connect(
    host='localhost', user='root', passwd='laksjd', db='dismona', charset='utf8')
