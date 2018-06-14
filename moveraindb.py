@@ -14,3 +14,9 @@ rainall = str(rainall)
 pattern=r'([+]?[0-9]+\.?[0-9]*)'
 rainall = re.findall(pattern,rainall)
 print(rainall)
+
+for x in printall:
+	mcursor.execute("INSERT INTO rainregistered(rainid) VALUES (%s)", (x,))
+	print(x)
+mconnection.commit()
+mconnection.close()
