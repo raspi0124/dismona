@@ -398,7 +398,6 @@ async def on_message(message):
 			cursor.execute('SELECT * FROM rainregistered ORDER BY rainid')
 			# 全件取得は cursor.fetchall()
 			rainall = cursor.fetchall()
-			rainall = mlibs.fixselect(rainall)
 			print(rainall)
 			rainall = str(rainall)
 			pattern=r'([+]?[0-9]+\.?[0-9]*)'
