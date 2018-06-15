@@ -132,7 +132,7 @@ async def on_message(message):
 			baned = baned.replace("]", '')
 			baned = baned.split(',')
 			baned = str(baned)
-			if message.author.id not in banned:
+			if message.author.id not in baned:
 				#Izaya鯖かそれ以外化で表示等を分ける。なお最初はIzaya鯖でないときの処理、次がIzaya鯖の時の処理
 				if message.server.id != "392277276470804480":
 					def result():
