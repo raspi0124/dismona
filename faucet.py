@@ -325,7 +325,7 @@ async def on_message(message):
 				cursor.execute("SELECT reason FROM baned WHERE bandid = %s", (userid,) )
 				banreason = cursor.fetchall()
 				banreason = reason[0]
-				m = "<@" message.author.id "> あなたは <@" + banfromid + "> によって以下の理由でBANされています。 " + banreason + " "
+				m = "<@" + message.author.id  + "> あなたは <@" + banfromid + "> によって以下の理由でBANされています。 " + banreason + " "
 				await client.send_message(message.channel, m)
 
 		if message.content == "/omikuzi -nomona" or message.content == "/omikuji -nomona":
