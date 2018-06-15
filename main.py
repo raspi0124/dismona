@@ -834,9 +834,9 @@ async def on_message(message):
 							print(nowhp)
 							m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
 							toedit = await client.send_message(message.channel, m)
+							cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
 							time.sleep(5)
 							await client.edit_message(toedit, "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！")
-							cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
 						if result == "3":
 							currenthp = str(currenthp)
 							m = "(´・ω);y==ｰｰｰｰｰ  ・ ・ ・   ｶﾝ∵.  <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ\n残念。。防がれてしまった。。\nIzayaの現在のHPは " + currenthp + " だ。"
@@ -929,9 +929,9 @@ async def on_message(message):
 							print(nowhp)
 							m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
 							toedit = await client.send_message(message.channel, m)
+							cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
 							time.sleep(5)
 							await client.edit_message(toedit, "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！")
-							cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
 						if result == "3":
 							currenthp = str(currenthp)
 							m = "(´・ω);y==ｰｰｰｰｰ  ・ ・ ・   ｶﾝ∵.  <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ\n残念。。防がれてしまった。。\nIzayaの現在のHPは " + currenthp + " だ。"
