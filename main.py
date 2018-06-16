@@ -892,7 +892,7 @@ async def on_message(message):
 			print("")
 			print(splitresult[1])
 			print("------------------")
-
+			print(len(splitresult))
 			print(responseresult)
 
 			responseresult = str(responseresult)
