@@ -889,6 +889,7 @@ async def on_message(message):
 			print(splitresult)
 			print("--sepratedresult--")
 			print(splitresult[0])
+			print("")
 			print(splitresult[1])
 			print("------------------")
 
