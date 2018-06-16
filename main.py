@@ -623,6 +623,8 @@ async def on_message(message):
 			else:
 				m = "sorry, but you are not arrowed to do that!"
 				await client.send_message(message.channel, m)
+		if message.content == "/makemenew":
+			m = "Sure, Lets me make your account newer!"
 		if message.content.startswith("/image"):
 			await client.add_reaction(message, '👌')
 			with open('../image.png', 'rb') as f:
@@ -888,7 +890,7 @@ async def on_message(message):
 			print("--sepratedresult--")
 			print(splitresult[0])
 			print(splitresult[1])
-
+			print("------------------")
 
 			print(responseresult)
 
