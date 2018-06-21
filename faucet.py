@@ -536,7 +536,7 @@ async def on_message(message):
 								print(resultnumber)
 								addamount = "1"
 								resultnumber = int(resultnumber)
-								resultword = kuji[resultnumber]ve
+								resultword = kuji[resultnumber]
 								resultgive = float(resultnumber) + float(addamount)
 								resultgive = int(resultgi)
 								print("resultgive")
