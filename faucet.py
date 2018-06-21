@@ -538,13 +538,15 @@ async def on_message(message):
 								resultnumber = int(resultnumber)
 								resultword = kuji[resultnumber]
 								resultgive = float(resultnumber) + float(addamount)
-								resultgive = int(resultgi)
+								resultgive = int(resultgive)
 								print("resultgive")
 								print(resultgive)
-								resultp = str(resultgive)
+								resultgive = str(resultgive)
 								resultgive = int(resultgive)
 								resultgive = str(resultgive)
 								resultnumber = str(resultnumber)
+								#以下のif列のresultの書き換えがめんどくさかったからここで処理
+								result = resultnumber
 								a = "a"
 								if a == a:
 									if result == "0":
@@ -577,21 +579,23 @@ async def on_message(message):
 									result = random.choice(kuji)
 									return result
 								kuji = ["凶", "小吉", "中吉", "大吉", "超大吉"]
-								result = omikuji()
-								print("result")
-								print(result)
-								result = int(result)
-								print("resulta")
-								print(result)
-								resultp = kuji[result]
-								print("resultp")
-								print(resultp)
-								resultp = str(resultp)
-								resulta = float(result) + float("3")
-								resulta = int(resulta)
-								resulta = str(resulta)
-								result = str(result)
-								if result == "0":
+								resultnumber = omikuji()
+								print("resultnumber")
+								print(resultnumber)
+								result = int(resultnumber)
+								print("resultnumber")
+								print(resultnumber)
+								resultword = kuji[result]
+								print("resultword")
+								print(resultword)
+								resultword = str(resultword)
+								resultgive = float(resultnumber) + float("3")
+								resultgive = int(resultgive)
+								resultgive = str(resultgive)
+								resultnumber = str(resultnumber)
+								#以下のif列のresultの書き換えがめんどくさかったからここで処理
+								result = resultnumber
+								if resultnumber == "0":
 									with open('/root/dismona/kyou.png', 'rb') as f:
 										await client.send_file(message.channel, f)
 								if result == "1":
