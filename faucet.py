@@ -324,8 +324,10 @@ async def on_message(message):
 			print("gived")
 			print(gived)
 			gived = str(gived)
+			print("1")
 			cursor.execute('SELECT banedid FROM baned')
 			baned = cursor.fetchall()
+			print("2")
 			cursor.execute('SELECT * FROM tiped')
 			tiped = cursor.fetchall()
 			tiped = list(tiped)
@@ -341,6 +343,7 @@ async def on_message(message):
 			tiped = str(tiped)
 			pattern = r'([0-9]+\.%s[0-9]*)'
 			tiped = re.findall(pattern,tiped)
+			print("3")
 			print("banned")
 			print(baned)
 			print("tiped")
@@ -517,7 +520,7 @@ async def on_message(message):
 			loved = str(loved)
 			balance = float(balance)
 			minlimit = float(minlimit)
-
+			print("3")
 			if username not in gived:
 				if balance > minlimit:
 					if username not in baned:
@@ -528,20 +531,20 @@ async def on_message(message):
 									result = random.choice(kuji)
 									return result
 								kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
-								result = omikuji()
-								print("result")
-								print(result)
+								resultnumber = omikuji()
+								print("resultnumber")
+								print(resultnumber)
 								addamount = "1"
-								result = int(result)
-								resultp = kuji[result]
-								result2 = float(result) + float(addamount)
-								result2 = int(result2)
-								print("resultp")
-								print(resultp)
-								resultp = str(resultp)
-								result2 = int(result2)
-								result2 = str(result2)
-								result = str(result)
+								resultnumber = int(resultnumber)
+								resultword = kuji[resultnumber]ve
+								resultgive = float(resultnumber) + float(addamount)
+								resultgive = int(resultgi)
+								print("resultgive")
+								print(resultgive)
+								resultp = str(resultgive)
+								resultgive = int(resultgive)
+								resultgive = str(resultgive)
+								resultnumber = str(resultnumber)
 								a = "a"
 								if a == a:
 									if result == "0":
@@ -565,7 +568,7 @@ async def on_message(message):
 								username = str(username)
 								print("INSERT INTO gived (id) VALUES (" + username + ")")
 								cursor.execute("INSERT INTO gived (id) VALUES (" + username + ")")
-								m = "/tip <@" + username + "> 0.0000" + result2 + " おみくじtipです！貴方の今日の運勢は" + resultp + "です!次挑戦できるのは日本時間で明日です！ . exectime: " + elapsed_time + " sec"
+								m = "/tip <@" + username + "> 0.0000" + resultgive + " おみくじtipです！貴方の今日の運勢は" + resultword + "です!次挑戦できるのは日本時間で明日です！ . exectime: " + elapsed_time + " sec"
 								await client.send_message(message.channel, m)
 								connection.commit()
 							else:
