@@ -623,10 +623,10 @@ async def on_message(message):
 								if result == "0":
 									m = "あなたの運勢…凶みたいだから、今日はそばにいてあげるんだからねっ！今日だけだからねっ"
 								else:
-									m = "<@" + userid +">ダーリン、あなたの今日の運勢は" + resultword + "らしいですわよ。!\n0.000" + resultgive + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。"
+									m = "<@" + userid +">ダーリン、あなたの今日の運勢は" + resultgive + "らしいですわよ。!\n0.000" + resultgive + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。"
 								await client.send_message(message.channel, m)
 								cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username,))
-								m = "/tip <@" + username + "> 0.000" + resulta + ""
+								m = "/tip <@" + username + "> 0.000" + resultnumber + ""
 								await client.send_message(message.channel, m)
 								connection.commit()
 						else:
