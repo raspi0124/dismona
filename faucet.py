@@ -178,14 +178,14 @@ async def on_message(message):
 									time.sleep(10)
 									await client.delete_message(torm)
 
-
-								if nowremainshootedtimes == "1":
+								#if remainshootedtimes == "1"の手法だとなぜか動かなかったのでinを使用。
+								if "1" in remainshootedtimes:
 									m = "あなたはあと１回shootizayaを使うことができます！"
 									await client.send_message(message.channel, m)
-								if nowremainshootedtimes == "2":
+								if "2" in remainshootedtimes:
 									m = "あなたはあと２回shootizayaを実行できます！"
 									await client.send_message(message.channel, m)
-								if nowremainshootedtimes == "0":
+								if "0" in remainshootedtimes:
 									m = "あなたはあと0回shootizayaを実行できます！"
 									await client.send_message(message.channel, m)
 								print("--nowremainshootedtimes--")
