@@ -190,7 +190,7 @@ async def on_message(message):
 									m = "あなたはあと２回shootizayaを実行できます！"
 									await client.send_message(message.channel, m)
 									cursor.execute("INSERT INTO shooted (id) VALUES (%s)", (userid,))
-								if nowremainshootedtimes == "0"
+								if nowremainshootedtimes == "0":
 									m = "あなたはあと0回shootizayaを実行できます！"
 									await client.send_message(message.channel, m)
 									cursor.execute("INSERT INTO shooted3 (id) VALUES (%s)", (userid,))
