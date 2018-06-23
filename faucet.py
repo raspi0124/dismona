@@ -78,6 +78,7 @@ async def on_message(message):
 				cursor.execute("SELECT times FROM shooted WHERE id = %s", (userid,))
 				remainshootedtimes = cursor.fetchall()
 				print(remainshootedtimes)
+				remainshootedtimes = str(remainshootedtimes)
 				pattern = r'([+-]?[0-9]+\.?[0-9]*)'
 				tmp = re.findall(pattern,remainshootedtimes)
 				remainshootedtimes = tmp[0]
