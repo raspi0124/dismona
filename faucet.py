@@ -76,9 +76,16 @@ async def on_message(message):
 
 		if message.content == "/shootizaya":
 			if message.author.id == "326091178984603669":
+				cursor.execute("SELECT * from shooted")
+				isadded = cursor.fetchall()
+				INTTIMES = "3"
+				if userid not in isadded:
+					cursor.execute("INSERT INTO shooted (userid, times) VALUES (%s, %s)" (userid, INTTIMES))
+					connection.commit()
+				else:
+					pass
 				cursor.execute("SELECT times FROM shooted WHERE id = %s", (userid,))
 				shooted = cursor.fetchone()
-
 				print(shooted)
 				cursor.execute('SELECT banedid FROM baned')
 				baned = cursor.fetchall()
