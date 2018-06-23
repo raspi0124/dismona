@@ -118,7 +118,7 @@ async def on_message(message):
 						print(currenthp[0])
 						currenthp = int(currenthp[0])
 						with rate_limiter:
-							if userid not in shooted:
+							if remainshootedtimes > "0" :
 								if result == "0" or result == "1" or result == "2":
 									nowhp = currenthp - int("5")
 									nowhp = str(nowhp)
@@ -163,7 +163,7 @@ async def on_message(message):
 								currenthp = int(currenthp[0])
 								#define hp
 								MINHP = int("0")
-								nowremainshootedtimes = int(remainshoottimes) - int("1")
+								nowremainshootedtimes = int(remainshootedtimes) - int("1")
 								cursor.execute("UPDATE shooted SET times = %s WHERE id = %s", (nowremainshootedtimes, userid))
 
 
@@ -194,7 +194,7 @@ async def on_message(message):
 									m = "あなたはあと0回shootizayaを実行できます！"
 									await client.send_message(message.channel, m)
 									cursor.execute("INSERT INTO shooted3 (id) VALUES (%s)", (userid,))
-							elif userid in shooted3:
+							elif remainshootedtimes <= "0":
 								m = "1日3回しか実行できません。"
 								await client.send_message(message.channel, m)
 					else:
@@ -215,15 +215,14 @@ async def on_message(message):
 						print(currenthp[0])
 						currenthp = int(currenthp[0])
 						with rate_limiter:
-							if userid not in shooted3:
+							if remainshootedtimes > "0" :
 								if result == "0" or result == "1" or result == "2":
 									nowhp = currenthp - int("5")
 									nowhp = str(nowhp)
 									print(nowhp)
 									m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
 									toedit = await client.send_message(message.channel, m)
-									with rate_limiter:
-										cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
+									cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
 									time.sleep(5)
 									await client.edit_message(toedit, "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！")
 								if result == "3":
@@ -238,8 +237,7 @@ async def on_message(message):
 									print(nowhp)
 									m = "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0\nIzayaに 10 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
 									toedit = await client.send_message(message.channel, m)
-									with rate_limiter:
-										cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
+									cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
 									time.sleep(5)
 									await client.edit_message(toedit, "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0\nIzayaに 10 ダメージを与えた！")
 								if result == "5":
@@ -251,7 +249,6 @@ async def on_message(message):
 								mlibs.tip("izaya", userid, "0.00000002")
 								m = "攻撃報酬 2 watanabe 獲得!！\nこれからも討伐協力よろしくお願いします！"
 								await client.send_message(message.channel, m)
-
 								cursor.execute("SELECT hp FROM hp WHERE id = 1")
 								currenthp = cursor.fetchall()
 								print(currenthp)
@@ -263,27 +260,38 @@ async def on_message(message):
 								currenthp = int(currenthp[0])
 								#define hp
 								MINHP = int("0")
+								nowremainshootedtimes = int(remainshootedtimes) - int("1")
+								cursor.execute("UPDATE shooted SET times = %s WHERE id = %s", (nowremainshootedtimes, userid))
+
+
 
 								if currenthp <= MINHP:
-									m = "討伐を達成しました\nクエスト報酬を獲得しました! (100watanabe)"
+									m = "討伐を達成しました\nクエスト報酬を獲得しました！(200watanabe)"
 									await client.send_message(message.channel, m)
 									mlibs.tip("izaya", userid, "0.00000200")
 									m = ":scroll:上位クエスト:scroll:が解放されました！(スポンサー） \n https://discord.gg/RmRevCV"
 									await client.send_message(message.channel, m)
-									cursor.execute("UPDATE hp SET hp = 100 WHERE id = 1")
-								if userid not in shooted2 and userid in shooted and userid not in shooted3:
+									newhp = random.randint(100,150)
+									cursor.execute("UPDATE hp SET hp = %s WHERE id = 1", (newhp,))
+									m = "次のHPは " + nowhp + "です!"
+									torm = await client.send_message(message.channel, m)
+									time.sleep(10)
+									await client.delete_message(torm)
+
+
+								if nowremainshootedtimes == "1":
 									m = "あなたはあと１回shootizayaを使うことができます！"
 									await client.send_message(message.channel, m)
 									cursor.execute("INSERT INTO shooted2 (id) VALUES (%s)", (userid,))
-								if userid not in shooted:
+								if nowremainshootedtimes == "2":
 									m = "あなたはあと２回shootizayaを実行できます！"
 									await client.send_message(message.channel, m)
 									cursor.execute("INSERT INTO shooted (id) VALUES (%s)", (userid,))
-								if userid in shooted2:
+								if nowremainshootedtimes == "0":
 									m = "あなたはあと0回shootizayaを実行できます！"
 									await client.send_message(message.channel, m)
 									cursor.execute("INSERT INTO shooted3 (id) VALUES (%s)", (userid,))
-							else:
+							elif remainshootedtimes <= "0":
 								m = "1日3回しか実行できません。"
 								await client.send_message(message.channel, m)
 				else:
