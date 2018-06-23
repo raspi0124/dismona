@@ -80,7 +80,7 @@ async def on_message(message):
 				isadded = cursor.fetchall()
 				INTTIMES = "3"
 				if userid not in isadded:
-					cursor.execute("INSERT INTO shooted (userid, times) VALUES (%s, %s)" (userid, INTTIMES))
+					cursor.execute("INSERT INTO shooted (userid, times) VALUES (%s, %s)", (userid, INTTIMES))
 					connection.commit()
 				else:
 					pass
