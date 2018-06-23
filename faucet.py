@@ -178,11 +178,11 @@ async def on_message(message):
 									await client.delete_message(torm)
 
 
-								if userid not in shooted2 and userid in shooted and userid not in shooted3:
+								if nowremainshootedtimes == "1":
 									m = "あなたはあと１回shootizayaを使うことができます！"
 									await client.send_message(message.channel, m)
 									cursor.execute("INSERT INTO shooted2 (id) VALUES (%s)", (userid,))
-								if userid not in shooted:
+								if nowremainshootedtimes == "2":
 									m = "あなたはあと２回shootizayaを実行できます！"
 									await client.send_message(message.channel, m)
 									cursor.execute("INSERT INTO shooted (id) VALUES (%s)", (userid,))
@@ -210,6 +210,7 @@ async def on_message(message):
 						currenthp = re.findall(pattern,currenthp)
 						print(currenthp[0])
 						currenthp = int(currenthp[0])
+						remainshootedtimes = str(remainshootedtimes)
 						with rate_limiter:
 							if remainshootedtimes > "0" :
 								if result == "0" or result == "1" or result == "2":
@@ -257,6 +258,7 @@ async def on_message(message):
 								#define hp
 								MINHP = int("0")
 								nowremainshootedtimes = int(remainshootedtimes) - int("1")
+								nowremainshootedtimes = str(nowremainshootedtimes)
 								cursor.execute("UPDATE shooted SET times = %s WHERE id = %s", (nowremainshootedtimes, userid))
 
 
