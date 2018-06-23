@@ -159,6 +159,7 @@ async def on_message(message):
 								currenthp = int(currenthp[0])
 								#define hp
 								MINHP = int("0")
+
 								nowremainshootedtimes = int(remainshootedtimes) - int("1")
 								cursor.execute("UPDATE shooted SET times = %s WHERE id = %s", (nowremainshootedtimes, userid))
 
@@ -172,7 +173,7 @@ async def on_message(message):
 									await client.send_message(message.channel, m)
 									newhp = random.randint(100,150)
 									cursor.execute("UPDATE hp SET hp = %s WHERE id = 1", (newhp,))
-									m = "次のHPは " + nowhp + "です!"
+									m = "次のHPは " + newhp + "です!"
 									torm = await client.send_message(message.channel, m)
 									time.sleep(10)
 									await client.delete_message(torm)
@@ -181,15 +182,12 @@ async def on_message(message):
 								if nowremainshootedtimes == "1":
 									m = "あなたはあと１回shootizayaを使うことができます！"
 									await client.send_message(message.channel, m)
-									cursor.execute("INSERT INTO shooted2 (id) VALUES (%s)", (userid,))
 								if nowremainshootedtimes == "2":
 									m = "あなたはあと２回shootizayaを実行できます！"
 									await client.send_message(message.channel, m)
-									cursor.execute("INSERT INTO shooted (id) VALUES (%s)", (userid,))
 								if nowremainshootedtimes == "0":
 									m = "あなたはあと0回shootizayaを実行できます！"
 									await client.send_message(message.channel, m)
-									cursor.execute("INSERT INTO shooted3 (id) VALUES (%s)", (userid,))
 							elif remainshootedtimes <= "0":
 								m = "1日3回しか実行できません。"
 								await client.send_message(message.channel, m)
@@ -271,7 +269,7 @@ async def on_message(message):
 									await client.send_message(message.channel, m)
 									newhp = random.randint(100,150)
 									cursor.execute("UPDATE hp SET hp = %s WHERE id = 1", (newhp,))
-									m = "次のHPは " + nowhp + "です!"
+									m = "次のHPは " + newhp + "です!"
 									torm = await client.send_message(message.channel, m)
 									time.sleep(10)
 									await client.delete_message(torm)
@@ -280,15 +278,14 @@ async def on_message(message):
 								if nowremainshootedtimes == "1":
 									m = "あなたはあと１回shootizayaを使うことができます！"
 									await client.send_message(message.channel, m)
-									cursor.execute("INSERT INTO shooted2 (id) VALUES (%s)", (userid,))
 								if nowremainshootedtimes == "2":
 									m = "あなたはあと２回shootizayaを実行できます！"
 									await client.send_message(message.channel, m)
-									cursor.execute("INSERT INTO shooted (id) VALUES (%s)", (userid,))
 								if nowremainshootedtimes == "0":
 									m = "あなたはあと0回shootizayaを実行できます！"
 									await client.send_message(message.channel, m)
-									cursor.execute("INSERT INTO shooted3 (id) VALUES (%s)", (userid,))
+								print("--nowremainshootedtimes--")
+								print(nowremainshootedtimes)
 							elif remainshootedtimes <= "0":
 								m = "1日3回しか実行できません。"
 								await client.send_message(message.channel, m)
