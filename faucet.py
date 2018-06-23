@@ -75,6 +75,7 @@ async def on_message(message):
 		# 「/register」で始まるか調べる
 
 		if message.content == "/shootizaya":
+			print("shootizaya executed")
 			if message.author.id == "326091178984603669":
 				cursor.execute("SELECT * from shooted")
 				isadded = cursor.fetchall()
@@ -82,11 +83,9 @@ async def on_message(message):
 				if userid not in isadded:
 					cursor.execute("INSERT INTO shooted (id, times) VALUES (%s, %s)", (userid, INTTIMES))
 					connection.commit()
-				else:
-					pass
 				cursor.execute("SELECT times FROM shooted WHERE id = %s", (userid,))
-				shooted = cursor.fetchone()
-				print(shooted)
+				remainshootedtimes = cursor.fetchone()
+				print(remainshootedtimes)
 				cursor.execute('SELECT banedid FROM baned')
 				baned = cursor.fetchall()
 				baned = str(baned)
@@ -164,6 +163,8 @@ async def on_message(message):
 								currenthp = int(currenthp[0])
 								#define hp
 								MINHP = int("0")
+								nowremainshootedtimes = int(remainshoottimes) - int("1")
+								cursor.execute("UPDATE shooted SET times = %s WHERE id = %s", (nowremainshootedtimes, userid))
 
 
 
@@ -189,7 +190,7 @@ async def on_message(message):
 									m = "あなたはあと２回shootizayaを実行できます！"
 									await client.send_message(message.channel, m)
 									cursor.execute("INSERT INTO shooted (id) VALUES (%s)", (userid,))
-								if userid in shooted2:
+								if nowremainshootedtimes == "0"
 									m = "あなたはあと0回shootizayaを実行できます！"
 									await client.send_message(message.channel, m)
 									cursor.execute("INSERT INTO shooted3 (id) VALUES (%s)", (userid,))
