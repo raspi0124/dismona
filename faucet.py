@@ -188,6 +188,8 @@ async def on_message(message):
 								if nowremainshootedtimes == "0":
 									m = "あなたはあと0回shootizayaを実行できます！"
 									await client.send_message(message.channel, m)
+								print("--nowremainshootedtimes--")
+								print(nowremainshootedtimes)
 							elif remainshootedtimes <= "0":
 								m = "1日3回しか実行できません。"
 								await client.send_message(message.channel, m)
