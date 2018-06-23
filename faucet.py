@@ -1,12 +1,4 @@
 #!/usr/bin/python3
-# coding: utf-8
-import sys
-import io
-
-sys.stdin = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
-sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
-
 import discord
 import subprocess
 import re
@@ -84,8 +76,11 @@ async def on_message(message):
 					cursor.execute("INSERT INTO shooted (id, times) VALUES (%s, %s)", (userid, INTTIMES))
 					connection.commit()
 				cursor.execute("SELECT times FROM shooted WHERE id = %s", (userid,))
-				remainshootedtimes = cursor.fetchone()
+				remainshootedtimes = cursor.fetchall()
 				print(remainshootedtimes)
+				pattern = r'([+-]?[0-9]+\.?[0-9]*)'
+				tmp = re.findall(pattern,remainshootedtimes)
+				remainshootedtimes = tmp[0]
 				cursor.execute('SELECT banedid FROM baned')
 				baned = cursor.fetchall()
 				baned = str(baned)
