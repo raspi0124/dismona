@@ -72,8 +72,10 @@ async def on_message(message):
 			isadded = cursor.fetchall()
 			INTTIMES = "3"
 			if userid not in isadded:
+				print("1")
 				cursor.execute("INSERT INTO shooted (id, times) VALUES (%s, %s)", (userid, INTTIMES))
 				connection.commit()
+			print("2")
 			cursor.execute("SELECT times FROM shooted WHERE id = %s", (userid,))
 			remainshootedtimes = cursor.fetchall()
 			print(remainshootedtimes)
@@ -81,6 +83,7 @@ async def on_message(message):
 			pattern = r'([+-]?[0-9]+\.?[0-9]*)'
 			tmp = re.findall(pattern,remainshootedtimes)
 			remainshootedtimes = tmp[0]
+			print("3")
 			cursor.execute('SELECT banedid FROM baned')
 			baned = cursor.fetchall()
 			baned = str(baned)
@@ -103,6 +106,7 @@ async def on_message(message):
 					separator = '-'
 					result = result()
 					with rate_limiter:
+						print("4")
 						cursor.execute("SELECT hp FROM hp WHERE id = 1")
 					currenthp = cursor.fetchall()
 					print(currenthp)
@@ -120,6 +124,7 @@ async def on_message(message):
 								print(nowhp)
 								m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
 								toedit = await client.send_message(message.channel, m)
+								print("5")
 								cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
 								time.sleep(5)
 								await client.edit_message(toedit, "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！")
@@ -135,6 +140,7 @@ async def on_message(message):
 								print(nowhp)
 								m = "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0\nIzayaに 10 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
 								toedit = await client.send_message(message.channel, m)
+								print("6")
 								cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
 								time.sleep(5)
 								await client.edit_message(toedit, "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0\nIzayaに 10 ダメージを与えた！")
@@ -147,6 +153,7 @@ async def on_message(message):
 							mlibs.tip("izaya", userid, "0.00000001")
 							m = "攻撃報酬 1 watanabe 獲得!！\nこれからも討伐協力よろしくお願いします！"
 							await client.send_message(message.channel, m)
+							print("7")
 							cursor.execute("SELECT hp FROM hp WHERE id = 1")
 							currenthp = cursor.fetchall()
 							print(currenthp)
@@ -160,6 +167,7 @@ async def on_message(message):
 							MINHP = int("0")
 
 							nowremainshootedtimes = int(remainshootedtimes) - int("1")
+							print("8")
 							cursor.execute("UPDATE shooted SET times = %s WHERE id = %s", (nowremainshootedtimes, userid))
 
 
@@ -171,6 +179,7 @@ async def on_message(message):
 								m = ":scroll:上位クエスト:scroll:が解放されました！(スポンサー） \n https://discord.gg/RmRevCV"
 								await client.send_message(message.channel, m)
 								newhp = random.randint(100,150)
+								print("9")
 								cursor.execute("UPDATE hp SET hp = %s WHERE id = 1", (newhp,))
 								m = "次のHPは " + newhp + "です!"
 								torm = await client.send_message(message.channel, m)
@@ -200,6 +209,7 @@ async def on_message(message):
 					separator = '-'
 					result = result()
 					with rate_limiter:
+						print("4")
 						cursor.execute("SELECT hp FROM hp WHERE id = 1")
 					currenthp = cursor.fetchall()
 					print(currenthp)
@@ -209,7 +219,6 @@ async def on_message(message):
 					currenthp = re.findall(pattern,currenthp)
 					print(currenthp[0])
 					currenthp = int(currenthp[0])
-					remainshootedtimes = str(remainshootedtimes)
 					with rate_limiter:
 						if remainshootedtimes > "0" :
 							if result == "0" or result == "1" or result == "2":
@@ -218,6 +227,7 @@ async def on_message(message):
 								print(nowhp)
 								m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
 								toedit = await client.send_message(message.channel, m)
+								print("5")
 								cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
 								time.sleep(5)
 								await client.edit_message(toedit, "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！")
@@ -233,6 +243,7 @@ async def on_message(message):
 								print(nowhp)
 								m = "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0\nIzayaに 10 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
 								toedit = await client.send_message(message.channel, m)
+								print("6")
 								cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
 								time.sleep(5)
 								await client.edit_message(toedit, "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0\nIzayaに 10 ダメージを与えた！")
@@ -245,6 +256,7 @@ async def on_message(message):
 							mlibs.tip("izaya", userid, "0.00000002")
 							m = "攻撃報酬 2 watanabe 獲得!！\nこれからも討伐協力よろしくお願いします！"
 							await client.send_message(message.channel, m)
+							print("7")
 							cursor.execute("SELECT hp FROM hp WHERE id = 1")
 							currenthp = cursor.fetchall()
 							print(currenthp)
@@ -256,8 +268,9 @@ async def on_message(message):
 							currenthp = int(currenthp[0])
 							#define hp
 							MINHP = int("0")
+
 							nowremainshootedtimes = int(remainshootedtimes) - int("1")
-							nowremainshootedtimes = str(nowremainshootedtimes)
+							print("8")
 							cursor.execute("UPDATE shooted SET times = %s WHERE id = %s", (nowremainshootedtimes, userid))
 
 
@@ -269,20 +282,21 @@ async def on_message(message):
 								m = ":scroll:上位クエスト:scroll:が解放されました！(スポンサー） \n https://discord.gg/RmRevCV"
 								await client.send_message(message.channel, m)
 								newhp = random.randint(100,150)
+								print("9")
 								cursor.execute("UPDATE hp SET hp = %s WHERE id = 1", (newhp,))
 								m = "次のHPは " + newhp + "です!"
 								torm = await client.send_message(message.channel, m)
 								time.sleep(10)
 								await client.delete_message(torm)
 
-
-							if nowremainshootedtimes == "1":
+							#if remainshootedtimes == "1"の手法だとなぜか動かなかったのでinを使用。
+							if "1" in remainshootedtimes:
 								m = "あなたはあと１回shootizayaを使うことができます！"
 								await client.send_message(message.channel, m)
-							if nowremainshootedtimes == "2":
+							if "2" in remainshootedtimes:
 								m = "あなたはあと２回shootizayaを実行できます！"
 								await client.send_message(message.channel, m)
-							if nowremainshootedtimes == "0":
+							if "0" in remainshootedtimes:
 								m = "あなたはあと0回shootizayaを実行できます！"
 								await client.send_message(message.channel, m)
 							print("--nowremainshootedtimes--")
