@@ -40,7 +40,7 @@ print("0101")
 connection = MySQLdb.connect(
    host='localhost', user='root', passwd='laksjd', db='dismona', charset='utf8')
 cursor = connection.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS dismona.id (id VARCHAR(20), address VARCHAR(50));")
+#cursor.execute("CREATE TABLE IF NOT EXISTS dismona.id (id VARCHAR(20), address VARCHAR(50));")
 @client.event
 @commands.cooldown(1, 5, BucketType.user)
 async def on_message(message):
@@ -108,7 +108,7 @@ async def on_message(message):
 					result = result()
 					with rate_limiter:
 						print("4")
-						cursor.execute("SELECT hp FROM hp ORDER BY timestamp")
+						cursor.execute("SELECT hp FROM hp ORDER BY timestamp DESC")
 					currenthp = cursor.fetchall()
 					print(currenthp)
 					currenthp = str(currenthp)
