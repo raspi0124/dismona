@@ -18,6 +18,7 @@ import mlibs
 from discord.ext import commands
 from ratelimiter import RateLimiter
 from discord.ext.commands.cooldowns import BucketType
+timestamp = str(time.time())
 
 
 def limited(until):
@@ -107,7 +108,7 @@ async def on_message(message):
 					result = result()
 					with rate_limiter:
 						print("4")
-						cursor.execute("SELECT hp FROM hp WHERE id = 1")
+						cursor.execute("SELECT hp FROM hp ORDER BY timestamp")
 					currenthp = cursor.fetchall()
 					print(currenthp)
 					currenthp = str(currenthp)
@@ -125,7 +126,7 @@ async def on_message(message):
 								m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
 								toedit = await client.send_message(message.channel, m)
 								print("5")
-								cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
+								cursor.execute("INSERT INTO hp (timestamp, hp) VALUES (%s, %s)", (timestamp, nowhp))
 								time.sleep(5)
 								await client.edit_message(toedit, "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！")
 							if result == "3":
@@ -141,7 +142,7 @@ async def on_message(message):
 								m = "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0\nIzayaに 10 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
 								toedit = await client.send_message(message.channel, m)
 								print("6")
-								cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
+								cursor.execute("INSERT INTO hp (timestamp, hp) VALUES (%s, %s)", (timestamp, nowhp))
 								time.sleep(5)
 								await client.edit_message(toedit, "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0\nIzayaに 10 ダメージを与えた！")
 							if result == "5":
@@ -154,7 +155,7 @@ async def on_message(message):
 							m = "攻撃報酬 1 watanabe 獲得!！\nこれからも討伐協力よろしくお願いします！"
 							await client.send_message(message.channel, m)
 							print("7")
-							cursor.execute("SELECT hp FROM hp WHERE id = 1")
+							cursor.execute("SELECT hp FROM hp ORDER BY timestamp")
 							currenthp = cursor.fetchall()
 							print(currenthp)
 							currenthp = str(currenthp)
@@ -180,7 +181,7 @@ async def on_message(message):
 								await client.send_message(message.channel, m)
 								newhp = random.randint(100,150)
 								print("9")
-								cursor.execute("UPDATE hp SET hp = %s WHERE id = 1", (newhp,))
+								cursor.execute("INSERT INTO hp (timestamp, hp) VALUES (%s, %s)", (timestamp, newhp))
 								m = "次のHPは " + newhp + "です!"
 								torm = await client.send_message(message.channel, m)
 								time.sleep(10)
@@ -210,7 +211,7 @@ async def on_message(message):
 					result = result()
 					with rate_limiter:
 						print("4")
-						cursor.execute("SELECT hp FROM hp WHERE id = 1")
+						cursor.execute("SELECT hp FROM hp ORDER BY timestamp")
 					currenthp = cursor.fetchall()
 					print(currenthp)
 					currenthp = str(currenthp)
@@ -228,7 +229,7 @@ async def on_message(message):
 								m = "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
 								toedit = await client.send_message(message.channel, m)
 								print("5")
-								cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
+								cursor.execute("INSERT INTO hp (timestamp, hp) VALUES (%s, %s)", (timestamp, nowhp))
 								time.sleep(5)
 								await client.edit_message(toedit, "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！")
 							if result == "3":
@@ -244,7 +245,7 @@ async def on_message(message):
 								m = "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0\nIzayaに 10 ダメージを与えた！\nIzayaの現在のHPは " + nowhp + " だ。"
 								toedit = await client.send_message(message.channel, m)
 								print("6")
-								cursor.execute("UPDATE hp SET hp = " + nowhp + " WHERE id = 1")
+								cursor.execute("INSERT INTO hp (timestamp, hp) VALUES (%s, %s)", (timestamp, nowhp))
 								time.sleep(5)
 								await client.edit_message(toedit, "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0\nIzayaに 10 ダメージを与えた！")
 							if result == "5":
@@ -257,7 +258,7 @@ async def on_message(message):
 							m = "攻撃報酬 2 watanabe 獲得!！\nこれからも討伐協力よろしくお願いします！"
 							await client.send_message(message.channel, m)
 							print("7")
-							cursor.execute("SELECT hp FROM hp WHERE id = 1")
+							cursor.execute("SELECT hp FROM hp ORDER BY timestamp")
 							currenthp = cursor.fetchall()
 							print(currenthp)
 							currenthp = str(currenthp)
@@ -283,7 +284,7 @@ async def on_message(message):
 								await client.send_message(message.channel, m)
 								newhp = random.randint(100,150)
 								print("9")
-								cursor.execute("UPDATE hp SET hp = %s WHERE id = 1", (newhp,))
+								cursor.execute("INSERT INTO hp (timestamp, hp) VALUES (%s, %s)", (timestamp, nowhp))
 								m = "次のHPは " + newhp + "です!"
 								torm = await client.send_message(message.channel, m)
 								time.sleep(10)
