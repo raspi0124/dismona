@@ -155,7 +155,7 @@ async def on_message(message):
 							m = "攻撃報酬 1 watanabe 獲得!！\nこれからも討伐協力よろしくお願いします！"
 							await client.send_message(message.channel, m)
 							print("7")
-							cursor.execute("SELECT hp FROM hp ORDER BY timestamp")
+							cursor.execute("SELECT hp FROM hp ORDER BY timestamp DESC")
 							currenthp = cursor.fetchall()
 							print(currenthp)
 							currenthp = str(currenthp)
@@ -211,7 +211,7 @@ async def on_message(message):
 					result = result()
 					with rate_limiter:
 						print("4")
-						cursor.execute("SELECT hp FROM hp ORDER BY timestamp")
+						cursor.execute("SELECT hp FROM hp ORDER BY timestamp DESC")
 					currenthp = cursor.fetchall()
 					print(currenthp)
 					currenthp = str(currenthp)
@@ -258,7 +258,7 @@ async def on_message(message):
 							m = "攻撃報酬 2 watanabe 獲得!！\nこれからも討伐協力よろしくお願いします！"
 							await client.send_message(message.channel, m)
 							print("7")
-							cursor.execute("SELECT hp FROM hp ORDER BY timestamp")
+							cursor.execute("SELECT hp FROM hp ORDER BY timestamp DESC")
 							currenthp = cursor.fetchall()
 							print(currenthp)
 							currenthp = str(currenthp)
