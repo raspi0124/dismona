@@ -926,23 +926,20 @@ async def on_message(message):
 			]\
 			}\
 			}'
-			print(data)
-			response = requests.post('https://wallet.monaparty.me/_api', headers=headers, data=data, auth=('rpc', 'hello'))
-			print(response)
-			print(response.text)
-			responsetxt = str(response.text)
-			responsejson = response.json()
-			responseresult = responsejson['result']
-			responseresult = str(responseresult)
-			result = responseresult.replace('[', '["')
-			result = responseresult.replace(']', '"]')
-			result = responseresult.replace('}, {', '}" ,"{')
-			print("")
-			print(result)
-			print("---results---")
-			print(result[0])
-			print("")
-			print(result[1])
+            print(data)
+            response = requests.post('https://wallet.monaparty.me/_api', headers=headers, data=data, auth=('rpc', 'hello'))
+            print(response)
+            print(response.text)
+
+            responsejson = response.json()
+            responseresult = responsejson['result']
+
+            print(responseresult)
+            print("")
+            print(json.dumps(responseresult[0]))
+            print("")
+            print(json.dumps(responseresult[1]))
+
 			responseresult = str(responseresult)
 			await client.send_message(message.channel, result)
 		if message.content.startswith("/mp deposit"):
