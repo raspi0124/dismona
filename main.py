@@ -942,9 +942,9 @@ async def on_message(message):
 				print(json.dumps(responseresult[num]))
 				m = json.dumps(responseresult[num])
 				json_dict = json.loads(m)
-				assetname = json_dict['asset']
-				assetamount = json_dict['normalized_quantity']
-				m = "" + assetname + " - " + assetamount + ""
+				assetname = str(json_dict['asset'])
+				assetamount = str(json_dict['normalized_quantity'])
+				m = "" + assetname + " : " + assetamount + "" + assetname + ""
 				await client.send_message(message.channel, m)
 			responseresult = str(responseresult)
 
