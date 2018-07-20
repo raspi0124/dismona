@@ -375,6 +375,7 @@ async def on_message(message):
 			print(raininfo[0])
 			totalmona = raininfo[0]
 			print(totalmona)
+			totalmona = float(totalmona)
 			#エラー防止のために小数点第6位で四捨五入を実施。
 			totalmona = round(totalmona,6)
 			print(totalmona)
