@@ -285,7 +285,7 @@ async def on_message(message):
 								await client.send_message(message.channel, m)
 								newhp = random.randint(100,150)
 								print("9")
-								cursor.execute("INSERT INTO hp (timestamp, hp) VALUES (%s, %s)", (timestamp, nowhp))
+								cursor.execute("INSERT INTO hp (timestamp, hp) VALUES (%s, %s)", (timestamp, newhp))
 								newhp = str(newhp)
 								m = "次のHPは " + newhp + "です!"
 								torm = await client.send_message(message.channel, m)

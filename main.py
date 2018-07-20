@@ -937,7 +937,8 @@ async def on_message(message):
 			result = responseresult.replace('[', '["')
 			result = responseresult.replace(']', '"]')
 			result = responseresult.replace('}, {', '}" ,"{')
-			print(result)
+			print(result[0])
+			print(result[1])
 			responseresult = str(responseresult)
 
 			#print(assetname)
