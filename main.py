@@ -944,10 +944,6 @@ async def on_message(message):
 			print("")
 			print(result[1])
 			responseresult = str(responseresult)
-
-			#print(assetname)
-			m = "response:" + responseresult + ""
-			await client.send_message(message.channel, m)
 			await client.send_message(message.channel, result)
 		if message.content.startswith("/mp deposit"):
 			await client.add_reaction(message, '👌')
