@@ -400,9 +400,9 @@ async def on_message(message):
 				if totalmona > "0.01":
 					totalmona = str(totalmona)
 					numofpeople = str(numofpeople)
+					permona = str(permona)
 					m = "you will rain in total of " + totalmona + "mona to " + numofpeople + " people.Amount of mona each user will get is " + permona + "mona."
 					await client.send_message(message.channel, m)
-					permona = str(permona)
 					m = "Rain started by <@" + message.author.id + "> at #" + message.channel.name + ""
 					await client.send_message(rainnotify, m)
 					for var in range(0, numofpeople):
