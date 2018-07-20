@@ -508,7 +508,7 @@ async def on_message(message):
 					cursor.execute("INSERT INTO baned (banedid) VALUES (%s)", (banto,))
 					cursor.execute("INSERT INTO baned (banfromid) VALUES (%s)", (username,))
 					cursor.execute("INSERT INTO baned (reason) VALUES (%s)", (reason,))
-					m = "<@" + username + ">ユーザー <@" + banto + "> をおみくじの使用及びshootizayaからBANしました。"
+					m = "<@" + userid + ">ユーザー <@" + banto + "> をおみくじの使用及びshootizayaからBANしました。"
 					await client.send_message(message.channel, m)
 				else:
 					m = "このユーザーをBANすることは禁止されています。"
