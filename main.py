@@ -881,7 +881,6 @@ async def on_message(message):
 		#MONAPARTY関連スタート
 		if message.content.startswith('/mp info'):
 			print("1")
-			await client.add_reaction(message, '👌')
 			headers = {
 				'Content-Type': 'application/json; charset=UTF-8',
 				'Accept': 'application/json, text/javascript',
@@ -941,23 +940,21 @@ async def on_message(message):
 			print(splitresult)
 			print("--sepratedresult--")
 			print(splitresult[0])
-			print(splitresult[0] + "]")
+			print(splitresult[0] + "}")
 			print("")
 			print(splitresult[1])
 			print("------------------")
 			print("")
 			print("--teststart--")
 			minusedresult = int(numresult) - int("1")
+			m = "old version:" + splitresult[0] + ", " + splitresult[1]"."
 			for num in range(numresult):
 				print(num)
 				num = int(num)
 				print(splitresult[num])
 				splitresult = splitresult[num]
-				#if num != numresult:
-				#	splitresult = splitresult + "},"
-				#	splitresult = str(splitresult)
-				#else:
-				#	splitresult = str(splitresult)
+				if num != numresult:
+					splitresult = splitresult + "}"
 				m = "response(beta one):" + splitresult + ""
 				await client.send_message(message.channel, m)
 			print("--testfinish--")
