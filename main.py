@@ -938,9 +938,8 @@ async def on_message(message):
 			print("")
 			numresult = int(len(responseresult))
 			for num in range(numresult):
-			print(json.dumps(responseresult[0]))
-			print("")
-			print(json.dumps(responseresult[1]))
+				print(num)
+				print(json.dumps(responseresult[num]))
 
 			responseresult = str(responseresult)
 			await client.send_message(message.channel, result)
