@@ -953,11 +953,11 @@ async def on_message(message):
 				num = int(num)
 				print(splitresult[num])
 				splitresult = splitresult[num]
-				if num != numresult:
-					splitresult = splitresult + "},"
-					splitresult = str(splitresult)
-				else:
-					splitresult = str(splitresult)
+				#if num != numresult:
+				#	splitresult = splitresult + "},"
+				#	splitresult = str(splitresult)
+				#else:
+				#	splitresult = str(splitresult)
 				m = "response(beta one):" + splitresult + ""
 				await client.send_message(message.channel, m)
 			print("--testfinish--")
