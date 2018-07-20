@@ -951,6 +951,8 @@ async def on_message(message):
 				print(num)
 				num = int(num)
 				print(splitresult[num])
+				m = "response(beta one):" + splitresult[num] + ""
+				await client.send_message(message.channel, m)
 			print("--testfinish--")
 			print(len(splitresult))
 			print(responseresult)
