@@ -935,7 +935,7 @@ async def on_message(message):
 			responsejson = response.json()
 			responseresult = responsejson['result']
 			responseresult = str(responseresult)
-			splitresult = re.split("[}],", responseresult)
+			splitresult = re.split("},", responseresult)
 			numresult = int(len(splitresult))
 			print("--splitresult--")
 			print(splitresult)
@@ -947,11 +947,16 @@ async def on_message(message):
 			print("------------------")
 			print("")
 			print("--teststart--")
+			minusedresult = int(numresult) - int("1")
 			for num in range(numresult):
 				print(num)
 				num = int(num)
 				print(splitresult[num])
-				m = "response(beta one):" + splitresult[num] + ""
+				splitresult = splitresult[num]
+
+				for num in range(minusedresult):
+					splitresult = splitresult + "},"
+				m = "response(beta one):" + splitresult + ""
 				await client.send_message(message.channel, m)
 			print("--testfinish--")
 			print(len(splitresult))
