@@ -926,19 +926,19 @@ async def on_message(message):
 			]\
 			}\
 			}'
-            print(data)
-            response = requests.post('https://wallet.monaparty.me/_api', headers=headers, data=data, auth=('rpc', 'hello'))
-            print(response)
-            print(response.text)
+			print(data)
+			response = requests.post('https://wallet.monaparty.me/_api', headers=headers, data=data, auth=('rpc', 'hello'))
+			print(response)
+			print(response.text)
 
-            responsejson = response.json()
-            responseresult = responsejson['result']
+			responsejson = response.json()
+			responseresult = responsejson['result']
 
-            print(responseresult)
-            print("")
-            print(json.dumps(responseresult[0]))
-            print("")
-            print(json.dumps(responseresult[1]))
+			print(responseresult)
+			print("")
+			print(json.dumps(responseresult[0]))
+			print("")
+			print(json.dumps(responseresult[1]))
 
 			responseresult = str(responseresult)
 			await client.send_message(message.channel, result)
