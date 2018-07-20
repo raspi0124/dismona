@@ -936,6 +936,8 @@ async def on_message(message):
 
 			print(responseresult)
 			print("")
+			numresult = int(len(responseresult))
+			for num in range(numresult):
 			print(json.dumps(responseresult[0]))
 			print("")
 			print(json.dumps(responseresult[1]))
