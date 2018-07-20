@@ -57,30 +57,6 @@ async def on_reaction_add(reaction, user):
 	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
 	# connection.isolation_level = None
 	cursor = connection.cursor()
-
-	print("reaction has been added")
-	print(reaction)
-	print("message")
-	print(reaction.message)
-	print("emoji")
-	print(reaction.emoji)
-	print("reaction-channel")
-	print(reaction.message.channel)
-	print("reaction-channel-id")
-	print(reaction.message.channel.id)
-	print("message-content")
-	print(reaction.message.content)
-	print("message-author")
-	print(reaction.message.author.id)
-	print("reaction-by")
-	print(user.id)
-	print("emoji-hash")
-	print(hash(reaction.emoji))
-	print("emoji-name")
-	print(reaction.emoji.name)
-	print("emoji-id")
-	print(reaction.emoji.id)
-
 	tipto = reaction.message.author.id
 	tipby = user.id
 	emoji = reaction.emoji.name
@@ -184,6 +160,7 @@ async def on_message(message):
 		# 全件取得は cursor.fetchall()
 		# 「/register」で始まるか調べる
 		if message.content.startswith("/"):
+			#各種ログを投入。
 			towrite = "" + message.author.name + " said " + messagesql + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + "\n"
 			file = open('/root/alllog2.txt', 'a')  #追加書き込みモードでオープン
 			file.writelines(towrite)
@@ -196,7 +173,9 @@ async def on_message(message):
 			#cursor.execute("INSERT INTO tmplog (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, message, authorid, channelid, currenttime))
 
 			connection.commit()
+
 		if message.content.startswith("/register"):
+			#登録を処理。
 			cmda = "monacoin-cli walletpassphrase 0124 10"
 			ruta  =  subprocess.check_output( cmda.split(" ") )
 			print(ruta)
@@ -208,6 +187,7 @@ async def on_message(message):
 				m = "<@" + message.author.id + "> さんのアカウントを作成しますね！"
 				# メッセージが送られてきたチャンネルへメッセージを送ります
 				await client.send_message(message.channel, m)
+				#mlibsライブラリに投げる
 				resultmore5 = mlibs.register(userid)
 				m = "<@" + message.author.id + ">, successfully created an account for you! Your new address is " + resultmore5 + ", enjoy!"
 				await client.send_message(message.channel, m)
@@ -219,9 +199,8 @@ async def on_message(message):
 			username = message.author.id
 			# エラー処理（例外処理）
 			# INSERT
-			cmd = "monacoin-cli getbalance " + username + ""
-			rut  =  subprocess.check_output( cmd.split(" ") )
-			balance = rut.decode()
+			#残高を取得
+			balance = mlibs.libgetbalance(userid)
 			if balance > "0.01":
 				fee = "0.01"
 				cursor.execute("INSERT INTO rainregistered (rainid) VALUES (%s)", (username,))
@@ -250,24 +229,18 @@ async def on_message(message):
 			await client.add_reaction(message, '👌')
 			# 送り主がBotだった場合反応したくないので
 			if client.user != message.author.name:
-			# メッセージを書きます
-				m = "<@" + message.author.id + "> アドレスを確認中..."
-			# メッセージが送られてきたチャンネルへメッセージを送ります
-				await client.send_message(message.channel, m)
 				address3 = mlibs.deposit(userid)
+				#もしすでにアドレスが存在している場合
 				if address3 != "":
 					m = "<@" + message.author.id + ">, This is your deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
 					await client.send_message(message.channel, m)
+				#アドレスがまだ無い場合はここで作る
 				else:
 					address = mlibs.register(userid)
 					m = "<@" + userid + ">, This is your deposit address: " + address + ""
-		if message.content.startswith("/deleteme"):
-			await client.add_reaction(message, '👌')
-			#m = "Roger that. Now proceeding work.."
-			m = "This command is not available yet, but will be available at latest at May 24 2018."
-			await client.send_message(message.channel, m)
-			#m = "Started to delete your log "
+					await client.send_message(message.channel, m)
 		if message.content.startswith("/disagreetos"):
+			#利用規約同意取り消し処理開始
 			await client.add_reaction(message, '👌')
 			m = "<@" + userid + "> Roger that. Now proceeding work.."
 			await client.send_message(message.channel, m)
@@ -284,6 +257,7 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 			m = "Now, removing you from agreetos database..(Should only take a sec)"
 			await client.send_message(message.channel, m)
+			#ここで利用規約同意データベースからuseridを削除
 			cursor.execute("DELETE FROM agreetos WHERE id = %s", (userid,))
 			connection.commit()
 			m = "Finished removing you from agreetos database! and once again, Thanks for using Monage! and I hope to see you again!"
@@ -291,32 +265,39 @@ async def on_message(message):
 			m = "あなたを利用規約の同意データベースから削除しました。そして、Monageを使ってくださりありがとうございました。"
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/list"):
-			# 送り主がBotだった場合反応したくないので
+			#addressは１つに統一したため/depositコマンドへの導線を。
 			m = "This command is no longer available. please use /deposit command instead."
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/withdraw"):
+			#出金処理
 			await client.add_reaction(message, '👌')
+			#コマンドの処理を簡単にするために/withdrawを削除
 			rmessage = message.content.replace('/withdraw', '')
 			print(rmessage)
 			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
 			print(re.findall(pattern,rmessage))
+			#ここで出金額を取得するためにすべての数字を取得
 			withdrawinfo = re.findall(pattern,rmessage)
 			print(withdrawinfo[0])
+			#出金金額は一番最初の数字でそれ以外はアドレスの文字列内の数字だと予想されるためここでamountを取り除き出金アドレスを取得
 			amount = withdrawinfo[0]
 			rmessage = rmessage.replace(amount, '')
 			to = rmessage.replace(' ', '')
 			withdraw_detail = mlibs.withdraw(userid, to, amount)
 			print(withdraw_detail)
 			withdraw_detail = str(withdraw_detail)
+			#500は残高不足エラー
 			if "500" in withdraw_detail:
 				m = "<@" + userid + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
 			else:
 				m = "Withdraw successfull. TXID:" + withdraw_detail + ""
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/givemylog"):
+			#ログ取得
 			m = "Sure, wait a min to get log. (Please note that we can only give you the log after 24 April since we were taking log with txt before that.)"
 			await client.send_message(message.channel, m)
-			filenumber = "1"
+			#sqlを作成、直接実行ではなく一回収納しているのはコマンド実行するため。
+			#コマンド実行する理由はSelectでcursorから取得しようとするとエラーが出るから
 			sql = "SELECT * FROM log WHERE userid='" + userid + "'"
 			sql = '"' + sql + '"'
 			command = "mysql -uroot -plaksjd dismona -e "
@@ -375,14 +356,85 @@ async def on_message(message):
 			else:
 				print("a")
 
-		if message.content.startswith("/rain"):
+		if message.content.startswith("/rainall"):
+			#rain実行
 			start = time.time()
 			cmda = "monacoin-cli walletpassphrase 0124 10"
 			ruta  =  subprocess.check_output( cmda.split(" ") )
 			print(ruta)
+			#残高取得
 			balancea = mlibs.libgetbalance(userid)
 			await client.add_reaction(message, '👌')
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+			#処理を簡単にするため/rainを削除
+			message2 = message.content.replace('/rain ', '')
+			pattern = r'([+-]?[0-9]+\.?[0-9]*)'
+			raininfo = re.findall(pattern,message2)
+			#rainする合計のmonaを指定
+			print("--totalmona--")
+			print(raininfo[0])
+			totalmona = raininfo[0]
+			print(totalmona)
+			#エラー防止のために小数点第6位で四捨五入を実施。
+			totalmona = round(sum,6)
+			print(sum)
+			totalmona = str(totalmona)
+			cursor.execute('SELECT * FROM agreetos')
+			# 全件取得は cursor.fetchall()
+			rainall = cursor.fetchall()
+			print(rainall)
+			rainall = str(rainall)
+			pattern=r'([+]?[0-9]+\.?[0-9]*)'
+			rainall = re.findall(pattern,rainall)
+			print(rainall)
+			numofpeople = len(rainall)
+			numofpeople = str(numofpeople)
+			#permonaは1人当たりにrainされるmonaの量。totalmona/numofpeople = permona
+			permona = float(totalmona) / float(numofpeople)
+			totalmona = round(sum,6)
+			permona = float(permona)
+			if float(balancea) >= float(totalmona):
+				if totalmona > "0.01":
+					m = "you will rain in total of " + totalmona + "mona to " + numofpeople + " people.Amount of mona each user will get is " + permona + "mona."
+					await client.send_message(message.channel, m)
+					permona = str(permona)
+					m = "Rain started by <@" + message.author.id + "> at #" + message.channel.name + ""
+					await client.send_message(rainnotify, m)
+					for var in range(0, numofpeople):
+						tosend = random.choice(rainall)
+						print(tosend)
+						print("--rondomfinish--")
+						#tosend = int(tosend)
+						#tosend = rainall[tosend]
+						tosend = str(tosend)
+						print("--startcommand--")
+						#cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
+						#rut  =  subprocess.check_output( cmd.split(" ") )
+						#print(rut)
+						m = "Raining" + sum + "mona to <@" + tosend + ">.."
+						await client.send_message(rainnotify, m)
+					m = "finished raining " + permona + "mona to " + numofpeople + "people! total amount was " + totalmona + "mona! Rained by <@" + message.author.id + ">"
+					await client.send_message(message.channel, m)
+					await client.send_message(rainnotify, m)
+					print(rut)
+				else:
+					m = "Due to Server load, it is not allowed to make total amount of rain less then 0.01."
+					await client.send_message(message.channel, m)
+			else:
+				m = "not enough fund.. double check amount to rain."
+				await client.send_message(message.channel, m)
+
+		if message.content.startswith("/rain"):
+			#rain実行
+			start = time.time()
+			cmda = "monacoin-cli walletpassphrase 0124 10"
+			ruta  =  subprocess.check_output( cmda.split(" ") )
+			print(ruta)
+			#残高取得
+			balancea = mlibs.libgetbalance(userid)
+			await client.add_reaction(message, '👌')
+			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
+			#処理を簡単にするため/rainを削除
 			message2 = message.content.replace('/rain ', '')
 			pattern = r'([+-]?[0-9]+\.?[0-9]*)'
 			raininfo = re.findall(pattern,message2)
@@ -421,9 +473,7 @@ async def on_message(message):
 							#tosend = rainall[tosend]
 							tosend = str(tosend)
 							print("--startcommand--")
-							cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
-							rut  =  subprocess.check_output( cmd.split(" ") )
-							print(rut)
+							mlibs.tip(userid, tosend, sum)
 							m = "Raining" + sum + "mona to <@" + tosend + ">.."
 							await client.send_message(rainnotify, m)
 						m = "finished raining " + sum + "mona to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona! Rained by <@" + message.author.id + ">"
@@ -625,6 +675,8 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 		if message.content == "/makemenew":
 			m = "Sure, Lets me make your account newer!"
+			await client.send_message(message.channel, m)
+			cursor.execute("INSERT INTO accounts (discordid, monageid, timestamp) VALUES (userid,)")
 		if message.content.startswith("/image"):
 			await client.add_reaction(message, '👌')
 			with open('../image.png', 'rb') as f:
@@ -947,8 +999,8 @@ async def on_message(message):
 			embed.add_field(name="/help", value=" ヘルプを表示します")
 			embed.add_field(name="/register", value="あなたの財布を新しく作成します <Create your address>")
 			embed.add_field(name="/deposit", value="あなたの所有しているアドレスを一覧表示します <List all address you have generated>")
-			embed.add_field(name="/withdraw ``<amount to withdraw> <address to send>``", value="指定されたmonaを指定されたアドレスに送ります <Withdraw specified amount of Mona available to specified address>")
-			embed.add_field(name="/tip ``<User to send Mona> <amount to tip> <Comment (optional)>``", value="指定されたmonaを指定されたユーザーに送ります <Tip specified amount of mona to specified user>")
+			embed.add_field(name="/withdraw ``<amount to withdraw (出金量)> <address to send(アドレス)>``", value="指定されたmonaを指定されたアドレスに送ります <Withdraw specified amount of Mona available to specified address>")
+			embed.add_field(name="/tip ``<User to send Mona(送り先ユーザー)> <amount to tip(tip量)> <Comment (optional)>``", value="指定されたmonaを指定されたユーザーに送ります <Tip specified amount of mona to specified user>")
 			embed.add_field(name="/rain ``<number of people to tip> <total amount to tip>``", value=" 指定された金額のmonaをランダムに配ります。<Tip specified amount to random multiple people. You can choose the number of people to tip (Currently for admin only due to technical difficulties.)>")
 			embed.add_field(name="/rera", value="rain受け取りに参加します。手数料は0.01monaです。 <Sign up to be a rain-reciever. fee is 0.01 mona currently, and might go up.>")
 			embed.add_field(name="/omikuzi", value="おみくじ。おまけでmonaもらえます<Let see how fortunate you are! You can also get some mona!>")
