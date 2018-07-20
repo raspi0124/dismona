@@ -934,38 +934,16 @@ async def on_message(message):
 			responsejson = response.json()
 			responseresult = responsejson['result']
 			responseresult = str(responseresult)
-			splitresult = responseresult.split("},")
-			numresult = int(len(splitresult))
-			print("--splitresult--")
-			print(splitresult)
-			print("--sepratedresult--")
-			print(splitresult[0])
-			print(splitresult[0] + "}")
-			print("")
-			print(splitresult[1])
-			print("------------------")
-			print("")
-			print("--teststart--")
-			minusedresult = int(numresult) - int("1")
-			m = "old version:" + splitresult[0] + ", " + splitresult[1]"."
-			for num in range(numresult):
-				print(num)
-				num = int(num)
-				print(splitresult[num])
-				splitresult = splitresult[num]
-				if num != numresult:
-					splitresult = splitresult + "}"
-				m = "response(beta one):" + splitresult + ""
-				await client.send_message(message.channel, m)
-			print("--testfinish--")
-			print(len(splitresult))
-			print(responseresult)
-
+			result = responseresult.replace('[', '["')
+			result = responseresult.replace(']', '"]')
+			result = responseresult.replace('}, {', '}" ,"{')
+			print(result)
 			responseresult = str(responseresult)
 
 			#print(assetname)
 			m = "response:" + responseresult + ""
 			await client.send_message(message.channel, m)
+			await client.send_message(message.channel, result)
 		if message.content.startswith("/mp deposit"):
 			await client.add_reaction(message, '👌')
 			# 送り主がBotだった場合反応したくないので
