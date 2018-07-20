@@ -879,33 +879,6 @@ async def on_message(message):
 
 
 		#MONAPARTY関連スタート
-		if message.content.startswith('/mp info'):
-			print("1")
-			headers = {
-				'Content-Type': 'application/json; charset=UTF-8',
-				'Accept': 'application/json, text/javascript',
-			}
-			data = '{ "jsonrpc": "2.0", "id": 0, "method": "get_running_info" }'
-			response = requests.post('https://api.monaparty.me/api/counterparty', headers=headers, data=data, auth=('rpc', 'hello'))
-			print("2")
-			print(response)
-			print(response.text)
-			m = str(response)
-			await client.send_message(message.channel, m)
-			m = str(response.text)
-			await client.send_message(message.channel, m)
-			responsejson = response.json()
-			result = responsejson['result']
-			bitcoin_block_count = result['bitcoin_block_count']
-			bitcoin_block_count = str(bitcoin_block_count)
-			running_testnet = result['running_testnet']
-			running_testnet = str(running_testnet)
-			m = "block数:" + bitcoin_block_count + ""
-			print(m)
-			await client.send_message(message.channel, m)
-			m = "testnet" + running_testnet + ""
-			print(m)
-			await client.send_message(message.channel, m)
 
 		if message.content.startswith('/mp balance'):
 			print("1")
@@ -944,7 +917,7 @@ async def on_message(message):
 				json_dict = json.loads(m)
 				assetname = str(json_dict['asset'])
 				assetamount = str(json_dict['normalized_quantity'])
-				m = "" + assetname + " : " + assetamount + "" + assetname + ""
+				m = "" + assetname + " : " + assetamount + " " + assetname + ""
 				await client.send_message(message.channel, m)
 			responseresult = str(responseresult)
 
@@ -1001,6 +974,8 @@ async def on_message(message):
 			embed.add_field(name="/rain ``<number of people to tip> <total amount to tip>``", value=" 指定された金額のmonaをランダムに配ります。<Tip specified amount to random multiple people. You can choose the number of people to tip (Currently for admin only due to technical difficulties.)>")
 			embed.add_field(name="/rera", value="rain受け取りに参加します。手数料は0.01monaです。 <Sign up to be a rain-reciever. fee is 0.01 mona currently, and might go up.>")
 			embed.add_field(name="/omikuzi", value="おみくじ。おまけでmonaもらえます<Let see how fortunate you are! You can also get some mona!>")
+			embed.add_field(name="/mp deposit", value="Monapartyの入金アドレスを表示します。(現在テスト中なのでGOXしたりしても泣かないトークンのみ送ってください)")
+			embed.add_field(name="/mp balance", value="Monapartyトークンの残高を表示します。")
 			embed.add_field(name="/credit", value="クレジットを表示。 <Show credit>")
 			embed.add_field(name="/givemylog", value="あなたのログをエクスポート。そのままチャンネルに吐き出すのでDMでの実行を強くおすすめします。<Export log. Executing this command in DM is highly recommended.>")
 			embed.add_field(name="/agreetos", value="利用規約に同意する。。と見せかけてただのコマンドです。実際に同意するためのコマンドは利用規約に書いてあるのできちんと読んでください()")
