@@ -940,9 +940,10 @@ async def on_message(message):
 			for num in range(numresult):
 				print(num)
 				print(json.dumps(responseresult[num]))
-
+				m = json.dumps(responseresult[num])
+				await client.send_message(message.channel, m)
 			responseresult = str(responseresult)
-			await client.send_message(message.channel, result)
+
 		if message.content.startswith("/mp deposit"):
 			await client.add_reaction(message, '👌')
 			# 送り主がBotだった場合反応したくないので
