@@ -392,7 +392,9 @@ async def on_message(message):
 			numofpeople = str(numofpeople)
 			#permonaは1人当たりにrainされるmonaの量。totalmona/numofpeople = permona
 			permona = float(totalmona) / float(numofpeople)
-			totalmona = round(sum,6)
+			totalmona = float(totalmona)
+			totalmona = round(totalmona,6)
+			totalmona = str(totalmona)
 			permona = float(permona)
 			if float(balancea) >= float(totalmona):
 				if totalmona > "0.01":
