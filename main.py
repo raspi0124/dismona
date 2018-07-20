@@ -398,6 +398,8 @@ async def on_message(message):
 			permona = float(permona)
 			if float(balancea) >= float(totalmona):
 				if totalmona > "0.01":
+					totalmona = str(totalmona)
+					numofpeople = str(numofpeople)
 					m = "you will rain in total of " + totalmona + "mona to " + numofpeople + " people.Amount of mona each user will get is " + permona + "mona."
 					await client.send_message(message.channel, m)
 					permona = str(permona)
@@ -414,7 +416,8 @@ async def on_message(message):
 						#cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
 						#rut  =  subprocess.check_output( cmd.split(" ") )
 						#print(rut)
-						m = "Raining" + sum + "mona to <@" + tosend + ">.."
+						mlibs.tip(userid, tosend, permona)
+						m = "Raining" + permona + "mona to <@" + tosend + ">.."
 						await client.send_message(rainnotify, m)
 					m = "finished raining " + permona + "mona to " + numofpeople + "people! total amount was " + totalmona + "mona! Rained by <@" + message.author.id + ">"
 					await client.send_message(message.channel, m)
