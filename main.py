@@ -405,6 +405,7 @@ async def on_message(message):
 					await client.send_message(message.channel, m)
 					m = "Rain started by <@" + message.author.id + "> at #" + message.channel.name + ""
 					await client.send_message(rainnotify, m)
+					numofperople = int(numofpeople)
 					for var in range(0, numofpeople):
 						tosend = random.choice(rainall)
 						print(tosend)
@@ -419,6 +420,7 @@ async def on_message(message):
 						mlibs.tip(userid, tosend, permona)
 						m = "Raining" + permona + "mona to <@" + tosend + ">.."
 						await client.send_message(rainnotify, m)
+					numofpeople = str(numofpeople)
 					m = "finished raining " + permona + "mona to " + numofpeople + "people! total amount was " + totalmona + "mona! Rained by <@" + message.author.id + ">"
 					await client.send_message(message.channel, m)
 					await client.send_message(rainnotify, m)
