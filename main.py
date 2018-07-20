@@ -937,6 +937,8 @@ async def on_message(message):
 			result = responseresult.replace('[', '["')
 			result = responseresult.replace(']', '"]')
 			result = responseresult.replace('}, {', '}" ,"{')
+			print("")
+			print(result)
 			print("---results---")
 			print(result[0])
 			print("")
