@@ -953,8 +953,7 @@ async def on_message(message):
 				num = int(num)
 				print(splitresult[num])
 				splitresult = splitresult[num]
-
-				for num in range(minusedresult):
+				if num != numresult:
 					splitresult = splitresult + "},"
 				m = "response(beta one):" + splitresult + ""
 				await client.send_message(message.channel, m)
