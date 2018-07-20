@@ -935,7 +935,7 @@ async def on_message(message):
 			responsejson = response.json()
 			responseresult = responsejson['result']
 			responseresult = str(responseresult)
-			splitresult = split("[}],", responseresult)
+			splitresult = re.split("[}],", responseresult)
 			numresult = int(len(splitresult))
 			print("--splitresult--")
 			print(splitresult)
