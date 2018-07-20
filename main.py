@@ -376,8 +376,8 @@ async def on_message(message):
 			totalmona = raininfo[0]
 			print(totalmona)
 			#エラー防止のために小数点第6位で四捨五入を実施。
-			totalmona = round(sum,6)
-			print(sum)
+			totalmona = round(totalmona,6)
+			print(totalmona)
 			totalmona = str(totalmona)
 			cursor.execute('SELECT * FROM agreetos')
 			# 全件取得は cursor.fetchall()
