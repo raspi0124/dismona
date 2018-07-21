@@ -955,6 +955,11 @@ async def on_message(message):
 			tipto = tipinfo[0]
 			tipamount = tipinfo[1]
 			tiptoken = tipinfo[2]
+			print("")
+			print(tipto)
+			print(tipamount)
+			print(tiptoken)
+			print("")
 			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
 			tipto = re.findall(pattern,tipto)
 			tipto = str(tipto[0])
