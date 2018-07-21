@@ -944,7 +944,7 @@ async def on_message(message):
 				m = "<@" + message.author.id + ">, This is your monaparty deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
 				await client.send_message(message.channel, m)
 		if message.content.startswith("/mp tip"):
-			start = time.time()
+			print("starts")
 			message2 = message.content.replace('/mp tip', '')
 			print (message2)
 			pattern = r'\w+'
