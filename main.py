@@ -406,6 +406,7 @@ async def on_message(message):
 					m = "Rain started by <@" + message.author.id + "> at #" + message.channel.name + ""
 					await client.send_message(rainnotify, m)
 					numofperople = int(numofpeople)
+
 					for var in range(0, numofpeople):
 						tosend = random.choice(rainall)
 						print(tosend)
@@ -516,10 +517,11 @@ async def on_message(message):
 					cursor.execute("INSERT INTO baned (banedid) VALUES (%s)", (banto,))
 					cursor.execute("INSERT INTO baned (banfromid) VALUES (%s)", (username,))
 					cursor.execute("INSERT INTO baned (reason) VALUES (%s)", (reason,))
-					m = "<@" + userid + ">ユーザー <@" + banto + "> をおみくじの使用及びshootizayaからBANしました。"
+					m = "<@" + userid + "> ユーザー <@" + banto + "> をおみくじの使用及びshootizayaからBANしました。"
 					await client.send_message(message.channel, m)
 				else:
 					m = "このユーザーをBANすることは禁止されています。"
+					await client.send_message(message.channel, m)
 			else:
 				m = "You are not allowed to do that!"
 				await client.send_message(message.channel, m)
@@ -941,6 +943,49 @@ async def on_message(message):
 				address3 = mlibs.deposit(userid)
 				m = "<@" + message.author.id + ">, This is your monaparty deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
 				await client.send_message(message.channel, m)
+		if message.content.startswith("/mp tip"):
+			start = time.time()
+			message2 = message.content.replace('/mp tip', '')
+			print (message2)
+			pattern = r'\w+'
+			print(re.findall(pattern,message2))
+			tipinfo = re.findall(pattern,message2)
+			print(tipinfo[0])
+			print(tipinfo[1])
+			tipto = tipinfo[0]
+			tipamount = tipinfo[1]
+			tiptoken = tipinfo[2]
+			addresses = mlibs.deposit(userid)
+			addresses = '"' + addresses + '"'
+			print(addresses)
+			tiptoaddress = mlibs.deposit(tipto)
+			tiptoaddress = '"' + tiptoaddress + '"'
+			tiptoken = '"' + tiptoken + '"'
+			#APIにアクセスし該当TXIDをもらってくる
+			headers = {
+				'Content-Type': 'application/json; charset=UTF-8',
+				'Accept': 'application/json, text/javascript',
+			}
+			data = '{\
+  			"method": "create_send",\
+  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress', "asset": ' + tiptoken + ', "quantity": ' + tipamount + '},\
+  			"jsonrpc": "2.0",\
+  			"id": 1\
+			}'
+
+			print(data)
+			response = requests.post('https://wallet.monaparty.me/_api', headers=headers, data=data, auth=('rpc', 'hello'))
+			print(response)
+			print(response.text)
+			print("")
+			responsejson = response.json()
+			txid = responsejson['result']
+			print(txid)
+			txid = str(txid)
+			print("")
+			#ここからmonacoindで署名してブロックチェーンにtxidを送信。
+			m = "Rawtransaction : " + txid + ""
+			await client.send_message(message.channel, m)
 
 			#MONAPARTY関連終わり
 
