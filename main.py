@@ -957,6 +957,7 @@ async def on_message(message):
 			tiptoken = tipinfo[2]
 			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
 			tipto = re.findall(pattern,tipto)
+			tipto = str(tipto[0])
 			addresses = mlibs.deposit(userid)
 			addresses = '"' + addresses + '"'
 			print(addresses)
