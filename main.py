@@ -979,11 +979,11 @@ async def on_message(message):
 				'Content-Type': 'application/json; charset=UTF-8',
 				'Accept': 'application/json, text/javascript',
 			}
-			data = '{\
-  			"method": "create_send",\
-  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + '},\
-  			"jsonrpc": "2.0",\
-  			"id": 1\
+			data = '{\n \
+  			"method": "create_send",\n \
+  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + '},\n \
+  			"jsonrpc": "2.0",\n \
+  			"id": 1\n \
 			}'
 
 			print(data)
