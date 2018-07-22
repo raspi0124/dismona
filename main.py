@@ -984,7 +984,6 @@ async def on_message(message):
   			"jsonrpc": "2.0",\n \
   			"id": 1\n \
 			"method":"proxy_to_counterpartyd"\n \
-
 			}'
 
 			print(data)
