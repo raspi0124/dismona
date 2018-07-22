@@ -15,10 +15,11 @@ from datetime import datetime
 
 def libgetbalance(userid):
 	cmdlib = "monacoin-cli walletpassphrase 0124 10"
-	subprocess.check_output( cmdlib.split(" ") )
+	rutlib  =  subprocess.check_output( cmdlib.split(" ") )
+	print(rutlib)
 	minconf = "60"
 	cmdlib = "monacoin-cli getbalance " + userid + " " + minconf + ""
-	subprocess.check_output( cmdlib.split(" ") )
+	rutlib  =  subprocess.check_output( cmdlib.split(" ") )
 	balancelib = rutlib.decode()
 	balancelib = float(balancelib)
 	currenttimelib = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
@@ -28,14 +29,17 @@ def libgetbalance(userid):
 def libgetjpybalance(userid):
 	cmda = "monacoin-cli walletpassphrase 0124 10"
 	ruta  =  subprocess.check_output( cmda.split(" ") )
+	print(ruta)
 	headers = {
 	'Accept': 'application/json',
 	}
 	response = requests.get('https://public.bitbank.cc/mona_jpy/ticker', headers=headers)
+	print(response.json())
 	response = response.json()
 	data = response['data']
 	currentprice = data['last']
 	currentprice = str(currentprice)
+	print("currentprice:" + currentprice + "")
 	currentprice = float(currentprice)
 
 	balance = libgetbalance(userid)
@@ -49,6 +53,7 @@ def deposit(userid):
 	start = time.time()
 	cmda = "monacoin-cli walletpassphrase 0124 10"
 	ruta  =  subprocess.check_output( cmda.split(" ") )
+	print(ruta)
 	cmd = "monacoin-cli getaddressesbyaccount " + userid + ""
 	rut  =  subprocess.check_output( cmd.split(" ") )
 	address = rut.decode()
@@ -58,6 +63,7 @@ def deposit(userid):
 	elapsed_time = time.time() - start
 	elapsed_time = str(elapsed_time)
 	address = address3.split()
+	print(address)
 	address = address[1]
 	address = address.replace(']', '')
 	return address
@@ -65,10 +71,17 @@ def withdraw(userid, to, amount):
 	start = time.time()
 	cmda = "monacoin-cli walletpassphrase 0124 10"
 	ruta  =  subprocess.check_output( cmda.split(" ") )
+	print(ruta)
 	balancea = libgetbalance(userid)
 	fee = "0.005"
 	reamount = float(amount) - float(fee)
 	reamount = str(reamount)
+	print("--to--")
+	print(to)
+	print("--amount--")
+	print(amount)
+	print("--reamount--")
+	print(reamount)
 	minbalance = "0.01"
 	minbalance = float(minbalance)
 	minamount = "0.01"
@@ -81,6 +94,7 @@ def withdraw(userid, to, amount):
 			rut  =  subprocess.check_output( cmd.split(" ") )
 			cmd = "monacoin-cli move " + userid + " fee " + fee + ""
 			ruta  =  subprocess.check_output( cmd.split(" ") )
+			print(rut)
 			rut = rut.decode()
 			elapsed_time = time.time() - start
 			elapsed_time = str(elapsed_time)
@@ -89,9 +103,12 @@ def withdraw(userid, to, amount):
 			if balancea <= "0":
 				defo = "0"
 				amounttosendback = float(defo) - float(balancea)
+				print("--amounttosendback--")
+				print(amounttosendback)
 				amounttosendback = str(amounttosendback)
 				cmd = "monacoin-cli move fee "  + userid + " " + amounttosendback + ""
 				ruta  =  subprocess.check_output( cmd.split(" ") )
+				print(ruta)
 
 		else:
 			#m = "<@" + userid + ">sorry, failed to complete your request: you do not have any mona at all!(message created on " + currenttime + ")"
@@ -109,7 +126,13 @@ def tip(userid, to, amount):
 	balance = libgetbalance(userid)
 	num2 = 100000000
 	balance = float(balance) * float(num2)
+	print ("balance")
+	print(balance)
+	print("amount")
+	print(amount)
 	amount = float(amount) * float(num2)
+	print("multiplyed amount")
+	print(amount)
 	minimumtip = "1"
 	minimumtip = float(minimumtip)
 	if amount <= balance:
@@ -150,6 +173,7 @@ def fixselect(string):
 def register(userid):
 	cmd = "monacoin-cli getnewaddress " + userid + ""
 	rut  =  subprocess.check_output( cmd.split(" ") )
+	print ('Creating <' + userid + ">s account..")
 	#cursor.execute("insert into dismona.id(id,address) values('message_author', address);")
 	resultaddress = rut.decode()
 	resultmore = resultaddress.replace('[', '')
