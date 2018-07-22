@@ -970,7 +970,6 @@ async def on_message(message):
 			tipto = str(tipto[0])
 			addresses = mlibs.deposit(userid)
 			addresses = '"' + addresses + '"'
-			print(addresses)
 			tiptoaddress = mlibs.deposit(tipto)
 			tiptoaddress = '"' + tiptoaddress + '"'
 			tiptoken = '"' + tiptoken + '"'
@@ -984,6 +983,8 @@ async def on_message(message):
   			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + '},\n \
   			"jsonrpc": "2.0",\n \
   			"id": 1\n \
+			"method":"proxy_to_counterpartyd"\n \
+
 			}'
 
 			print(data)
