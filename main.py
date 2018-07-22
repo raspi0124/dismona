@@ -987,7 +987,7 @@ async def on_message(message):
 			}'
 
 			print(data)
-			response = requests.post('https://wallet.monaparty.me/_api', headers=headers, data=data, auth=('rpc', 'hello'))
+			response = requests.post('https://api.monaparty.me/api/counterparty', headers=headers, data=data, auth=('rpc', 'hello'))
 			print(response)
 			print(response.text)
 			print("")
