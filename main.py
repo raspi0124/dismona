@@ -18,7 +18,7 @@ import mlibs
 from discord.ext import commands
 from ratelimiter import RateLimiter
 from discord.ext.commands.cooldowns import BucketType
-
+print("MAIN SERVICE IS NOW STARTING!")
 
 def limited(until):
     duration = int(round(until - time.time()))
@@ -943,6 +943,11 @@ async def on_message(message):
 				address3 = mlibs.deposit(userid)
 				m = "<@" + message.author.id + ">, This is your monaparty deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
 				await client.send_message(message.channel, m)
+			else:
+				pass:
+		if message.content.startswith("/mp alive"):
+			m = "Monaparty Service on Monage is working."
+			print(m)		
 		if message.content.startswith("/mp tip"):
 			await client.add_reaction(message, '👌')
 			print("start")
