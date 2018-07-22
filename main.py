@@ -931,23 +931,6 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 			responseresult = str(responseresult)
 
-
-		if message.content.startswith("/mp deposit"):
-			await client.add_reaction(message, '👌')
-			# 送り主がBotだった場合反応したくないので
-			if client.user != message.author.name:
-			# メッセージを書きます
-				m = "<@" + message.author.id + "> アドレスを確認中..."
-			# メッセージが送られてきたチャンネルへメッセージを送ります
-				await client.send_message(message.channel, m)
-				address3 = mlibs.deposit(userid)
-				m = "<@" + message.author.id + ">, This is your monaparty deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
-				await client.send_message(message.channel, m)
-			else:
-				pass:
-		if message.content.startswith("/mp alive"):
-			m = "Monaparty Service on Monage is working."
-			print(m)		
 		if message.content.startswith("/mp tip"):
 			await client.add_reaction(message, '👌')
 			print("start")
@@ -1000,6 +983,24 @@ async def on_message(message):
 			#ここからmonacoindで署名してブロックチェーンにtxidを送信。
 			m = "Rawtransaction : " + txid + ""
 			await client.send_message(message.channel, m)
+
+		if message.content.startswith("/mp deposit"):
+			await client.add_reaction(message, '👌')
+			# 送り主がBotだった場合反応したくないので
+			if client.user != message.author.name:
+			# メッセージを書きます
+				m = "<@" + message.author.id + "> アドレスを確認中..."
+			# メッセージが送られてきたチャンネルへメッセージを送ります
+				await client.send_message(message.channel, m)
+				address3 = mlibs.deposit(userid)
+				m = "<@" + message.author.id + ">, This is your monaparty deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
+				await client.send_message(message.channel, m)
+			else:
+				pass:
+		if message.content.startswith("/mp alive"):
+			m = "Monaparty Service on Monage is working."
+			print(m)
+
 
 			#MONAPARTY関連終わり
 
