@@ -946,7 +946,7 @@ async def on_message(message):
 				address3 = mlibs.deposit(userid)
 				m = "<@" + message.author.id + ">, This is your monaparty deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
 				await client.send_message(message.channel, m)
-				
+
 		if message.content.startswith("/mp tip"):
 			await client.add_reaction(message, '👌')
 			print("start")
@@ -981,7 +981,7 @@ async def on_message(message):
 			}
 			data = '{\
   			"method": "create_send",\
-  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress', "asset": ' + tiptoken + ', "quantity": ' + tipamount + '},\
+  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + '},\
   			"jsonrpc": "2.0",\
   			"id": 1\
 			}'
