@@ -168,7 +168,9 @@ def getpubkey(address):
 	rut = str(rut)
 	rut = rut.replace("\n", '')
 	resultjson = json.dumps(rut)
+	print(resultjson)
 	resultjson = json.loads(resultjson)
+	print(resultjson)
 	print(resultjson["pubkey"])
 	pubkey = resultjson["pubkey"]
 	print(pubkey)
