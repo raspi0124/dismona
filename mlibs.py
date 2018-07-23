@@ -18,7 +18,7 @@ def libgetbalance(userid):
 	subprocess.check_output( cmdlib.split(" ") )
 	minconf = "60"
 	cmdlib = "monacoin-cli getbalance " + userid + " " + minconf + ""
-	subprocess.check_output( cmdlib.split(" ") )
+	rutlib = subprocess.check_output( cmdlib.split(" ") )
 	balancelib = rutlib.decode()
 	balancelib = float(balancelib)
 	currenttimelib = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
@@ -170,7 +170,7 @@ def getpubkey(address):
 	rut = rut.replace("\n", '')
 	resultjson = rut
 	print(resultjson)
-	pubkey = "pubkey"
+	resultjson = json.loads(resultjson)
 	print(json.dumps(resultjson[pubkey]))
 	pubkey = json.dumps(resultjson[pubkey])
 	print(pubkey)
