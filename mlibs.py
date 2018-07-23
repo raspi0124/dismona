@@ -170,7 +170,7 @@ def getpubkey(address):
 	rut = rut.replace("\n", '')
 	resultjson = rut
 	print(resultjson)
-	print(json.dumps(resultjson["pubkey"]))
-	pubkey = json.dumps(resultjson["pubkey"])
+	print(json.dumps(resultjson[pubkey]))
+	pubkey = json.dumps(resultjson[pubkey])
 	print(pubkey)
 	return pubkey
