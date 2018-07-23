@@ -165,6 +165,7 @@ def register(userid):
 def getpubkey(address):
 	cmd = "monacoin-cli validateaddress " + address + ""
 	rut  =  subprocess.check_output( cmd.split(" ") )
+	rut = str(rut)
 	rut = rut.replace("\n", '')
 	resultjson = json.dumps(rut)
 	pubkey = resultjson[pubkey]
