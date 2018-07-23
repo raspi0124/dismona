@@ -161,10 +161,11 @@ def register(userid):
 	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 	connection.commit()
 	return resultmore5
-	
+
 def getpubkey(address):
 	cmd = "monacoin-cli validateaddress " + address + ""
 	rut  =  subprocess.check_output( cmd.split(" ") )
+	rut = rut.replace("\n", '')
 	resultjson = json.dumps(rut)
 	pubkey = resultjson[pubkey]
 	print(pubkey)
