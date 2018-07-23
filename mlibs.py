@@ -168,12 +168,9 @@ def getpubkey(address):
 	rut  =  subprocess.check_output( cmd.split(" ") )
 	rut = str(rut)
 	rut = rut.replace("\n", '')
-	print(rut)
-	resultjson = json.dumps(rut)
+	resultjson = rut.json()
 	print(resultjson)
-	resultjson = json.loads(resultjson)
-	print(resultjson)
-	print(resultjson["pubkey"])
+	print(json.dumps(resultjson["pubkey"]))
 	pubkey = resultjson["pubkey"]
 	print(pubkey)
 	return pubkey
