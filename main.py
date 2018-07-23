@@ -985,7 +985,7 @@ async def on_message(message):
   			"id": 1\n \
 			"method":"proxy_to_counterpartyd"\n \
 			}'
-			'''
+			
 			data = '{\n \
 			"params":{\n \
 				"method":"create_send",\n \
@@ -1005,10 +1005,9 @@ async def on_message(message):
 		"jsonrpc":"2.0",\n \
 		"method":"proxy_to_counterpartyd"\n \
 	}'
-	'''
 
 			print(data)
-			response = requests.post('https://api.monaparty.me/api/counterparty', headers=headers, data=data, auth=('rpc', 'hello'))
+			response = requests.post('https://wallet.monaparty.me/_api', headers=headers, data=data, auth=('rpc', 'hello'))
 			print(response)
 			print(response.text)
 			print("")
