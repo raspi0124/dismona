@@ -969,12 +969,15 @@ async def on_message(message):
 			tipto = re.findall(pattern,tipto)
 			tipto = str(tipto[0])
 			addresses = mlibs.deposit(userid)
+			address = mlibs.deposit(userid)
+			print(address)
+			print(addresses)
 			addresses = '"' + addresses + '"'
 			tiptoaddress = mlibs.deposit(tipto)
 			tiptoaddress = '"' + tiptoaddress + '"'
 			tiptoken = '"' + tiptoken + '"'
-			pubkey = mlibs.getpubkey(addresses)
-			pubkey = '"' + publkey + '"'
+			pubkey = mlibs.getpubkey(address)
+			pubkey = '"' + pubkey + '"'
 			#APIにアクセスし該当TXIDをもらってくる
 			headers = {
 				'Content-Type': 'application/json; charset=UTF-8',
