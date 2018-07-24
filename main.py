@@ -976,8 +976,8 @@ async def on_message(message):
 			tiptoaddress = mlibs.deposit(tipto)
 			tiptoaddress = '"' + tiptoaddress + '"'
 			tiptoken = '"' + tiptoken + '"'
-			pubkey = mlibs.getpubkey(address)
-			pubkey = '"' + pubkey + '"'
+			#pubkey = mlibs.getpubkey(address)
+			#pubkey = '"' + pubkey + '"'
 			#APIにアクセスし該当TXIDをもらってくる
 			headers = {
 				'Content-Type': 'application/json; charset=UTF-8',
