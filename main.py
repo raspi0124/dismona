@@ -988,31 +988,11 @@ async def on_message(message):
   			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + '},\n \
   			"jsonrpc": "2.0",\n \
   			"id": 1\n \
-			"method":"proxy_to_counterpartyd"\n \
 			}'
 
-			data = '{\n \
-				"params":{\n \
-					"method":"create_send",\n \
-					"params":{\n \
-						fee_per_kb:150, //1KBあたりの手数料(Satoshi),\n \
-						disable_utxo_locks:true, //安全のために残高をロックする機能を無効化するか\n \
-						encoding:"auto", //autoで固定することを強く推奨\n \
-						pubkey:' + pubkey + ' //sourceの公開鍵の16進数。初めて使うアドレスなら必須,\n \
-						source:' + addresses + ' //送信元アドレス\n \
-						destination:' + tiptoaddress + ', //送金先アドレス\n \
-						asset:' + tiptoken + ', //トークン名。BTCとかXCPとかPEPECASHなど。\n \
-						quantity:' + tipamount + ', //送信量\n \
-						memo:"Monage tip service.", //メモ\n \
-					}\n \
-				},\n \
-			"id":0,\n \
-			"jsonrpc":"2.0",\n \
-			"method":"proxy_to_counterpartyd"\n \
-			}'
 
 			print(data)
-			response = requests.post('https://wallet.monaparty.me/_api', headers=headers, data=data, auth=('rpc', 'hello'))
+			response = requests.post('https://api.monaparty.me/api/counterparty', headers=headers, data=data)
 			print(response)
 			print(response.text)
 			print("")
