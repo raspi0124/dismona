@@ -992,7 +992,7 @@ async def on_message(message):
 
 
 			print(data)
-			response = requests.post('https://api.monaparty.me/api/counterparty', headers=headers, data=data)
+			response = requests.post('https://api.monaparty.me/', headers=headers, data=data)
 			print(response)
 			print(response.text)
 			print("")
