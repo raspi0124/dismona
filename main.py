@@ -979,13 +979,14 @@ async def on_message(message):
 			#pubkey = mlibs.getpubkey(address)
 			#pubkey = '"' + pubkey + '"'
 			#APIにアクセスし該当TXIDをもらってくる
+			fee = "200"
 			headers = {
 				'Content-Type': 'application/json; charset=UTF-8',
 				'Accept': 'application/json, text/javascript',
 			}
 			data = '{\n \
   			"method": "create_send",\n \
-  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + '},\n \
+  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + ', "fee_per_kb": ' + fee +b '},\n \
   			"jsonrpc": "2.0",\n \
   			"id": 1\n \
 			}'
