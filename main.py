@@ -979,7 +979,7 @@ async def on_message(message):
 			#pubkey = mlibs.getpubkey(address)
 			#pubkey = '"' + pubkey + '"'
 			#APIにアクセスし該当TXIDをもらってくる
-			fee = "200"
+			fee = "2000"
 			headers = {
 				'Content-Type': 'application/json; charset=UTF-8',
 				'Accept': 'application/json, text/javascript',
