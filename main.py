@@ -1013,7 +1013,8 @@ async def on_message(message):
 			rut = rut.replace('\n', '')
 			rut = rut.replace("b'", '')
 			print(rut)
-			m = json.dumps(rut)
+			#m = json.dumps(rut)
+			m = rut
 			json_dict = json.loads(m)
 			hex = str(json_dict[0]['hex'])
 			m = "hex: " + hex + ""
