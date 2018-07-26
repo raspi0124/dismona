@@ -988,7 +988,7 @@ async def on_message(message):
 			'''
 			data = '{\n \
   			"method": "create_send",\n \
-  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + ', "fee": ' + fee + ' },\n \
+  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + ', "fee": ' + fee + ', "allow_unconfirmed_inputs" true },\n \
   			"jsonrpc": "2.0",\n \
   			"id": 1\n \
 			}'
