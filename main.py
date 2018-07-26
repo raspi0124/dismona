@@ -920,6 +920,9 @@ async def on_message(message):
 			print(responseresult)
 			print("")
 			numresult = int(len(responseresult))
+			if responseresult == "[]":
+				m = "あなたのアドレスには何もトークンが入っていないようです。。"
+				await client.send_message(message.channel, m)
 			for num in range(numresult):
 				print(num)
 				print(json.dumps(responseresult[num]))
