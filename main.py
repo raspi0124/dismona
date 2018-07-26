@@ -1027,6 +1027,11 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 			cmd = "monacoin-cli sendrawtransaction " + hex + ""
 			txid = subprocess.check_output( cmd.split(" ") )
+			tipamount = str(tipamount)
+			tiptoken = str(tiptoken)
+			userid = str(userid)
+			tipto = str(tipto)
+			txid = str(txid)
 			m = "Successfully sent " + tipamount + " " + tiptoken + " from " + userid + "to <@" + tipto +">!\n TXID: " + txid + ""
 			await client.send_message(message.channel, m)
 #MONAPARTY関連終わり
