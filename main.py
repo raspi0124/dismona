@@ -1010,9 +1010,9 @@ async def on_message(message):
 			cmd = "monacoin-cli signrawtransaction " + rawtransaction + ""
 			rut = subprocess.check_output( cmd.split(" ") )
 			rut = str(rut)
-			print(rut)
 			rut = rut.replace('\n', '')
 			rut = rut.replace("b'", '')
+			print(rut)
 			m = json.dumps(rut)
 			json_dict = json.loads(m)
 			hex = str(json_dict['hex'])
