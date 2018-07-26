@@ -944,96 +944,107 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 
 		if message.content.startswith("/mp tip"):
-			await client.add_reaction(message, '👌')
-			print("start")
-			message2 = message.content.replace('/mp tip', '')
-			print (message2)
-			pattern = r'\w+'
-			print(re.findall(pattern,message2))
-			tipinfo = re.findall(pattern,message2)
-			print(tipinfo[0])
-			print(tipinfo[1])
-			tipto = tipinfo[0]
-			tipamount = tipinfo[1]
-			tiptoken = tipinfo[2]
-			print("")
-			print(tipto)
-			print(tipamount)
-			print(tiptoken)
-			print("")
-			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
-			tipto = re.findall(pattern,tipto)
-			tipto = str(tipto[0])
-			addresses = mlibs.deposit(userid)
-			address = mlibs.deposit(userid)
-			print(address)
-			print(addresses)
-			addresses = '"' + addresses + '"'
-			tiptoaddress = mlibs.deposit(tipto)
-			tiptoaddress = '"' + tiptoaddress + '"'
-			tiptoken = '"' + tiptoken + '"'
-			#pubkey = mlibs.getpubkey(address)
-			#pubkey = '"' + pubkey + '"'
-			#APIにアクセスし該当TXIDをもらってくる
-			fee = "2000"
-			headers = {
-				'Content-Type': 'application/json; charset=UTF-8',
-				'Accept': 'application/json, text/javascript',
-			}
-			'''
-			data = '{"jsonrpc":"2.0", "id":0, "method":"get_asset_info", "params":{"assets":' + tiptoken + '} }'
+			if message.author.id == "326091178984603669":
+				await client.add_reaction(message, '👌')
+				print("start")
+				beforebal = mlibs.libgetbalance(userid)
+				message2 = message.content.replace('/mp tip', '')
+				print (message2)
+				pattern = r'\w+'
+				print(re.findall(pattern,message2))
+				tipinfo = re.findall(pattern,message2)
+				print(tipinfo[0])
+				print(tipinfo[1])
+				tipto = tipinfo[0]
+				tipamount = tipinfo[1]
+				tiptoken = tipinfo[2]
+				print("")
+				print(tipto)
+				print(tipamount)
+				print(tiptoken)
+				print("")
+				pattern=r'([+-]?[0-9]+\.?[0-9]*)'
+				tipto = re.findall(pattern,tipto)
+				tipto = str(tipto[0])
+				addresses = mlibs.deposit(userid)
+				address = mlibs.deposit(userid)
+				print(address)
+				print(addresses)
+				addresses = '"' + addresses + '"'
+				tiptoaddress = mlibs.deposit(tipto)
+				tiptoaddress = '"' + tiptoaddress + '"'
+				tiptoken = '"' + tiptoken + '"'
+				#pubkey = mlibs.getpubkey(address)
+				#pubkey = '"' + pubkey + '"'
+				#APIにアクセスし該当TXIDをもらってくる
+				fee = "2000"
 
-			asset_info = requests.post('https://api.monaparty.me/', headers=headers, data=data)
-			assetinfo_json = asset_info.json()
-			'''
-			data = '{\n \
-  			"method": "create_send",\n \
-  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + ', "fee": ' + fee + ', "allow_unconfirmed_inputs" true },\n \
-  			"jsonrpc": "2.0",\n \
-  			"id": 1\n \
-			}'
+				headers = {
+					'Content-Type': 'application/json; charset=UTF-8',
+					'Accept': 'application/json, text/javascript',
+				}
+				'''
+				data = '{"jsonrpc":"2.0", "id":0, "method":"get_asset_info", "params":{"assets":' + tiptoken + '} }'
+
+				asset_info = requests.post('https://api.monaparty.me/', headers=headers, data=data)
+				assetinfo_json = asset_info.json()
+				'''
+				data = '{\n \
+	  			"method": "create_send",\n \
+	  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + ', "fee": ' + fee + ', "allow_unconfirmed_inputs" true },\n \
+	  			"jsonrpc": "2.0",\n \
+	  			"id": 1\n \
+				}'
 
 
-			print(data)
-			response = requests.post('https://api.monaparty.me/', headers=headers, data=data)
-			print(response)
-			print(response.text)
-			print("")
-			responsejson = response.json()
-			rawtransaction = responsejson['result']
-			print(rawtransaction)
-			rawtransaction = str(rawtransaction)
-			print("")
-			m = "Rawtransaction : " + rawtransaction + ""
-			await client.send_message(message.channel, m)
-			mlibs.unlockwallet(30)
-			cmd = "monacoin-cli signrawtransaction " + rawtransaction + ""
-			rut = subprocess.check_output( cmd.split(" ") )
-			rut = str(rut)
-			rut = rut.replace('\\n', '')
-			rut = rut.replace("b'", '')
-			rut = rut.replace("'", '')
-			if "true" in rut:
-				rut = rut.replace("true", '"true"')
-			if "false" in rut:
-				rut = rut.replace("false", '"false"')
-			print(rut)
-			#m = json.dumps(rut)
-			m = rut
-			json_dict = json.loads(m)
-			hex = str(json_dict['hex'])
-			m = "hex: " + hex + ""
-			print(m)
-			await client.send_message(message.channel, m)
-			cmd = "monacoin-cli sendrawtransaction " + hex + ""
-			txid = subprocess.check_output( cmd.split(" ") )
-			tipamount = str(tipamount)
-			tiptoken = str(tiptoken)
-			userid = str(userid)
-			tipto = str(tipto)
-			txid = str(txid)
-			m = "Successfully sent " + tipamount + " " + tiptoken + " from " + userid + "to <@" + tipto +">!\n TXID: " + txid + ""
-			await client.send_message(message.channel, m)
+				print(data)
+				response = requests.post('https://api.monaparty.me/', headers=headers, data=data)
+				print(response)
+				print(response.text)
+				print("")
+				responsejson = response.json()
+				rawtransaction = responsejson['result']
+				print(rawtransaction)
+				rawtransaction = str(rawtransaction)
+				print("")
+				m = "Rawtransaction : " + rawtransaction + ""
+				await client.send_message(message.channel, m)
+				mlibs.unlockwallet(30)
+				cmd = "monacoin-cli signrawtransaction " + rawtransaction + ""
+				rut = subprocess.check_output( cmd.split(" ") )
+				rut = str(rut)
+				rut = rut.replace('\\n', '')
+				rut = rut.replace("b'", '')
+				rut = rut.replace("'", '')
+				if "true" in rut:
+					rut = rut.replace("true", '"true"')
+				if "false" in rut:
+					rut = rut.replace("false", '"false"')
+				print(rut)
+				#m = json.dumps(rut)
+				m = rut
+				json_dict = json.loads(m)
+				hex = str(json_dict['hex'])
+				m = "hex: " + hex + ""
+				print(m)
+				await client.send_message(message.channel, m)
+				cmd = "monacoin-cli sendrawtransaction " + hex + ""
+				txid = subprocess.check_output( cmd.split(" ") )
+				tipamount = str(tipamount)
+				tiptoken = str(tiptoken)
+				userid = str(userid)
+				tipto = str(tipto)
+				txid = str(txid)
+				afterbal = mlibs.libgetbalance(userid)
+				sa = float(beforebal) - float(afterbal)
+				trash = "trash"
+				sa = str(sa)
+				mlibs.tip(userid, trash, sa)
+				m = "Successfully sent " + tipamount + " " + tiptoken + " from " + userid + "to <@" + tipto +">!\n TXID: " + txid + ""
+				await client.send_message(message.channel, m)
+			else:
+				m = "Sorry, But for security reason, executing /mp tip command are only allowed for developer."
+				await client.send_message(message.channel, m)
 #MONAPARTY関連終わり
 
 
