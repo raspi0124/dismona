@@ -1021,7 +1021,7 @@ async def on_message(message):
 			#m = json.dumps(rut)
 			m = rut
 			json_dict = json.loads(m)
-			hex = str(json_dict[0]['hex'])
+			hex = str(json_dict['hex'])
 			m = "hex: " + hex + ""
 			print(m)
 			await client.send_message(message.channel, m)
