@@ -930,10 +930,6 @@ async def on_message(message):
 				m = "" + assetname + " : " + assetamount + " " + assetname + ""
 				await client.send_message(message.channel, m)
 			responseresult = str(responseresult)
-		if message.content.startswith("/mp alive"):
-			m = "Monaparty Service on Monage is working."
-			print(m)
-
 
 		if message.content.startswith("/mp deposit"):
 			await client.add_reaction(message, '👌')
@@ -984,9 +980,15 @@ async def on_message(message):
 				'Content-Type': 'application/json; charset=UTF-8',
 				'Accept': 'application/json, text/javascript',
 			}
+			'''
+			data = '{"jsonrpc":"2.0", "id":0, "method":"get_asset_info", "params":{"assets":' + tiptoken + '} }'
+
+			asset_info = requests.post('https://api.monaparty.me/', headers=headers, data=data)
+			assetinfo_json = asset_info.json()
+			'''
 			data = '{\n \
   			"method": "create_send",\n \
-  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + ', "fee_per_kb": ' + fee + ' },\n \
+  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + ', "fee": ' + fee + ' },\n \
   			"jsonrpc": "2.0",\n \
   			"id": 1\n \
 			}'
@@ -998,13 +1000,22 @@ async def on_message(message):
 			print(response.text)
 			print("")
 			responsejson = response.json()
-			txid = responsejson['result']
-			print(txid)
-			txid = str(txid)
+			rawtransaction = responsejson['result']
+			print(rawtransaction)
+			rawtransaction = str(rawtransaction)
 			print("")
-			#ここからmonacoindで署名してブロックチェーンにtxidを送信。
-			m = "Rawtransaction : " + txid + ""
+			m = "Rawtransaction : " + rawtransaction + ""
 			await client.send_message(message.channel, m)
+			mlibs.unlockwallet(30)
+			cmd = "monacoin-cli signrawtransaction " + rawtransaction + ""
+			rut = subprocess.check_output( cmd.split(" ") )
+			m = json.dumps(rut)
+			json_dict = json.loads(m)
+			hex = str(json_dict['hex'])
+			m = "hex: " + hex + ""
+			print(m)
+			await client.send_message(message.channel, m)
+
 
 #MONAPARTY関連終わり
 
