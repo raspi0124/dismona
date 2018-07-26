@@ -1012,6 +1012,10 @@ async def on_message(message):
 			rut = str(rut)
 			rut = rut.replace('\\n', '')
 			rut = rut.replace("b'", '')
+			if "true" in rut:
+				rut = rut.replace("true", '"true"')
+			if "false" in rut:
+				rut = rut.replace("false", '"false"')
 			print(rut)
 			#m = json.dumps(rut)
 			m = rut
