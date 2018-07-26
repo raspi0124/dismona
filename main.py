@@ -1009,6 +1009,8 @@ async def on_message(message):
 			mlibs.unlockwallet(30)
 			cmd = "monacoin-cli signrawtransaction " + rawtransaction + ""
 			rut = subprocess.check_output( cmd.split(" ") )
+			rut = str(rut)
+			print(rut)
 			m = json.dumps(rut)
 			json_dict = json.loads(m)
 			hex = str(json_dict['hex'])
