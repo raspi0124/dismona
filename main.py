@@ -991,11 +991,13 @@ async def on_message(message):
 				print(assetinfo_json)
 				print("---Assetinfo compleate---")
 				data = '{\n \
-	  			"method": "create_send",\n \
-	  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + ', "fee": ' + fee + ', "allow_unconfirmed_inputs": true, "use_enhanced_send": false },\n \
-	  			"jsonrpc": "2.0",\n \
-	  			"id": 1, \n \
-				"method":"proxy_to_counterpartyd" \n\
+				"params":{\n \
+	  				"method": "create_send",\n \
+	  				"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + ', "fee": ' + fee + ', "allow_unconfirmed_inputs": true, "use_enhanced_send": false },\n \
+				}\n \
+				"jsonrpc": "2.0",\n \
+	  			"id": 1,\n \
+				"method":"proxy_to_counterpartyd"\n \
 				}'
 
 
