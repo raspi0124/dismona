@@ -986,7 +986,7 @@ async def on_message(message):
 
 				data = '{"jsonrpc":"2.0", "id":0, "method":"get_asset_info", "params":{"assets":[' + tiptoken + ']} }'
 
-				asset_info = requests.post('http://monacoin.ml:4000/', headers=headers, data=data auth=('rpc', 'rpc'))
+				asset_info = requests.post('http://monacoin.ml:4000/', headers=headers, data=data, auth=('rpc', 'rpc'))
 				assetinfo_json = asset_info.json()
 				print("---Assetinfo compleate---")
 				data = '{\n \
@@ -998,7 +998,7 @@ async def on_message(message):
 
 
 				print(data)
-				response = requests.post('http://monacoin.ml:4000/', headers=headers, data=data auth=('rpc', 'rpc'))
+				response = requests.post('http://monacoin.ml:4000/', headers=headers, data=data, auth=('rpc', 'rpc'))
 				print(response)
 				print(response.text)
 				print("---create_send request compleate---")
