@@ -983,22 +983,24 @@ async def on_message(message):
 					'Content-Type': 'application/json; charset=UTF-8',
 					'Accept': 'application/json, text/javascript',
 				}
-				'''
-				data = '{"jsonrpc":"2.0", "id":0, "method":"get_asset_info", "params":{"assets":' + tiptoken + '} }'
 
-				asset_info = requests.post('https://api.monaparty.me/', headers=headers, data=data)
+				data = '{"jsonrpc":"2.0", "id":0, "method":"get_asset_info", "params":{"assets":[' + tiptoken + ']} }'
+
+				asset_info = requests.post('http://monacoin.ml:4000/', headers=headers, data=data auth=('rpc', 'rpc'))
 				assetinfo_json = asset_info.json()
-				'''
+				print("---Assetinfo compleate---")
 				data = '{\n \
 	  			"method": "create_send",\n \
 	  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + ', "fee": ' + fee + ', "allow_unconfirmed_inputs": true, "use_enhanced_send": false },\n \
 	  			"jsonrpc": "2.0",\n \
 	  			"id": 1\n \
+				"method":"proxy_to_counterpartyd" \n\
 				}'
 
 
 				print(data)
-				response = requests.post('https://api.monaparty.me/', headers=headers, data=data)
+				response = requests.post('https://wallet.monaparty.me/_api', headers=headers, data=data)
+				print("---create_send request compleate---")
 				print(response)
 				print(response.text)
 				print("")
