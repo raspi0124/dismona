@@ -919,10 +919,6 @@ async def on_message(message):
 
 			print(responseresult)
 			print("")
-			match = re.search(r"[a-zA-Z]+", responseresult)
-			if match:
-				m = "あなたのアドレスには何もトークンが入っていないようです。。"
-				await client.send_message(message.channel, m)
 			numresult = int(len(responseresult))
 			for num in range(numresult):
 				print(num)
@@ -1011,8 +1007,6 @@ async def on_message(message):
 				print(rawtransaction)
 				rawtransaction = str(rawtransaction)
 				print("")
-				m = "Rawtransaction : " + rawtransaction + ""
-				await client.send_message(message.channel, m)
 				mlibs.unlockwallet(30)
 				cmd = "monacoin-cli signrawtransaction " + rawtransaction + ""
 				rut = subprocess.check_output( cmd.split(" ") )
@@ -1029,9 +1023,6 @@ async def on_message(message):
 				m = rut
 				json_dict = json.loads(m)
 				hex = str(json_dict['hex'])
-				m = "hex: " + hex + ""
-				print(m)
-				await client.send_message(message.channel, m)
 				cmd = "monacoin-cli sendrawtransaction " + hex + ""
 				txid = subprocess.check_output( cmd.split(" ") )
 				tipamount = str(tipamount)
@@ -1039,16 +1030,12 @@ async def on_message(message):
 				userid = str(userid)
 				tipto = str(tipto)
 				txid = str(txid)
-				afterbal = mlibs.libgetbalance(userid)
-				sa = float(beforebal) - float(afterbal)
-				trash = "trash"
-				sa = str(sa)
-				mlibs.tip(userid, trash, sa)
-				m = "Successfully sent " + tipamount + " " + tiptoken + " from " + userid + "to <@" + tipto +">!\n TXID: " + txid + ""
+				m = "Successfully sent " + tipamount + " " + tiptoken + " from <@" + userid + "> to <@" + tipto +"> !\n TXID: " + txid + ""
 				await client.send_message(message.channel, m)
 			else:
 				m = "Sorry, But for security reason, executing /mp tip command are only allowed for developer."
 				await client.send_message(message.channel, m)
+
 #MONAPARTY関連終わり
 
 
