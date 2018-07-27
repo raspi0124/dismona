@@ -919,10 +919,11 @@ async def on_message(message):
 
 			print(responseresult)
 			print("")
-			numresult = int(len(responseresult))
-			if responseresult == "[]":
+			match = re.search(r"[a-zA-Z]+", responseresult)
+			if match:
 				m = "あなたのアドレスには何もトークンが入っていないようです。。"
 				await client.send_message(message.channel, m)
+			numresult = int(len(responseresult))
 			for num in range(numresult):
 				print(num)
 				print(json.dumps(responseresult[num]))
@@ -994,7 +995,7 @@ async def on_message(message):
 				'''
 				data = '{\n \
 	  			"method": "create_send",\n \
-	  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + ', "fee": ' + fee + ', "allow_unconfirmed_inputs" true },\n \
+	  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + ', "fee": ' + fee + ', "allow_unconfirmed_inputs" True, "use_enhanced_send" False },\n \
 	  			"jsonrpc": "2.0",\n \
 	  			"id": 1\n \
 				}'
