@@ -997,7 +997,7 @@ async def on_message(message):
 				rut = rut.replace("'", '"')
 				rut = rut.replace("True", '"True"')
 				rut = rut.replace("False", '"False"')
-				ut = rut.replace("None", '"None"')
+				rut = rut.replace("None", '"None"')
 				print(rut)
 				json_dict = json.loads(rut)
 				isdivisible = str(json_dict['divisible'])
