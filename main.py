@@ -1019,6 +1019,7 @@ async def on_message(message):
 				print("---create_send request compleate---")
 				print("")
 				responsejson = response.json()
+				responsejson = json.loads(responsejson)
 				rawtransaction = responsejson['result']
 				print(rawtransaction)
 				rawtransaction = str(rawtransaction)
