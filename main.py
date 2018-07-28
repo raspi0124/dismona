@@ -989,18 +989,11 @@ async def on_message(message):
 				asset_info = requests.post('http://153.126.176.183:4000/api/ ', headers=headers, data=data, auth=('rpc', 'rpc'))
 				assetinfo_json = asset_info.json()
 				print(assetinfo_json)
-				print(assetinfo_json['result'])
-				rut = assetinfo_json['result']
+				print(assetinfo_json['result']['divisible'])
+				rut = assetinfo_json['result']['divisible']
 				rut = str(rut)
-				rut = rut.replace('\\n', '')
-				rut = rut.replace("b'", '')
-				rut = rut.replace("'", '"')
-				rut = rut.replace("True", '"True"')
-				rut = rut.replace("False", '"False"')
-				rut = rut.replace("None", '"None"')
 				print(rut)
-				json_dict = json.loads(rut)
-				isdivisible = str(json_dict['divisible'])
+				isdivisible = str(rut)
 				print(isdivisible)
 
 				print("---Assetinfo compleate---")
@@ -1019,7 +1012,6 @@ async def on_message(message):
 				print("---create_send request compleate---")
 				print("")
 				responsejson = response.json()
-				responsejson = json.loads(responsejson)
 				rawtransaction = responsejson['result']
 				print(rawtransaction)
 				rawtransaction = str(rawtransaction)
