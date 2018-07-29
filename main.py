@@ -991,7 +991,7 @@ async def on_message(message):
 				rut = assetinfo_json
 				rut = str(rut)
 				print(rut)
-				json_dict = json.load(rut)
+				json_dict = json.loads(rut)
 				print('result:{}'.format(json_dict['result']['divisible']))
 				isdivisible = str(rut)
 				print(isdivisible)
