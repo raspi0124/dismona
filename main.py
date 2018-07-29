@@ -988,11 +988,13 @@ async def on_message(message):
 
 				asset_info = requests.post('http://153.126.176.183:4000/api/ ', headers=headers, data=data, auth=('rpc', 'rpc'))
 				assetinfo_json = asset_info.text
+				print(assetinfo_json)
+				assetinfo_json = str(assetinfo_json)
 				enc = json.dumps(assetinfo_json)
 				print (enc)
 				dec = json.loads(enc)
-				print( dec)
-				print (dec['result']['divisble'])
+				print(dec)
+				print(dec['result']['divisible'])
 				print("---Assetinfo compleate---")
 				data = '{\n \
 	  			"method": "create_send",\n \
