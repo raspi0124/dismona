@@ -1000,8 +1000,7 @@ async def on_message(message):
 					tipamount = float(tipamount)
 					tipamount = tipamount * satoshivalue
 					print(tipamount)
-					tipamount = str(tipamount)
-					tipamount = tipamount.replace('"', '')
+					tipamount = int(tipamount)
 
 				data = '{\n \
 	  			"method": "create_send",\n \
