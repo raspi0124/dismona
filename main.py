@@ -987,8 +987,7 @@ async def on_message(message):
 				data = '{"jsonrpc":"2.0", "id":0, "method":"get_asset_info", "params":{"assets":[' + tiptoken + ']} }'
 
 				asset_info = requests.post('http://153.126.176.183:4000/api/ ', headers=headers, data=data, auth=('rpc', 'rpc'))
-				assetinfo_json = asset_info.text
-				responsejson = response.json()
+				responsejson = asset_info.json()
 				responseresult = responsejson['result']
 				print(responseresult)
 				print("")
