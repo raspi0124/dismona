@@ -997,6 +997,7 @@ async def on_message(message):
 				satoshivalue = "100000000"
 				satoshivalue = int(satoshivalue)
 				if isdivisible == "True":
+					tipamount = float(tipamount)
 					tipamount = tipamount * satoshivalue
 					print(tipamount)
 
