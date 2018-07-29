@@ -987,12 +987,12 @@ async def on_message(message):
 				data = '{"jsonrpc":"2.0", "id":0, "method":"get_asset_info", "params":{"assets":[' + tiptoken + ']} }'
 
 				asset_info = requests.post('http://153.126.176.183:4000/api/ ', headers=headers, data=data, auth=('rpc', 'rpc'))
-				assetinfo_json = asset_info.json()
-				print(assetinfo_json)
-				print(assetinfo_json['result']['divisible'])
-				rut = assetinfo_json['result']['divisible']
+				assetinfo_json = asset_info.text
+				rut = assetinfo_json
 				rut = str(rut)
 				print(rut)
+				json_dict = json.load(rut)
+				print('result:{}'.format(json_dict['result']['divisible']))
 				isdivisible = str(rut)
 				print(isdivisible)
 
