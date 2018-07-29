@@ -1000,14 +1000,17 @@ async def on_message(message):
 					tipamount = float(tipamount)
 					tipamount = tipamount * satoshivalue
 					print(tipamount)
-					tipamount = int(tipamount)
+					tipamount = str(tipamount)
 
 				data = '{\n \
 	  			"method": "create_send",\n \
-	  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": {}, "quantity": ' + tipamount + ', "fee": ' + fee + ', "allow_unconfirmed_inputs": true, "use_enhanced_send": false },\n \
+	  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + ', "fee": ' + fee + ', "allow_unconfirmed_inputs": true, "use_enhanced_send": false },\n \
 	  			"jsonrpc": "2.0",\n \
 	  			"id": 1\n \
-				}'.format(tipamount)
+				}'
+				print(data)
+				repfrom = '"' + tipamount + '"'
+				data = data.replace(repfrom, tipamount)
 
 
 
