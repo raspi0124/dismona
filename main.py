@@ -999,8 +999,6 @@ async def on_message(message):
 				if isdivisible == "True":
 					tipamount = tipamount * satoshivalue
 					print(tipamount)
-				if isdivisible == "False":
-					pass:
 
 				data = '{\n \
 	  			"method": "create_send",\n \
