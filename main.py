@@ -957,6 +957,7 @@ async def on_message(message):
 				print(tipinfo[1])
 				tipto = tipinfo[0]
 				tipamount = tipinfo[1]
+				deftipamount = tipinfo[1]
 				tiptoken = tipinfo[2]
 				print("")
 				print(tipto)
@@ -1049,7 +1050,8 @@ async def on_message(message):
 				userid = str(userid)
 				tipto = str(tipto)
 				txid = str(txid)
-				m = "Successfully sent " + tipamount + " " + tiptoken + " from <@" + userid + "> to <@" + tipto +"> !\n TXID: " + txid + ""
+				deftipamount = str(deftipamount)
+				m = "Successfully sent " + deftipamount + " " + tiptoken + " from <@" + userid + "> to <@" + tipto +"> !\n TXID: " + txid + ""
 				await client.send_message(message.channel, m)
 			else:
 				m = "Sorry, But for security reason, executing /mp tip command are only allowed for developer."
