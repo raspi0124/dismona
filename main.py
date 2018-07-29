@@ -1000,6 +1000,7 @@ async def on_message(message):
 					tipamount = float(tipamount)
 					tipamount = tipamount * satoshivalue
 					print(tipamount)
+					tipamount = int(tipamount)
 					tipamount = str(tipamount)
 
 				data = '{\n \
