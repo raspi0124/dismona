@@ -990,8 +990,18 @@ async def on_message(message):
 				responsejson = asset_info.json()
 				responseresult = responsejson['result']
 				print(responseresult)
-				print(responseresult[0]["divisible"])
+				isdivisible = responseresult[0]["divisible"]
+				isdivisible = str(isdivisible)
+				print(isdivisible)
 				print("---Assetinfo compleate---")
+				satoshivalue = "100000000"
+				satoshivalue = int(satoshivalue)
+				if isdivisible == "True":
+					tipamount = tipamount * satoshivalue
+					print(tipamount)
+				if isdivisible == "False":
+					pass:
+
 				data = '{\n \
 	  			"method": "create_send",\n \
 	  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + ', "fee": ' + fee + ', "allow_unconfirmed_inputs": true, "use_enhanced_send": false },\n \
