@@ -990,12 +990,7 @@ async def on_message(message):
 				responsejson = asset_info.json()
 				responseresult = responsejson['result']
 				print(responseresult)
-				print("")
-				print(json.dumps(responseresult[0]))
-				print("")
-				print(json.dumps(responseresult[1]))
-				print("")
-				print(responseresult[0]["divisble"])
+				print(responseresult[0]["divisible"])
 				print("---Assetinfo compleate---")
 				data = '{\n \
 	  			"method": "create_send",\n \
