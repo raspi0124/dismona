@@ -466,32 +466,29 @@ async def on_message(message):
 			print(rainall)
 			if balancea >= raininfo[1]:
 				if raininfo[1] >= "0.01":
-					if sum > "0.0001":
-						m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
-						await client.send_message(message.channel, m)
-						sum = str(sum)
-						numbertosend = raininfo[0]
-						numbertosend = int(numbertosend)
-						m = "Rain started by <@" + message.author.id + "> at #" + message.channel.name + ""
+					m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
+					await client.send_message(message.channel, m)
+					sum = str(sum)
+					numbertosend = raininfo[0]
+					numbertosend = int(numbertosend)
+					m = "Rain started by <@" + message.author.id + "> at #" + message.channel.name + ""
+					await client.send_message(rainnotify, m)
+					for var in range(0, numbertosend):
+						tosend = random.choice(rainall)
+						print(tosend)
+						print("--rondomfinish--")
+						#tosend = int(tosend)
+						#tosend = rainall[tosend]
+						tosend = str(tosend)
+						print("--startcommand--")
+						mlibs.tip(userid, tosend, sum)
+						m = "Raining" + sum + "mona to <@" + tosend + ">.."
 						await client.send_message(rainnotify, m)
-						for var in range(0, numbertosend):
-							tosend = random.choice(rainall)
-							print(tosend)
-							print("--rondomfinish--")
-							#tosend = int(tosend)
-							#tosend = rainall[tosend]
-							tosend = str(tosend)
-							print("--startcommand--")
-							mlibs.tip(userid, tosend, sum)
-							m = "Raining" + sum + "mona to <@" + tosend + ">.."
-							await client.send_message(rainnotify, m)
-						m = "finished raining " + sum + "mona to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona! Rained by <@" + message.author.id + ">"
-						await client.send_message(message.channel, m)
-						m = "finished raining " + sum + "mona to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona! Rained by <@" + message.author.id + ">"
-						await client.send_message(rainnotify, m)
-						print(rut)
-					else:
-						m = "負荷軽減のため1人当たりのrainが0.0001mona以下になるrainは制限しています。"
+					m = "finished raining " + sum + "mona to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona! Rained by <@" + message.author.id + ">"
+					await client.send_message(message.channel, m)
+					m = "finished raining " + sum + "mona to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona! Rained by <@" + message.author.id + ">"
+					await client.send_message(rainnotify, m)
+					print(rut)
 				else:
 					m = "Due to Server load, it is not allowed to make total amount of rain less then 0.01."
 					await client.send_message(message.channel, m)
