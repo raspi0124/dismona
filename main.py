@@ -925,8 +925,12 @@ async def on_message(message):
 				assetname = str(json_dict['asset'])
 				assetamount = str(json_dict['normalized_quantity'])
 				m = "" + assetname + " : " + assetamount + " " + assetname + ""
-				await client.send_message(message.channel, m)
+				num = str(num)
+				if num == "0":
+					message = "<@" + userid + ">"
+				message = "" + message + "\n" + m + ""
 			responseresult = str(responseresult)
+			await client.send_message(message.channel, message)
 
 		if message.content.startswith("/mp deposit"):
 			await client.add_reaction(message, '👌')
