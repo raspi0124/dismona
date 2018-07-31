@@ -1002,8 +1002,9 @@ async def on_message(message):
 				print(tipamount)
 				tipamount = int(tipamount)
 				tipamount = str(tipamount)
+
 			#手数料で文句言われないようにfee文を予め転送。アカウントシステムだと即座に入れ替わるけどConfの間を縫えば行ける気がする。
-			mlibs.tip("fee", userid, "0.000000005")
+			mlibs.withdraw("fee", address, "0.000000005")
 
 			data = '{\n \
   			"method": "create_send",\n \
