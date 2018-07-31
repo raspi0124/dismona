@@ -927,10 +927,10 @@ async def on_message(message):
 				m = "" + assetname + " : " + assetamount + " " + assetname + ""
 				num = str(num)
 				if num == "0":
-					message = "<@" + userid + ">"
-				message = "" + message + "\n" + m + ""
+					mge = "<@" + userid + ">"
+				mge = "" + mge + "\n" + m + ""
 			responseresult = str(responseresult)
-			await client.send_message(message.channel, message)
+			await client.send_message(message.channel, mge)
 
 		if message.content.startswith("/mp deposit"):
 			await client.add_reaction(message, '👌')
