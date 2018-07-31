@@ -972,8 +972,6 @@ async def on_message(message):
 			tiptoaddress = mlibs.deposit(tipto)
 			tiptoaddress = '"' + tiptoaddress + '"'
 			tiptoken = '"' + tiptoken + '"'
-			#pubkey = mlibs.getpubkey(address)
-			#pubkey = '"' + pubkey + '"'
 			#APIにアクセスし該当TXIDをもらってくる
 			fee = "2000"
 
