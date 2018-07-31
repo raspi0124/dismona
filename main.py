@@ -941,118 +941,115 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 
 		if message.content.startswith("/mp tip"):
-			if message.author.id == "326091178984603669":
-				await client.add_reaction(message, '👌')
-				print("start")
-				beforebal = mlibs.libgetbalance(userid)
-				message2 = message.content.replace('/mp tip', '')
-				print (message2)
-				pattern = r'\w+'
-				print(re.findall(pattern,message2))
-				tipinfo = re.findall(pattern,message2)
-				print(tipinfo[0])
-				print(tipinfo[1])
-				tipto = tipinfo[0]
-				tipamount = tipinfo[1]
-				deftipamount = tipinfo[1]
-				tiptoken = tipinfo[2]
-				print("")
-				print(tipto)
+			await client.add_reaction(message, '👌')
+			print("start")
+			beforebal = mlibs.libgetbalance(userid)
+			message2 = message.content.replace('/mp tip', '')
+			print (message2)
+			pattern = r'\w+'
+			print(re.findall(pattern,message2))
+			tipinfo = re.findall(pattern,message2)
+			print(tipinfo[0])
+			print(tipinfo[1])
+			tipto = tipinfo[0]
+			tipamount = tipinfo[1]
+			deftipamount = tipinfo[1]
+			tiptoken = tipinfo[2]
+			#まず最初に数字を取り出す。次にWordを取り出し、とりだしたWordから数字を取り除く。
+			print("")
+			print(tipto)
+			print(tipamount)
+			print(tiptoken)
+			print("")
+			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
+			tipto = re.findall(pattern,tipto)
+			tipto = str(tipto[0])
+			addresses = mlibs.deposit(userid)
+			address = mlibs.deposit(userid)
+			print(address)
+			print(addresses)
+			addresses = '"' + addresses + '"'
+			tiptoaddress = mlibs.deposit(tipto)
+			tiptoaddress = '"' + tiptoaddress + '"'
+			tiptoken = '"' + tiptoken + '"'
+			#pubkey = mlibs.getpubkey(address)
+			#pubkey = '"' + pubkey + '"'
+			#APIにアクセスし該当TXIDをもらってくる
+			fee = "2000"
+
+			headers = {
+				'Content-Type': 'application/json; charset=UTF-8',
+				'Accept': 'application/json, text/javascript',
+			}
+
+			data = '{"jsonrpc":"2.0", "id":0, "method":"get_asset_info", "params":{"assets":[' + tiptoken + ']} }'
+
+			asset_info = requests.post('http://153.126.176.183:4000/api/ ', headers=headers, data=data, auth=('rpc', 'rpc'))
+			responsejson = asset_info.json()
+			responseresult = responsejson['result']
+			print(responseresult)
+			isdivisible = responseresult[0]["divisible"]
+			isdivisible = str(isdivisible)
+			print(isdivisible)
+			print("---Assetinfo compleate---")
+			satoshivalue = "100000000"
+			satoshivalue = int(satoshivalue)
+			if isdivisible == "True":
+				tipamount = float(tipamount)
+				tipamount = tipamount * satoshivalue
 				print(tipamount)
-				print(tiptoken)
-				print("")
-				pattern=r'([+-]?[0-9]+\.?[0-9]*)'
-				tipto = re.findall(pattern,tipto)
-				tipto = str(tipto[0])
-				addresses = mlibs.deposit(userid)
-				address = mlibs.deposit(userid)
-				print(address)
-				print(addresses)
-				addresses = '"' + addresses + '"'
-				tiptoaddress = mlibs.deposit(tipto)
-				tiptoaddress = '"' + tiptoaddress + '"'
-				tiptoken = '"' + tiptoken + '"'
-				#pubkey = mlibs.getpubkey(address)
-				#pubkey = '"' + pubkey + '"'
-				#APIにアクセスし該当TXIDをもらってくる
-				fee = "2000"
-
-				headers = {
-					'Content-Type': 'application/json; charset=UTF-8',
-					'Accept': 'application/json, text/javascript',
-				}
-
-				data = '{"jsonrpc":"2.0", "id":0, "method":"get_asset_info", "params":{"assets":[' + tiptoken + ']} }'
-
-				asset_info = requests.post('http://153.126.176.183:4000/api/ ', headers=headers, data=data, auth=('rpc', 'rpc'))
-				responsejson = asset_info.json()
-				responseresult = responsejson['result']
-				print(responseresult)
-				isdivisible = responseresult[0]["divisible"]
-				isdivisible = str(isdivisible)
-				print(isdivisible)
-				print("---Assetinfo compleate---")
-				satoshivalue = "100000000"
-				satoshivalue = int(satoshivalue)
-				if isdivisible == "True":
-					tipamount = float(tipamount)
-					tipamount = tipamount * satoshivalue
-					print(tipamount)
-					tipamount = int(tipamount)
-					tipamount = str(tipamount)
-
-				data = '{\n \
-	  			"method": "create_send",\n \
-	  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + ', "fee": ' + fee + ', "allow_unconfirmed_inputs": true, "use_enhanced_send": false },\n \
-	  			"jsonrpc": "2.0",\n \
-	  			"id": 1\n \
-				}'
-				print(data)
-				repfrom = '"' + tipamount + '"'
-				data = data.replace(repfrom, tipamount)
-
-
-
-				print(data)
-				response = requests.post('http://153.126.176.183:4000/api/', headers=headers, data=data, auth=('rpc', 'rpc'))
-				print(response)
-				print(response.text)
-				print("---create_send request compleate---")
-				print("")
-				responsejson = response.json()
-				rawtransaction = responsejson['result']
-				print(rawtransaction)
-				rawtransaction = str(rawtransaction)
-				print("")
-				mlibs.unlockwallet(30)
-				cmd = "monacoin-cli signrawtransaction " + rawtransaction + ""
-				rut = subprocess.check_output( cmd.split(" ") )
-				rut = str(rut)
-				rut = rut.replace('\\n', '')
-				rut = rut.replace("b'", '')
-				rut = rut.replace("'", '')
-				if "true" in rut:
-					rut = rut.replace("true", '"true"')
-				if "false" in rut:
-					rut = rut.replace("false", '"false"')
-				print(rut)
-				#m = json.dumps(rut)
-				m = rut
-				json_dict = json.loads(m)
-				hex = str(json_dict['hex'])
-				cmd = "monacoin-cli sendrawtransaction " + hex + ""
-				txid = subprocess.check_output( cmd.split(" ") )
+				tipamount = int(tipamount)
 				tipamount = str(tipamount)
-				tiptoken = str(tiptoken)
-				userid = str(userid)
-				tipto = str(tipto)
-				txid = str(txid)
-				deftipamount = str(deftipamount)
-				m = "Successfully sent " + deftipamount + " " + tiptoken + " from <@" + userid + "> to <@" + tipto +"> !\n TXID: " + txid + ""
-				await client.send_message(message.channel, m)
-			else:
-				m = "Sorry, But for security reason, executing /mp tip command are only allowed for developer."
-				await client.send_message(message.channel, m)
+
+			data = '{\n \
+  			"method": "create_send",\n \
+  			"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + ', "fee": ' + fee + ', "allow_unconfirmed_inputs": true, "use_enhanced_send": false },\n \
+  			"jsonrpc": "2.0",\n \
+  			"id": 1\n \
+			}'
+			print(data)
+			repfrom = '"' + tipamount + '"'
+			data = data.replace(repfrom, tipamount)
+
+
+
+			print(data)
+			response = requests.post('http://153.126.176.183:4000/api/', headers=headers, data=data, auth=('rpc', 'rpc'))
+			print(response)
+			print(response.text)
+			print("---create_send request compleate---")
+			print("")
+			responsejson = response.json()
+			rawtransaction = responsejson['result']
+			print(rawtransaction)
+			rawtransaction = str(rawtransaction)
+			print("")
+			mlibs.unlockwallet(30)
+			cmd = "monacoin-cli signrawtransaction " + rawtransaction + ""
+			rut = subprocess.check_output( cmd.split(" ") )
+			rut = str(rut)
+			rut = rut.replace('\\n', '')
+			rut = rut.replace("b'", '')
+			rut = rut.replace("'", '')
+			if "true" in rut:
+				rut = rut.replace("true", '"true"')
+			if "false" in rut:
+				rut = rut.replace("false", '"false"')
+			print(rut)
+			#m = json.dumps(rut)
+			m = rut
+			json_dict = json.loads(m)
+			hex = str(json_dict['hex'])
+			cmd = "monacoin-cli sendrawtransaction " + hex + ""
+			txid = subprocess.check_output( cmd.split(" ") )
+			tipamount = str(tipamount)
+			tiptoken = str(tiptoken)
+			userid = str(userid)
+			tipto = str(tipto)
+			txid = str(txid)
+			deftipamount = str(deftipamount)
+			m = "Successfully sent " + deftipamount + " " + tiptoken + " from <@" + userid + "> to <@" + tipto +"> !\n TXID: " + txid + ""
+			await client.send_message(message.channel, m)
 
 #MONAPARTY関連終わり
 
