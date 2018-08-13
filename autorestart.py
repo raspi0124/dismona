@@ -1,6 +1,6 @@
 import subprocess
 
-cmd = "pgrep -a python | grep '/root/dismona/faucet.py'"
+cmd = "pgrep -a python | grep '/root/dismona/aaa.py'"
 process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE,
 stderr=subprocess.PIPE)
 my_pid, err = process.communicate()
