@@ -651,7 +651,7 @@ async def on_message(message):
 				s = 'Main Module: Running'
 			else:
 				s = 'Main Module: Down\nRestarting process is starting..'
-				await client.send_message(message.channel, m)
+				await client.send_message(message.channel, s)
 				cmd = "refresh"
 				subprocess.Popen(cmd)
 				cmd = "pgrep -a python | grep '/root/dismona/faucet.py'"
@@ -663,7 +663,7 @@ async def on_message(message):
 					await client.send_message(message.channel, s)
 				else:
 					s = 'Faucet Module: Down\nTo start this, please use /startfaucet. '
-					await client.send_message(message.channel, m)
+					await client.send_message(message.channel, s)
 	connection.commit()
 	connection.close()
 client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.Ddop9Q.K1wjAC3ZztBltTDp75ijN0baj-I")
