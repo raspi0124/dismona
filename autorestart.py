@@ -21,4 +21,4 @@ else:
 	with open(path_w, mode='w') as f:
 		f.write(s)
 	cmd = "startfaucet"
-	rut = subprocess.check_output( cmd.split(" ") )
+	subprocess.Popen(cmd)
