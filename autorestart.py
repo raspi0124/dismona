@@ -21,4 +21,4 @@ else:
 	with open(path_w, mode='w') as f:
 		f.write(s)
 	cmd = "startfaucet"
-	subprocess.Popen(cmd)
+	subprocess.call(cmd)
