@@ -811,7 +811,6 @@ async def on_message(message):
 			if len(my_pid.splitlines()) >0:
 				s = 'Main Module: Running'
 				await client.send_message(message.channel, s)
-				exit()
 			else:
 				s = 'Main Module: Down'
 				await client.send_message(message.channel, m)
@@ -822,7 +821,6 @@ async def on_message(message):
 			if len(my_pid.splitlines()) >0:
 				s = 'Faucet Module: Running'
 				await client.send_message(message.channel, s)
-				exit()
 			else:
 				s = 'Faucet Module: Down\nTo start this, please use /startfaucet. '
 				await client.send_message(message.channel, m)
