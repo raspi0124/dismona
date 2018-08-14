@@ -52,6 +52,21 @@ async def on_ready():
 	await client.change_presence(game=discord.Game(name='/help'))
 
 @client.event
+async def on_member_join(member):
+	memberid = member.id
+	membername = member.name
+	serverid = member.server.id
+	izaya_zatsudan = "415501395089686528"
+	izaya_zatsudan = client.get_channel('415501395089686528')
+	if serverid == "392277276470804480":
+		m = "(っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:    <@" + memberid + "> 名を名乗れ！"
+		await client.send_message(izaya_zatsudan, m)
+		m = "This service was requested by Daisuke and Kumatani and coded by raspi0124. If you have any question, please ask Daisuke or Kumatani, not raspi0124."
+		message = await client.send_message(izaya_zatsudan, m)
+		sleep(3)
+		await client.delete_message(message)
+		
+@client.event
 async def on_reaction_add(reaction, user):
 	connection = MySQLdb.connect(db='dismona',user='root',passwd='laksjd',charset='utf8mb4')
 	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
@@ -683,7 +698,10 @@ async def on_message(message):
 		if message.content == "/makemenew":
 			m = "Sure, Lets me make your account newer!"
 			await client.send_message(message.channel, m)
-			cursor.execute("INSERT INTO accounts (discordid, monageid, timestamp) VALUES (userid,)")
+			if userid not in accountlist:
+				cursor.execute("INSERT INTO accounts (discordid, timestamps) VALUES (userid, timestamp)")
+				connection.commit()
+
 		if message.content.startswith("/image"):
 			await client.add_reaction(message, '👌')
 			with open('../image.png', 'rb') as f:
