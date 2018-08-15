@@ -63,9 +63,9 @@ async def on_member_join(member):
 		await client.send_message(izaya_zatsudan, m)
 		m = "This service was requested by Daisuke and Kumatani and coded by raspi0124. If you have any question, please ask Daisuke or Kumatani, not raspi0124."
 		message = await client.send_message(izaya_zatsudan, m)
-		sleep(3)
+		time.sleep(3)
 		await client.delete_message(message)
-		
+
 @client.event
 async def on_reaction_add(reaction, user):
 	connection = MySQLdb.connect(db='dismona',user='root',passwd='laksjd',charset='utf8mb4')
