@@ -59,7 +59,7 @@ async def on_member_join(member):
 	izaya_zatsudan = "415501395089686528"
 	izaya_zatsudan = client.get_channel('415501395089686528')
 	if serverid == "392277276470804480":
-		m = "<@" + memberid + "> 何者だ！ 名を名乗れ！さもなくばこうだぞ！\
+		m = "<@" + memberid + "> 何者だ！ 名を名乗れ！さもなくばこうだぞ！\n \
 		(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ"
 		await client.send_message(izaya_zatsudan, m)
 		m = "This service was requested by Daisuke and Kumatani and coded by raspi0124. If you have any question, please ask Daisuke or Kumatani, not raspi0124."
