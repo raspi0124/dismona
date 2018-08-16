@@ -593,7 +593,7 @@ async def on_message(message):
 								result = int(resultnumber)
 								print("resultnumber")
 								print(resultnumber)
-								resultword = kuji[result]
+								resultword = kuji[resultnumber]
 								resultword = str(resultword)
 								resultgive = float(resultnumber) + float("3")
 								resultgive = int(resultgive)
