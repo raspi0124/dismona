@@ -190,13 +190,14 @@ async def on_message(message):
 									await client.delete_message(torm)
 
 								#if remainshootedtimes == "1"の手法だとなぜか動かなかったのでinを使用。
-								if "1" in remainshootedtimes:
+								remainshootedtimes = str(remainshootedtimes)
+								if remainshootedtimes == "0"
 									m = "あなたはあと0回shootizayaを使うことができます！"
 									await client.send_message(message.channel, m)
-								if "2" in remainshootedtimes:
+								if remainshootedtimes == "1"
 									m = "あなたはあと1回shootizayaを実行できます！"
 									await client.send_message(message.channel, m)
-								if "3" in remainshootedtimes:
+								if remainshootedtimes == "2"
 									m = "あなたはあと2回shootizayaを実行できます！"
 									await client.send_message(message.channel, m)
 								print("--nowremainshootedtimes--")
