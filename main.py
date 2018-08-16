@@ -860,6 +860,28 @@ async def on_message(message):
 				subprocess.Popen(cmd)
 				s = "Started!"
 				await client.send_message(message.channel, s)
+		if message.content.startswith("/restart"):
+			if message.author.id == "326091178984603669":
+				command = message.content.split(" ")
+				module = command[1]
+				if module == "main":
+					m = "OK, now proceeding to restart main module.. This process might take a while."
+					await client.send_message(message.channel, m)
+					cmd = "refresh"
+					subprocess.Popen(cmd)
+					m = "Launched new process. Killing current Main Module's process in 3 sec."
+					await client.send_message(message.channel, m)
+					time.sleep(3)
+					exit()
+				if module == "all":
+					m = "OK, proceeding restart for all module.\n Starting Backup Module.."
+					await client.send_message(message.channel, m)
+					time.sleep(3)
+					exit()
+					cmd = "startbackup"
+					subprocess.Popen(cmd)
+
+
 		if message.content.startswith("/checkbalance"):
 			cmdlib = "monacoin-cli getbalance '*' 1"
 			rutlib  =  subprocess.check_output( cmdlib.split(" ") )
