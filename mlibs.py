@@ -175,9 +175,8 @@ def getpubkey(address):
 	pubkey = json.dumps(resultjson[pubkey])
 	print(pubkey)
 	return pubkey
-def unlockwallet(time):
-	if time == "":
-		time = "10"
+def unlockwallet():
+	time = "10"
 	time = str(time)
 	cmda = "monacoin-cli walletpassphrase 0124 " + time + ""
 	ruta  =  subprocess.check_output( cmda.split(" ") )
