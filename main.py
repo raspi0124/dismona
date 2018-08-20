@@ -73,7 +73,7 @@ async def on_reaction_add(reaction, user):
 	if emoji == tip0114114:
 
 		mlibs.unlockwallet()
-		print(ruta)
+
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		cmd = "monacoin-cli getbalance " + tipby + ""
 		rut  =  subprocess.check_output( cmd.split(" ") )
@@ -108,7 +108,7 @@ async def on_reaction_add(reaction, user):
 	if emoji == tip039:
 
 		mlibs.unlockwallet()
-		print(ruta)
+
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		cmd = "monacoin-cli getbalance " + tipby + ""
 		rut  =  subprocess.check_output( cmd.split(" ") )
@@ -186,7 +186,7 @@ async def on_message(message):
 			#登録を処理。
 
 			mlibs.unlockwallet()
-			print(ruta)
+
 			userid = message.author.id
 			await client.add_reaction(message, '👌')
 			# 送り主がBotだった場合反応したくないので
@@ -214,7 +214,7 @@ async def on_message(message):
 				cursor.execute("INSERT INTO rainregistered (rainid) VALUES (%s)", (username,))
 				cmd = "monacoin-cli move "  + message.author.id + " fee " + fee + ""
 				ruta  =  subprocess.check_output( cmd.split(" ") )
-				print(ruta)
+
 				m = "Success. exectime: " + elapsed_time + " sec"
 				await client.send_message(message.channel, m)
 				connection.commit()
@@ -369,7 +369,7 @@ async def on_message(message):
 			start = time.time()
 
 			mlibs.unlockwallet()
-			print(ruta)
+
 			#残高取得
 			balancea = mlibs.libgetbalance(userid)
 			await client.add_reaction(message, '👌')
@@ -445,7 +445,7 @@ async def on_message(message):
 			#rain実行
 			start = time.time()
 			mlibs.unlockwallet()
-			print(ruta)
+
 			#残高取得
 			balancea = mlibs.libgetbalance(userid)
 			await client.add_reaction(message, '👌')
@@ -556,7 +556,7 @@ async def on_message(message):
 		if message.content.startswith("/tip"):
 			start = time.time()
 			mlibs.unlockwallet()
-			print(ruta)
+
 			message2 = message.content.replace('/tip', '')
 			print (message2)
 			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
@@ -591,7 +591,7 @@ async def on_message(message):
 		if message.content.startswith("/admin info"):
 			start = time.time()
 			mlibs.unlockwallet()
-			print(ruta)
+
 			await client.add_reaction(message, '👌')
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			cmd = "monacoin-cli getinfo"
@@ -629,7 +629,7 @@ async def on_message(message):
 		if message.content.startswith("/adminc"):
 
 			mlibs.unlockwallet()
-			print(ruta)
+
 			if message.author.id == "326091178984603669":
 				message2 = message.content.replace('/adminc', '')
 				print(message2)
@@ -643,7 +643,7 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 		if message.content.startswith('/members'):
 			mlibs.unlockwallet()
-			print(ruta)
+
 			await client.add_reaction(message, '👌')
 			for server in client.servers:
 				for member in server.members.id:
@@ -677,7 +677,7 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 		if message.content.startswith('/adminregister'):
 			mlibs.unlockwallet()
-			print(ruta)
+
 			await client.add_reaction(message, '👌')
 			if message.author.id == "326091178984603669":
 				message2 = message.content.replace('/adminregister', '')
@@ -697,7 +697,7 @@ async def on_message(message):
 			sys.exit()
 		if message.content.startswith('/adminbalance'):
 			mlibs.unlockwallet()
-			print(ruta)
+
 			await client.add_reaction(message, '👌')
 			if message.author.id == "326091178984603669":
 				message2 = message.content.replace('/adminbalance', '')
@@ -738,7 +738,7 @@ async def on_message(message):
 			if message.author.id == "326091178984603669":
 				cmd = "sh dismona-rm.sh"
 				ruta  =  subprocess.check_output( cmd.split(" ") )
-				print(ruta)
+
 				m = "True"
 				await client.send_message(message.channel, m)
 				elapsed_time = time.time() - start
@@ -752,7 +752,7 @@ async def on_message(message):
 			if message.author.id == "326091178984603669":
 				cmd = 'sh dismona-rmshoot.sh'
 				ruta  =  subprocess.check_output( cmd.split(" ") )
-				print(ruta)
+
 				m = "True"
 				await client.send_message(message.channel, m)
 				elapsed_time = time.time() - start
