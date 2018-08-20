@@ -10,7 +10,6 @@ import requests
 import decimal
 from decimal import (Decimal, ROUND_DOWN)
 from decimal import Decimal
-from urlparse import urlparse
 #import apim
 #import sqlite3
 import MySQLdb
