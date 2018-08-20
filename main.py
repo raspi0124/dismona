@@ -651,17 +651,7 @@ async def on_message(message):
 					print (member)
 					list_of_ids = [m.id  for m in server.members]
 					print(list_of_ids)
-		if message.content.startswith('/setad'):
-			command = message.content.split(" ")
-			url = cocmmand[1]
-			if not url == "":
-				m = "Error! URL not specified"
-				await client.send_message(message.channel, m)
-				checkurl = validators.url.url(url)
-				if not checkurl and if not url.startswith("https://") or if not url.startswith("http://")
-					m = "Error! We couldn't validate your url!\nPlease check your url and try again!\nThis might be problem of library Monage uses."
-					await client.send_message(message.channel, m)
-				else:
+
 					""
 
 		if message.content.startswith('/adminregister'):
