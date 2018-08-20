@@ -541,6 +541,7 @@ async def on_message(message):
 									return result
 								kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
 								resultnumber = omikuji()
+								resultnumber = int(resultnumber)
 								print("resultnumber")
 								print(resultnumber)
 								addamount = "1"
