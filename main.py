@@ -667,7 +667,7 @@ async def on_message(message):
 						await client.send_message(message.channel, m)
 					if checkresult == "1":
 						m = "OK, now adding this to DB.."
-						await.client.send_message(message.channel, m)
+						await client.send_message(message.channel, m)
 
 				else:
 					m = "Your URL doesnt seems to be a image's url. Please specify image's url witch ends with image's extention"
