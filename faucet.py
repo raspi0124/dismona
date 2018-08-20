@@ -18,6 +18,7 @@ import mlibs
 from discord.ext import commands
 from ratelimiter import RateLimiter
 from discord.ext.commands.cooldowns import BucketType
+import sys
 timestamp = str(time.time())
 
 
@@ -66,6 +67,12 @@ async def on_message(message):
 	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/cagreedtos" and message.content != "/help" and userid in agreetos or message.author.id == "409090118956089344":
 		# 全件取得は cursor.fetchall()
 		# 「/register」で始まるか調べる
+		if message.content == "/kill faucet":
+			if userid == "326091178984603669":
+				m = "OK, Killing faucet process.."
+				await client.send_message(message.channel, m)
+				sys.exit()
+
 
 		if message.content == "/shootizaya":
 			try:
