@@ -12,7 +12,6 @@ from decimal import (Decimal, ROUND_DOWN)
 #import sqlite3
 import MySQLdb
 from datetime import datetime
-
 def libgetbalance(userid):
 	cmdlib = "monacoin-cli walletpassphrase 0124 10"
 	subprocess.check_output( cmdlib.split(" ") )

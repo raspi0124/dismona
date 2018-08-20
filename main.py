@@ -10,6 +10,7 @@ import requests
 import decimal
 from decimal import (Decimal, ROUND_DOWN)
 from decimal import Decimal
+from urlparse import urlparse
 #import apim
 #import sqlite3
 import MySQLdb
@@ -18,17 +19,9 @@ import mlibs
 from discord.ext import commands
 from ratelimiter import RateLimiter
 from discord.ext.commands.cooldowns import BucketType
+import validators
+
 print("MAIN SERVICE IS NOW STARTING!")
-
-def limited(until):
-    duration = int(round(until - time.time()))
-    print('Rate limited, sleeping for {:d} seconds'.format(duration))
-
-rate_limiter = RateLimiter(max_calls=2, period=1, callback=limited)
-
-def round_down5(value):
-	value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
-	return value
 
 client = discord.Client()
 currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
@@ -79,8 +72,8 @@ async def on_reaction_add(reaction, user):
 	tip0114114 = "monage0114114"
 	tip039 = "monage039"
 	if emoji == tip0114114:
-		cmda = "monacoin-cli walletpassphrase 0124 10"
-		ruta  =  subprocess.check_output( cmda.split(" ") )
+
+		mlibs.unlockwallet()
 		print(ruta)
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		cmd = "monacoin-cli getbalance " + tipby + ""
@@ -114,8 +107,8 @@ async def on_reaction_add(reaction, user):
 			await client.send_message(reaction.message.channel, m)
 
 	if emoji == tip039:
-		cmda = "monacoin-cli walletpassphrase 0124 10"
-		ruta  =  subprocess.check_output( cmda.split(" ") )
+
+		mlibs.unlockwallet()
 		print(ruta)
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		cmd = "monacoin-cli getbalance " + tipby + ""
@@ -192,8 +185,8 @@ async def on_message(message):
 
 		if message.content.startswith("/register"):
 			#登録を処理。
-			cmda = "monacoin-cli walletpassphrase 0124 10"
-			ruta  =  subprocess.check_output( cmda.split(" ") )
+
+			mlibs.unlockwallet()
 			print(ruta)
 			userid = message.author.id
 			await client.add_reaction(message, '👌')
@@ -375,8 +368,8 @@ async def on_message(message):
 		if message.content.startswith("/rainall"):
 			#rain実行
 			start = time.time()
-			cmda = "monacoin-cli walletpassphrase 0124 10"
-			ruta  =  subprocess.check_output( cmda.split(" ") )
+
+			mlibs.unlockwallet()
 			print(ruta)
 			#残高取得
 			balancea = mlibs.libgetbalance(userid)
@@ -452,8 +445,7 @@ async def on_message(message):
 		if message.content.startswith("/rain"):
 			#rain実行
 			start = time.time()
-			cmda = "monacoin-cli walletpassphrase 0124 10"
-			ruta  =  subprocess.check_output( cmda.split(" ") )
+			mlibs.unlockwallet()
 			print(ruta)
 			#残高取得
 			balancea = mlibs.libgetbalance(userid)
@@ -564,8 +556,7 @@ async def on_message(message):
 
 		if message.content.startswith("/tip"):
 			start = time.time()
-			cmda = "monacoin-cli walletpassphrase 0124 10"
-			ruta  =  subprocess.check_output( cmda.split(" ") )
+			mlibs.unlockwallet()
 			print(ruta)
 			message2 = message.content.replace('/tip', '')
 			print (message2)
@@ -600,8 +591,7 @@ async def on_message(message):
 					await client.send_message(message.channel, m)
 		if message.content.startswith("/admin info"):
 			start = time.time()
-			cmda = "monacoin-cli walletpassphrase 0124 10"
-			ruta  =  subprocess.check_output( cmda.split(" ") )
+			mlibs.unlockwallet()
 			print(ruta)
 			await client.add_reaction(message, '👌')
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
@@ -638,8 +628,8 @@ async def on_message(message):
 				m = "Haha, you don't have permission to do that! Your request has been logged and reported to the admin! (but the admin probably won't care about it, so don't worry.)"
 				await client.send_message(message.channel, m)
 		if message.content.startswith("/adminc"):
-			cmda = "monacoin-cli walletpassphrase 0124 10"
-			ruta  =  subprocess.check_output( cmda.split(" ") )
+
+			mlibs.unlockwallet()
 			print(ruta)
 			if message.author.id == "326091178984603669":
 				message2 = message.content.replace('/adminc', '')
@@ -653,8 +643,7 @@ async def on_message(message):
 				m = "sorry, but you are not allowed to do that!"
 				await client.send_message(message.channel, m)
 		if message.content.startswith('/members'):
-			cmda = "monacoin-cli walletpassphrase 0124 10"
-			ruta  =  subprocess.check_output( cmda.split(" ") )
+			mlibs.unlockwallet()
 			print(ruta)
 			await client.add_reaction(message, '👌')
 			for server in client.servers:
@@ -662,9 +651,21 @@ async def on_message(message):
 					print (member)
 					list_of_ids = [m.id  for m in server.members]
 					print(list_of_ids)
+		if message.content.startswith('/setad'):
+			command = message.content.split(" ")
+			url = cocmmand[1]
+			if not url == "":
+				m = "Error! URL not specified"
+				await client.send_message(message.channel, m)
+				checkurl = validators.url.url(url)
+				if not checkurl and if not url.startswith("https://") or if not url.startswith("http://")
+					m = "Error! We couldn't validate your url!\nPlease check your url and try again!\nThis might be problem of library Monage uses."
+					await client.send_message(message.channel, m)
+				else:
+					""
+
 		if message.content.startswith('/adminregister'):
-			cmda = "monacoin-cli walletpassphrase 0124 10"
-			ruta  =  subprocess.check_output( cmda.split(" ") )
+			mlibs.unlockwallet()
 			print(ruta)
 			await client.add_reaction(message, '👌')
 			if message.author.id == "326091178984603669":
@@ -680,8 +681,8 @@ async def on_message(message):
 				m = "sorry, but you are not allowed to do that!"
 				await client.send_message(message.channel, m)
 		if message.content.startswith('/adminbalance'):
-			cmda = "monacoin-cli walletpassphrase 0124 10"
-			ruta  =  subprocess.check_output( cmda.split(" ") )
+
+			mlibs.unlockwallet()
 			print(ruta)
 			await client.add_reaction(message, '👌')
 			if message.author.id == "326091178984603669":
