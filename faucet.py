@@ -592,7 +592,7 @@ async def on_message(message):
 								resultnumber = omikuji()
 								print("resultnumber")
 								print(resultnumber)
-								result = int(resultnumber)
+								resultnumber = int(resultnumber)
 								print("resultnumber")
 								print(resultnumber)
 								resultword = kuji[resultnumber]
