@@ -18,7 +18,7 @@ import mlibs
 from discord.ext import commands
 from ratelimiter import RateLimiter
 from discord.ext.commands.cooldowns import BucketType
-import validators
+import sys
 
 print("MAIN SERVICE IS NOW STARTING!")
 
@@ -691,8 +691,11 @@ async def on_message(message):
 			else:
 				m = "sorry, but you are not allowed to do that!"
 				await client.send_message(message.channel, m)
+		if message.content == "/kill main":
+			m = "OK, killing main process.."
+			await client.send_message(message.channel, m)
+			sys.exit()
 		if message.content.startswith('/adminbalance'):
-
 			mlibs.unlockwallet()
 			print(ruta)
 			await client.add_reaction(message, '👌')
