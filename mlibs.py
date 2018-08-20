@@ -10,6 +10,7 @@ import decimal
 from decimal import (Decimal, ROUND_DOWN)
 #import apim
 #import sqlite3
+import urllib
 import MySQLdb
 from datetime import datetime
 def libgetbalance(userid):
@@ -180,3 +181,15 @@ def unlockwallet(time):
 	time = str(time)
 	cmda = "monacoin-cli walletpassphrase 0124 " + time + ""
 	ruta  =  subprocess.check_output( cmda.split(" ") )
+def isurlexist(url):
+	if re.match(r"^https?:\/\/", url):
+		try:
+			res = urllib.request.urlopen(url)
+			res.close()
+			return "1" #Success
+		except urllib.error.HTTPError as e:
+			return "0-1" #HTTPError
+		except urllib.error.URLError as e:
+			return "0-2" #Notfound
+	else:
+		return "0" #Not URL

@@ -650,9 +650,31 @@ async def on_message(message):
 					print (member)
 					list_of_ids = [m.id  for m in server.members]
 					print(list_of_ids)
+		if message.content.startswith("/ad set"):
+			if userid in contributor or userid == "326091178984603669":
+				command = message.content.split(" ")
+				url = command[2]
+				if url.endswith(".png") or url.endswith(".jpg") or url.endswith(".gif") or url.endswith(".jpeg"):
+					checkresult = mlibs.isurlexist(url)
+					if checkresult == "0":
+						m = "Your URL specified not seems to be an URL. Please check your url and try again."
+						await client.send_message(message.channel, m)
+					if checkresult == "0-1":
+						m = "It looks like theres HTTP Error with server. Please check your URL and try again."
+						await client.send_message(message.channel, m)
+					if checkresult == "0-2":
+						m = "Not Found.Please check your URL and try again."
+						await client.send_message(message.channel, m)
+					if checkresult == "1":
+						m = "OK, now adding this to DB.."
+						await.client.send_message(message.channel, m)
 
-					""
-
+				else:
+					m = "Your URL doesnt seems to be a image's url. Please specify image's url witch ends with image's extention"
+					await client.send_message(message.channel, m)
+			else:
+				m = "You have no permission to execute this command!\n Please ask @raspi0124 for permission."
+				await client.send_message(message.channel, m)
 		if message.content.startswith('/adminregister'):
 			mlibs.unlockwallet()
 			print(ruta)

@@ -230,13 +230,13 @@ async def on_message(message):
 									toedit = await client.send_message(message.channel, m)
 									print("5")
 									cursor.execute("INSERT INTO hp (timestamp, hp) VALUES (%s, %s)", (timestamp, nowhp))
-									time.sleep(5)
+									time.sleep(2)
 									await client.edit_message(toedit, "(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ\nIzayaに 5 ダメージを与えた！")
 								if result == "3":
 									currenthp = str(currenthp)
 									m = "(´・ω);y==ｰｰｰｰｰ  ・ ・ ・   ｶﾝ∵.  <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ\n残念。。防がれてしまった。。\nIzayaの現在のHPは " + currenthp + " だ。"
 									toedit = await client.send_message(message.channel, m)
-									time.sleep(5)
+									time.sleep(2)
 									await client.edit_message(toedit, "(´・ω);y==ｰｰｰｰｰ  ・ ・ ・   ｶﾝ∵.  <:biso:444368914814730251> <:izaya:441956642125512734>＜ﾋﾞﾝﾋﾞﾝｶﾞｰﾄﾞ\n残念。。防がれてしまった。。")
 								if result == "4":
 									nowhp = currenthp - int("10")
@@ -246,13 +246,13 @@ async def on_message(message):
 									toedit = await client.send_message(message.channel, m)
 									print("6")
 									cursor.execute("INSERT INTO hp (timestamp, hp) VALUES (%s, %s)", (timestamp, nowhp))
-									time.sleep(5)
+									time.sleep(2)
 									await client.edit_message(toedit, "（っ'-')╮        ﾌﾞｫﾝ =͟͟͞: :poop:       <:izaya:441956642125512734>    ・∵. ﾊﾟｰﾝ ---==( ε : )0\nIzayaに 10 ダメージを与えた！")
 								if result == "5":
 									currenthp = str(currenthp)
 									m = "Izaya は、どこかへ逃げてしまった！\n残念。。当てられなかった..\nIzayaの現在のHPは " + currenthp + " だ。"
 									toedit = await client.send_message(message.channel, m)
-									time.sleep(5)
+									time.sleep(2)
 									await client.edit_message(toedit, "Izaya は、どこかへ逃げてしまった！\n残念。。当てられなかった..")
 								mlibs.tip("izaya", userid, "0.00000002")
 								m = "攻撃報酬 2 watanabe 獲得!！\nこれからも討伐協力よろしくお願いします！"
