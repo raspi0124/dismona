@@ -19,6 +19,7 @@ from discord.ext import commands
 from ratelimiter import RateLimiter
 from discord.ext.commands.cooldowns import BucketType
 import sys
+import os
 
 print("MAIN SERVICE IS NOW STARTING!")
 
