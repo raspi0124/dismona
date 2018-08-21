@@ -1,7 +1,7 @@
 import os
 import sys
 
-action = input("Enter action [0 for adding, 1 for deleting and 2 for checking.]: ")
+action = input("Enter action [0 for adding, 1 for deleting, 2 for checking and 3 for debuging]: ")
 if action == "0":
 	keyname = input("Please first enter keyname for enviroment: ")
 	keycontent = input("Now, Please enter key content for keyname above: ")
@@ -23,3 +23,11 @@ if action == "2":
 		print(os.getenv(keyname))
 	else:
 		print("Please specify keyname.")
+if action == "3":
+	print("Debuging info will be shown below.")
+	print("os.environ")
+	print(os.environ)
+	print("os.environ[LANG]")
+	print(os.environ['LANG'])
+	print("os.environ.get[LANG]")
+	print(os.environ.get('LANG'))
