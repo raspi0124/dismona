@@ -19,6 +19,8 @@ from discord.ext import commands
 from ratelimiter import RateLimiter
 from discord.ext.commands.cooldowns import BucketType
 import sys
+import sqreen
+sqreen.start()
 
 print("MAIN SERVICE IS NOW STARTING!")
 
@@ -651,7 +653,7 @@ async def on_message(message):
 					list_of_ids = [m.id  for m in server.members]
 					print(list_of_ids)
 		contributor = "" #fill this with SELCT for DB after.
-		if message.content.startswith("/ad set"):
+		if message.content.startswith("/ad setimg "):
 			if userid in contributor or userid == "326091178984603669":
 				command = message.content.split(" ")
 				url = command[2]
@@ -661,7 +663,7 @@ async def on_message(message):
 						m = "Your URL specified not seems to be an URL. Please check your url and try again."
 						await client.send_message(message.channel, m)
 					if checkresult == "0-1":
-						m = "It looks like theres HTTP Error with server. Please check your URL and try again."
+						m = "It looks like theres HTTP Error with server. Please check your URL and try again.(Just to remind you, Its usually impossible for us to access image on discord server, but we can check image on selfhosted web server, twitter or github.)"
 						await client.send_message(message.channel, m)
 					if checkresult == "0-2":
 						m = "Not Found.Please check your URL and try again."
@@ -676,9 +678,18 @@ async def on_message(message):
 			else:
 				m = "You have no permission to execute this command!\n Please ask @raspi0124 for permission."
 				await client.send_message(message.channel, m)
+		if message.content.startswith("/ad settxt"):
+			if userid in contributor or userid == "326091178984603669":
+			command = mmessage.content.split(" ")
+			text = command[2]
+			if text == "":
+				m = "TEXT NOT SPECIFIED ERROR"
+				await client.send_message(message.channel, m)
+			else:
+				m = "Adding your text ad to DB.."
+				await client.send_message(message.channel, m)
 		if message.content.startswith('/adminregister'):
 			mlibs.unlockwallet()
-
 			await client.add_reaction(message, '👌')
 			if message.author.id == "326091178984603669":
 				message2 = message.content.replace('/adminregister', '')
