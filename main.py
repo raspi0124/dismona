@@ -843,7 +843,7 @@ async def on_message(message):
 					lovedn = int(lovedn)
 					username = '"' + username + '"'
 					if result == lovedn:
-						cursor.execute("DELETE FROM loved WHERE id = " + username + "")
+						cursor.execute("DELETE FROM loved WHERE id = %s", (userid,))
 						connection.commit()
 					await client.delete_message(message)
 			await client.delete_message(message)
