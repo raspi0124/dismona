@@ -650,6 +650,7 @@ async def on_message(message):
 					print (member)
 					list_of_ids = [m.id  for m in server.members]
 					print(list_of_ids)
+		contributor = "" #fill this with SELCT for DB after.
 		if message.content.startswith("/ad set"):
 			if userid in contributor or userid == "326091178984603669":
 				command = message.content.split(" ")
