@@ -29,8 +29,8 @@ currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 print("0101")
 # データベース接続とカーソル生成
 # 接続情報はダミーです。お手元の環境にあわせてください。
-print(os.environ["DISCORD_TOKEN"])
-print(os.environ["COIND_PASSWORD"])
+#print(os.environ["DISCORD_TOKEN"])
+#print(os.environ["COIND_PASSWORD"])
 connection = MySQLdb.connect(
    host='localhost', user='root', passwd='laksjd', db='dismona', charset='utf8')
 cursor = connection.cursor()
