@@ -8,9 +8,9 @@ if action == "0":
 	os.environ[keyname] = keycontent
 if action == "1":
 	keyname = input("Please enter keyname you want to delete: ")
-	sure = input("Are you sure you want to remove keyname " + keyname + "? If so, Please enter y or else, please enter n")
+	sure = input("Are you sure you want to remove keyname " + keyname + "? If so, Please enter y or else, please enter n: ")
 	if sure == "y":
-		print("Now, removing " + keyname + "from os environ..")
+		print("Now, removing " + keyname + " from os environ..")
 		del os.environ[keyname]
 		print("Succeeded!")
 	else:
