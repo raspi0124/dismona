@@ -18,7 +18,7 @@ if action == "1":
 		sys.exit()
 if action == "2":
 	keyname = input("Please enter keyname you want to check: ")
-	if keyname !== "":
+	if keyname != "":
 		print("ok, now printing..")
 		print(os.getenv(keyname))
 	else:
