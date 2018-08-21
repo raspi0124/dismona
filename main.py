@@ -680,14 +680,14 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 		if message.content.startswith("/ad settxt"):
 			if userid in contributor or userid == "326091178984603669":
-			command = mmessage.content.split(" ")
-			text = command[2]
-			if text == "":
-				m = "TEXT NOT SPECIFIED ERROR"
-				await client.send_message(message.channel, m)
-			else:
-				m = "Adding your text ad to DB.."
-				await client.send_message(message.channel, m)
+				command = mmessage.content.split(" ")
+				text = command[2]
+				if text == "":
+					m = "TEXT NOT SPECIFIED ERROR"
+					await client.send_message(message.channel, m)
+				else:
+					m = "Adding your text ad to DB.."
+					await client.send_message(message.channel, m)
 		if message.content.startswith('/adminregister'):
 			mlibs.unlockwallet()
 			await client.add_reaction(message, '👌')
