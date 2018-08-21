@@ -1,6 +1,7 @@
 import os
 import sys
-
+#TESTACTION
+os.environ["TEST"] = "test2"
 action = input("Enter action [0 for adding, 1 for deleting, 2 for checking and 3 for debuging]: ")
 if action == "0":
 	keyname = input("Please first enter keyname for enviroment: ")
