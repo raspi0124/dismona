@@ -41,7 +41,7 @@ print("0101")
 #print(os.environ["DISCORD_TOKEN"])
 #print(os.environ["COIND_PASSWORD"])
 connection = MySQLdb.connect(
-   host='localhost', user=db_user, passwd=db_password, db='dismona', charset='utf8')
+	host='localhost', user=db_user, passwd=db_password, db='dismona', charset='utf8')
 cursor = connection.cursor()
 cursor.execute("CREATE TABLE IF NOT EXISTS dismona.id (id VARCHAR(20), address VARCHAR(50));")
 

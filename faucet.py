@@ -39,13 +39,14 @@ print("0101")
 # データベース接続とカーソル生成
 # 接続情報はダミーです。お手元の環境にあわせてください。
 connection = MySQLdb.connect(
-   host='localhost', user='root', passwd='laksjd', db='dismona', charset='utf8')
+	host='localhost', user=db_user, passwd=db_password, db='dismona', charset='utf8')
 cursor = connection.cursor()
 #cursor.execute("CREATE TABLE IF NOT EXISTS dismona.id (id VARCHAR(20), address VARCHAR(50));")
 @client.event
 @commands.cooldown(1, 5, BucketType.user)
 async def on_message(message):
-	connection = MySQLdb.connect(db='dismona',user='root',passwd='laksjd',charset='utf8mb4')
+	connection = MySQLdb.connect(
+		host='localhost', user=db_user, passwd=db_password, db='dismona', charset='utf8')
 	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
 	# connection.isolation_level = None
 	cursor = connection.cursor()
@@ -669,4 +670,4 @@ async def on_message(message):
 					await client.send_message(message.channel, s)
 	connection.commit()
 	connection.close()
-client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.Ddop9Q.K1wjAC3ZztBltTDp75ijN0baj-I")
+client.run(discord_token)
