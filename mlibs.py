@@ -17,12 +17,16 @@ from datetime import datetime
 def round_down5(value):
 	value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
 	return str(value)
+def unlockwallet():
+	time = "30"
+	time = str(time)
+	cmda = "monacoin-cli walletpassphrase {0} {1}".format(password, time)
+	ruta  =  subprocess.check_output( cmda.split(" ") )
 
 def libgetbalance(userid):
-	cmdlib = "monacoin-cli walletpassphrase 0124 10"
-	subprocess.check_output( cmdlib.split(" ") )
+	unlockwallet()
 	minconf = "60"
-	cmdlib = "monacoin-cli getbalance " + userid + " " + minconf + ""
+	cmdlib = "monacoin-cli getbalance {0} {1}".format(userid, minconf)
 	rutlib = subprocess.check_output( cmdlib.split(" ") )
 	balancelib = rutlib.decode()
 	balancelib = float(balancelib)
@@ -31,8 +35,6 @@ def libgetbalance(userid):
 	return balancelib
 
 def libgetjpybalance(userid):
-	cmda = "monacoin-cli walletpassphrase 0124 10"
-	ruta  =  subprocess.check_output( cmda.split(" ") )
 	headers = {
 	'Accept': 'application/json',
 	}
@@ -50,26 +52,22 @@ def libgetjpybalance(userid):
 	balance = str(balance)
 	jpybalance = str(jpybalance)
 	return jpybalance
+	
 def deposit(userid):
-	start = time.time()
-	cmda = "monacoin-cli walletpassphrase 0124 10"
-	ruta  =  subprocess.check_output( cmda.split(" ") )
-	cmd = "monacoin-cli getaddressesbyaccount " + userid + ""
+	unlockwallet()
+	cmd = "monacoin-cli getaddressesbyaccount {}".format(userid)
 	rut  =  subprocess.check_output( cmd.split(" ") )
 	address = rut.decode()
 	address2 = address.replace('"', '')
 	address3 = address2.replace(',', '')
-	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-	elapsed_time = time.time() - start
 	elapsed_time = str(elapsed_time)
 	address = address3.split()
 	address = address[1]
 	address = address.replace(']', '')
 	return address
+
 def withdraw(userid, to, amount):
-	start = time.time()
-	cmda = "monacoin-cli walletpassphrase 0124 10"
-	ruta  =  subprocess.check_output( cmda.split(" ") )
+	unlockwallet()
 	balancea = libgetbalance(userid)
 	fee = "0.005"
 	reamount = float(amount) - float(fee)
@@ -88,8 +86,6 @@ def withdraw(userid, to, amount):
 			cmd = "monacoin-cli move " + userid + " fee " + fee + ""
 			ruta  =  subprocess.check_output( cmd.split(" ") )
 			rut = rut.decode()
-			elapsed_time = time.time() - start
-			elapsed_time = str(elapsed_time)
 			m = rut
 			balancea = libgetbalance(userid)
 			if balancea <= "0":
@@ -109,8 +105,6 @@ def withdraw(userid, to, amount):
 
 def tip(userid, to, amount):
 	connection = MySQLdb.connect(db='dismona',user='root',passwd='laksjd',charset='utf8mb4')
-	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
-	# connection.isolation_level = None
 	cursor = connection.cursor()
 	balance = libgetbalance(userid)
 	num2 = 100000000
@@ -153,6 +147,7 @@ def fixselect(string):
 	string = string.split(',')
 	string = str(string)
 	return string
+
 def register(userid):
 	cmd = "monacoin-cli getnewaddress " + userid + ""
 	rut  =  subprocess.check_output( cmd.split(" ") )
@@ -169,7 +164,7 @@ def register(userid):
 	return resultmore5
 
 def getpubkey(address):
-	cmd = "monacoin-cli validateaddress " + address + ""
+	cmd = "monacoin-cli validateaddress {}".format(address)
 	print(cmd)
 	rut  =  subprocess.check_output( cmd.split(" ") )
 	rut = str(rut)
@@ -181,11 +176,7 @@ def getpubkey(address):
 	pubkey = json.dumps(resultjson[pubkey])
 	print(pubkey)
 	return pubkey
-def unlockwallet():
-	time = "30"
-	time = str(time)
-	cmda = "monacoin-cli walletpassphrase 0124 " + time + ""
-	ruta  =  subprocess.check_output( cmda.split(" ") )
+
 def isurlexist(url):
 	if re.match(r"^https?:\/\/", url):
 		try:

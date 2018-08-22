@@ -909,24 +909,6 @@ async def on_message(message):
 					cmd = "startbackup"
 					subprocess.Popen(cmd)
 
-
-		if message.content.startswith("/checkbalance"):
-			cmdlib = "monacoin-cli getbalance '*' 1"
-			rutlib  =  subprocess.check_output( cmdlib.split(" ") )
-			balanceall = rutlib.decode()
-			balanceall = float(balanceall)
-			cmdlib = "monacoin-cli getbalance"
-			rutlib  =  subprocess.check_output( cmdlib.split(" ") )
-			balancelib = rutlib.decode()
-			balancelib = float(balancelib)
-			balancelib = str(balancelib)
-			balanceall = str(balanceall)
-			m = "Wallet Balance:" + balancelib + " DB balance:" + balanceall + ""
-			await client.send_message(message.channel, m)
-			result = float(balancelib) - float(balanceall)
-			result = str(result)
-			m = "Difference between DB balance and Wallet balance are " + result + " mona"
-			await client.send_message(message.channel, m)
 		if message.content.startswith("/marryhim"):
 			if message.author.id == "326091178984603669":
 				username = message.author.id
