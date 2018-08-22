@@ -73,7 +73,8 @@ async def on_member_join(member):
 
 @client.event
 async def on_reaction_add(reaction, user):
-	connection = MySQLdb.connect(db='dismona',user='root',passwd='laksjd',charset='utf8mb4')
+	connection = MySQLdb.connect(
+	   host='localhost', user=db_user, passwd=db_password, db='dismona', charset='utf8')
 	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
 	# connection.isolation_level = None
 	cursor = connection.cursor()
@@ -157,7 +158,8 @@ async def on_reaction_add(reaction, user):
 @client.event
 @commands.cooldown(1, 5, BucketType.user)
 async def on_message(message):
-	connection = MySQLdb.connect(db='dismona',user='root',passwd='laksjd',charset='utf8mb4')
+	connection = MySQLdb.connect(
+	   host='localhost', user=db_user, passwd=db_password, db='dismona', charset='utf8')
 	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
 	# connection.isolation_level = None
 	cursor = connection.cursor()
@@ -320,7 +322,7 @@ async def on_message(message):
 			#コマンド実行する理由はSelectでcursorから取得しようとするとエラーが出るから
 			sql = "SELECT * FROM log WHERE userid='{}'".format(userid)
 			sql = '"' + sql + '"'
-			command = "mysql -uroot -plaksjd dismona -e "
+			command = "mysql -u{0} -p{1} dismona -e ".format(db_user, db_password)
 			sqlcommand = command + sql
 			cmd = sqlcommand
 			rut  =  subprocess.check_output( cmd,  shell=True )
@@ -353,7 +355,7 @@ async def on_message(message):
 				userid = str(userid)
 				sql = "SELECT * FROM log WHERE userid='{}'".format(userid)
 				sql = '"' + sql + '"'
-				command = "mysql -uroot -plaksjd dismona -e "
+				command = "mysql -u{0} -p{1} dismona -e ".format(db_user, db_password)
 				sqlcommand = command + sql
 				cmd = sqlcommand
 				rut  =  subprocess.check_output( cmd,  shell=True )
