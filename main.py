@@ -26,9 +26,9 @@ config = configparser.ConfigParser()
 config.read('/root/dismona.conf')
 
 section1 = 'development'
-print(config.get(section1, 'discord_token'))
-print(config.get(section1, 'db_user'))
-print(config.get(section1, 'db_password'))
+discord_token = config.get(section1, 'discord_token')
+db_user = config.get(section1, 'db_user')
+db_password = config.get(section1, 'db_password')
 
 print("MAIN SERVICE IS NOW STARTING!")
 
@@ -41,7 +41,7 @@ print("0101")
 #print(os.environ["DISCORD_TOKEN"])
 #print(os.environ["COIND_PASSWORD"])
 connection = MySQLdb.connect(
-   host='localhost', user='root', passwd='laksjd', db='dismona', charset='utf8')
+   host='localhost', user=db_user, passwd=db_password, db='dismona', charset='utf8')
 cursor = connection.cursor()
 cursor.execute("CREATE TABLE IF NOT EXISTS dismona.id (id VARCHAR(20), address VARCHAR(50));")
 
@@ -1209,6 +1209,6 @@ async def on_message(message):
 
 	connection.commit()
 	connection.close()
-client.run("NDA5MDkwMTE4OTU2MDg5MzQ0.Ddop9Q.K1wjAC3ZztBltTDp75ijN0baj-I")
+client.run(discord_token)
 # https://qiita.com/PinappleHunter/items/af4ccdbb04727437477f
 # https://qiita.com/komeiy/items/d6b5f25bf1778fa10e21
