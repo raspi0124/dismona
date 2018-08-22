@@ -13,6 +13,11 @@ from decimal import (Decimal, ROUND_DOWN)
 import urllib
 import MySQLdb
 from datetime import datetime
+
+def round_down5(value):
+	value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
+	return str(value)
+
 def libgetbalance(userid):
 	cmdlib = "monacoin-cli walletpassphrase 0124 10"
 	subprocess.check_output( cmdlib.split(" ") )
@@ -68,6 +73,7 @@ def withdraw(userid, to, amount):
 	balancea = libgetbalance(userid)
 	fee = "0.005"
 	reamount = float(amount) - float(fee)
+	reamount = round_down5(reamount)
 	reamount = str(reamount)
 	minbalance = "0.01"
 	minbalance = float(minbalance)

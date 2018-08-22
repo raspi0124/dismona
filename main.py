@@ -309,7 +309,7 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 			#sqlを作成、直接実行ではなく一回収納しているのはコマンド実行するため。
 			#コマンド実行する理由はSelectでcursorから取得しようとするとエラーが出るから
-			sql = "SELECT * FROM log WHERE userid='" + userid + "'"
+			sql = "SELECT * FROM log WHERE userid='{}'".format(userid)
 			sql = '"' + sql + '"'
 			command = "mysql -uroot -plaksjd dismona -e "
 			sqlcommand = command + sql
@@ -342,7 +342,7 @@ async def on_message(message):
 				filenumber = "1"
 				userid = userid[0]
 				userid = str(userid)
-				sql = "SELECT * FROM log WHERE userid='" + userid + "'"
+				sql = "SELECT * FROM log WHERE userid='{}'".format(userid)
 				sql = '"' + sql + '"'
 				command = "mysql -uroot -plaksjd dismona -e "
 				sqlcommand = command + sql
