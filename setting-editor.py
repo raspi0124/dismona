@@ -1,7 +1,7 @@
 import configparser
 import sys
 
-config = ConfigParser.ConfigParser()
+config = configparser.ConfigParser()
 section = input("Please input which section to edit. 0 for development, 1 for releace: ")
 if section is None:
 	section == "0"
