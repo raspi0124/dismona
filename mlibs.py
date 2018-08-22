@@ -52,7 +52,7 @@ def libgetjpybalance(userid):
 	balance = str(balance)
 	jpybalance = str(jpybalance)
 	return jpybalance
-	
+
 def deposit(userid):
 	unlockwallet()
 	cmd = "monacoin-cli getaddressesbyaccount {}".format(userid)
@@ -81,9 +81,9 @@ def withdraw(userid, to, amount):
 	amount = float(amount)
 	if amount >= minamount:
 		if amount <= balancea:
-			cmd = "monacoin-cli sendfrom " + userid + " " + to + " " + reamount + ""
+			cmd = "monacoin-cli sendfrom {0} {1} {2}".format(userid, to, reamount)
 			rut  =  subprocess.check_output( cmd.split(" ") )
-			cmd = "monacoin-cli move " + userid + " fee " + fee + ""
+			cmd = "monacoin-cli move {0} fee {1}".format(userid, fee)
 			ruta  =  subprocess.check_output( cmd.split(" ") )
 			rut = rut.decode()
 			m = rut
@@ -92,7 +92,7 @@ def withdraw(userid, to, amount):
 				defo = "0"
 				amounttosendback = float(defo) - float(balancea)
 				amounttosendback = str(amounttosendback)
-				cmd = "monacoin-cli move fee "  + userid + " " + amounttosendback + ""
+				cmd = "monacoin-cli move fee {0} {1}".format(userid, amounttosendback)
 				ruta  =  subprocess.check_output( cmd.split(" ") )
 
 		else:
