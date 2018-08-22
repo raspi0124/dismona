@@ -27,7 +27,6 @@ def round_down5(value):
 	value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
 	return str(value)
 def unlockwallet():
-	password =
 	time = "30"
 	time = str(time)
 	cmda = "monacoin-cli walletpassphrase {0} {1}".format(walletpassphrase, time)
