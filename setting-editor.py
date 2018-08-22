@@ -5,7 +5,7 @@ config = configparser.ConfigParser()
 section = input("Please input which section to edit. 0 for development, 1 for releace: ")
 if section is None:
 	section == "0"
-confname = input("Please input the name of config to change: ")
+confname = input("Please input the name of config to add: ")
 if confname is None:
 	sys.exit()
 confsetting = input("Please input what to set for " + confname + ": ")
