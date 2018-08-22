@@ -1,4 +1,4 @@
-import ConfigParser
+import configparser
 import sys
 
 config = ConfigParser.ConfigParser()
