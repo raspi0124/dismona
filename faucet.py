@@ -19,6 +19,16 @@ from discord.ext import commands
 from ratelimiter import RateLimiter
 from discord.ext.commands.cooldowns import BucketType
 import sys
+import configparser
+
+config = configparser.ConfigParser()
+config.read('/root/dismona.conf')
+
+section1 = 'development'
+discord_token = config.get(section1, 'discord_token')
+db_user = config.get(section1, 'db_user')
+db_password = config.get(section1, 'db_password')
+
 timestamp = str(time.time())
 
 
