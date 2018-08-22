@@ -13,11 +13,11 @@ if confsetting is None:
 	sys.exit()
 if section == "0":
 	section0 = 'development'
-	config.add_section(section1)
+	config.add_section(section0)
 	config.set(section0, confname, confsetting)
 if section == "1":
 	section1 = 'production'
-	config.add_section(section2)
+	config.add_section(section1)
 	config.set(section1, confname, confsetting)
 
 with open('/root/dismona-setting.conf', 'w') as file:
