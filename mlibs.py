@@ -13,14 +13,24 @@ from decimal import (Decimal, ROUND_DOWN)
 import urllib
 import MySQLdb
 from datetime import datetime
+import configparser
+
+config = configparser.ConfigParser()
+config.read('/root/dismona.conf')
+
+section1 = 'development'
+walletpassphrase = config.get(section1, 'mona_walletpassphrase')
+db_user = config.get(section1, 'db_user')
+db_password = config.get(section1, 'db_password')
 
 def round_down5(value):
 	value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
 	return str(value)
 def unlockwallet():
+	password =
 	time = "30"
 	time = str(time)
-	cmda = "monacoin-cli walletpassphrase {0} {1}".format(password, time)
+	cmda = "monacoin-cli walletpassphrase {0} {1}".format(walletpassphrase, time)
 	ruta  =  subprocess.check_output( cmda.split(" ") )
 
 def libgetbalance(userid):
@@ -104,7 +114,8 @@ def withdraw(userid, to, amount):
 	return m
 
 def tip(userid, to, amount):
-	connection = MySQLdb.connect(db='dismona',user='root',passwd='laksjd',charset='utf8mb4')
+	connection = MySQLdb.connect(
+		host='localhost', user=db_user, passwd=db_password, db='dismona', charset='utf8')
 	cursor = connection.cursor()
 	balance = libgetbalance(userid)
 	num2 = 100000000
