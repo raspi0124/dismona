@@ -21,4 +21,4 @@ if section == "1":
 	config.set(section1, confname, confsetting)
 
 with open('/root/dismona-setting.conf', 'w') as file:
-config.write(file)
+	config.write(file)
