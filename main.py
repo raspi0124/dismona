@@ -20,6 +20,15 @@ from ratelimiter import RateLimiter
 from discord.ext.commands.cooldowns import BucketType
 import sys
 import os
+import configparser
+
+config = configparser.ConfigParser()
+config.read('/root/dismona.conf')
+
+section1 = 'development'
+print config.get(section1, 'discord_token')
+print config.get(section1, 'db_user')
+print config.get(section1, 'db_password')
 
 print("MAIN SERVICE IS NOW STARTING!")
 
