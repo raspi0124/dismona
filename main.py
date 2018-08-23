@@ -962,6 +962,7 @@ async def on_message(message):
 			embed = discord.Embed(title="Monage Discord Edition - Credit")
 			embed.set_footer(text=" Created message at | " + currenttime + "")
 			embed.add_field(name="raspi0124", value=" - 開発・制作")
+			embed.add_field(name="脇山P(wakip)", value=" - 大量の資金的な援助及びアドバイス")
 			embed.add_field(name="はるまど", value=" - Gitlabの提供")
 			embed.add_field(name="kakarichyo", value=" - クローズドアルファにおけるテスト")
 			embed.add_field(name="和梨(ポテト)", value=" - クローズドアルファにおけるテスト")
@@ -973,7 +974,6 @@ async def on_message(message):
 			embed.add_field(name="Limit", value=" - helpコマンドの見やすさの向上、リアクションtipのアイデア")
 			embed.add_field(name="Ming", value=" - おみくじイラストの作成")
 			embed.add_field(name="両親", value=" - 匿名にしておきます")
-			embed.add_field(name="脇山P(wakip)", value=" - 大量の資金的な援助及びアドバイス")
 			await client.send_message(message.channel, embed=embed)
 
 
