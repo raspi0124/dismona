@@ -29,7 +29,8 @@ section1 = 'development'
 discord_token = config.get(section1, 'discord_token')
 db_user = config.get(section1, 'db_user')
 db_password = config.get(section1, 'db_password')
-
+db_host = config.get(section1, 'db_host')
+db_name = config.get(section1, 'db_name')
 print("MAIN SERVICE IS NOW STARTING!")
 
 client = discord.Client()
@@ -37,14 +38,9 @@ currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 
 print("0101")
 # データベース接続とカーソル生成
-# 接続情報はダミーです。お手元の環境にあわせてください。
-#print(os.environ["DISCORD_TOKEN"])
-#print(os.environ["COIND_PASSWORD"])
 connection = MySQLdb.connect(
-	host='localhost', user=db_user, passwd=db_password, db='dismona', charset='utf8')
+	host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 cursor = connection.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS dismona.id (id VARCHAR(20), address VARCHAR(50));")
-
 
 @client.event
 async def on_ready():
@@ -74,9 +70,7 @@ async def on_member_join(member):
 @client.event
 async def on_reaction_add(reaction, user):
 	connection = MySQLdb.connect(
-	   host='localhost', user=db_user, passwd=db_password, db='dismona', charset='utf8')
-	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
-	# connection.isolation_level = None
+		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
 	tipto = reaction.message.author.id
 	tipby = user.id
@@ -159,7 +153,7 @@ async def on_reaction_add(reaction, user):
 @commands.cooldown(1, 5, BucketType.user)
 async def on_message(message):
 	connection = MySQLdb.connect(
-	   host='localhost', user=db_user, passwd=db_password, db='dismona', charset='utf8')
+		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
 	# connection.isolation_level = None
 	cursor = connection.cursor()
@@ -1205,7 +1199,7 @@ async def on_message(message):
 			await client.send_message(message.channel, embed=embed)
 			elapsed_time = time.time() - start
 			elapsed_time = str(elapsed_time)
-		elif userid not in agreetos and message.author.id != "409090118956089344":
+		elif userid not in agreetos and message.author.id != "409090118956089344": #Monageには反応しないようにする
 			m = "You need to agree tos in order to use Monage. Please type /help for more information.\n このコマンドを実行するには利用規約への同意が必要です。→　https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt\n Please read tos and try again. Tos can be found at → https://github.com/raspi0124/monage-term/blob/master/terms-en.txt"
 			await client.send_message(message.channel, m)
 

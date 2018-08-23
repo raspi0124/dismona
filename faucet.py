@@ -28,6 +28,8 @@ section1 = 'development'
 discord_token = config.get(section1, 'discord_token')
 db_user = config.get(section1, 'db_user')
 db_password = config.get(section1, 'db_password')
+db_host = config.get(section1, 'db_host')
+db_name = config.get(section1, 'db_name')
 
 timestamp = str(time.time())
 
@@ -47,18 +49,14 @@ currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 
 print("0101")
 # データベース接続とカーソル生成
-# 接続情報はダミーです。お手元の環境にあわせてください。
 connection = MySQLdb.connect(
-	host='localhost', user=db_user, passwd=db_password, db='dismona', charset='utf8')
+	host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 cursor = connection.cursor()
-#cursor.execute("CREATE TABLE IF NOT EXISTS dismona.id (id VARCHAR(20), address VARCHAR(50));")
 @client.event
 @commands.cooldown(1, 5, BucketType.user)
 async def on_message(message):
 	connection = MySQLdb.connect(
-		host='localhost', user=db_user, passwd=db_password, db='dismona', charset='utf8')
-	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
-	# connection.isolation_level = None
+		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
 	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 	cursor.execute('SELECT * FROM agreetos')

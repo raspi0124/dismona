@@ -22,6 +22,8 @@ section1 = 'development'
 walletpassphrase = config.get(section1, 'mona_walletpassphrase')
 db_user = config.get(section1, 'db_user')
 db_password = config.get(section1, 'db_password')
+db_host = config.get(section1, 'db_host')
+db_name = config.get(section1, 'db_name')
 
 def round_down5(value):
 	value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
@@ -114,7 +116,7 @@ def withdraw(userid, to, amount):
 
 def tip(userid, to, amount):
 	connection = MySQLdb.connect(
-		host='localhost', user=db_user, passwd=db_password, db='dismona', charset='utf8')
+		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
 	balance = libgetbalance(userid)
 	num2 = 100000000
