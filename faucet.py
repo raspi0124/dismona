@@ -32,7 +32,10 @@ db_host = config.get(section1, 'db_host')
 db_name = config.get(section1, 'db_name')
 
 timestamp = str(time.time())
-
+print("Monage Discord Edition  Copyright (C) 2018  raspi0124\n \
+	This program comes with ABSOLUTELY NO WARRANTY; for details, please read https://github.com/raspi0124/dismona/blob/master/LICENSE.\n \
+	This is free software, and you are welcome to redistribute it\n \
+	under certain conditions; read https://github.com/raspi0124/dismona/blob/master/LICENSE and if you have any question, email to raspi0124[@]gmail.com.")
 
 def limited(until):
     duration = int(round(until - time.time()))
