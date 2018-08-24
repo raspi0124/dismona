@@ -646,7 +646,7 @@ async def on_message(message):
 									m = "<@" + userid +">ダーリン、あなたの今日の運勢は" + resultword + "らしいですわよ。!\n0.000" + resultgive + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。"
 								await client.send_message(message.channel, m)
 								cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username,))
-								if origresnum == "0":
+								if origresnum !== "0":
 									m = "/tip <@" + username + "> 0.000" + resultgive + ""
 									await client.send_message(message.channel, m)
 								connection.commit()
