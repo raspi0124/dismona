@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+#Those code are licenced under gplv3, has no warrantly, and you need to use
+#Copyright 2018 raspi0124.
 import discord
 import subprocess
 import re
