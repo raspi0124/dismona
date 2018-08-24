@@ -434,6 +434,7 @@ async def on_message(message):
 					print("result")
 					print(result)
 					result = int(result)
+					origresult=result
 					print("resulta")
 					print(result)
 					resultp = kuji[result]
@@ -468,8 +469,9 @@ async def on_message(message):
 						m = "<@" + userid + "> ダーリン、あなたの今日の運勢は" + resultp + "らしいですわよ。! 今日も気をつけてね、ダーリン。 . exectime: " + elapsed_time + " sec"
 					await client.send_message(message.channel, m)
 					cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username,))
-					m = "/tip <@" + username + "> 0.000" + result + ""
-					await client.send_message(message.channel, m)
+					if origresult > 0:
+						m = "/tip <@" + username + "> 0.000" + result + ""
+						await client.send_message(message.channel, m)
 					connection.commit()
 			else:
 				m = "<@" + userid +"> すでに今日におみくじをされているようです。。明日戻ってきてね！"
@@ -559,6 +561,7 @@ async def on_message(message):
 								print(resultnumber)
 								addamount = "1"
 								resultnumber = int(resultnumber)
+								origresnum=resultnumber
 								resultword = kuji[resultnumber]
 								resultgive = float(resultnumber) + float(addamount)
 								resultgive = int(resultgive)
@@ -593,8 +596,9 @@ async def on_message(message):
 								username = str(username)
 								print("INSERT INTO gived (id) VALUES (" + username + ")")
 								cursor.execute("INSERT INTO gived (id) VALUES (" + username + ")")
-								m = "/tip <@" + username + "> 0.0000" + resultgive + " おみくじtipです！貴方の今日の運勢は" + resultword + "です!次挑戦できるのは日本時間で明日です！"
-								await client.send_message(message.channel, m)
+								if origresnum > 0:
+									m = "/tip <@" + username + "> 0.0000" + resultgive + " おみくじtipです！貴方の今日の運勢は" + resultword + "です!次挑戦できるのは日本時間で明日です！"
+									await client.send_message(message.channel, m)
 								connection.commit()
 							else:
 								def omikuji():
@@ -606,6 +610,7 @@ async def on_message(message):
 								print("resultnumber")
 								print(resultnumber)
 								resultnumber = int(resultnumber)
+								origresnum=resultnumber
 								print("resultnumber")
 								print(resultnumber)
 								resultword = kuji[resultnumber]
@@ -640,8 +645,9 @@ async def on_message(message):
 									m = "<@" + userid +">ダーリン、あなたの今日の運勢は" + resultword + "らしいですわよ。!\n0.000" + resultgive + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。"
 								await client.send_message(message.channel, m)
 								cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username,))
-								m = "/tip <@" + username + "> 0.000" + resultnumber + ""
-								await client.send_message(message.channel, m)
+								if origresnum > 0:
+									m = "/tip <@" + username + "> 0.000" + resultnumber + ""
+									await client.send_message(message.channel, m)
 								connection.commit()
 						else:
 							m = "<@" + userid +">スパム対策のために今日Tipした、またはされていない方ははおみくじを実行することができません。。だれかにtipするかtipされてからもう一回実行おねがいします\nTo prevent spamming, user who never tiped today or user  who never get tiped today are not allowed to execute omikuji. please tip someone using /tip command."
