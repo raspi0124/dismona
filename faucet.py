@@ -561,7 +561,7 @@ async def on_message(message):
 								print(resultnumber)
 								addamount = "1"
 								resultnumber = int(resultnumber)
-								origresnum=resultnumber
+								origresnum = resultnumber
 								resultword = kuji[resultnumber]
 								resultgive = float(resultnumber) + float(addamount)
 								resultgive = int(resultgive)
@@ -610,7 +610,7 @@ async def on_message(message):
 								print("resultnumber")
 								print(resultnumber)
 								resultnumber = int(resultnumber)
-								origresnum=resultnumber
+								origresnum = resultnumber
 								print("resultnumber")
 								print(resultnumber)
 								resultword = kuji[resultnumber]
@@ -639,13 +639,14 @@ async def on_message(message):
 								elapsed_time = time.time() - start
 								elapsed_time = str(elapsed_time)
 								result = str(result)
+								origresnum = str(origresnum)
 								if result == "0":
 									m = "あなたの運勢…凶みたいだから、今日はそばにいてあげるんだからねっ！今日だけだからねっ"
 								else:
 									m = "<@" + userid +">ダーリン、あなたの今日の運勢は" + resultword + "らしいですわよ。!\n0.000" + resultgive + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。"
 								await client.send_message(message.channel, m)
 								cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username,))
-								if origresnum > 0:
+								if origresnum == "0":
 									m = "/tip <@" + username + "> 0.000" + resultgive + ""
 									await client.send_message(message.channel, m)
 								connection.commit()
