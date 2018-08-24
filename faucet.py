@@ -87,7 +87,7 @@ async def on_message(message):
 
 
 		if message.content == "/shootizaya":
-			izaya_sleep = int("0.5")
+			izaya_sleep = 0.5
 			try:
 				print("shootizaya executed")
 				cursor.execute("SELECT * from shooted")
