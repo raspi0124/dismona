@@ -646,7 +646,7 @@ async def on_message(message):
 								await client.send_message(message.channel, m)
 								cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username,))
 								if origresnum > 0:
-									m = "/tip <@" + username + "> 0.000" + resultnumber + ""
+									m = "/tip <@" + username + "> 0.000" + resultgive + ""
 									await client.send_message(message.channel, m)
 								connection.commit()
 						else:
