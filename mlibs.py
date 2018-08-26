@@ -71,7 +71,6 @@ def deposit(userid):
 	address = rut.decode()
 	address2 = address.replace('"', '')
 	address3 = address2.replace(',', '')
-	elapsed_time = str(elapsed_time)
 	address = address3.split()
 	address = address[1]
 	address = address.replace(']', '')
