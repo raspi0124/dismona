@@ -68,8 +68,8 @@ async def on_message(message):
 	agreetos = cursor.fetchall()
 	agreetos = mlibs.fixselect(agreetos)
 	cursor.execute('SELECT * FROM ragreedtos')
-	ragreetos = cursor.fetchall()
-	ragreetos = mlibs.fixselect(rgreedtos)
+	ragreedtos = cursor.fetchall()
+	ragreedtos = mlibs.fixselect(rgreedtos)
 	userid = message.author.id
 	messagesql = str(message.content)
 	useird = message.author.id
