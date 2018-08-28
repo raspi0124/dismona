@@ -69,7 +69,7 @@ async def on_message(message):
 	agreetos = mlibs.fixselect(agreetos)
 	cursor.execute('SELECT * FROM ragreedtos')
 	ragreedtos = cursor.fetchall()
-	ragreedtos = mlibs.fixselect(rgreedtos)
+	ragreedtos = mlibs.fixselect(ragreedtos)
 	userid = message.author.id
 	messagesql = str(message.content)
 	useird = message.author.id
@@ -548,8 +548,8 @@ async def on_message(message):
 			minlimit = float(minlimit)
 			print("3")
 			cursor.execute('SELECT * FROM ragreedtos')
-			ragreetos = cursor.fetchall()
-			ragreetos = mlibs.fixselect(rgreedtos)
+			ragreedtos = cursor.fetchall()
+			ragreedtos = mlibs.fixselect(ragreedtos)
 			if userid not in ragreedtos:
 				if username not in gived:
 					if balance >= minlimit:
