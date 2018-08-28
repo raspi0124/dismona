@@ -546,7 +546,7 @@ async def on_message(message):
 			minlimit = float(minlimit)
 			print("3")
 			if username not in gived:
-				if balance > minlimit:
+				if balance >= minlimit:
 					if username not in baned:
 						if username in tiped:
 							if username not in loved:
