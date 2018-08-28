@@ -60,11 +60,16 @@ cursor = connection.cursor()
 async def on_message(message):
 	connection = MySQLdb.connect(
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
+	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
+	# connection.isolation_level = None
 	cursor = connection.cursor()
 	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 	cursor.execute('SELECT * FROM agreetos')
 	agreetos = cursor.fetchall()
 	agreetos = mlibs.fixselect(agreetos)
+	cursor.execute('SELECT * FROM ragreedtos')
+	ragreetos = cursor.fetchall()
+	ragreetos = mlibs.fixselect(rgreedtos)
 	#pattern = r'([0-9]+\.%s[0-9]*)'
 	#agreetos = re.findall(pattern,agreetos)
 	#print(agreetos)
@@ -76,7 +81,7 @@ async def on_message(message):
 	timestamp = str(time.time())
 	userid = message.author.id
 
-	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/cagreedtos" and message.content != "/help" and userid in agreetos or message.author.id == "409090118956089344":
+	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/cagreedtos" and message.content != "/help" and userid in agreetos and userid in ragreedtos or message.author.id == "409090118956089344":
 		# 全件取得は cursor.fetchall()
 		# 「/register」で始まるか調べる
 		if message.content == "/kill faucet":

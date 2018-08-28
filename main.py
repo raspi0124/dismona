@@ -168,6 +168,9 @@ async def on_message(message):
 	cursor.execute('SELECT * FROM agreetos')
 	agreetos = cursor.fetchall()
 	agreetos = mlibs.fixselect(agreetos)
+	cursor.execute('SELECT * FROM ragreedtos')
+	ragreetos = cursor.fetchall()
+	ragreetos = mlibs.fixselect(rgreedtos)
 	#pattern = r'([0-9]+\.%s[0-9]*)'
 	#agreetos = re.findall(pattern,agreetos)
 	#print(agreetos)
@@ -179,7 +182,7 @@ async def on_message(message):
 	timestamp = str(time.time())
 	userid = message.author.id
 
-	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/cagreedtos" and message.content != "/help" and userid in agreetos or message.author.id == "409090118956089344":
+	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/cagreedtos" and message.content != "/help" and userid in agreetos and userid in ragreedtos or message.author.id == "409090118956089344":
 		# 全件取得は cursor.fetchall()
 		# 「/register」で始まるか調べる
 		if message.content.startswith("/"):
@@ -1172,12 +1175,31 @@ async def on_message(message):
 			await client.add_reaction(message, '👌')
 			fee = "0.01"
 			cursor.execute("INSERT INTO agreetos (id) VALUES (%s)", (username,))
-			m = "利用規約への同意を確認しました。"
+			m = "<@" + userid + "> 利用規約への同意を確認しました。"
 			await client.send_message(message.channel, m)
 			cursor.execute('SELECT * FROM agreetos')
 			agreetos = cursor.fetchall()
 			agreetos = str(agreetos)
 			print(agreetos)
+			await client.delete_message(message)
+
+
+			# 保存を実行（忘れると保存されないので注意）
+			connection.commit()
+		if message.content == "/ragreedtos":
+			start = time.time()
+				# データベース接続とカーソル生成
+			# エラー処理（例外処理）
+			await client.add_reaction(message, '👌')
+			fee = "0.01"
+			cursor.execute("INSERT INTO ragreedtos (id) VALUES (%s)", (userid,))
+			m = "<@" + userid + "> 利用規約への同意を確認しました。"
+			await client.send_message(message.channel, m)
+			cursor.execute('SELECT * FROM ragreedtos')
+			agreetos = cursor.fetchall()
+			agreetos = str(agreetos)
+			print(agreetos)
+			await client.delete_message(message)
 
 
 			# 保存を実行（忘れると保存されないので注意）
