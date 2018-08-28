@@ -170,7 +170,7 @@ async def on_message(message):
 	agreetos = mlibs.fixselect(agreetos)
 	cursor.execute('SELECT * FROM ragreedtos')
 	ragreedtos = cursor.fetchall()
-	ragreedtos = mlibs.fixselect(rgreedtos)
+	ragreedtos = mlibs.fixselect(ragreedtos)
 	#pattern = r'([0-9]+\.%s[0-9]*)'
 	#agreetos = re.findall(pattern,agreetos)
 	#print(agreetos)
