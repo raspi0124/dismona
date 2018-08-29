@@ -1180,10 +1180,10 @@ async def on_message(message):
 			# エラー処理（例外処理）
 			await client.add_reaction(message, '👌')
 			cursor.execute("INSERT INTO ragreedtos (id) VALUES (%s)", (userid,))
+			connection.commit()
 			m = "<@" + userid + "> 利用規約への同意を確認しました。"
 			await client.send_message(message.channel, m)
 			await client.delete_message(message)
-			connection.commit()
 		if message.content == "/agreetos":
 			m = "利用規約はきちんと読みましたか？もう一度確認してみましょう。→　https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt\n Please read tos and try again. Tos can be found at → https://github.com/raspi0124/monage-term/blob/master/terms-en.txt"
 			await client.send_message(message.channel, m)
