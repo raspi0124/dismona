@@ -182,7 +182,7 @@ async def on_message(message):
 	timestamp = str(time.time())
 	userid = message.author.id
 
-	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/ragreedtos" and message.content != "/cagreedtos" and message.content != "/help" or message.author.id == "409090118956089344" or userid in agreetos or userid in ragreedtos:
+	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/ragreedtos" and message.content != "/cagreedtos" and message.content != "/help" or message.author.id == "409090118956089344" or userid in ragreedtos:
 		# 全件取得は cursor.fetchall()
 		# 「/register」で始まるか調べる
 		if message.content.startswith("/"):
@@ -1168,25 +1168,6 @@ async def on_message(message):
 
 	if message.content.startswith("/"):
 		if message.content == "/cagreedtos":
-			start = time.time()
-				# データベース接続とカーソル生成
-			username = message.author.id
-			# エラー処理（例外処理）
-			await client.add_reaction(message, '👌')
-			fee = "0.01"
-			cursor.execute("INSERT INTO agreetos (id) VALUES (%s)", (username,))
-			m = "<@" + userid + "> 利用規約への同意を確認しました。Monageへの協力ありがとうございました。おみくじでもらえる金額を減らしておきますね！"
-			await client.send_message(message.channel, m)
-			cursor.execute('SELECT * FROM agreetos')
-			agreetos = cursor.fetchall()
-			agreetos = str(agreetos)
-			print(agreetos)
-			await client.delete_message(message)
-
-
-			# 保存を実行（忘れると保存されないので注意）
-			connection.commit()
-		if message.content == "/ragreedtos":
 			cursor.execute('SELECT * FROM agreetos')
 			agreedtos = cursor.fetchall()
 			agreedtos = mlibs.fixselect(agreetos)
@@ -1197,13 +1178,22 @@ async def on_message(message):
 				# エラー処理（例外処理）
 				await client.add_reaction(message, '👌')
 				fee = "0.01"
+				m = "<@" + userid + "> おおー、MonageのMonaparty関連の不具合とかを無償で直すことに協力してくださるんですね！ありがたいです！ご協力ありがとうございます！\n <@326091178984603669>! <@" + userid + "> さんがMonapartyの不具合修正に何と無償で協力してくださるそうですよ！ありがいですねー。イヤホン等に"
+				await client.send_message(message.channel, m)
+				await client.delete_message(message)
+
+		if message.content == "/ragreedtos":
+			agreedtos = ""
+			#共用コマンド
+			if userid not in agreedtos:
+				start = time.time()
+					# データベース接続とカーソル生成
+				# エラー処理（例外処理）
+				await client.add_reaction(message, '👌')
+				fee = "0.01"
 				cursor.execute("INSERT INTO ragreedtos (id) VALUES (%s)", (userid,))
 				m = "<@" + userid + "> 利用規約への同意を確認しました。"
 				await client.send_message(message.channel, m)
-				cursor.execute('SELECT * FROM ragreedtos')
-				agreetos = cursor.fetchall()
-				agreetos = str(agreetos)
-				print(agreetos)
 				await client.delete_message(message)
 
 
