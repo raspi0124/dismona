@@ -182,7 +182,7 @@ async def on_message(message):
 	timestamp = str(time.time())
 	userid = message.author.id
 
-	if userid in ragreedtos:
+	if message.content.startswith("/") and userid in ragreedtos:
 		# 全件取得は cursor.fetchall()
 		# 「/register」で始まるか調べる
 		if message.content.startswith("/"):
