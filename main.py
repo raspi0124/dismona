@@ -182,7 +182,7 @@ async def on_message(message):
 	timestamp = str(time.time())
 	userid = message.author.id
 
-	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/ragreedtos" and message.content != "/cagreedtos" and message.content != "/help" and userid in ragreedtos:
+	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/ragreedtos" and message.content != "/cagreedtos" and message.content != "/help" or userid in ragreedtos:
 		# 全件取得は cursor.fetchall()
 		# 「/register」で始まるか調べる
 		if message.content.startswith("/"):
@@ -1190,10 +1190,6 @@ async def on_message(message):
 			m = "<@" + userid + "> 利用規約への同意を確認しました。"
 			await client.send_message(message.channel, m)
 			await client.delete_message(message)
-			connection.commit()
-
-
-			# 保存を実行（忘れると保存されないので注意）
 			connection.commit()
 		if message.content == "/agreetos":
 			m = "利用規約はきちんと読みましたか？もう一度確認してみましょう。→　https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt\n Please read tos and try again. Tos can be found at → https://github.com/raspi0124/monage-term/blob/master/terms-en.txt"
