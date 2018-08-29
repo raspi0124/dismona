@@ -1155,7 +1155,7 @@ async def on_message(message):
 			deftipamount = str(deftipamount)
 			m = "Successfully sent " + deftipamount + " " + tiptoken + " from <@" + userid + "> to <@" + tipto +"> !\n TXID: " + txid + ""
 			await client.send_message(message.channel, m)
-	elif message.content.startswith("/") and userid not in ragreedtos:
+	elif message.content.startswith("/") and message.content != "/help" and message.content != "/cagreedtos" and message.content != "/ragreedtos" and message.content != "/agreetos" and userid not in ragreedtos:
 		m = "You need to agree tos in order to use Monage. Please type /help for more information.\n このコマンドを実行するには利用規約への同意が必要です。→　https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt\n Please read tos and try again. Tos can be found at → https://github.com/raspi0124/monage-term/blob/master/terms-en.txt"
 		await client.send_message(message.channel, m)
 #MONAPARTY関連終わり
@@ -1165,15 +1165,14 @@ async def on_message(message):
 	if message.content.startswith("/"):
 		if message.content == "/cagreedtos":
 			#共用コマンド
-			if userid not in agreedtos:
-				start = time.time()
-					# データベース接続とカーソル生成
-				# エラー処理（例外処理）
-				await client.add_reaction(message, '👌')
-				fee = "0.01"
-				m = "<@" + userid + "> おおー、MonageのMonaparty関連の不具合とかを無償で直すことに協力してくださるんですね！ありがたいです！ご協力ありがとうございます！\n <@326091178984603669>! <@" + userid + "> さんがMonapartyの不具合修正に何と無償で協力してくださるそうですよ！ありがいですねー。\nThanks for help us fixing Monaparty on Monage! You are very kind!Now, review the source code and fix it please!"
-				await client.send_message(message.channel, m)
-				await client.delete_message(message)
+			start = time.time()
+				# データベース接続とカーソル生成
+			# エラー処理（例外処理）
+			await client.add_reaction(message, '👌')
+			fee = "0.01"
+			m = "<@" + userid + "> おおー、MonageのMonaparty関連の不具合とかを無償で直すことに協力してくださるんですね！ありがたいです！ご協力ありがとうございます！\n <@326091178984603669>! <@" + userid + "> さんがMonapartyの不具合修正に何と無償で協力してくださるそうですよ！ありがいですねー。\nThanks for help us fixing Monaparty on Monage! You are very kind!Now, review the source code and fix it please!"
+			await client.send_message(message.channel, m)
+			await client.delete_message(message)
 
 		if message.content == "/ragreedtos":
 			# データベース接続とカーソル生成
