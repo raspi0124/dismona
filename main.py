@@ -1183,18 +1183,14 @@ async def on_message(message):
 				await client.delete_message(message)
 
 		if message.content == "/ragreedtos":
-			agreedtos = ""
-			#共用コマンド
-			if userid not in agreedtos:
-				start = time.time()
-					# データベース接続とカーソル生成
-				# エラー処理（例外処理）
-				await client.add_reaction(message, '👌')
-				fee = "0.01"
-				cursor.execute("INSERT INTO ragreedtos (id) VALUES (%s)", (userid,))
-				m = "<@" + userid + "> 利用規約への同意を確認しました。"
-				await client.send_message(message.channel, m)
-				await client.delete_message(message)
+			# データベース接続とカーソル生成
+			# エラー処理（例外処理）
+			await client.add_reaction(message, '👌')
+			cursor.execute("INSERT INTO ragreedtos (id) VALUES (%s)", (userid,))
+			m = "<@" + userid + "> 利用規約への同意を確認しました。"
+			await client.send_message(message.channel, m)
+			await client.delete_message(message)
+			connection.commit()
 
 
 			# 保存を実行（忘れると保存されないので注意）
