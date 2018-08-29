@@ -1216,10 +1216,7 @@ async def on_message(message):
 			await client.send_message(message.channel, embed=embed)
 			elapsed_time = time.time() - start
 			elapsed_time = str(elapsed_time)
-		cursor.execute('SELECT * FROM ragreedtos')
-		ragreedtos = cursor.fetchall()
-		ragreedtos = mlibs.fixselect(ragreedtos)
-		elif userid not in ragreedtos or message.content != "/ragreedtos": #Monageには反応しないようにする
+		else: #Monageには反応しないようにする
 			m = "You need to agree tos in order to use Monage. Please type /help for more information.\n このコマンドを実行するには利用規約への同意が必要です。→　https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt\n Please read tos and try again. Tos can be found at → https://github.com/raspi0124/monage-term/blob/master/terms-en.txt"
 			await client.send_message(message.channel, m)
 
