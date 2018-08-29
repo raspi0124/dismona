@@ -1216,7 +1216,7 @@ async def on_message(message):
 			await client.send_message(message.channel, embed=embed)
 			elapsed_time = time.time() - start
 			elapsed_time = str(elapsed_time)
-		elif message.content.startswith("/") and message.content != "/agreetos" and message.content != "/ragreedtos" and message.content != "/cagreedtos" and message.content != "/help":
+		elif message.content != "/agreetos" and message.content != "/ragreedtos" and message.content != "/cagreedtos" and message.content != "/help":
 			m = "You need to agree tos in order to use Monage. Please type /help for more information.\n このコマンドを実行するには利用規約への同意が必要です。→　https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt\n Please read tos and try again. Tos can be found at → https://github.com/raspi0124/monage-term/blob/master/terms-en.txt"
 			await client.send_message(message.channel, m)
 
