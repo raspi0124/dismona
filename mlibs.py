@@ -200,3 +200,13 @@ def isurlexist(url):
 			return "0-2" #Notfound
 	else:
 		return "0" #Not URL
+def getmonageid(discordid):
+	cursor.execute("SELECT discordid FROM accounts")
+	accountDB = cursor.fetchall()
+	if discordid in accountDB:
+		cursor.execute("SELECT monageid FROM accounts WHERE discordid='{}'".format(discordid))
+		monageid = cursor.fetchall()
+		monageid = str(monageid)
+		return monageid
+	else:
+		return "ERROR"

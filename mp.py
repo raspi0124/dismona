@@ -47,7 +47,6 @@ def mp_balance(address):
 	else:
 		return responseresult
 
-
 def mp_deposit(userid):
 	#Change those to elecctrum one after.
 	# メッセージを書きます
@@ -77,9 +76,9 @@ def mp_rawtransaction(userid, tipto, amount, tiptoken):
 		'Accept': 'application/json, text/javascript',
 	}
 
-	data = '{"jsonrpc":"2.0", "id":0, "method":"get_asset_info", "params":{"assets":[' + tiptoken + ']} }'
+	data = '{"jsonrpc":"2.0", "id":0, "params":{"method":"get_asset_info", "params":{"assets":[' + tiptoken + ']} }'
 
-	asset_info = requests.post('http://153.126.176.183:4000/api/ ', headers=headers, data=data, auth=('rpc', 'rpc'))
+	asset_info = requests.post('https://monapa.electrum-mona.org/_api ', headers=headers, data=data, auth=('rpc', 'rpc'))
 	responsejson = asset_info.json()
 	responseresult = responsejson['result']
 	print(responseresult)
@@ -95,18 +94,15 @@ def mp_rawtransaction(userid, tipto, amount, tiptoken):
 		print(tipamount)
 		tipamount = int(tipamount)
 		tipamount = str(tipamount)
-
-	data = '{\n \
+	data = '{"jsonrpc":"2.0","id":0,"method":"proxy_to_counterpartyd","params":{\n \
 		"method": "create_send",\n \
-		"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + ', "fee": ' + fee + ', "allow_unconfirmed_inputs": true, "use_enhanced_send": false },\n \
-		"jsonrpc": "2.0",\n \
-		"id": 1\n \
+		"params": {"source": ' + addresses + ', "destination": ' + tiptoaddress + ', "asset": ' + tiptoken + ', "quantity": ' + tipamount + ', "fee": ' + fee + ', "allow_unconfirmed_inputs": true, "use_enhanced_send": false }\n \
 	}'
 	print(data)
 	repfrom = '"' + tipamount + '"'
 	data = data.replace(repfrom, tipamount)
 	print(data)
-	response = requests.post('http://153.126.176.183:4000/api/', headers=headers, data=data, auth=('rpc', 'rpc'))
+	response = requests.post('https://monapa.electrum-mona.org/_api', headers=headers, data=data, auth=('rpc', 'rpc'))
 	print(response)
 	print(response.text)
 	print("---create_send request compleate---")

@@ -8,10 +8,12 @@ import time
 import math
 import random
 import json
+import string
 import requests
 import decimal
 from decimal import (Decimal, ROUND_DOWN)
 from decimal import Decimal
+import hmac
 #import apim
 #import sqlite3
 import MySQLdb
@@ -33,6 +35,7 @@ db_user = config.get(section1, 'db_user')
 db_password = config.get(section1, 'db_password')
 db_host = config.get(section1, 'db_host')
 db_name = config.get(section1, 'db_name')
+MONAGEID_SECRET = config.get(section1, 'MONAGEID_SECRET')
 print("MAIN SERVICE IS NOW STARTING!")
 
 print("Monage Discord Edition  Copyright (C) 2018  raspi0124\n \
@@ -738,8 +741,25 @@ async def on_message(message):
 			m = "Sure, Lets me make your account newer!"
 			await client.send_message(message.channel, m)
 			if userid not in accountlist:
-				cursor.execute("INSERT INTO accounts (discordid, timestamps) VALUES (userid, timestamp)")
+				#address = elib.createaddress("monageid")
+				cursor.execute("INSERT INTO accounts (discordid) VALUES (userid)")
 				connection.commit()
+				cursor.execute("SELECT monageid FROM accounts WHERE discordid='{}'".format(userid))
+				isavailable = cursor.fetchall()
+				cursor.execute("SELECT monageid FROM accounts")
+				istaken = cursor.fetchall()
+				if isavailable is None or isavailable == "":
+					#if monageid is not given to discord user, generate hash for userid on discord
+					monageid = hmac.new(MONAGEID_SECRET, userid).hexdigest()
+					if monageid not in istaken:
+						cursor.execute("INSERT INTO accounts (monageid) VALUES (monageid) WHERE discordid='{}'".format(userid))
+						connection.commit()
+						m = "Added your Monage ID to DB! Your monageid will be sent to DM shortly!"
+						await client.send_message(message.channel, m)
+						dm = "Your Monage id are: " + monageid + ""
+					if monageid in istaken:
+						m = "Error.Please contact administrater of this bot (@raspi0124) ERRCODE: m01"
+						await client.send_message(message.channel, m)
 
 		if message.content.startswith("/image"):
 			await client.add_reaction(message, '👌')
