@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-#Those code are licenced under gplv3, has no warrantly, and you need to use
+#Those code are licenced under gplv3, has no warrantly and you need to share the code in case you made a change.
 #Copyright 2018 raspi0124.
 import discord
 import subprocess
@@ -29,12 +29,15 @@ import configparser
 config = configparser.ConfigParser()
 config.read('/root/dismona.conf')
 
-section1 = 'development'
+section1 = 'development']
+#status defines if its main server or backup server. Main server: 1, Sub server: 2 and 3
+status = config.get(section1, 'status')
 discord_token = config.get(section1, 'discord_token')
 db_user = config.get(section1, 'db_user')
 db_password = config.get(section1, 'db_password')
 db_host = config.get(section1, 'db_host')
 db_name = config.get(section1, 'db_name')
+main_server_address = config.get(section1, 'main_server_address')
 MONAGEID_SECRET = config.get(section1, 'MONAGEID_SECRET')
 print("MAIN SERVICE IS NOW STARTING!")
 
@@ -162,6 +165,8 @@ async def on_reaction_add(reaction, user):
 @client.event
 @commands.cooldown(1, 5, BucketType.user)
 async def on_message(message):
+	if status = "2":
+		main_server_status = is_page_available(main_server_address)
 	connection = MySQLdb.connect(
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）

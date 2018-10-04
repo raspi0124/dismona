@@ -210,3 +210,13 @@ def getmonageid(discordid):
 		return monageid
 	else:
 		return "ERROR"
+def is_page_available(host):
+	try:
+		host = str(host)
+		code = urllib.request.urlopen(host).getcode()
+		if code == "200":
+			return True
+		else:
+			return False
+	except StandardError:
+		return None
