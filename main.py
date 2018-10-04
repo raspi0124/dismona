@@ -165,8 +165,8 @@ async def on_reaction_add(reaction, user):
 @client.event
 @commands.cooldown(1, 5, BucketType.user)
 async def on_message(message):
-	if status = "2":
-		main_server_status = is_page_available(main_server_address)
+#	if status == "2":
+#		main_server_status = is_page_available(main_server_address)
 	connection = MySQLdb.connect(
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
