@@ -913,7 +913,7 @@ async def on_message(message):
 			stderr=subprocess.PIPE)
 			my_pid, err = process.communicate()
 			if len(my_pid.splitlines()) >0:
-				s = 'Faucet Module is running!'
+				s = 'Faucet Module is already running!'
 				await client.send_message(message.channel, s)
 				exit()
 			else:
