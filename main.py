@@ -29,7 +29,7 @@ import configparser
 config = configparser.ConfigParser()
 config.read('/root/dismona.conf')
 
-section1 = 'development']
+section1 = 'development'
 #status defines if its main server or backup server. Main server: 1, Sub server: 2 and 3
 status = config.get(section1, 'status')
 discord_token = config.get(section1, 'discord_token')
