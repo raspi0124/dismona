@@ -31,13 +31,13 @@ config.read('/root/dismona.conf')
 
 section1 = 'development'
 #status defines if its main server or backup server. Main server: 1, Sub server: 2 and 3
-status = config.get(section1, 'status')
+#status = config.get(section1, 'status')
 discord_token = config.get(section1, 'discord_token')
 db_user = config.get(section1, 'db_user')
 db_password = config.get(section1, 'db_password')
 db_host = config.get(section1, 'db_host')
 db_name = config.get(section1, 'db_name')
-main_server_address = config.get(section1, 'main_server_address')
+#main_server_address = config.get(section1, 'main_server_address')
 MONAGEID_SECRET = config.get(section1, 'MONAGEID_SECRET')
 print("MAIN SERVICE IS NOW STARTING!")
 
