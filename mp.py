@@ -15,8 +15,21 @@ import MySQLdb
 from datetime import datetime
 import configparser
 
+config = configparser.ConfigParser()
+config.read('/root/dismona.conf')
+
+section1 = 'development'
+walletpassphrase = config.get(section1, 'mona_walletpassphrase')
+db_user = config.get(section1, 'db_user')
+db_password = config.get(section1, 'db_password')
+db_host = config.get(section1, 'db_host')
+db_name = config.get(section1, 'db_name')
+electrum_wallet_location = config.get(section1, 'electrum_wallet_location')
+def userwalletlocation(userid):
+	location = "" + electrum_wallet_location + "" + userid + ""
+	return location
 #MONAPARTY関連スタート
-def mp_balance(address):
+def balance(address):
 	print("1")
 	address = '"' + addresses + '"'
 	print(addresses)
@@ -47,25 +60,32 @@ def mp_balance(address):
 	else:
 		return responseresult
 
-def mp_deposit(userid):
-	#Change those to elecctrum one after.
-	# メッセージを書きます
-	address = mlibs.deposit(userid)
+
+def deposit(userid):
+	walletlocation = userwalletlocation(userid)
+	cmdlib = "electrum-mona listaddresses -D {0}".format(walletlocation)
+	rut  =  subprocess.check_output( cmd.split(" ") )
+	address = rut.decode()
+	address2 = address.replace('"', '')
+	address3 = address2.replace(',', '')
+	address = address3.split()
+	address = address[1]
+	address = address.replace(']', '')
 	return address
 
-def mp_rawtransaction(userid, tipto, amount, tiptoken):
+def rawtransaction(userid, tipto, amount, tiptoken):
 	#まず最初に数字を取り出す。次にWordを取り出し、とりだしたWordから数字を取り除く。
 	print("")
 	print(tipto)
 	print(tipamount)
 	print(tiptoken)
 	print("")
-	addresses = mp_deposit(userid)
+	addresses = deposit(userid)
 	address = addresses
 	print(address)
 	print(addresses)
 	addresses = '"' + addresses + '"'
-	tiptoaddress = mp_deposit(tipto)
+	tiptoaddress = deposit(tipto)
 	tiptoaddress = '"' + tiptoaddress + '"'
 	tiptoken = '"' + tiptoken + '"'
 	#APIにアクセスし該当TXIDをもらってくる
@@ -113,3 +133,9 @@ def mp_rawtransaction(userid, tipto, amount, tiptoken):
 	rawtransaction = str(rawtransaction)
 	print("")
 	return rawtransaction
+def sign_raw_transaction(userid, rawtransaction):
+	walletlocation = userwalletlocation(userid)
+	cmd = "electrum-mona -D {0} signtransaction".format(walletlocation)
+	rut  =  subprocess.check_output( cmd.split(" ") )
+	result = rut.decode()
+	return result
