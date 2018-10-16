@@ -12,6 +12,8 @@ db_user = config.get(section1, 'db_user')
 db_password = config.get(section1, 'db_password')
 db_host = config.get(section1, 'db_host')
 db_name = config.get(section1, 'db_name')
+client = discord.Client()
+
 @client.event
 async def on_message(message):
 	if message.content.startswith("/startfaucet"):
