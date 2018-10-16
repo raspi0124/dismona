@@ -792,28 +792,6 @@ async def on_message(message):
 				else:
 					m = "もう、<@" + message.author.id + "> 、何やってるの！！\n おみくじは1日一回ってあんなに言ったでしょ！ 明日まで禁止よ！\nそこに座ってなさい！"
 					await client.send_message(message.channel, m)
-		if message.content.startswith("/status"):
-			cmd = "pgrep -a python | grep '/root/dismona/main.py'"
-			process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE,
-			stderr=subprocess.PIPE)
-			my_pid, err = process.communicate()
-			if len(my_pid.splitlines()) >0:
-				s = 'Main Module: Running'
-			else:
-				s = 'Main Module: Down\nRestarting process is starting..'
-				await client.send_message(message.channel, s)
-				cmd = "refresh"
-				subprocess.Popen(cmd)
-				cmd = "pgrep -a python | grep '/root/dismona/faucet.py'"
-				process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE,
-				stderr=subprocess.PIPE)
-				my_pid, err = process.communicate()
-				if len(my_pid.splitlines()) >0:
-					s = 'Faucet Module: Running'
-					await client.send_message(message.channel, s)
-				else:
-					s = 'Faucet Module: Down\nTo start this, please use /startfaucet. '
-					await client.send_message(message.channel, s)
 	connection.commit()
 	connection.close()
 client.run(discord_token)
