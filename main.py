@@ -797,7 +797,7 @@ async def on_message(message):
 		if message.content.startswith("/rmshootizaya"):
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			start = time.time()
-			if message.author.id == "326091178984603669":
+			if message.author.id == "326091178984603669" or message.author.id == "351363656698560513":
 				cmd = 'sh dismona-rmshoot.sh'
 				ruta  =  subprocess.check_output( cmd.split(" ") )
 
