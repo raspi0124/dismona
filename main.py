@@ -13,7 +13,7 @@ import requests
 import decimal
 from decimal import (Decimal, ROUND_DOWN)
 from decimal import Decimal
-import hmac
+import hashlib
 #import apim
 #import sqlite3
 import MySQLdb
@@ -755,7 +755,7 @@ async def on_message(message):
 				istaken = cursor.fetchall()
 				if isavailable is None or isavailable == "":
 					#if monageid is not given to discord user, generate hash for userid on discord
-					monageid = hmac.new(MONAGEID_SECRET, userid).hexdigest()
+					monageid = hashlib.md5(monageid_seed.encode('utf-8')).hexdigest()
 					if monageid not in istaken:
 						cursor.execute("INSERT INTO accounts (monageid) VALUES (monageid) WHERE discordid='{}'".format(userid))
 						connection.commit()

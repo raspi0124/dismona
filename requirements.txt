@@ -1,5 +1,5 @@
 discord
-hmac
 mysqlclient
 ratelimiter
 configparser
+falcon
