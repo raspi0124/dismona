@@ -25,6 +25,9 @@ db_password = config.get(section1, 'db_password')
 db_host = config.get(section1, 'db_host')
 db_name = config.get(section1, 'db_name')
 electrum_wallet_location = config.get(section1, 'electrum_wallet_location')
+def round_down5(value):
+	value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
+	return str(value)
 def userwalletlocation(userid):
 	location = "" + electrum_wallet_location + "" + userid + ""
 	return location
@@ -59,7 +62,7 @@ def libgetjpybalance(userid):
 def deposit(userid):
 	walletlocation = userwalletlocation(userid)
 	cmdlib = "electrum-mona listaddresses {0}".format(walletlocation)
-	rut  =  subprocess.check_output( cmd.split(" ") )
+	rut  =  subprocess.check_output( cmdlib.split(" ") )
 	address = rut.decode()
 	address2 = address.replace('"', '')
 	address3 = address2.replace(',', '')
@@ -105,7 +108,7 @@ def withdraw(userid, to, amount):
 		m = "500"
 	return m
 def tiptoken(userid, to, amount, tiptoken):
-	
+	pass
 def tip(userid, to, amount):
 	connection = MySQLdb.connect(
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
@@ -153,6 +156,9 @@ def fixselect(string):
 	return string
 
 def register(userid):
+	connection = MySQLdb.connect(
+		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
+	cursor = connection.cursor()
 	cmd = "monacoin-cli getnewaddress " + userid + ""
 	rut  =  subprocess.check_output( cmd.split(" ") )
 	#cursor.execute("insert into dismona.id(id,address) values('message_author', address);")
@@ -176,7 +182,7 @@ def getpubkey(address):
 	resultjson = rut
 	print(resultjson)
 	resultjson = json.loads(resultjson)
-	print(json.dumps(resultjson[pubkey]))
-	pubkey = json.dumps(resultjson[pubkey])
+	print(json.dumps(resultjson["pubkey"]))
+	pubkey = json.dumps(resultjson["pubkey"])
 	print(pubkey)
 	return pubkey

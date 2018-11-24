@@ -45,6 +45,18 @@ def libgetbalance(userid):
 	balancelib = str(balancelib)
 	return balancelib
 
+def getcurrentprice():
+	headers = {
+	'Accept': 'application/json',
+	}
+	response = requests.get('https://public.bitbank.cc/mona_jpy/ticker', headers=headers)
+	response = response.json()
+	data = response['data']
+	currentprice = data['last']
+	currentprice = str(currentprice)
+	return currentprice
+
+
 def libgetjpybalance(userid):
 	headers = {
 	'Accept': 'application/json',
