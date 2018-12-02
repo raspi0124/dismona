@@ -4,14 +4,9 @@ import discord
 import subprocess
 import re
 import time
-import math
 import random
 import json
-import string
 import requests
-import decimal
-from decimal import (Decimal, ROUND_DOWN)
-from decimal import Decimal
 import hashlib
 #import apim
 #import sqlite3
@@ -19,10 +14,8 @@ import MySQLdb
 from datetime import datetime
 import mlibs
 from discord.ext import commands
-from ratelimiter import RateLimiter
 from discord.ext.commands.cooldowns import BucketType
 import sys
-import os
 import configparser
 
 config = configparser.ConfigParser()
@@ -66,7 +59,6 @@ async def on_ready():
 @client.event
 async def on_member_join(member):
 	memberid = member.id
-	membername = member.name
 	serverid = member.server.id
 	izaya_zatsudan = "415501395089686528"
 	izaya_zatsudan = client.get_channel('415501395089686528')
@@ -81,9 +73,6 @@ async def on_member_join(member):
 
 @client.event
 async def on_reaction_add(reaction, user):
-	connection = MySQLdb.connect(
-		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
-	cursor = connection.cursor()
 	tipto = reaction.message.author.id
 	tipby = user.id
 	emoji = reaction.emoji.name
@@ -111,7 +100,6 @@ async def on_reaction_add(reaction, user):
 		minimumtip = float(minimumtip)
 		if tipamount <= balance:
 			if tipamount >= minimumtip:
-				username = tipby
 				tipamount = float(tipamount) / float(num2)
 				tipamount = str(tipamount)
 				mlibs.tip(tipby, tipto, tipamount)
@@ -146,10 +134,8 @@ async def on_reaction_add(reaction, user):
 		minimumtip = float(minimumtip)
 		if tipamount <= balance:
 			if tipamount >= minimumtip:
-				username = tipby
 				tipamount = float(tipamount) / float(num2)
 				tipamount = str(tipamount)
-				cmd2 = "monacoin-cli move " + tipby + " " + tipto + " " + tipamount + ""
 				mlibs.tip(tipby, tipto, tipamount)
 				m = "<@" + tipby + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ")"
 				await client.send_message(reaction.message.channel, m)
@@ -161,7 +147,7 @@ async def on_reaction_add(reaction, user):
 			await client.send_message(reaction.message.channel, m)
 
 
-@client.event
+@client.event #noqa
 @commands.cooldown(1, 5, BucketType.user)
 async def on_message(message):
 #	if status == "2":
@@ -177,10 +163,8 @@ async def on_message(message):
 	ragreedtos = mlibs.fixselect(ragreedtos)
 	userid = message.author.id
 	messagesql = str(message.content)
-	useird = message.author.id
 	rainnotify = "425766935825743882"
 	rainnotify = client.get_channel('425766935825743882')
-	timestamp = str(time.time())
 	userid = message.author.id
 
 	if message.content.startswith("/") and userid in ragreedtos:
@@ -232,8 +216,7 @@ async def on_message(message):
 				fee = "0.01"
 				cursor.execute("INSERT INTO rainregistered (rainid) VALUES (%s)", (username,))
 				cmd = "monacoin-cli move "  + message.author.id + " fee " + fee + ""
-				ruta  =  subprocess.check_output( cmd.split(" ") )
-
+				subprocess.check_output( cmd.split(" ") )
 				m = "Success."
 				await client.send_message(message.channel, m)
 				connection.commit()
@@ -336,9 +319,9 @@ async def on_message(message):
 			cmd = sqlcommand
 			rut  =  subprocess.check_output( cmd,  shell=True )
 			cmd = "rm /root/tmp/tmplog.txt"
-			rutaaa  =  subprocess.check_output( cmd,  shell=True )
+			subprocess.check_output( cmd,  shell=True )
 			cmd = "touch /root/tmp/tmplog.txt"
-			rutaaa  =  subprocess.check_output( cmd,  shell=True )
+			subprocess.check_output( cmd,  shell=True )
 			rut = rut.decode()
 			rut = str(rut)
 			path_w = "/root/tmp/tmplog.txt"
@@ -359,7 +342,6 @@ async def on_message(message):
 				pattern=r'([+]?[0-9]+\.?[0-9]*)'
 				messagecontent = message.content
 				userid = re.findall(pattern, messagecontent)
-				filenumber = "1"
 				userid = userid[0]
 				userid = str(userid)
 				sql = "SELECT * FROM log WHERE userid='{}'".format(userid)
@@ -369,9 +351,9 @@ async def on_message(message):
 				cmd = sqlcommand
 				rut  =  subprocess.check_output( cmd,  shell=True )
 				cmd = "rm /root/tmp/tmplog.txt"
-				rutaaa  =  subprocess.check_output( cmd,  shell=True )
+				subprocess.check_output( cmd,  shell=True )
 				cmd = "touch /root/tmp/tmplog.txt"
-				rutaaa  =  subprocess.check_output( cmd,  shell=True )
+				subprocess.check_output( cmd,  shell=True )
 				rut = rut.decode()
 				rut = str(rut)
 				path_w = "/root/tmp/tmplog.txt"
@@ -436,7 +418,6 @@ async def on_message(message):
 					await client.send_message(message.channel, m)
 					m = "Rain started by <@" + message.author.id + "> at #" + message.channel.name + ""
 					await client.send_message(rainnotify, m)
-					numofperople = int(numofpeople)
 
 					for var in range(0, numofpeople):
 						tosend = random.choice(rainall)
@@ -603,7 +584,7 @@ async def on_message(message):
 			tipto = str(tipto)
 			tipamount = float(tipamount)
 			if tipto == "326091178984603669" and "200" in tip_detail:
-				re3 = float("0.2")
+				#re3 = float("0.2")
 				re1 = float("0.01")
 				if tipamount >= re1:
 					cursor.execute("DELETE FROM shooted WHERE id = %s", (userid,))
@@ -766,7 +747,8 @@ async def on_message(message):
 						connection.commit()
 						m = "Added your Monage ID to DB! Your monageid will be sent to DM shortly!"
 						await client.send_message(message.channel, m)
-						dm = "Your Monage id are: " + monageid + ""
+						#send dm here
+						#dm = "Your Monage id are: " + monageid + ""
 					if monageid in istaken:
 						m = "Error.Please contact administrater of this bot (@raspi0124) ERRCODE: m01"
 						await client.send_message(message.channel, m)
@@ -790,8 +772,7 @@ async def on_message(message):
 			start = time.time()
 			if message.author.id == "326091178984603669":
 				cmd = "sh dismona-rm.sh"
-				ruta  =  subprocess.check_output( cmd.split(" ") )
-
+				subprocess.check_output( cmd.split(" ") )
 				m = "True"
 				await client.send_message(message.channel, m)
 				elapsed_time = time.time() - start
@@ -804,7 +785,7 @@ async def on_message(message):
 			start = time.time()
 			if message.author.id == "326091178984603669" or message.author.id == "351363656698560513":
 				cmd = 'sh dismona-rmshoot.sh'
-				ruta  =  subprocess.check_output( cmd.split(" ") )
+				subprocess.check_output( cmd.split(" ") )
 
 				m = "True"
 				await client.send_message(message.channel, m)
@@ -1040,7 +1021,7 @@ async def on_message(message):
 		if message.content.startswith("/mp tip"):
 			await client.add_reaction(message, '👌')
 			print("start")
-			beforebal = mlibs.libgetbalance(userid)
+			#beforebal = mlibs.libgetbalance(userid)
 			message2 = message.content.replace('/mp tip', '')
 			print (message2)
 			pattern = r'\w+'
