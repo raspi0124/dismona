@@ -799,6 +799,8 @@ async def on_message(message):
 			#めんどくさくなって日時指定なくしたので三が日終わったら消してね
 			cursor.execute('SELECT * FROM given_otoshidama')
 			given_otoshidama = cursor.fetchall()
+			print("given_otoshidama")
+			print("userid")
 			if userid not in given_otoshidama:
 				balance = mlibs.libgetbalance(userid)
 				#残高の10分の1
@@ -806,6 +808,7 @@ async def on_message(message):
 				minimum = float("0.00010")
 				maximum = float("0.5")
 				cursor.execute("INSERT INTO given_otoshidama (id) VALUES (%s)", (userid,))
+				connection.commit()
 				if giving < minimum:
 					m = "/tip <@" + userid + "> 0.0001 あけおめです！あ、金欠なraspi0124君にもお年玉くれるとうれしいな♪"
 					await client.send_message(message.channel, m)
