@@ -828,9 +828,12 @@ async def on_message(message):
 						await client.send_message(message.channel, m)
 					else:
 						giving = str(giving)
+
 						m = "/tip <@" + userid + "> " + giving + " 去年はありがとうございます!今年もよろしくお願いします!そしてあけおめ!~~あ、あと金欠なraspi0124君にもお年玉くれるとうれしいです!~~"
 						await client.send_message(message.channel, m)
-
+			else:
+				m = "もうお年玉。。あげた気がするなぁ。どうだったっけ?"
+				await client.send_message(message.channel, m)
 	connection.commit()
 	connection.close()
 client.run(discord_token)
