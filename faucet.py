@@ -796,8 +796,8 @@ async def on_message(message):
 					m = "もう、<@" + message.author.id + "> 、何やってるの！！\n おみくじは1日一回ってあんなに言ったでしょ！ 明日まで禁止よ！\nそこに座ってなさい！"
 					await client.send_message(message.channel, m)
 		if message.content == "/お年玉ちょうだい":
-			today_month = date.today(JST).month
-			today_day = date.today(JST).day
+			today_month = datetime.today(JST).month
+			today_day = datetime.today(JST).day
 			if today_month =="1" and today_day == "1" or today_day == "2" or today_day == "3":
 				cursor.execute('SELECT * FROM given_otoshidama')
 				given_otoshidama = cursor.fetchall()
