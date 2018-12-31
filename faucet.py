@@ -799,8 +799,8 @@ async def on_message(message):
 			#めんどくさくなって日時指定なくしたので三が日終わったら消してね
 			cursor.execute('SELECT * FROM given_otoshidama')
 			given_otoshidama = cursor.fetchall()
-			print("given_otoshidama")
-			print("userid")
+			print(given_otoshidama)
+			print(userid)
 			if userid not in given_otoshidama:
 				balance = mlibs.libgetbalance(userid)
 				#残高の10分の1
