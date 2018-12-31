@@ -793,10 +793,9 @@ async def on_message(message):
 					m = "もう、<@" + message.author.id + "> 、何やってるの！！\n おみくじは1日一回ってあんなに言ったでしょ！ 明日まで禁止よ！\nそこに座ってなさい！"
 					await client.send_message(message.channel, m)
 		if message.content == "/お年玉ちょうだい":
-			today_year = datetime.date.today().year
 			today_month = datetime.date.today().month
 			today_day = datetime.date.today().day
-			if today_year == "2019" and today_month =="1" and today_day == "1" or today_day == "2" or today_day == "3":
+			if today_month =="1" and today_day == "1" or today_day == "2" or today_day == "3":
 				cursor.execute('SELECT * FROM given_otoshidama')
 				given_otoshidama = cursor.fetchall()
 				if userid not in given_otoshidama:
@@ -817,6 +816,9 @@ async def on_message(message):
 							giving = str(giving)
 							m = "/tip <@" + userid + "> " + giving + " 去年はありがとうございます!今年もよろしくお願いします!そしてあけおめ!"
 							await client.send_message(message.channel, m)
+			else:
+				m = "今日は三が日じゃないようです。。三が日を待ってね!"
+				await client.send_message(message.channel, m)
 	connection.commit()
 	connection.close()
 client.run(discord_token)
