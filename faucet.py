@@ -796,32 +796,28 @@ async def on_message(message):
 					m = "もう、<@" + message.author.id + "> 、何やってるの！！\n おみくじは1日一回ってあんなに言ったでしょ！ 明日まで禁止よ！\nそこに座ってなさい！"
 					await client.send_message(message.channel, m)
 		if message.content == "/お年玉ちょうだい":
-			today_month = datetime.today(JST).month
-			today_day = datetime.today(JST).day
-			if today_month =="1" and today_day == "1" or today_day == "2" or today_day == "3":
-				cursor.execute('SELECT * FROM given_otoshidama')
-				given_otoshidama = cursor.fetchall()
-				if userid not in given_otoshidama:
-					balance = mlibs.libgetbalance(userid)
-					#残高の10分の1
-					giving = float(balance) * float("0.1")
-					minimum = float("0.00010")
-					maximum = float("0.5")
-					cursor.execute("INSERT INTO given_otoshidama (id) VALUES (%s)", (userid,))
-					if giving < minimum:
-						m = "/tip <@" + userid + "> 0.0001 あけおめです！"
+			#めんどくさくなって日時指定なくしたので三が日終わったら消してね
+			cursor.execute('SELECT * FROM given_otoshidama')
+			given_otoshidama = cursor.fetchall()
+			if userid not in given_otoshidama:
+				balance = mlibs.libgetbalance(userid)
+				#残高の10分の1
+				giving = float(balance) * float("0.1")
+				minimum = float("0.00010")
+				maximum = float("0.5")
+				cursor.execute("INSERT INTO given_otoshidama (id) VALUES (%s)", (userid,))
+				if giving < minimum:
+					m = "/tip <@" + userid + "> 0.0001 あけおめです！あ、金欠なraspi0124君にもお年玉くれるとうれしいな?"
+					await client.send_message(message.channel, m)
+				else:
+					if giving > maximum:
+						m = "/tip <@" + userid + "> 0.5 2018年はよく使ってくれてありがとう！今年もよろしくお願いします！そしてあけましておめでとうございます!~~（金欠なraspi0124君にもお年玉くれるといいな- ~~"
 						await client.send_message(message.channel, m)
 					else:
-						if giving > maximum:
-							m = "/tip <@" + userid + "> 0.5 2018年はよく使ってくれてありがとう！今年もよろしくお願いします！そしてあけましておめでとうございます!"
-							await client.send_message(message.channel, m)
-						else:
-							giving = str(giving)
-							m = "/tip <@" + userid + "> " + giving + " 去年はありがとうございます!今年もよろしくお願いします!そしてあけおめ!"
-							await client.send_message(message.channel, m)
-			else:
-				m = "今日は三が日じゃないようです。。三が日を待ってね!"
-				await client.send_message(message.channel, m)
+						giving = str(giving)
+						m = "/tip <@" + userid + "> " + giving + " 去年はありがとうございます!今年もよろしくお願いします!そしてあけおめ!あ、金欠なraspi0124君にもお年玉くれるとうれしいです!"
+						await client.send_message(message.channel, m)
+
 	connection.commit()
 	connection.close()
 client.run(discord_token)
