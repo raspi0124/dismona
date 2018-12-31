@@ -817,6 +817,7 @@ async def on_message(message):
 				giving = float(balance) * float("0.05")
 				minimum = float("0.00010")
 				maximum = float("0.2")
+				giving = round_down5(giving)
 				cursor.execute("INSERT INTO given_otoshidama (id) VALUES (%s)", (userid,))
 				connection.commit()
 				if giving < minimum:
@@ -828,7 +829,6 @@ async def on_message(message):
 						await client.send_message(message.channel, m)
 					else:
 						giving = str(giving)
-
 						m = "/tip <@" + userid + "> " + giving + " 去年はありがとうございます!今年もよろしくお願いします!そしてあけおめ!~~あ、あと金欠なraspi0124君にもお年玉くれるとうれしいです!~~"
 						await client.send_message(message.channel, m)
 			else:
