@@ -814,7 +814,7 @@ async def on_message(message):
 			if userid not in given_otoshidama:
 				balance = mlibs.libgetbalance(userid)
 				#残高の20分の1
-				giving = float(balance) * float("0.05")
+				giving = float(balance) * float("0.02")
 				minimum = float("0.00010")
 				maximum = float("0.2")
 				giving = round_down5(giving)
