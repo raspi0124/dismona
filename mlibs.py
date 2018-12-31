@@ -85,7 +85,15 @@ def deposit(userid):
 	address = address[1]
 	address = address.replace(']', '')
 	return address
-
+def getunconfbalance(userid):
+	unlockwallet()
+	minconf = "0"
+	cmdlib = "monacoin-cli getbalance {0} {1}".format(userid, minconf)
+	rutlib = subprocess.check_output( cmdlib.split(" ") )
+	balancelib = rutlib.decode()
+	balancelib = float(balancelib)
+	balancelib = str(balancelib)
+	return balancelib
 def withdraw(userid, to, amount):
 	unlockwallet()
 	balancea = libgetbalance(userid)
