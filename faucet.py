@@ -799,6 +799,16 @@ async def on_message(message):
 			#めんどくさくなって日時指定なくしたので三が日終わったら消してね
 			cursor.execute('SELECT * FROM given_otoshidama')
 			given_otoshidama = cursor.fetchall()
+			given_otoshidama = str(given_otoshidama)
+			given_otoshidama = given_otoshidama.replace('(', '')
+			given_otoshidama = given_otoshidama.replace(')', '')
+			given_otoshidama = given_otoshidama.replace("b'", '')
+			given_otoshidama = given_otoshidama.replace("'", '')
+			given_otoshidama = given_otoshidama.replace(",,", ',')
+			given_otoshidama = given_otoshidama.replace("[", '')
+			given_otoshidama = given_otoshidama.replace("]", '')
+			given_otoshidama = given_otoshidama.split(',')
+			given_otoshidama = str(given_otoshidama)
 			print(given_otoshidama)
 			print(userid)
 			if userid not in given_otoshidama:
