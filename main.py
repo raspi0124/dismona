@@ -234,7 +234,7 @@ async def on_message(message):
 			unconfbalance = mlibs.getunconfbalance(userid)
 			sa_unconf = float(unconfbalance) - float(balance)
 			sa_unconf = str(sa_unconf)
-			m = "<@" + message.author.id + ">, you currently have  " + balance + " mona! (" + jpybalance + " jpy)(Waiting for" + sa_unconf + "mona )\n(message created on " + currenttime + ")"
+			m = "<@" + message.author.id + ">, you currently have  " + balance + " mona! (" + jpybalance + " jpy)(Waiting for " + sa_unconf + " mona )\n(message created on " + currenttime + ")"
 			print ("---6---")
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/price"):
