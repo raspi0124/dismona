@@ -79,7 +79,7 @@ async def on_message(message):
 	rainnotify = client.get_channel('425766935825743882')
 	timestamp = str(time.time())
 	userid = message.author.id
-	JST = timezone(timedelta(hours=+9), 'JST')
+	JST = timezone('Asia/Tokyo')
 
 	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/ragreedtos" and message.content != "/cagreedtos" and message.content != "/help" and userid in ragreedtos:
 		# 全件取得は cursor.fetchall()
