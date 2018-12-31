@@ -13,7 +13,7 @@ from decimal import Decimal
 #import apim
 #import sqlite3
 import MySQLdb
-from datetime import datetime
+from datetime import date
 import mlibs
 from discord.ext import commands
 from ratelimiter import RateLimiter
@@ -77,6 +77,7 @@ async def on_message(message):
 	rainnotify = client.get_channel('425766935825743882')
 	timestamp = str(time.time())
 	userid = message.author.id
+	JST = timezone(timedelta(hours=+9), 'JST')
 
 	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/ragreedtos" and message.content != "/cagreedtos" and message.content != "/help" and userid in ragreedtos:
 		# 全件取得は cursor.fetchall()
@@ -793,8 +794,8 @@ async def on_message(message):
 					m = "もう、<@" + message.author.id + "> 、何やってるの！！\n おみくじは1日一回ってあんなに言ったでしょ！ 明日まで禁止よ！\nそこに座ってなさい！"
 					await client.send_message(message.channel, m)
 		if message.content == "/お年玉ちょうだい":
-			today_month = datetime.date.today().month
-			today_day = datetime.date.today().day
+			today_month = date.today(JST).month
+			today_day = date.today(JST).day
 			if today_month =="1" and today_day == "1" or today_day == "2" or today_day == "3":
 				cursor.execute('SELECT * FROM given_otoshidama')
 				given_otoshidama = cursor.fetchall()
