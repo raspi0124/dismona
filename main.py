@@ -1139,14 +1139,14 @@ async def on_message(message):
 			deftipamount = str(deftipamount)
 			m = "Successfully sent " + deftipamount + " " + tiptoken + " from <@" + userid + "> to <@" + tipto +"> !\n TXID: " + txid + ""
 			await client.send_message(message.channel, m)
-	elif message.content.startswith("/") and message.content != "/help" and message.content != "/cagreedtos" and message.content != "/ragreedtos" and message.content != "/agreetos" and userid not in ragreedtos:
+	elif message.content.startswith("/") and message.content != "/help" and message.content != "/cagreedtos" and message.content != "/ragreedtos" and message.content != "/agreetos" and userid not in ragreedtos and message.content.startswith(any(commands)):
 		m = "You need to agree tos in order to use Monage. Please type /help for more information.\n このコマンドを実行するには利用規約への同意が必要です。→　https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt\n Please read tos and try again. Tos can be found at → https://github.com/raspi0124/monage-term/blob/master/terms-en.txt"
 		await client.send_message(message.channel, m)
 #MONAPARTY関連終わり
 
 
 
-	if message.content.startswith(any(commands)) and message.author.id not in ragreedtos:
+	if message.content.startswith("/"):
 		if message.content == "/cagreedtos":
 			#共用コマンド
 			start = time.time()
