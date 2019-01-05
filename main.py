@@ -166,8 +166,14 @@ async def on_message(message):
 	rainnotify = "425766935825743882"
 	rainnotify = client.get_channel('425766935825743882')
 	userid = message.author.id
+	commands = ["register","rera","balance","price","deposit","disagreetos",\
+	"list","withdraw","givemylog","givehislog","rainall","rain","ban","warn",\
+	"tip","admin info","adminc","members","ad","adminregister","kill",\
+	"adminbalance","makemenew","image","hello","rmomikuzi","rmshootizaya",\
+	"love","restart","marryhim","credit","mp","cagreedtos","ragreedtos",\
+	"agreetos","help","shootizaya","omikuzi","omikuji"]
 
-	if message.content.startswith("/") and userid in ragreedtos:
+	if message.content in commands and userid in ragreedtos:
 		# 全件取得は cursor.fetchall()
 		# 「/register」で始まるか調べる
 		if message.content.startswith("/"):

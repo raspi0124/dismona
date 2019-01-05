@@ -79,9 +79,13 @@ async def on_message(message):
 	rainnotify = client.get_channel('425766935825743882')
 	timestamp = str(time.time())
 	userid = message.author.id
-	JST = timezone('Asia/Tokyo')
-
-	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/ragreedtos" and message.content != "/cagreedtos" and message.content != "/help" and userid in ragreedtos:
+	commands = ["register","rera","balance","price","deposit","disagreetos",\
+	"list","withdraw","givemylog","givehislog","rainall","rain","ban","warn",\
+	"tip","admin info","adminc","members","ad","adminregister","kill",\
+	"adminbalance","makemenew","image","hello","rmomikuzi","rmshootizaya",\
+	"love","restart","marryhim","credit","mp","cagreedtos","ragreedtos",\
+	"agreetos","help","shootizaya","omikuzi","omikuji"]
+	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/ragreedtos" and message.content != "/cagreedtos" and message.content != "/help" and userid in ragreedtos and message.content in commands:
 		# 全件取得は cursor.fetchall()
 		# 「/register」で始まるか調べる
 		if message.content == "/kill faucet":
@@ -795,45 +799,47 @@ async def on_message(message):
 				else:
 					m = "もう、<@" + message.author.id + "> 、何やってるの！！\n おみくじは1日一回ってあんなに言ったでしょ！ 明日まで禁止よ！\nそこに座ってなさい！"
 					await client.send_message(message.channel, m)
-		if message.content == "/お年玉ちょうだい":
-			#めんどくさくなって日時指定なくしたので三が日終わったら消してね
-			cursor.execute('SELECT * FROM given_otoshidama')
-			given_otoshidama = cursor.fetchall()
-			given_otoshidama = str(given_otoshidama)
-			given_otoshidama = given_otoshidama.replace('(', '')
-			given_otoshidama = given_otoshidama.replace(')', '')
-			given_otoshidama = given_otoshidama.replace("b'", '')
-			given_otoshidama = given_otoshidama.replace("'", '')
-			given_otoshidama = given_otoshidama.replace(",,", ',')
-			given_otoshidama = given_otoshidama.replace("[", '')
-			given_otoshidama = given_otoshidama.replace("]", '')
-			given_otoshidama = given_otoshidama.split(',')
-			given_otoshidama = str(given_otoshidama)
-			print(given_otoshidama)
-			print(userid)
-			if userid not in given_otoshidama:
-				balance = mlibs.libgetbalance(userid)
-				#残高の20分の1
-				giving = float(balance) * float("0.02")
-				minimum = float("0.00010")
-				maximum = float("0.2")
-				giving = round_down5(giving)
-				cursor.execute("INSERT INTO given_otoshidama (id) VALUES (%s)", (userid,))
-				connection.commit()
-				if giving < minimum:
-					m = "/tip <@" + userid + "> 0.0001 あけおめです！あ、金欠なraspi0124君にもお年玉くれるとうれしいな♪"
-					await client.send_message(message.channel, m)
-				else:
-					if giving > maximum:
-						m = "/tip <@" + userid + "> 0.2 2018年はよく使ってくれてありがとう！今年もよろしくお願いします！そしてあけましておめでとうございます!~~（金欠なraspi0124君にもお年玉くれるといいな- ~~"
-						await client.send_message(message.channel, m)
-					else:
-						giving = str(giving)
-						m = "/tip <@" + userid + "> " + giving + " 去年はありがとうございます!今年もよろしくお願いします!そしてあけおめ!~~あ、あと金欠なraspi0124君にもお年玉くれるとうれしいです!~~"
-						await client.send_message(message.channel, m)
-			else:
-				m = "もうお年玉。。あげた気がするなぁ。どうだったっけ?"
-				await client.send_message(message.channel, m)
+
+#		if message.content == "/お年玉ちょうだい":
+#			#めんどくさくなって日時指定なくしたので三が日終わったら消してね
+#			cursor.execute('SELECT * FROM given_otoshidama')
+#			given_otoshidama = cursor.fetchall()
+#			given_otoshidama = str(given_otoshidama)
+#			given_otoshidama = given_otoshidama.replace('(', '')
+#			given_otoshidama = given_otoshidama.replace(')', '')
+#			given_otoshidama = given_otoshidama.replace("b'", '')
+#			given_otoshidama = given_otoshidama.replace("'", '')
+#			given_otoshidama = given_otoshidama.replace(",,", ',')
+#			given_otoshidama = given_otoshidama.replace("[", '')
+#			given_otoshidama = given_otoshidama.replace("]", '')
+#			given_otoshidama = given_otoshidama.split(',')
+#			given_otoshidama = str(given_otoshidama)
+#			print(given_otoshidama)
+#			print(userid)
+#			if userid not in given_otoshidama:
+#				balance = mlibs.libgetbalance(userid)
+#				#残高の20分の1
+#				giving = float(balance) * float("0.02")
+#				minimum = float("0.00010")
+#				maximum = float("0.2")
+#				giving = round_down5(giving)
+#				cursor.execute("INSERT INTO given_otoshidama (id) VALUES (%s)", (userid,))
+#				connection.commit()
+#				if giving < minimum:
+#					m = "/tip <@" + userid + "> 0.0001 あけおめです！あ、金欠なraspi0124君にもお年玉くれるとうれしいな♪"
+#					await client.send_message(message.channel, m)
+#				else:
+#					if giving > maximum:
+#						m = "/tip <@" + userid + "> 0.2 2018年はよく使ってくれてありがとう！今年もよろしくお願いします！そしてあけましておめでとうございます!~~（金欠なraspi0124君にもお年玉くれるといいな- ~~"
+#						await client.send_message(message.channel, m)
+#					else:
+#						giving = str(giving)
+#						m = "/tip <@" + userid + "> " + giving + " 去年はありがとうございます!今年もよろしくお願いします!そしてあけおめ!~~あ、あと金欠なraspi0124君にもお年玉くれるとうれしいです!~~"
+#						await client.send_message(message.channel, m)
+#			else:
+#				m = "もうお年玉。。あげた気がするなぁ。どうだったっけ?"
+#				await client.send_message(message.channel, m)
+
 	connection.commit()
 	connection.close()
 client.run(discord_token)
