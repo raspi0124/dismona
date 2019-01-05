@@ -85,7 +85,7 @@ async def on_message(message):
 	"adminbalance","makemenew","image","hello","rmomikuzi","rmshootizaya",\
 	"love","restart","marryhim","credit","mp","cagreedtos","ragreedtos",\
 	"agreetos","help","shootizaya","omikuzi","omikuji"]
-	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/ragreedtos" and message.content != "/cagreedtos" and message.content != "/help" and userid in ragreedtos and message.content in commands:
+	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/ragreedtos" and message.content != "/cagreedtos" and message.content != "/help" and userid in ragreedtos:
 		# 全件取得は cursor.fetchall()
 		# 「/register」で始まるか調べる
 		if message.content == "/kill faucet":
