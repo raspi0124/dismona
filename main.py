@@ -587,7 +587,12 @@ async def on_message(message):
 			if "e_10" in tip_detail:
 				m = "<@" + message.author.id + ">, sorry, failed to complete your request: your tip must meet the minimum of 10 watanabe (0.00000010 Mona).\n(message created on " + currenttime + ")"
 			if "e_en" in tip_detail:
-				m = "<@"+ message.author.id + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + "\n "
+				lenid = int(len(message.author.id))
+				#authoridが基本的に18桁なので18桁以上のmonaのtipはそうそうないだろうし逆にしてないかエラー表示
+				if lenid >= 18:
+					m = "<@" + message.author.id + "> Aren't you revercing the order? Correct way is: /tip <@name> <amount>"
+				else:
+					m = "<@"+ message.author.id + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + "\n "
 			if "e_s" in tip_detail:
 				m = "<@" + message.author.id + "> , You cannnot tip yourself."
 			await client.send_message(message.channel, m)
@@ -1139,7 +1144,7 @@ async def on_message(message):
 			deftipamount = str(deftipamount)
 			m = "Successfully sent " + deftipamount + " " + tiptoken + " from <@" + userid + "> to <@" + tipto +"> !\n TXID: " + txid + ""
 			await client.send_message(message.channel, m)
-	elif message.content.startswith("/") and message.content != "/help" and message.content != "/cagreedtos" and message.content != "/ragreedtos" and message.content != "/agreetos" and userid not in ragreedtos and str(any(commands)) in message.content:
+	elif message.content.startswith("/") and userid not in ragreedtos and str(any(commands)) in message.content:
 		m = "You need to agree tos in order to use Monage. Please type /help for more information.\n このコマンドを実行するには利用規約への同意が必要です。→　https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt\n Please read tos and try again. Tos can be found at → https://github.com/raspi0124/monage-term/blob/master/terms-en.txt"
 		await client.send_message(message.channel, m)
 #MONAPARTY関連終わり
