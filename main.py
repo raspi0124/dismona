@@ -588,11 +588,9 @@ async def on_message(message):
 				m = "<@" + message.author.id + ">, sorry, failed to complete your request: your tip must meet the minimum of 10 watanabe (0.00000010 Mona).\n(message created on " + currenttime + ")"
 			if "e_en" in tip_detail:
 				lenid = int(len(message.author.id))
-				#authoridが基本的に18桁なので18桁以上のmonaのtipはそうそうないだろうし逆にしてないかエラー表示
 				if lenid >= 18:
-					m = "<@" + message.author.id + "> Aren't you revercing the order? Correct way is: /tip <@name> <amount>"
-				else:
-					m = "<@"+ message.author.id + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + "\n "
+					m = "<@" + message.author.id + "> Aren't you revercing the order? Correct way is: /tip @name "
+				m = "<@"+ message.author.id + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + "\n "
 			if "e_s" in tip_detail:
 				m = "<@" + message.author.id + "> , You cannnot tip yourself."
 			await client.send_message(message.channel, m)

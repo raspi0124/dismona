@@ -33,7 +33,7 @@ def userwalletlocation(userid):
 	return location
 def libgetbalance(userid):
 	walletlocation = userwalletlocation(userid)
-	cmdlib = "electrum-mona getbalance {0}".format(walletlocation)
+	cmdlib = "electrum-mona getbalance -{0}".format(walletlocation)
 	rutlib = subprocess.check_output( cmdlib.split(" ") )
 	balancelib = rutlib.decode()
 	balancelib = float(balancelib)
@@ -61,7 +61,7 @@ def libgetjpybalance(userid):
 
 def deposit(userid):
 	walletlocation = userwalletlocation(userid)
-	cmdlib = "electrum-mona listaddresses {0}".format(walletlocation)
+	cmdlib = "electrum-mona listaddresses -{0}".format(walletlocation)
 	rut  =  subprocess.check_output( cmdlib.split(" ") )
 	address = rut.decode()
 	address2 = address.replace('"', '')
