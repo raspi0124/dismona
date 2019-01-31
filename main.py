@@ -46,7 +46,6 @@ client = discord.Client()
 currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 
 rollbar.init(rollbar_key)
-rollbar.report_message('Rollbar is configured correctly')
 print("0101")
 # データベース接続とカーソル生成
 connection = MySQLdb.connect(
