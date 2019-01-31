@@ -17,6 +17,9 @@ from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 import sys
 import configparser
+import rollbar
+
+
 
 config = configparser.ConfigParser()
 config.read('/root/dismona.conf')
@@ -29,6 +32,7 @@ db_user = config.get(section1, 'db_user')
 db_password = config.get(section1, 'db_password')
 db_host = config.get(section1, 'db_host')
 db_name = config.get(section1, 'db_name')
+rollbar_key = config.get(section1, 'rollbar_key')
 #main_server_address = config.get(section1, 'main_server_address')
 MONAGEID_SECRET = config.get(section1, 'MONAGEID_SECRET')
 print("MAIN SERVICE IS NOW STARTING!")
@@ -41,6 +45,8 @@ print("Monage Discord Edition  Copyright (C) 2018  raspi0124\n \
 client = discord.Client()
 currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 
+rollbar.init(rollbar_key)
+rollbar.report_message('Rollbar is configured correctly')
 print("0101")
 # データベース接続とカーソル生成
 connection = MySQLdb.connect(
