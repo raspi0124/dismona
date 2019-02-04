@@ -1157,6 +1157,8 @@ async def on_message(message):
 
 
 	if message.content.startswith("/"):
+		print("any:command")
+		print(str(any(commands)))
 		if message.content == "/cagreedtos":
 			#共用コマンド
 			start = time.time()
