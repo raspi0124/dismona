@@ -1153,7 +1153,8 @@ async def on_message(message):
 			for numcmd in commands:
 				print("debug:commands")
 				print(commands)
-				if str(commands) in message.content:
+				tocheck = commands[numcmd]
+				if str(tocheck) in message.content:
 					m = "You need to agree tos in order to use Monage. Please type /help for more information.\n このコマンドを実行するには利用規約への同意が必要です。→　https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt\n Please read tos and try again. Tos can be found at → https://github.com/raspi0124/monage-term/blob/master/terms-en.txt"
 					await client.send_message(message.channel, m)
 #MONAPARTY関連終わり
