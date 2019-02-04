@@ -1150,12 +1150,10 @@ async def on_message(message):
 
 	elif message.content.startswith("/"):
 		if userid not in ragreedtos:
-			for numcmd in commands:
+			for tocheck in commands:
 				print("debug:commands")
 				print(commands)
-				print(numcmd)
-				tocheck = commands[int(numcmd)]
-				if str(tocheck) in message.content:
+				if tocheck in message.content:
 					m = "You need to agree tos in order to use Monage. Please type /help for more information.\n このコマンドを実行するには利用規約への同意が必要です。→　https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt\n Please read tos and try again. Tos can be found at → https://github.com/raspi0124/monage-term/blob/master/terms-en.txt"
 					await client.send_message(message.channel, m)
 #MONAPARTY関連終わり
