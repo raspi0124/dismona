@@ -22,7 +22,7 @@ import rollbar
 
 
 config = configparser.ConfigParser()
-config.read('/root/dismona.conf')
+config.read('dismona.conf')
 
 section1 = 'development'
 #status defines if its main server or backup server. Main server: 1, Sub server: 2 and 3
@@ -1154,7 +1154,7 @@ async def on_message(message):
 				print("debug:commands")
 				print(commands)
 				if tocheck in message.content:
-					m = "Please agree tos. Type /help for more information.\n このコマンドを実行するには利用規約への同意が必要です。→　https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt\n Please read tos and try again. Tos can be found at → https://github.com/raspi0124/monage-term/blob/master/terms-en.txt"
+					m = "Please agree tos. Type /help for more information.\n 利用規約に同意してください。→　https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt\n Please read tos and try again. Tos can be found at → https://github.com/raspi0124/monage-term/blob/master/terms-en.txt"
 					await client.send_message(message.channel, m)
 #MONAPARTY関連終わり
 

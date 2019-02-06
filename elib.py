@@ -16,7 +16,7 @@ from datetime import datetime
 import configparser
 
 config = configparser.ConfigParser()
-config.read('/root/dismona.conf')
+config.read('dismona.conf')
 
 section1 = 'development'
 walletpassphrase = config.get(section1, 'mona_walletpassphrase')
