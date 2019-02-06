@@ -18,6 +18,7 @@ from discord.ext.commands.cooldowns import BucketType
 import sys
 import configparser
 import rollbar
+import connectrum
 
 
 
