@@ -242,10 +242,6 @@ async def on_message(message):
 		# メッセージが送られてきたチャンネルへメッセージを送ります
 			await client.send_message(message.channel, m)
 			balance = exlib.libgetbalance(userid)
-			jpybalance = exlib.libgetjpybalance(userid)
-			unconfbalance = exlib.getunconfbalance(userid)
-			sa_unconf = float(unconfbalance) - float(balance)
-			sa_unconf = str(sa_unconf)
 			m = "<@" + message.author.id + ">, you currently have  " + balance + " mona!\n(message created on " + currenttime + ")"
 			print ("---6---")
 			await client.send_message(message.channel, m)
