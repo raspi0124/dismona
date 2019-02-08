@@ -47,6 +47,8 @@ async def call_electrum(conn, method, *args):
 		response, req = e.args
 		t += "2-1"
 		return t
+	print("CALL_ELECTRUM REPONSE")
+	print(resp)
 	return resp
 def get_user_address(userid):
 	address = "M8VjBRRfiwfRGBZvWSGvrkLX4oTQ6Dy4uY" #とりあえずblankにしておくけどきちんとロジックを考えてdbから出すなりハッシュとかで出すなりすること!
