@@ -241,7 +241,7 @@ async def on_message(message):
 			m = "<@" + message.author.id + "> さんの残高チェック中.."
 		# メッセージが送られてきたチャンネルへメッセージを送ります
 			await client.send_message(message.channel, m)
-			balance = exlib.libgetbalance(userid)
+			balance = str(exlib.libgetbalance(userid))
 			m = "<@" + message.author.id + ">, you currently have  " + balance + " mona!\n(message created on " + currenttime + ")"
 			print ("---6---")
 			await client.send_message(message.channel, m)
