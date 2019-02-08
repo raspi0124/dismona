@@ -1,11 +1,5 @@
-#!/usr/bin/python3
-
-
-#このファイルはelectrum-monaを直接使用するもの。開発終了済み
-
-
-
-
+t#!/usr/bin/python3
+#こっちはelectrumxを使っていろいろやるやつ
 import subprocess
 import re
 import time
@@ -22,6 +16,11 @@ import MySQLdb
 from datetime import datetime
 import configparser
 import connectrum
+import re, textwrap, asyncio, sys
+from connectrum.client import StratumClient
+from connectrum.svr_info import KnownServers, ServerInfo
+from connectrum.utils import address_to_scripthash
+from connectrum import ElectrumErrorResponse
 
 config = configparser.ConfigParser()
 config.read('dismona.conf')
@@ -34,23 +33,41 @@ db_host = config.get(section1, 'db_host')
 db_name = config.get(section1, 'db_name')
 electrum_wallet_location = config.get(section1, 'electrum_wallet_location')
 
+async def call(conn, method, *args):
+	# call a method and format up the response nicely
+	svr = ServerInfo(args.server, args.server,
+					ports=((args.protocol+str(args.port)) if args.port else args.protocol))
+
+	loop = asyncio.get_event_loop()
+
+	conn = StratumClient()
+	t = ''
+	try:
+		resp = await conn.RPC(method, *args)
+	except ElectrumErrorResponse as e:
+		response, req = e.args
+		t += "2-1"
+		return t
+	return resp
 def get_user_address(userid):
-	address = "" #とりあえずblankにしておくけどきちんとロジックを考えてdbから出すなりハッシュとかで出すなりすること!
+	address = "M8VjBRRfiwfRGBZvWSGvrkLX4oTQ6Dy4uY" #とりあえずblankにしておくけどきちんとロジックを考えてdbから出すなりハッシュとかで出すなりすること!
+	#上はとりあえずのテスト用
 	return address
 def round_down5(value):
 	value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
 	return str(value)
-def userwalletlocation(userid):
-	location = "" + electrum_wallet_location + "" + userid + ""
-	return location
+
 def libgetbalance(userid):
-	walletlocation = userwalletlocation(userid)
-	cmdlib = "electrum-mona getbalance -{0}".format(walletlocation)
-	rutlib = subprocess.check_output( cmdlib.split(" ") )
-	balancelib = rutlib.decode()
-	balancelib = float(balancelib)
-	balancelib = str(balancelib)
-	return balancelib
+	address = get_user_address(userid)
+	sh = address_to_scripthash(address)
+	method = "blockchain.scripthash.get_balance"
+	res = await call(conn, method, sh)
+	print(res)
+	if "2-1" in res:
+		balance = "2-1"
+		return balance
+	else:
+		return res
 
 def libgetjpybalance(userid):
 	headers = {

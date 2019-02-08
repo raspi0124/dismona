@@ -18,7 +18,6 @@ from discord.ext.commands.cooldowns import BucketType
 import sys
 import configparser
 import rollbar
-import connectrum
 
 
 
@@ -186,14 +185,14 @@ async def on_message(message):
 		if message.content.startswith("/"):
 			#各種ログを投入。
 			towrite = "" + message.author.name + " said " + messagesql + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + "\n"
-			file = open('/root/alllog2.txt', 'a')  #追加書き込みモードでオープン
+			file = open('/root/dismona_devlog.txt', 'a')  #追加書き込みモードでオープン
 			file.writelines(towrite)
 			print(towrite)
 			authorname = message.author.name
 			authorid = message.author.id
 			channelid = message.channel.id
-
-			cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, message.content, authorid, channelid, currenttime))
+			logmessage = "[TEST EDITION]" + message.content
+			cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, logmessage, authorid, channelid, currenttime))
 			#cursor.execute("INSERT INTO tmplog (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, message, authorid, channelid, currenttime))
 
 			connection.commit()
