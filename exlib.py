@@ -42,7 +42,7 @@ def call_electrum(conn, method, *args):
 	conn = StratumClient()
 	t = ''
 	try:
-		resp = await conn.RPC(method, *args)
+		resp = conn.RPC(method, *args)
 	except ElectrumErrorResponse as e:
 		response, req = e.args
 		t += "2-1"
