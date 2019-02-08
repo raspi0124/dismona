@@ -61,7 +61,7 @@ def libgetbalance(userid):
 	address = get_user_address(userid)
 	sh = address_to_scripthash(address)
 	method = "blockchain.scripthash.get_balance"
-	res = await call_electrum(conn, method, sh)
+	res = call_electrum(conn, method, sh)
 	print(res)
 	if "2-1" in res:
 		balance = "2-1"
