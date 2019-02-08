@@ -39,11 +39,11 @@ def call_electrum(conn, method, *args):
 	svr = ServerInfo("electrumx.tamami-foundation.org", "electrumx.tamami-foundation.org",
 					ports=(("tcp"+str("50001")) if "50001" else "tcp"))
 	conn = StratumClient()
-	sleep(10)
+	time.sleep(10)
 	t = ''
 	try:
 		resp = conn.RPC(method, *args)
-		sleep(10)
+		time.sleep(10)
 	except ElectrumErrorResponse as e:
 		response, req = e.args
 		t += "2-1"
@@ -68,7 +68,7 @@ def libgetbalance(userid):
 	method = "blockchain.scripthash.get_balance"
 	conn = "electrumx.tamami-foundation.org" #connに何いれればいいのかよくわからないからとりあえずアドレスにしとく。あとで聞いたほうがいいかな
 	res = call_electrum(conn, method, sh)
-	time.sleep(100)
+	time.sleep(20)
 	print(res)
 	if "2-1" in str(res):
 		balance = "2-1"
