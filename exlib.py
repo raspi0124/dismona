@@ -1,4 +1,4 @@
-t#!/usr/bin/python3
+#!/usr/bin/python3
 #こっちはelectrumxを使っていろいろやるやつ
 import subprocess
 import re
@@ -33,7 +33,7 @@ db_host = config.get(section1, 'db_host')
 db_name = config.get(section1, 'db_name')
 electrum_wallet_location = config.get(section1, 'electrum_wallet_location')
 
-async def call(conn, method, *args):
+async def call_electrum(conn, method, *args):
 	# call a method and format up the response nicely
 	svr = ServerInfo(args.server, args.server,
 					ports=((args.protocol+str(args.port)) if args.port else args.protocol))
@@ -50,7 +50,7 @@ async def call(conn, method, *args):
 		return t
 	return resp
 def get_user_address(userid):
-	address = "M8VjBRRfiwfRGBZvWSGvrkLX4oTQ6Dy4uY" #とりあえずblankにしておくけどきちんとロジックを考えてdbから出すなりハッシュとかで出すなりすること!
+	address = " MG2m1jxj22suBNAWocawtdSKGCiFEqTTK1" #とりあえずblankにしておくけどきちんとロジックを考えてdbから出すなりハッシュとかで出すなりすること!
 	#上はとりあえずのテスト用
 	return address
 def round_down5(value):
@@ -61,7 +61,7 @@ def libgetbalance(userid):
 	address = get_user_address(userid)
 	sh = address_to_scripthash(address)
 	method = "blockchain.scripthash.get_balance"
-	res = await call(conn, method, sh)
+	res = await call_electrum(conn, method, sh)
 	print(res)
 	if "2-1" in res:
 		balance = "2-1"
