@@ -67,7 +67,7 @@ def libgetbalance(userid):
 	conn = "electrumx.tamami-foundation.org" #connに何いれればいいのかよくわからないからとりあえずアドレスにしとく。あとで聞いたほうがいいかな
 	res = call_electrum(conn, method, sh)
 	print(res)
-	if "2-1" in res:
+	if "2-1" in str(res):
 		balance = "2-1"
 		return balance
 	else:
