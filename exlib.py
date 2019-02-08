@@ -66,6 +66,7 @@ def libgetbalance(userid):
 	method = "blockchain.scripthash.get_balance"
 	conn = "electrumx.tamami-foundation.org" #connに何いれればいいのかよくわからないからとりあえずアドレスにしとく。あとで聞いたほうがいいかな
 	res = call_electrum(conn, method, sh)
+	time.sleep(100)
 	print(res)
 	if "2-1" in str(res):
 		balance = "2-1"
