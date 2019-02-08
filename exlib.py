@@ -36,8 +36,8 @@ def call_electrum(conn, method, *args):
 	# call a method and format up the response nicely
 	print("args")
 	print(args)
-	svr = ServerInfo(args.server, args.server,
-					ports=((args.protocol+str(args.port)) if args.port else args.protocol))
+	svr = ServerInfo("electrumx.tamami-foundation.org", "electrumx.tamami-foundation.org",
+					ports=(("tcp"+str("50001")) if "50001" else "tcp"))
 
 	loop = asyncio.get_event_loop()
 
