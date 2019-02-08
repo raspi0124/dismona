@@ -32,7 +32,7 @@ db_password = config.get(section1, 'db_password')
 db_host = config.get(section1, 'db_host')
 db_name = config.get(section1, 'db_name')
 
-async def call_electrum(conn, method, *args):
+def call_electrum(conn, method, *args):
 	# call a method and format up the response nicely
 	svr = ServerInfo(args.server, args.server,
 					ports=((args.protocol+str(args.port)) if args.port else args.protocol))
