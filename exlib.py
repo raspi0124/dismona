@@ -31,7 +31,6 @@ db_user = config.get(section1, 'db_user')
 db_password = config.get(section1, 'db_password')
 db_host = config.get(section1, 'db_host')
 db_name = config.get(section1, 'db_name')
-electrum_wallet_location = config.get(section1, 'electrum_wallet_location')
 
 async def call_electrum(conn, method, *args):
 	# call a method and format up the response nicely
