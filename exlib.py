@@ -34,6 +34,8 @@ db_name = config.get(section1, 'db_name')
 
 def call_electrum(conn, method, *args):
 	# call a method and format up the response nicely
+	print("args")
+	print(args)
 	svr = ServerInfo(args.server, args.server,
 					ports=((args.protocol+str(args.port)) if args.port else args.protocol))
 
