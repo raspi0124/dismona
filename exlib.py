@@ -39,9 +39,11 @@ def call_electrum(conn, method, *args):
 	svr = ServerInfo("electrumx.tamami-foundation.org", "electrumx.tamami-foundation.org",
 					ports=(("tcp"+str("50001")) if "50001" else "tcp"))
 	conn = StratumClient()
+	sleep(10)
 	t = ''
 	try:
 		resp = conn.RPC(method, *args)
+		sleep(10)
 	except ElectrumErrorResponse as e:
 		response, req = e.args
 		t += "2-1"
