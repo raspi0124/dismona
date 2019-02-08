@@ -50,17 +50,21 @@ async def call_electrum(conn, method, *args):
 		return t
 	return resp
 def get_user_address(userid):
-	address = " MG2m1jxj22suBNAWocawtdSKGCiFEqTTK1" #とりあえずblankにしておくけどきちんとロジックを考えてdbから出すなりハッシュとかで出すなりすること!
+	address = "M8VjBRRfiwfRGBZvWSGvrkLX4oTQ6Dy4uY" #とりあえずblankにしておくけどきちんとロジックを考えてdbから出すなりハッシュとかで出すなりすること!
 	#上はとりあえずのテスト用
 	return address
 def round_down5(value):
 	value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
 	return str(value)
+def userwalletlocation(userid):
+	location = "" + electrum_wallet_location + "" + userid + ""
+	return location
 
 def libgetbalance(userid):
 	address = get_user_address(userid)
 	sh = address_to_scripthash(address)
 	method = "blockchain.scripthash.get_balance"
+	conn = "electrumx.tamami-foundation.org" #connに何いれればいいのかよくわからないからとりあえずアドレスにしとく。あとで聞いたほうがいいかな
 	res = call_electrum(conn, method, sh)
 	print(res)
 	if "2-1" in res:
