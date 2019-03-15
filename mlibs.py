@@ -229,3 +229,14 @@ def getmonageid(discordid):
 		return monageid
 	else:
 		return "ERROR"
+def sqlformat_faucet(msg):
+	msg = str(msg)
+	msg = msg.replace('(', '')
+	msg = msg.replace(')', '')
+	msg = msg.replace("b'", '')
+	msg = msg.replace("'", '')
+	msg = msg.replace(",,", ',')
+	msg = msg.replace("[", '')
+	msg = msg.replace("]", '')
+	msg = msg.split(',')
+	msg = str(msg)
