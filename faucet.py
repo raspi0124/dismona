@@ -290,7 +290,6 @@ async def on_message(message):
 								m = "攻撃報酬 2 watanabe 獲得!！\nこれからも討伐協力よろしくお願いします！"
 								await client.send_message(message.channel, m)
 								print("7")
-								time.sleep(1)
 								cursor.execute("SELECT hp FROM hp ORDER BY timestamp DESC")
 								currenthp = cursor.fetchall()
 								print(currenthp)
@@ -427,6 +426,7 @@ async def on_message(message):
 								print("INSERT INTO gived (id) VALUES (" + username + ")")
 								cursor.execute("INSERT INTO gived (id) VALUES (" + username + ")")
 								connection.commit()
+								time.sleep(1)
 								if username not in loved:
 									def omikuji():
 										kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
@@ -544,6 +544,9 @@ async def on_message(message):
 					if balance >= minlimit:
 						if username not in baned:
 							if username in tiped:
+								print("INSERT INTO gived (id) VALUES (" + username + ")")
+								cursor.execute("INSERT INTO gived (id) VALUES (" + username + ")")
+								connection.commit()
 								if username not in loved:
 									def omikuji():
 										kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
