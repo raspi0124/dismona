@@ -136,7 +136,6 @@ async def on_message(message):
 							return result
 						separator = '-'
 						result = result()
-						time.sleep(1)
 						with rate_limiter:
 							print("4")
 							cursor.execute("SELECT hp FROM hp ORDER BY timestamp DESC")
@@ -346,157 +345,14 @@ async def on_message(message):
 					banreason = banreason[0]
 					m = "<@" + message.author.id  + "> あなたは <@" + banfromid + "> によって以下の理由でBANされています。 " + banreason + " "
 					await client.send_message(message.channel, m)
-			except "_mysql_exceptions.OperationalError":
+			except _mysql_exceptions.OperationalError:
 				m = "Izaya は、どこかへ逃げてしまった！\n残念。。当てられなかった.. (Code: 500)"
-				await client.send_message(message.channel, m)
-
-
-		if message.content == "/omikuzi -nomona" or message.content == "/omikuji -nomona":
-			start = time.time()
-			username = message.author.id
-			cursor.execute('SELECT id FROM gived')
-			# 全件取得は cursor.fetchall()
-			gived = cursor.fetchall()
-			print("gived")
-			print(gived)
-			gived = str(gived)
-			print("1")
-			cursor.execute('SELECT banedid FROM baned')
-			baned = cursor.fetchall()
-			print("2")
-			cursor.execute('SELECT * FROM tiped')
-			tiped = cursor.fetchall()
-			tiped = list(tiped)
-			tiped = str(tiped)
-			tiped = tiped.replace('(', '')
-			tiped = tiped.replace(')', '')
-			tiped = tiped.replace("b'", '')
-			tiped = tiped.replace("'", '')
-			tiped = tiped.replace(",,", ',')
-			tiped = tiped.replace("[", '')
-			tiped = tiped.replace("]", '')
-			tiped = tiped.split(',')
-			tiped = str(tiped)
-			pattern = r'([0-9]+\.%s[0-9]*)'
-			tiped = re.findall(pattern,tiped)
-			print("3")
-			print("banned")
-			print(baned)
-			print("tiped")
-			print(tiped)
-			baned = str(baned)
-			await client.add_reaction(message, '👌')
-			cursor.execute('SELECT * FROM loved')
-			loved = cursor.fetchall()
-			print(loved)
-			loved = str(loved)
-			pattern = r'([0-9]+\.%s[0-9]*)'
-			loved = re.findall(pattern,loved)
-
-			if username not in gived:
-				if username not in loved:
-					def omikuji():
-						kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
-						result = random.choice(kuji)
-						return result
-					kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
-					result = omikuji()
-					print("result")
-					print(result)
-					addamount = "1"
-					result = int(result)
-					resultp = kuji[result]
-					result2 = float(result) + float(addamount)
-					result2 = int(result2)
-					print("resultp")
-					print(resultp)
-					resultp = str(resultp)
-					result2 = int(result2)
-					result2 = str(result2)
-					result = str(result)
-					a = "a"
-					if a == a:
-						if result == "0":
-							with open('/root/dismona/kyou.png', 'rb') as f:
-								await client.send_file(message.channel, f)
-						if result == "1":
-							with open('/root/dismona/syoukiti.png', 'rb') as f:
-								await client.send_file(message.channel, f)
-						if result == "2":
-							with open('/root/dismona/tyuukiti.png', 'rb') as f:
-								await client.send_file(message.channel, f)
-						if result == "3":
-							with open('/root/dismona/daikiti.png', 'rb') as f:
-								await client.send_file(message.channel, f)
-						if result == "7":
-							with open('/root/dismona/tyoudaikiti.png', 'rb') as f:
-								await client.send_file(message.channel, f)
-					elapsed_time = time.time() - start
-					elapsed_time = str(elapsed_time)
-					resultp = str(resultp)
-					m = "<@" + userid + "> 貴方の今日の運勢は" + resultp + "です!"
-					await client.send_message(message.channel, m)
-					cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username,))
-					connection.commit()
-				else:
-					def omikuji():
-						kuji = ["0", "1", "2", "3", "2", "4"]
-						result = random.choice(kuji)
-						return result
-					kuji = ["凶", "小吉", "中吉", "大吉", "超大吉"]
-					result = omikuji()
-					print("result")
-					print(result)
-					result = int(result)
-					origresult=result
-					print("resulta")
-					print(result)
-					resultp = kuji[result]
-					print("resultp")
-					print(resultp)
-					resultp = str(resultp)
-					result = float(result) + float("3")
-					result = int(result)
-					result = str(result)
-					kyou = "0"
-					kyou = int(kyou)
-					elapsed_time = time.time() - start
-					elapsed_time = str(elapsed_time)
-					if result == "0":
-						with open('/root/dismona/kyou.png', 'rb') as f:
-							await client.send_file(message.channel, f)
-					if result == "1":
-						with open('/root/dismona/syoukiti.png', 'rb') as f:
-							await client.send_file(message.channel, f)
-					if result == "2":
-						with open('/root/dismona/tyuukiti.png', 'rb') as f:
-							await client.send_file(message.channel, f)
-					if result == "3":
-						with open('/root/dismona/daikiti.png', 'rb') as f:
-							await client.send_file(message.channel, f)
-					if result == "7":
-						with open('/root/dismona/tyoudaikiti.png', 'rb') as f:
-							await client.send_file(message.channel, f)
-					if result == kyou:
-						m = "あなたの運勢…凶みたいだから、今日はそばにいてあげるんだからねっ！今日だけだからねっ"
-					else:
-						m = "<@" + userid + "> ダーリン、あなたの今日の運勢は" + resultp + "らしいですわよ。! 今日も気をつけてね、ダーリン。 . exectime: " + elapsed_time + " sec"
-					await client.send_message(message.channel, m)
-					cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username,))
-					if origresult > 0:
-						m = "/tip <@" + username + "> 0.000" + result + ""
-						await client.send_message(message.channel, m)
-					connection.commit()
-			else:
-				m = "<@" + userid +"> すでに今日におみくじをされているようです。。明日戻ってきてね！"
 				await client.send_message(message.channel, m)
 
 		if message.content == "/omikuzi" or message.content == "/omikuji":
 			start = time.time()
 			username = message.author.id
 			print("omikuzi executed 1")
-
-
 			cursor.execute('SELECT banedid FROM baned')
 			baned = cursor.fetchall()
 			baned = str(baned)
@@ -546,7 +402,7 @@ async def on_message(message):
 			loved = str(loved)
 			balance = float(balance)
 			minlimit = float(minlimit)
-			time.sleep(3)
+			time.sleep(1)
 			cursor.execute('SELECT * FROM gived')
 			gived = cursor.fetchall()
 			gived = str(gived)
@@ -568,6 +424,9 @@ async def on_message(message):
 					if balance >= minlimit:
 						if username not in baned:
 							if username in tiped:
+								print("INSERT INTO gived (id) VALUES (" + username + ")")
+								cursor.execute("INSERT INTO gived (id) VALUES (" + username + ")")
+								connection.commit()
 								if username not in loved:
 									def omikuji():
 										kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
@@ -613,12 +472,9 @@ async def on_message(message):
 									elapsed_time = str(elapsed_time)
 									username = int(username)
 									username = str(username)
-									print("INSERT INTO gived (id) VALUES (" + username + ")")
-									cursor.execute("INSERT INTO gived (id) VALUES (" + username + ")")
 									if origresnum > 0:
 										m = "/tip <@" + username + "> 0.0000" + resultgive + " おみくじtipです！貴方の今日の運勢は" + resultword + "です!次挑戦できるのは日本時間で明日です！"
 										await client.send_message(message.channel, m)
-									connection.commit()
 								else:
 									def omikuji():
 										kuji = ["0", "1", "2", "3", "2", "4"]
@@ -664,7 +520,6 @@ async def on_message(message):
 									else:
 										m = "<@" + userid +">ダーリン、あなたの今日の運勢は" + resultword + "らしいですわよ。!\n0.000" + resultgive + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。"
 									await client.send_message(message.channel, m)
-									cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username,))
 									if origresnum != "0":
 										m = "/tip <@" + username + "> 0.000" + resultgive + ""
 										await client.send_message(message.channel, m)
@@ -734,8 +589,7 @@ async def on_message(message):
 									elapsed_time = str(elapsed_time)
 									username = int(username)
 									username = str(username)
-									print("INSERT INTO gived (id) VALUES (" + username + ")")
-									cursor.execute("INSERT INTO gived (id) VALUES (" + username + ")")
+
 									if origresnum > 0:
 										m = "/tip <@" + username + "> 0.000000" + resultgive + " おみくじtipです！貴方の今日の運勢は" + resultword + "です!次挑戦できるのは日本時間で明日です！"
 										await client.send_message(message.channel, m)
@@ -785,7 +639,6 @@ async def on_message(message):
 									else:
 										m = "<@" + userid +">ダーリン、あなたの今日の運勢は" + resultword + "らしいですわよ。!\n0.000" + resultgive + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。"
 									await client.send_message(message.channel, m)
-									cursor.execute("INSERT INTO gived (id) VALUES (%s)", (username,))
 									if origresnum != "0":
 										m = "/tip <@" + username + "> 0.00000" + resultgive + ""
 										await client.send_message(message.channel, m)
