@@ -136,6 +136,7 @@ async def on_message(message):
 							return result
 						separator = '-'
 						result = result()
+						time.sleep(1)
 						with rate_limiter:
 							print("4")
 							cursor.execute("SELECT hp FROM hp ORDER BY timestamp DESC")
@@ -147,6 +148,7 @@ async def on_message(message):
 						currenthp = re.findall(pattern,currenthp)
 						print(currenthp[0])
 						currenthp = int(currenthp[0])
+						time.sleep(1)
 						with rate_limiter:
 							if remainshootedtimes > "0":
 								if result == "0" or result == "1" or result == "2":
@@ -199,6 +201,7 @@ async def on_message(message):
 
 								nowremainshootedtimes = int(remainshootedtimes) - int("1")
 								print("8")
+								time.sleep(1)
 								cursor.execute("UPDATE shooted SET times = %s WHERE id = %s", (nowremainshootedtimes, userid))
 
 
@@ -238,6 +241,7 @@ async def on_message(message):
 							return result
 						separator = '-'
 						result = result()
+						time.sleep(1)
 						with rate_limiter:
 							print("4")
 							cursor.execute("SELECT hp FROM hp ORDER BY timestamp DESC")
@@ -287,6 +291,7 @@ async def on_message(message):
 								m = "攻撃報酬 2 watanabe 獲得!！\nこれからも討伐協力よろしくお願いします！"
 								await client.send_message(message.channel, m)
 								print("7")
+								time.sleep(1)
 								cursor.execute("SELECT hp FROM hp ORDER BY timestamp DESC")
 								currenthp = cursor.fetchall()
 								print(currenthp)
@@ -341,7 +346,7 @@ async def on_message(message):
 					banreason = banreason[0]
 					m = "<@" + message.author.id  + "> あなたは <@" + banfromid + "> によって以下の理由でBANされています。 " + banreason + " "
 					await client.send_message(message.channel, m)
-			except _mysql_exceptions.OperationalError:
+			except "_mysql_exceptions.OperationalError":
 				m = "Izaya は、どこかへ逃げてしまった！\n残念。。当てられなかった.. (Code: 500)"
 				await client.send_message(message.channel, m)
 
@@ -491,18 +496,6 @@ async def on_message(message):
 			username = message.author.id
 			print("omikuzi executed 1")
 
-			cursor.execute('SELECT * FROM gived')
-			gived = cursor.fetchall()
-			gived = str(gived)
-			gived = gived.replace('(', '')
-			gived = gived.replace(')', '')
-			gived = gived.replace("b'", '')
-			gived = gived.replace("'", '')
-			gived = gived.replace(",,", ',')
-			gived = gived.replace("[", '')
-			gived = gived.replace("]", '')
-			gived = gived.split(',')
-			gived = str(gived)
 
 			cursor.execute('SELECT banedid FROM baned')
 			baned = cursor.fetchall()
@@ -553,6 +546,19 @@ async def on_message(message):
 			loved = str(loved)
 			balance = float(balance)
 			minlimit = float(minlimit)
+			time.sleep(3)
+			cursor.execute('SELECT * FROM gived')
+			gived = cursor.fetchall()
+			gived = str(gived)
+			gived = gived.replace('(', '')
+			gived = gived.replace(')', '')
+			gived = gived.replace("b'", '')
+			gived = gived.replace("'", '')
+			gived = gived.replace(",,", ',')
+			gived = gived.replace("[", '')
+			gived = gived.replace("]", '')
+			gived = gived.split(',')
+			gived = str(gived)
 			print("3")
 			cursor.execute('SELECT * FROM ragreedtos')
 			ragreedtos = cursor.fetchall()
