@@ -12,7 +12,7 @@ import hashlib
 #import sqlite3
 import MySQLdb
 from datetime import datetime
-import exlib
+import mlibs
 from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 import sys
@@ -85,7 +85,7 @@ async def on_reaction_add(reaction, user):
 	tip039 = "monage039"
 	if emoji == tip0114114:
 
-		exlib.unlockwallet()
+		mlibs.unlockwallet()
 
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		cmd = "monacoin-cli getbalance " + tipby + ""
@@ -107,7 +107,7 @@ async def on_reaction_add(reaction, user):
 			if tipamount >= minimumtip:
 				tipamount = float(tipamount) / float(num2)
 				tipamount = str(tipamount)
-				exlib.tip(tipby, tipto, tipamount)
+				mlibs.tip(tipby, tipto, tipamount)
 				m = "<@" + tipby + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ")"
 				await client.send_message(reaction.message.channel, m)
 			else:
@@ -119,7 +119,7 @@ async def on_reaction_add(reaction, user):
 
 	if emoji == tip039:
 
-		exlib.unlockwallet()
+		mlibs.unlockwallet()
 
 		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 		cmd = "monacoin-cli getbalance " + tipby + ""
@@ -141,7 +141,7 @@ async def on_reaction_add(reaction, user):
 			if tipamount >= minimumtip:
 				tipamount = float(tipamount) / float(num2)
 				tipamount = str(tipamount)
-				exlib.tip(tipby, tipto, tipamount)
+				mlibs.tip(tipby, tipto, tipamount)
 				m = "<@" + tipby + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ")"
 				await client.send_message(reaction.message.channel, m)
 			else:
@@ -165,7 +165,7 @@ async def on_message(message):
 	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 	cursor.execute('SELECT * FROM ragreedtos')
 	ragreedtos = cursor.fetchall()
-	ragreedtos = exlib.fixselect(ragreedtos)
+	ragreedtos = mlibs.fixselect(ragreedtos)
 	userid = message.author.id
 	messagesql = str(message.content)
 	rainnotify = "425766935825743882"
@@ -200,7 +200,7 @@ async def on_message(message):
 		if message.content.startswith("/register"):
 			#登録を処理。
 
-			exlib.unlockwallet()
+			mlibs.unlockwallet()
 
 			userid = message.author.id
 			await client.add_reaction(message, '👌')
@@ -210,8 +210,8 @@ async def on_message(message):
 				m = "<@" + message.author.id + "> さんのアカウントを作成しますね！"
 				# メッセージが送られてきたチャンネルへメッセージを送ります
 				await client.send_message(message.channel, m)
-				#exlibライブラリに投げる
-				resultmore5 = exlib.register(userid)
+				#mlibsライブラリに投げる
+				resultmore5 = mlibs.register(userid)
 				m = "<@" + message.author.id + ">, successfully created an account for you! Your new address is " + resultmore5 + ", enjoy!"
 				await client.send_message(message.channel, m)
 				connection.commit()
@@ -223,7 +223,7 @@ async def on_message(message):
 			# エラー処理（例外処理）
 			# INSERT
 			#残高を取得
-			balance = exlib.libgetbalance(userid)
+			balance = mlibs.libgetbalance(userid)
 			if balance > "0.01":
 				fee = "0.01"
 				cursor.execute("INSERT INTO rainregistered (rainid) VALUES (%s)", (username,))
@@ -241,26 +241,26 @@ async def on_message(message):
 			m = "<@" + message.author.id + "> さんの残高チェック中.."
 		# メッセージが送られてきたチャンネルへメッセージを送ります
 			await client.send_message(message.channel, m)
-			balance = str(exlib.libgetbalance(userid))
+			balance = str(mlibs.libgetbalance(userid))
 			m = "<@" + message.author.id + ">, you currently have  " + balance + " mona!\n(message created on " + currenttime + ")"
 			print ("---6---")
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/price"):
-			cp = exlib.getcurrentprice()
+			cp = mlibs.getcurrentprice()
 			m ="いまmonaは" + cp + "円です！"
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/deposit"):
 			await client.add_reaction(message, '👌')
 			# 送り主がBotだった場合反応したくないので
 			if client.user != message.author.name:
-				address3 = exlib.deposit(userid)
+				address3 = mlibs.deposit(userid)
 				#もしすでにアドレスが存在している場合
 				if address3 != "":
 					m = "<@" + message.author.id + ">, This is your deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
 					await client.send_message(message.channel, m)
 				#アドレスがまだ無い場合はここで作る
 				else:
-					address = exlib.register(userid)
+					address = mlibs.register(userid)
 					m = "<@" + userid + ">, This is your deposit address: " + address + ""
 					await client.send_message(message.channel, m)
 		if message.content.startswith("/disagreetos"):
@@ -308,7 +308,7 @@ async def on_message(message):
 			amount = withdrawinfo[0]
 			rmessage = rmessage.replace(amount, '')
 			to = rmessage.replace(' ', '')
-			withdraw_detail = exlib.withdraw(userid, to, amount)
+			withdraw_detail = mlibs.withdraw(userid, to, amount)
 			print(withdraw_detail)
 			withdraw_detail = str(withdraw_detail)
 			#500は残高不足エラー
@@ -384,10 +384,10 @@ async def on_message(message):
 			#rain実行
 			start = time.time()
 
-			exlib.unlockwallet()
+			mlibs.unlockwallet()
 
 			#残高取得
-			balancea = exlib.libgetbalance(userid)
+			balancea = mlibs.libgetbalance(userid)
 			await client.add_reaction(message, '👌')
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			#処理を簡単にするため/rainを削除
@@ -441,7 +441,7 @@ async def on_message(message):
 						#cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
 						#rut  =  subprocess.check_output( cmd.split(" ") )
 						#print(rut)
-						exlib.tip(userid, tosend, permona)
+						mlibs.tip(userid, tosend, permona)
 						m = "Raining" + permona + "mona to <@" + tosend + ">.."
 						await client.send_message(rainnotify, m)
 					numofpeople = str(numofpeople)
@@ -459,10 +459,10 @@ async def on_message(message):
 		if message.content.startswith("/rain"):
 			#rain実行
 			start = time.time()
-			exlib.unlockwallet()
+			mlibs.unlockwallet()
 
 			#残高取得
-			balancea = exlib.libgetbalance(userid)
+			balancea = mlibs.libgetbalance(userid)
 			await client.add_reaction(message, '👌')
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			#処理を簡単にするため/rainを削除
@@ -503,7 +503,7 @@ async def on_message(message):
 						#tosend = rainall[tosend]
 						tosend = str(tosend)
 						print("--startcommand--")
-						exlib.tip(userid, tosend, sum)
+						mlibs.tip(userid, tosend, sum)
 						m = "Raining" + sum + "mona to <@" + tosend + ">.."
 						await client.send_message(rainnotify, m)
 					m = "finished raining " + sum + "mona to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona! Rained by <@" + message.author.id + ">"
@@ -570,7 +570,7 @@ async def on_message(message):
 
 		if message.content.startswith("/tip"):
 			start = time.time()
-			exlib.unlockwallet()
+			mlibs.unlockwallet()
 
 			message2 = message.content.replace('/tip', '')
 			print (message2)
@@ -582,7 +582,7 @@ async def on_message(message):
 			tipto = tipinfo[0]
 			tipamount = tipinfo[1]
 
-			tip_detail = exlib.tip(userid, tipto, tipamount)
+			tip_detail = mlibs.tip(userid, tipto, tipamount)
 			if "200" in tip_detail:
 				m = "<@" + message.author.id + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ""
 			if "e_10" in tip_detail:
@@ -608,7 +608,7 @@ async def on_message(message):
 					await client.send_message(message.channel, m)
 		if message.content.startswith("/admin info"):
 			start = time.time()
-			exlib.unlockwallet()
+			mlibs.unlockwallet()
 
 			await client.add_reaction(message, '👌')
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
@@ -646,7 +646,7 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 		if message.content.startswith("/adminc"):
 
-			exlib.unlockwallet()
+			mlibs.unlockwallet()
 
 			if message.author.id == "326091178984603669":
 				message2 = message.content.replace('/adminc', '')
@@ -660,7 +660,7 @@ async def on_message(message):
 				m = "sorry, but you are not allowed to do that!"
 				await client.send_message(message.channel, m)
 		if message.content.startswith('/members'):
-			exlib.unlockwallet()
+			mlibs.unlockwallet()
 
 			await client.add_reaction(message, '👌')
 			for server in client.servers:
@@ -674,7 +674,7 @@ async def on_message(message):
 				command = message.content.split(" ")
 				url = command[2]
 				if url.endswith(".png") or url.endswith(".jpg") or url.endswith(".gif") or url.endswith(".jpeg"):
-					checkresult = exlib.isurlexist(url)
+					checkresult = mlibs.isurlexist(url)
 					if checkresult == "0":
 						m = "Your URL specified not seems to be an URL. Please check your url and try again."
 						await client.send_message(message.channel, m)
@@ -705,7 +705,7 @@ async def on_message(message):
 					m = "Adding your text ad to DB.."
 					await client.send_message(message.channel, m)
 		if message.content.startswith('/adminregister'):
-			exlib.unlockwallet()
+			mlibs.unlockwallet()
 			await client.add_reaction(message, '👌')
 			if message.author.id == "326091178984603669":
 				message2 = message.content.replace('/adminregister', '')
@@ -724,7 +724,7 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 			sys.exit()
 		if message.content.startswith('/adminbalance'):
-			exlib.unlockwallet()
+			mlibs.unlockwallet()
 
 			await client.add_reaction(message, '👌')
 			if message.author.id == "326091178984603669":
@@ -977,7 +977,7 @@ async def on_message(message):
 
 		if message.content.startswith('/mp balance'):
 			print("1")
-			addresses = exlib.deposit(message.author.id)
+			addresses = mlibs.deposit(message.author.id)
 			addresses = '"' + addresses + '"'
 			print(addresses)
 			headers = {
@@ -1028,14 +1028,14 @@ async def on_message(message):
 				m = "<@" + message.author.id + "> アドレスを確認中..."
 				# メッセージが送られてきたチャンネルへメッセージを送ります
 				await client.send_message(message.channel, m)
-				address3 = exlib.deposit(userid)
+				address3 = mlibs.deposit(userid)
 				m = "<@" + message.author.id + ">, This is your monaparty deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
 				await client.send_message(message.channel, m)
 
 		if message.content.startswith("/mp tip"):
 			await client.add_reaction(message, '👌')
 			print("start")
-			#beforebal = exlib.libgetbalance(userid)
+			#beforebal = mlibs.libgetbalance(userid)
 			message2 = message.content.replace('/mp tip', '')
 			print (message2)
 			pattern = r'\w+'
@@ -1056,12 +1056,12 @@ async def on_message(message):
 			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
 			tipto = re.findall(pattern,tipto)
 			tipto = str(tipto[0])
-			addresses = exlib.deposit(userid)
-			address = exlib.deposit(userid)
+			addresses = mlibs.deposit(userid)
+			address = mlibs.deposit(userid)
 			print(address)
 			print(addresses)
 			addresses = '"' + addresses + '"'
-			tiptoaddress = exlib.deposit(tipto)
+			tiptoaddress = mlibs.deposit(tipto)
 			tiptoaddress = '"' + tiptoaddress + '"'
 			tiptoken = '"' + tiptoken + '"'
 			#APIにアクセスし該当TXIDをもらってくる
@@ -1092,7 +1092,7 @@ async def on_message(message):
 				tipamount = str(tipamount)
 
 			#手数料で文句言われないようにfee文を予め転送。アカウントシステムだと即座に入れ替わるけどConfの間を縫えば行ける気がする。
-			exlib.withdraw("fee", address, "0.000000005")
+			mlibs.withdraw("fee", address, "0.000000005")
 
 			data = '{\n \
   			"method": "create_send",\n \
@@ -1117,7 +1117,7 @@ async def on_message(message):
 			print(rawtransaction)
 			rawtransaction = str(rawtransaction)
 			print("")
-			exlib.unlockwallet(30)
+			mlibs.unlockwallet(30)
 			cmd = "monacoin-cli signrawtransaction " + rawtransaction + ""
 			rut = subprocess.check_output( cmd.split(" ") )
 			rut = str(rut)
