@@ -14,7 +14,7 @@ from ratelimiter import RateLimiter
 import sys
 import configparser
 from discord.cooldowns import Cooldown, BucketType, CooldownMapping #noqa
-
+import os
 
 config = configparser.ConfigParser()
 config.read('/root/dismona.conf')
@@ -332,119 +332,122 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 
 		if message.content == "/omikuzi" or message.content == "/omikuji":
-			username = message.author.id
-			print("omikuzi executed 1")
-			cursor.execute('SELECT banedid FROM baned')
-			baned = cursor.fetchall()
-			baned = mlibs.sqlformat_faucet(baned)
-			cursor.execute('SELECT * FROM tiped')
-			tiped = cursor.fetchall()
-			tiped = mlibs.sqlformat_faucet(tiped)
-			tiped = str(tiped)
-			print(tiped)
-			cursor.execute('SELECT * FROM gived')
-			gived = cursor.fetchall()
-			gived = mlibs.sqlformat_faucet(gived)
-			gived = str(gived)
-			print("--gived--")
-			print(gived)
-			minlimit = "0.005"
-			balance = mlibs.libgetbalance(userid)
-			await client.add_reaction(message, '👌')
-			cursor.execute('SELECT * FROM loved')
-			loved = cursor.fetchall()
-			loved = mlibs.sqlformat_faucet(loved)
-			balance = float(balance)
-			minlimit = float(minlimit)
-			print("3")
-			cursor.execute('SELECT * FROM ragreedtos')
-			ragreedtos = cursor.fetchall()
-			ragreedtos = mlibs.fixselect(ragreedtos)
-			if userid in ragreedtos:
-				if username not in gived:
-					if balance >= minlimit:
-						if username not in baned:
-							if username in tiped:
-								print("INSERT INTO gived (id) VALUES (" + username + ")")
-								cursor.execute("INSERT INTO gived (id) VALUES (" + username + ")")
-								connection.commit()
-								time.sleep(1)
-								def omikuji():
-									kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
-									result = random.choice(kuji)
-									return result
-								kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
-								resultnumber = omikuji()
-								resultnumber = int(resultnumber)
-								print("resultnumber")
-								print(resultnumber)
-								addamount = "1"
-								resultnumber = int(resultnumber)
-								resultword = kuji[resultnumber]
-								resultgive = float(resultnumber) + float(addamount)
-								resultgive = int(resultgive)
-								print("resultgive")
-								print(resultgive)
-								resultgive = str(resultgive)
-								resultgive = int(resultgive)
-								resultgive = str(resultgive)
-								resultnumber = str(resultnumber)
-								#以下のif列のresultの書き換えがめんどくさかったからここで処理
-								result = resultnumber
-								if result == "0":
-									with open('/root/dismona/kyou.png', 'rb') as f:
-										await client.send_file(message.channel, f)
-								if result == "1":
-									with open('/root/dismona/syoukiti.png', 'rb') as f:
-										await client.send_file(message.channel, f)
-								if result == "2":
-									with open('/root/dismona/tyuukiti.png', 'rb') as f:
-										await client.send_file(message.channel, f)
-								if result == "3":
-									with open('/root/dismona/daikiti.png', 'rb') as f:
-										await client.send_file(message.channel, f)
-								if result == "7":
-									with open('/root/dismona/tyoudaikiti.png', 'rb') as f:
-										await client.send_file(message.channel, f)
-								username = int(username)
-								username = str(username)
-								print("sleeping for 3sec")
-								time.sleep(3)
-								cursor.execute('SELECT * FROM gived')
-								gived = cursor.fetchall()
-								gived=mlibs.sqlformat_faucet(gived)
-								gived = str(gived)
-								print("--gived--")
-								print(gived)
-								if username not in gived:
-									if result == "0" and username in loved:
-										m = "あなたの運勢…凶みたいだから、今日はそばにいてあげるんだからねっ！今日だけだからねっ"
-									elif int(result) > 0 and username not in loved:
-										m = "/tip <@" + username + "> 0.0000" + resultgive + " おみくじtipです！貴方の今日の運勢は" + resultword + "です!次挑戦できるのは日本時間で明日です！"
-									elif int(result) > 0 and username in loved:
-										m = "<@" + userid +">ダーリン、あなたの今日の運勢は" + resultword + "らしいですわよ。!\n0.000" + resultgive + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。"
+			lockfilename = "." + userid + "_omikuzi"
+			if os.path.exists(lockfilename):
+				m = "ALREADY EXECUTED! (LOCKFILE FOUND)"
+				await client.send_message(message.channel, m)
+			else:
+				os.mknod(lockfilename)
+				print("created lockfile!")
+				username = message.author.id
+				print("omikuzi executed 1")
+				cursor.execute('SELECT banedid FROM baned')
+				baned = cursor.fetchall()
+				baned = mlibs.sqlformat_faucet(baned)
+				cursor.execute('SELECT * FROM tiped')
+				tiped = cursor.fetchall()
+				tiped = mlibs.sqlformat_faucet(tiped)
+				tiped = str(tiped)
+				print(tiped)
+				print("sleeping for  random (1-5)sec")
+				time.sleep(random.randrange(1, 5))
+				cursor.execute('SELECT * FROM gived')
+				gived = cursor.fetchall()
+				gived = mlibs.sqlformat_faucet(gived)
+				gived = str(gived)
+				print("--gived--")
+				print(gived)
+				minlimit = "0.005"
+				balance = mlibs.libgetbalance(userid)
+				await client.add_reaction(message, '👌')
+				cursor.execute('SELECT * FROM loved')
+				loved = cursor.fetchall()
+				loved = mlibs.sqlformat_faucet(loved)
+				balance = float(balance)
+				minlimit = float(minlimit)
+				print("3")
+				cursor.execute('SELECT * FROM ragreedtos')
+				ragreedtos = cursor.fetchall()
+				ragreedtos = mlibs.fixselect(ragreedtos)
+				if userid in ragreedtos:
+					if username not in gived:
+						if balance >= minlimit:
+							if username not in baned:
+								if username in tiped:
+									print("INSERT INTO gived (id) VALUES (" + username + ")")
+									cursor.execute("INSERT INTO gived (id) VALUES (" + username + ")")
+									connection.commit()
+									time.sleep(random.randrange(1, 5))
+									def omikuji():
+										kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
+										result = random.choice(kuji)
+										return result
+									kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
+									resultnumber = omikuji()
+									resultnumber = int(resultnumber)
+									print("resultnumber")
+									print(resultnumber)
+									addamount = "1"
+									resultnumber = int(resultnumber)
+									resultword = kuji[resultnumber]
+									resultgive = float(resultnumber) + float(addamount)
+									resultgive = int(resultgive)
+									print("resultgive")
+									print(resultgive)
+									resultgive = str(resultgive)
+									resultgive = int(resultgive)
+									resultgive = str(resultgive)
+									resultnumber = str(resultnumber)
+									#以下のif列のresultの書き換えがめんどくさかったからここで処理
+									result = resultnumber
+									if result == "0":
+										with open('/root/dismona/kyou.png', 'rb') as f:
+											await client.send_file(message.channel, f)
+									if result == "1":
+										with open('/root/dismona/syoukiti.png', 'rb') as f:
+											await client.send_file(message.channel, f)
+									if result == "2":
+										with open('/root/dismona/tyuukiti.png', 'rb') as f:
+											await client.send_file(message.channel, f)
+									if result == "3":
+										with open('/root/dismona/daikiti.png', 'rb') as f:
+											await client.send_file(message.channel, f)
+									if result == "7":
+										with open('/root/dismona/tyoudaikiti.png', 'rb') as f:
+											await client.send_file(message.channel, f)
+									username = int(username)
+									username = str(username)
+									print("sleeping for  random (1-5)sec")
+									time.sleep(random.randrange(1, 5))
+									if username not in gived:
+										if result == "0" and username in loved:
+											m = "あなたの運勢…凶みたいだから、今日はそばにいてあげるんだからねっ！今日だけだからねっ"
+										elif int(result) > 0 and username not in loved:
+											m = "/tip <@" + username + "> 0.0000" + resultgive + " おみくじtipです！貴方の今日の運勢は" + resultword + "です!次挑戦できるのは日本時間で明日です！"
+										elif int(result) > 0 and username in loved:
+											m = "<@" + userid +">ダーリン、あなたの今日の運勢は" + resultword + "らしいですわよ。!\n0.000" + resultgive + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。"
 
+									else:
+										m = "すでにおみくじしてませんか..?(433)"
+									await client.send_message(message.channel, m)
 								else:
-									m = "すでにおみくじしてませんか..?(433)"
-								await client.send_message(message.channel, m)
+									m = "<@" + userid +">スパム対策のために今日Tipした、またはされていない方ははおみくじを実行することができません。。だれかにtipするかtipされてからもう一回実行おねがいします\nTo prevent spamming, user who never tiped today or user  who never get tiped today are not allowed to execute omikuji. please tip someone using /tip command."
+									await client.send_message(message.channel, m)
 							else:
-								m = "<@" + userid +">スパム対策のために今日Tipした、またはされていない方ははおみくじを実行することができません。。だれかにtipするかtipされてからもう一回実行おねがいします\nTo prevent spamming, user who never tiped today or user  who never get tiped today are not allowed to execute omikuji. please tip someone using /tip command."
+								cursor.execute('SELECT banfromid FROM baned WHERE banedid = ' + username + '')
+								banfromid = cursor.fetchall()
+								banfromid = str(banfromid)
+								m = "<@" + userid + ">You are not allowed to /omikuzi! \n Detail:baned by <@" + banfromid + ">"
 								await client.send_message(message.channel, m)
 						else:
-							cursor.execute('SELECT banfromid FROM baned WHERE banedid = ' + username + '')
-							banfromid = cursor.fetchall()
-							banfromid = str(banfromid)
-							m = "<@" + userid + ">You are not allowed to /omikuzi! \n Detail:baned by <@" + banfromid + ">"
+							m = "残高がMinlimit(0.005mona)に達していないためおみくじを実行することはできません。"
 							await client.send_message(message.channel, m)
 					else:
-						m = "残高がMinlimit(0.005mona)に達していないためおみくじを実行することはできません。"
+						m = "もう、<@" + message.author.id + "> 、何やってるの！！\n おみくじは1日一回ってあんなに言ったでしょ！ 明日まで禁止よ！\nそこに座ってなさい！"
 						await client.send_message(message.channel, m)
 				else:
-					m = "もう、<@" + message.author.id + "> 、何やってるの！！\n おみくじは1日一回ってあんなに言ったでしょ！ 明日まで禁止よ！\nそこに座ってなさい！"
+					m = "Error:401 Unautorized. Please /agreetos before using this command."
 					await client.send_message(message.channel, m)
-			else:
-				m = "Error:401 Unautorized. Please /agreetos before using this command."
-				await client.send_message(message.channel, m)
 #		if message.content == "/お年玉ちょうだい":
 #			#めんどくさくなって日時指定なくしたので三が日終わったら消してね
 #			cursor.execute('SELECT * FROM given_otoshidama')
