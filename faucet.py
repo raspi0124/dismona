@@ -72,7 +72,7 @@ async def on_message(message):
 	#"tip","admin info","adminc","members","ad","adminregister","kill",\
 	#"adminbalance","makemenew","image","hello","rmomikuzi","rmshootizaya",\
 	#"love","restart","marryhim","credit","mp","cagreedtos","ragreedtos",\
-	#"agreetos","help","shootizaya","omikuzi","omikuji"] 
+	#"agreetos","help","shootizaya","omikuzi","omikuji"]
 	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/ragreedtos" and message.content != "/cagreedtos" and message.content != "/help" and userid in ragreedtos:
 		# 全件取得は cursor.fetchall()
 		# 「/register」で始まるか調べる
@@ -408,6 +408,8 @@ async def on_message(message):
 										await client.send_file(message.channel, f)
 								username = int(username)
 								username = str(username)
+								print("sleeping for 3sec")
+								time.sleep(3)
 								cursor.execute('SELECT * FROM gived')
 								gived = cursor.fetchall()
 								gived=mlibs.sqlformat_faucet(gived)
