@@ -428,7 +428,7 @@ async def on_message(message):
 										elif int(result) > 0 and username not in loved:
 											m = "/tip <@" + username + "> 0.0000" + resultgive + " おみくじtipです！貴方の今日の運勢は" + resultword + "です!次挑戦できるのは日本時間で明日です！"
 										elif int(result) > 0 and username in loved:
-											m = "<@" + userid +">ダーリン、あなたの今日の運勢は" + resultword + "らしいですわよ。!\n0.000" + resultgive + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。"
+											m = "/tip <@" + userid + "> 0.000" + resultgive + " <@" + userid + ">! 今日の運勢は" + resultword + "だってさ!。!"
 
 									else:
 										m = "すでにおみくじしてませんか..?(433)"
