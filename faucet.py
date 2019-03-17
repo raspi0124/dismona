@@ -13,7 +13,7 @@ from discord.ext import commands
 from ratelimiter import RateLimiter
 import sys
 import configparser
-from discord.commands import Cooldown, BucketType, CooldownMapping #noqa
+from discord.ext.commands import cooldown, BucketType #noqa
 import os
 
 config = configparser.ConfigParser()
