@@ -13,7 +13,7 @@ from discord.ext import commands
 from ratelimiter import RateLimiter
 import sys
 import configparser
-from discord.cooldowns import Cooldown, BucketType, CooldownMapping #noqa
+from discord.commands import Cooldown, BucketType, CooldownMapping #noqa
 import os
 
 config = configparser.ConfigParser()
@@ -33,8 +33,8 @@ print("Monage Discord Edition  Copyright (C) 2018  raspi0124\n \
 	under certain conditions; read https://github.com/raspi0124/dismona/blob/master/LICENSE and if you have any question, email to raspi0124[@]gmail.com.")
 
 def limited(until):
-    duration = int(round(until - time.time()))
-    print('Rate limited, sleeping for {:d} seconds'.format(duration))
+	duration = int(round(until - time.time()))
+	print('Rate limited, sleeping for {:d} seconds'.format(duration))
 
 rate_limiter = RateLimiter(max_calls=2, period=1, callback=limited)
 
@@ -344,13 +344,12 @@ async def on_message(message):
 				cursor.execute('SELECT banedid FROM baned')
 				baned = cursor.fetchall()
 				baned = mlibs.sqlformat_faucet(baned)
+				baned = str(baned)
 				cursor.execute('SELECT * FROM tiped')
 				tiped = cursor.fetchall()
 				tiped = mlibs.sqlformat_faucet(tiped)
 				tiped = str(tiped)
 				print(tiped)
-				print("sleeping for  random (1-5)sec")
-				time.sleep(random.randrange(1, 5))
 				cursor.execute('SELECT * FROM gived')
 				gived = cursor.fetchall()
 				gived = mlibs.sqlformat_faucet(gived)
@@ -376,8 +375,6 @@ async def on_message(message):
 								if username in tiped:
 									print("INSERT INTO gived (id) VALUES (" + username + ")")
 									cursor.execute("INSERT INTO gived (id) VALUES (" + username + ")")
-									connection.commit()
-									time.sleep(random.randrange(1, 5))
 									def omikuji():
 										kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
 										result = random.choice(kuji)
@@ -418,7 +415,6 @@ async def on_message(message):
 									username = int(username)
 									username = str(username)
 									print("sleeping for  random (1-5)sec")
-									time.sleep(random.randrange(1, 5))
 									if username not in gived:
 										if result == "0" and username in loved:
 											m = "あなたの運勢…凶みたいだから、今日はそばにいてあげるんだからねっ！今日だけだからねっ"
@@ -448,6 +444,7 @@ async def on_message(message):
 				else:
 					m = "Error:401 Unautorized. Please /agreetos before using this command."
 					await client.send_message(message.channel, m)
+				os.remove(lockfilename)
 #		if message.content == "/お年玉ちょうだい":
 #			#めんどくさくなって日時指定なくしたので三が日終わったら消してね
 #			cursor.execute('SELECT * FROM given_otoshidama')
