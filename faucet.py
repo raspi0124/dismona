@@ -1,27 +1,20 @@
 #!/usr/bin/python3
 import discord
-import subprocess
 import re
 import time
-import math
 import random
-import json
-import requests
-import decimal
 from decimal import (Decimal, ROUND_DOWN)
-from decimal import Decimal
 #import apim
 #import sqlite3
 import MySQLdb
-from datetime import date
 from datetime import datetime
 import mlibs
 from discord.ext import commands
 from ratelimiter import RateLimiter
-from discord.ext.commands.cooldowns import BucketType
 import sys
-from pytz import timezone
 import configparser
+from discord.cooldowns import Cooldown, BucketType, CooldownMapping #noqa
+
 
 config = configparser.ConfigParser()
 config.read('/root/dismona.conf')
@@ -57,15 +50,14 @@ print("0101")
 connection = MySQLdb.connect(
 	host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 cursor = connection.cursor()
-@client.event
-@commands.cooldown(1, 5, BucketType.user)
+@client.event #noqa
+@commands.cooldown(1.0, 10.0, BucketType.user) #1command per 10sec
 async def on_message(message):
 	connection = MySQLdb.connect(
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	# 自動コミットにする場合は下記を指定（コメントアウトを解除のこと）
 	# connection.isolation_level = None
 	cursor = connection.cursor()
-	currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 	cursor.execute('SELECT * FROM agreetos')
 	agreetos = cursor.fetchall()
 	agreetos = mlibs.fixselect(agreetos)
@@ -73,18 +65,14 @@ async def on_message(message):
 	ragreedtos = cursor.fetchall()
 	ragreedtos = mlibs.fixselect(ragreedtos)
 	userid = message.author.id
-	messagesql = str(message.content)
-	useird = message.author.id
-	rainnotify = "425766935825743882"
-	rainnotify = client.get_channel('425766935825743882')
 	timestamp = str(time.time())
 	userid = message.author.id
-	commands = ["register","rera","balance","price","deposit","disagreetos",\
-	"list","withdraw","givemylog","givehislog","rainall","rain","ban","warn",\
-	"tip","admin info","adminc","members","ad","adminregister","kill",\
-	"adminbalance","makemenew","image","hello","rmomikuzi","rmshootizaya",\
-	"love","restart","marryhim","credit","mp","cagreedtos","ragreedtos",\
-	"agreetos","help","shootizaya","omikuzi","omikuji"]
+	#commands = ["register","rera","balance","price","deposit","disagreetos",\
+	#"list","withdraw","givemylog","givehislog","rainall","rain","ban","warn",\
+	#"tip","admin info","adminc","members","ad","adminregister","kill",\
+	#"adminbalance","makemenew","image","hello","rmomikuzi","rmshootizaya",\
+	#"love","restart","marryhim","credit","mp","cagreedtos","ragreedtos",\
+	#"agreetos","help","shootizaya","omikuzi","omikuji"] 
 	if message.content.startswith("/") and message.content != "/agreetos" and message.content != "/ragreedtos" and message.content != "/cagreedtos" and message.content != "/help" and userid in ragreedtos:
 		# 全件取得は cursor.fetchall()
 		# 「/register」で始まるか調べる
@@ -134,7 +122,6 @@ async def on_message(message):
 							kuji = ["0", "1", "2", "3", "4", "5"]
 							result = random.choice(kuji)
 							return result
-						separator = '-'
 						result = result()
 						with rate_limiter:
 							print("4")
@@ -202,9 +189,6 @@ async def on_message(message):
 								print("8")
 								time.sleep(1)
 								cursor.execute("UPDATE shooted SET times = %s WHERE id = %s", (nowremainshootedtimes, userid))
-
-
-
 								if currenthp <= MINHP:
 									m = "討伐を達成しました\nクエスト報酬を獲得しました！(100watanabe)"
 									await client.send_message(message.channel, m)
@@ -238,7 +222,6 @@ async def on_message(message):
 							kuji = ["0", "1", "2", "3", "4", "5"]
 							result = random.choice(kuji)
 							return result
-						separator = '-'
 						result = result()
 						time.sleep(1)
 						with rate_limiter:
@@ -349,20 +332,19 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 
 		if message.content == "/omikuzi" or message.content == "/omikuji":
-			start = time.time()
 			username = message.author.id
 			print("omikuzi executed 1")
 			cursor.execute('SELECT banedid FROM baned')
 			baned = cursor.fetchall()
-			baned=mlibs.sqlformat_faucet(baned)
+			baned = mlibs.sqlformat_faucet(baned)
 			cursor.execute('SELECT * FROM tiped')
 			tiped = cursor.fetchall()
-			tiped=mlibs.sqlformat_faucet(tiped)
+			tiped = mlibs.sqlformat_faucet(tiped)
 			tiped = str(tiped)
 			print(tiped)
 			cursor.execute('SELECT * FROM gived')
 			gived = cursor.fetchall()
-			gived=mlibs.sqlformat_faucet(gived)
+			gived = mlibs.sqlformat_faucet(gived)
 			gived = str(gived)
 			print("--gived--")
 			print(gived)
@@ -371,7 +353,7 @@ async def on_message(message):
 			await client.add_reaction(message, '👌')
 			cursor.execute('SELECT * FROM loved')
 			loved = cursor.fetchall()
-			loved=mlibs.sqlformat_faucet(loved)
+			loved = mlibs.sqlformat_faucet(loved)
 			balance = float(balance)
 			minlimit = float(minlimit)
 			print("3")
