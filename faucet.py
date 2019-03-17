@@ -354,6 +354,8 @@ async def on_message(message):
 				print(tiped)
 				cursor.execute('SELECT * FROM gived')
 				gived = cursor.fetchall()
+				print("cursor-fetchall")
+				print(gived)
 				gived = str(gived)
 				gived = mlibs.sqlformat_faucet(gived)
 				gived = str(gived)
