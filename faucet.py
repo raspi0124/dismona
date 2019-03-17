@@ -355,7 +355,6 @@ async def on_message(message):
 			cursor.execute('SELECT banedid FROM baned')
 			baned = cursor.fetchall()
 			baned=mlibs.sqlformat_faucet(baned)
-
 			cursor.execute('SELECT * FROM tiped')
 			tiped = cursor.fetchall()
 			tiped=mlibs.sqlformat_faucet(tiped)
@@ -379,7 +378,7 @@ async def on_message(message):
 			cursor.execute('SELECT * FROM ragreedtos')
 			ragreedtos = cursor.fetchall()
 			ragreedtos = mlibs.fixselect(ragreedtos)
-			if userid not in ragreedtos:
+			if userid in ragreedtos:
 				if username not in gived:
 					if balance >= minlimit:
 						if username not in baned:
@@ -388,111 +387,62 @@ async def on_message(message):
 								cursor.execute("INSERT INTO gived (id) VALUES (" + username + ")")
 								connection.commit()
 								time.sleep(1)
-								if username not in loved:
-									def omikuji():
-										kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
-										result = random.choice(kuji)
-										return result
-									kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
-									resultnumber = omikuji()
-									resultnumber = int(resultnumber)
-									print("resultnumber")
-									print(resultnumber)
-									addamount = "1"
-									resultnumber = int(resultnumber)
-									origresnum = resultnumber
-									resultword = kuji[resultnumber]
-									resultgive = float(resultnumber) + float(addamount)
-									resultgive = int(resultgive)
-									print("resultgive")
-									print(resultgive)
-									resultgive = str(resultgive)
-									resultgive = int(resultgive)
-									resultgive = str(resultgive)
-									resultnumber = str(resultnumber)
-									#以下のif列のresultの書き換えがめんどくさかったからここで処理
-									result = resultnumber
-									a = "a"
-									if a == a:
-										if result == "0":
-											with open('/root/dismona/kyou.png', 'rb') as f:
-												await client.send_file(message.channel, f)
-										if result == "1":
-											with open('/root/dismona/syoukiti.png', 'rb') as f:
-												await client.send_file(message.channel, f)
-										if result == "2":
-											with open('/root/dismona/tyuukiti.png', 'rb') as f:
-												await client.send_file(message.channel, f)
-										if result == "3":
-											with open('/root/dismona/daikiti.png', 'rb') as f:
-												await client.send_file(message.channel, f)
-										if result == "7":
-											with open('/root/dismona/tyoudaikiti.png', 'rb') as f:
-												await client.send_file(message.channel, f)
-									elapsed_time = time.time() - start
-									elapsed_time = str(elapsed_time)
-									username = int(username)
-									username = str(username)
-									cursor.execute('SELECT * FROM gived')
-									gived = cursor.fetchall()
-									gived=mlibs.sqlformat_faucet(gived)
-									gived = str(gived)
-									print("--gived--")
-									print(gived)
-									if userid in gived:
-										return None
-									if origresnum > 0:
-										m = "/tip <@" + username + "> 0.0000" + resultgive + " おみくじtipです！貴方の今日の運勢は" + resultword + "です!次挑戦できるのは日本時間で明日です！"
-										await client.send_message(message.channel, m)
-								else:
-									def omikuji():
-										kuji = ["0", "1", "2", "3", "2", "4"]
-										result = random.choice(kuji)
-										return result
-									kuji = ["凶", "小吉", "中吉", "大吉", "超大吉"]
-									resultnumber = omikuji()
-									print("resultnumber")
-									print(resultnumber)
-									resultnumber = int(resultnumber)
-									origresnum = resultnumber
-									print("resultnumber")
-									print(resultnumber)
-									resultword = kuji[resultnumber]
-									resultword = str(resultword)
-									resultgive = float(resultnumber) + float("3")
-									resultgive = int(resultgive)
-									resultgive = str(resultgive)
-									resultnumber = str(resultnumber)
-									#以下のif列のresultの書き換えがめんどくさかったからここで処理
-									result = resultnumber
-									if resultnumber == "0":
-										with open('/root/dismona/kyou.png', 'rb') as f:
-											await client.send_file(message.channel, f)
-									if result == "1":
-										with open('/root/dismona/syoukiti.png', 'rb') as f:
-											await client.send_file(message.channel, f)
-									if result == "2":
-										with open('/root/dismona/tyuukiti.png', 'rb') as f:
-											await client.send_file(message.channel, f)
-									if result == "3":
-										with open('/root/dismona/daikiti.png', 'rb') as f:
-											await client.send_file(message.channel, f)
-									if result == "4":
-										with open('/root/dismona/tyoudaikiti.png', 'rb') as f:
-											await client.send_file(message.channel, f)
-									elapsed_time = time.time() - start
-									elapsed_time = str(elapsed_time)
-									result = str(result)
-									origresnum = str(origresnum)
-									if result == "0":
+								def omikuji():
+									kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
+									result = random.choice(kuji)
+									return result
+								kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
+								resultnumber = omikuji()
+								resultnumber = int(resultnumber)
+								print("resultnumber")
+								print(resultnumber)
+								addamount = "1"
+								resultnumber = int(resultnumber)
+								resultword = kuji[resultnumber]
+								resultgive = float(resultnumber) + float(addamount)
+								resultgive = int(resultgive)
+								print("resultgive")
+								print(resultgive)
+								resultgive = str(resultgive)
+								resultgive = int(resultgive)
+								resultgive = str(resultgive)
+								resultnumber = str(resultnumber)
+								#以下のif列のresultの書き換えがめんどくさかったからここで処理
+								result = resultnumber
+								if result == "0":
+									with open('/root/dismona/kyou.png', 'rb') as f:
+										await client.send_file(message.channel, f)
+								if result == "1":
+									with open('/root/dismona/syoukiti.png', 'rb') as f:
+										await client.send_file(message.channel, f)
+								if result == "2":
+									with open('/root/dismona/tyuukiti.png', 'rb') as f:
+										await client.send_file(message.channel, f)
+								if result == "3":
+									with open('/root/dismona/daikiti.png', 'rb') as f:
+										await client.send_file(message.channel, f)
+								if result == "7":
+									with open('/root/dismona/tyoudaikiti.png', 'rb') as f:
+										await client.send_file(message.channel, f)
+								username = int(username)
+								username = str(username)
+								cursor.execute('SELECT * FROM gived')
+								gived = cursor.fetchall()
+								gived=mlibs.sqlformat_faucet(gived)
+								gived = str(gived)
+								print("--gived--")
+								print(gived)
+								if username not in gived:
+									if result == "0" and username in loved:
 										m = "あなたの運勢…凶みたいだから、今日はそばにいてあげるんだからねっ！今日だけだからねっ"
-									else:
+									elif int(result) > 0 and username not in loved:
+										m = "/tip <@" + username + "> 0.0000" + resultgive + " おみくじtipです！貴方の今日の運勢は" + resultword + "です!次挑戦できるのは日本時間で明日です！"
+									elif int(result) > 0 and username in loved:
 										m = "<@" + userid +">ダーリン、あなたの今日の運勢は" + resultword + "らしいですわよ。!\n0.000" + resultgive + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。"
-									await client.send_message(message.channel, m)
-									if origresnum != "0":
-										m = "/tip <@" + username + "> 0.000" + resultgive + ""
-										await client.send_message(message.channel, m)
-									connection.commit()
+
+								else:
+									m = "すでにおみくじしてませんか..?(433)"
+								await client.send_message(message.channel, m)
 							else:
 								m = "<@" + userid +">スパム対策のために今日Tipした、またはされていない方ははおみくじを実行することができません。。だれかにtipするかtipされてからもう一回実行おねがいします\nTo prevent spamming, user who never tiped today or user  who never get tiped today are not allowed to execute omikuji. please tip someone using /tip command."
 								await client.send_message(message.channel, m)
@@ -500,7 +450,7 @@ async def on_message(message):
 							cursor.execute('SELECT banfromid FROM baned WHERE banedid = ' + username + '')
 							banfromid = cursor.fetchall()
 							banfromid = str(banfromid)
-							m = "<@" + userid + ">You are not allowed to /omikuzi! \n Detail:You are baned by <@" + banfromid + ">"
+							m = "<@" + userid + ">You are not allowed to /omikuzi! \n Detail:baned by <@" + banfromid + ">"
 							await client.send_message(message.channel, m)
 					else:
 						m = "残高がMinlimit(0.005mona)に達していないためおみくじを実行することはできません。"
@@ -509,128 +459,8 @@ async def on_message(message):
 					m = "もう、<@" + message.author.id + "> 、何やってるの！！\n おみくじは1日一回ってあんなに言ったでしょ！ 明日まで禁止よ！\nそこに座ってなさい！"
 					await client.send_message(message.channel, m)
 			else:
-				if username not in gived:
-					if balance >= minlimit:
-						if username not in baned:
-							if username in tiped:
-								print("INSERT INTO gived (id) VALUES (" + username + ")")
-								cursor.execute("INSERT INTO gived (id) VALUES (" + username + ")")
-								connection.commit()
-								if username not in loved:
-									def omikuji():
-										kuji = ["0", "1", "2", "3", "1", "2", "7", "1", "2", "3", "1", "2", "3", "2", "3", "2", "0", "0"]
-										result = random.choice(kuji)
-										return result
-									kuji = ["凶", "小吉", "中吉", "大吉", "凶", "小吉", "中吉", "超大吉"]
-									resultnumber = omikuji()
-									resultnumber = int(resultnumber)
-									print("resultnumber")
-									print(resultnumber)
-									addamount = "1"
-									resultnumber = int(resultnumber)
-									origresnum = resultnumber
-									resultword = kuji[resultnumber]
-									resultgive = float(resultnumber) + float(addamount)
-									resultgive = int(resultgive)
-									print("resultgive")
-									print(resultgive)
-									resultgive = str(resultgive)
-									resultgive = int(resultgive)
-									resultgive = str(resultgive)
-									resultnumber = str(resultnumber)
-									#以下のif列のresultの書き換えがめんどくさかったからここで処理
-									result = resultnumber
-									a = "a"
-									if a == a:
-										if result == "0":
-											with open('/root/dismona/kyou.png', 'rb') as f:
-												await client.send_file(message.channel, f)
-										if result == "1":
-											with open('/root/dismona/syoukiti.png', 'rb') as f:
-												await client.send_file(message.channel, f)
-										if result == "2":
-											with open('/root/dismona/tyuukiti.png', 'rb') as f:
-												await client.send_file(message.channel, f)
-										if result == "3":
-											with open('/root/dismona/daikiti.png', 'rb') as f:
-												await client.send_file(message.channel, f)
-										if result == "7":
-											with open('/root/dismona/tyoudaikiti.png', 'rb') as f:
-												await client.send_file(message.channel, f)
-									elapsed_time = time.time() - start
-									elapsed_time = str(elapsed_time)
-									username = int(username)
-									username = str(username)
-
-									if origresnum > 0:
-										m = "/tip <@" + username + "> 0.000000" + resultgive + " おみくじtipです！貴方の今日の運勢は" + resultword + "です!次挑戦できるのは日本時間で明日です！"
-										await client.send_message(message.channel, m)
-									connection.commit()
-								else:
-									def omikuji():
-										kuji = ["0", "1", "2", "3", "2", "4"]
-										result = random.choice(kuji)
-										return result
-									kuji = ["凶", "小吉", "中吉", "大吉", "超大吉"]
-									resultnumber = omikuji()
-									print("resultnumber")
-									print(resultnumber)
-									resultnumber = int(resultnumber)
-									origresnum = resultnumber
-									print("resultnumber")
-									print(resultnumber)
-									resultword = kuji[resultnumber]
-									resultword = str(resultword)
-									resultgive = float(resultnumber) + float("3")
-									resultgive = int(resultgive)
-									resultgive = str(resultgive)
-									resultnumber = str(resultnumber)
-									#以下のif列のresultの書き換えがめんどくさかったからここで処理
-									result = resultnumber
-									if resultnumber == "0":
-										with open('/root/dismona/kyou.png', 'rb') as f:
-											await client.send_file(message.channel, f)
-									if result == "1":
-										with open('/root/dismona/syoukiti.png', 'rb') as f:
-											await client.send_file(message.channel, f)
-									if result == "2":
-										with open('/root/dismona/tyuukiti.png', 'rb') as f:
-											await client.send_file(message.channel, f)
-									if result == "3":
-										with open('/root/dismona/daikiti.png', 'rb') as f:
-											await client.send_file(message.channel, f)
-									if result == "4":
-										with open('/root/dismona/tyoudaikiti.png', 'rb') as f:
-											await client.send_file(message.channel, f)
-									elapsed_time = time.time() - start
-									elapsed_time = str(elapsed_time)
-									result = str(result)
-									origresnum = str(origresnum)
-									if result == "0":
-										m = "あなたの運勢…凶みたいだから、今日はそばにいてあげるんだからねっ！今日だけだからねっ"
-									else:
-										m = "<@" + userid +">ダーリン、あなたの今日の運勢は" + resultword + "らしいですわよ。!\n0.000" + resultgive + "Mona送ってあげるわ。今日も気をつけてね、ダーリン。"
-									await client.send_message(message.channel, m)
-									if origresnum != "0":
-										m = "/tip <@" + username + "> 0.00000" + resultgive + ""
-										await client.send_message(message.channel, m)
-									connection.commit()
-							else:
-								m = "<@" + userid +">スパム対策のために今日Tipした、またはされていない方ははおみくじを実行することができません。。だれかにtipするかtipされてからもう一回実行おねがいします\nTo prevent spamming, user who never tiped today or user  who never get tiped today are not allowed to execute omikuji. please tip someone using /tip command."
-								await client.send_message(message.channel, m)
-						else:
-							cursor.execute('SELECT banfromid FROM baned WHERE banedid = ' + username + '')
-							banfromid = cursor.fetchall()
-							banfromid = str(banfromid)
-							m = "<@" + userid + ">You are not allowed to /omikuzi! \n Detail:You are baned by <@" + banfromid + ">"
-							await client.send_message(message.channel, m)
-					else:
-						m = "残高がMinlimit(0.005mona)に達していないためおみくじを実行することはできません。"
-						await client.send_message(message.channel, m)
-				else:
-					m = "もう、<@" + message.author.id + "> 、何やってるの！！\n おみくじは1日一回ってあんなに言ったでしょ！ 明日まで禁止よ！\nそこに座ってなさい！"
-					await client.send_message(message.channel, m)
-
+				m = "Error:401 Unautorized. Please /agreetos before using this command."
+				await client.send_message(message.channel, m)
 #		if message.content == "/お年玉ちょうだい":
 #			#めんどくさくなって日時指定なくしたので三が日終わったら消してね
 #			cursor.execute('SELECT * FROM given_otoshidama')
