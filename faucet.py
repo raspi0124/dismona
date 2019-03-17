@@ -344,7 +344,7 @@ async def on_message(message):
 					banreason = banreason[0]
 					m = "<@" + message.author.id  + "> あなたは <@" + banfromid + "> によって以下の理由でBANされています。 " + banreason + " "
 					await client.send_message(message.channel, m)
-			except _mysql_exceptions.OperationalError:
+			except MySQLdb.Error:
 				m = "Izaya は、どこかへ逃げてしまった！\n残念。。当てられなかった.. (Code: 500)"
 				await client.send_message(message.channel, m)
 
