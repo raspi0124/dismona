@@ -125,6 +125,7 @@ async def on_reaction_add(reaction, user):
 		cmd = "monacoin-cli getbalance " + tipby + ""
 		rut  =  subprocess.check_output( cmd.split(" ") )
 		balance = rut.decode()
+		#watanabeをmonaに直すため。100000000watanabeは1mona
 		num2 = 100000000
 		balance = float(balance) * float(num2)
 		print ("balance")
@@ -191,7 +192,7 @@ async def on_message(message):
 			authorname = message.author.name
 			authorid = message.author.id
 			channelid = message.channel.id
-			logmessage = "[TEST EDITION]" + message.content
+			logmessage = "[PRODUCTION]" + message.content
 			cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, logmessage, authorid, channelid, currenttime))
 			#cursor.execute("INSERT INTO tmplog (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, message, authorid, channelid, currenttime))
 
@@ -242,7 +243,8 @@ async def on_message(message):
 		# メッセージが送られてきたチャンネルへメッセージを送ります
 			await client.send_message(message.channel, m)
 			balance = str(mlibs.libgetbalance(userid))
-			m = "<@" + message.author.id + ">, you currently have  " + balance + " mona!\n(message created on " + currenttime + ")"
+			jpybalance = str(mlibs.libgetjpybalance(userid))
+			m = "<@" + message.author.id + ">, you currently have  " + balance + " mona!(" + jpybalance +  ")\n(message created on " + currenttime + ")"
 			print ("---6---")
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/price"):
