@@ -35,7 +35,7 @@ db_name = config.get(section1, 'db_name')
 rollbar_key = config.get(section1, 'rollbar_key')
 #main_server_address = config.get(section1, 'main_server_address')
 MONAGEID_SECRET = config.get(section1, 'MONAGEID_SECRET')
-print("MAIN SERVICE IS NOW STARTING!")
+print("<COMPLY-LAW VERSION>MAIN SERVICE IS NOW STARTING!")
 
 print("Monage Discord Edition  Copyright (C) 2018  raspi0124\n \
 	This program comes with ABSOLUTELY NO WARRANTY; for details, please read https://github.com/raspi0124/dismona/blob/master/LICENSE.\n \
