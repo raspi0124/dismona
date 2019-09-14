@@ -61,20 +61,6 @@ async def on_ready():
 	print('------')
 	await client.change_presence(game=discord.Game(name='/help'))
 
-@client.event
-async def on_member_join(member):
-	memberid = member.id
-	serverid = member.server.id
-	izaya_zatsudan = "415501395089686528"
-	izaya_zatsudan = client.get_channel('415501395089686528')
-	if serverid == "392277276470804480":
-		m = "<@" + memberid + "> 何者だ！ 名を名乗れ！さもなくばこうだぞ！\n \
-		(´・ω);y==ｰｰｰｰｰ  ・ ・   <:izaya:441956642125512734>    ・∵. ﾀｰﾝ"
-		await client.send_message(izaya_zatsudan, m)
-		m = "This service was requested by Daisuke and Kumatani and coded by raspi0124. If you have any question, please ask Daisuke or Kumatani, not raspi0124."
-		message = await client.send_message(izaya_zatsudan, m)
-		time.sleep(5)
-		await client.delete_message(message)
 
 @client.event
 async def on_reaction_add(reaction, user):
@@ -199,23 +185,13 @@ async def on_message(message):
 			connection.commit()
 
 		if message.content.startswith("/register"):
-			#登録を処理。
-
-			mlibs.unlockwallet()
-
-			userid = message.author.id
-			await client.add_reaction(message, '👌')
-			# 送り主がBotだった場合反応したくないので
-			if client.user != message.author.name:
-				# メッセージを書きます
-				m = "<@" + message.author.id + "> さんのアカウントを作成しますね！"
-				# メッセージが送られてきたチャンネルへメッセージを送ります
-				await client.send_message(message.channel, m)
-				#mlibsライブラリに投げる
-				resultmore5 = mlibs.register(userid)
-				m = "<@" + message.author.id + ">, successfully created an account for you! Your new address is " + resultmore5 + ", enjoy!"
-				await client.send_message(message.channel, m)
-				connection.commit()
+			m = "This command is no longer available. Please consider using /nregist command instead. For further more information, please take a look at https://blog.raspi0124.dev/...."
+			await client.send_message(message.channel, m)
+		if message.cotent.startswith("/nregist"):
+			m = "Welcome to brand new register command here! Please access https://gallant-jackson-e57582.netlify.com/address.html to get token."
+			splitedm = message.content.split(" ")
+			if splitedm[1] != "" or splitedm [1] != None:
+				hashedaddress = splitedm[1]
 
 		if message.content.startswith("/rera"):
 			start = time.time()
@@ -296,28 +272,9 @@ async def on_message(message):
 			m = "This command is no longer available. please use /deposit command instead."
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/withdraw"):
-			#出金処理
-			await client.add_reaction(message, '👌')
-			#コマンドの処理を簡単にするために/withdrawを削除
-			rmessage = message.content.replace('/withdraw', '')
-			print(rmessage)
-			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
-			print(re.findall(pattern,rmessage))
-			#ここで出金額を取得するためにすべての数字を取得
-			withdrawinfo = re.findall(pattern,rmessage)
-			print(withdrawinfo[0])
-			#出金金額は一番最初の数字でそれ以外はアドレスの文字列内の数字だと予想されるためここでamountを取り除き出金アドレスを取得
-			amount = withdrawinfo[0]
-			rmessage = rmessage.replace(amount, '')
-			to = rmessage.replace(' ', '')
-			withdraw_detail = mlibs.withdraw(userid, to, amount)
-			print(withdraw_detail)
-			withdraw_detail = str(withdraw_detail)
-			#500は残高不足エラー
-			if "500" in withdraw_detail:
-				m = "<@" + userid + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
-			else:
-				m = "Withdraw successfull. TXID:" + withdraw_detail + ""
+			m = "I'm sorry, but this command no longer work with us. He was literaly forced to quit due to certain restriction being enabled by Japanese Government.. Instead, please do withdraw from the Monage Bridge platform"
+			await client.send_message(message.channel, m)
+			m = "新システムへの移行によって資金の保存先がクライアントのデバイスになったためWithdrawコマンドを廃止しました。もしMonage Discord Editionに使っているアドレスから出金されたい場合はMonage Bridgeよりお願いします。"
 			await client.send_message(message.channel, m)
 		if message.content.startswith("/givemylog"):
 			#ログ取得
