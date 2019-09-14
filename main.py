@@ -384,7 +384,7 @@ async def on_message(message):
 					totalmona = str(totalmona)
 					numofpeople = str(numofpeople)
 					permona = str(permona)
-					m = "you will rain in total of " + totalmona + "mona to " + numofpeople + " people.Amount of mona each user will get is " + permona + "mona."
+					m = "You'll be raining in total of " + totalmona + "mona to " + numofpeople + " people. Amount of mona each user will be given is " + permona + "mona."
 					await client.send_message(message.channel, m)
 					m = "Rain started by <@" + message.author.id + "> at #" + message.channel.name + ""
 					await client.send_message(rainnotify, m)
@@ -404,12 +404,12 @@ async def on_message(message):
 						m = "Raining" + permona + "mona to <@" + tosend + ">.."
 						await client.send_message(rainnotify, m)
 					numofpeople = str(numofpeople)
-					m = "finished raining " + permona + "mona to " + numofpeople + "people! total amount was " + totalmona + "mona! Rained by <@" + message.author.id + ">"
+					m = "Finished raining " + permona + "mona to " + numofpeople + "people! total amount was " + totalmona + "mona! Rained by <@" + message.author.id + ">"
 					await client.send_message(message.channel, m)
 					await client.send_message(rainnotify, m)
 					print(rut)
 				else:
-					m = "Due to Server load, it is not allowed to make total amount of rain less then 0.01."
+					m = "Due to Server load, rain amount of less than 0.01 mona is unfortunatly not permited.."
 					await client.send_message(message.channel, m)
 			else:
 				m = "not enough fund.. double check amount to rain."
@@ -476,33 +476,7 @@ async def on_message(message):
 			else:
 				m = "not enough fund.. double check amount to rain."
 				await client.send_message(message.channel, m)
-		if message.content.startswith("/ban"):
-			start = time.time()
-			username = message.author.id
-			banallow = ["326091178984603669", "294470458013908992"]
-			noban = ["326091178984603669", "294470458013908992"]
-			if username in banallow:
-				message2 = message.content
-				message2 = message.content.replace('/ban', '')
-				pattern = r'(\W+)'
-				baninfo = re.findall(pattern,message2)
-				print(baninfo[0])
-				banto = baninfo[0]
-				reason = ""
-				reason = baninfo[1]
 
-				if banto not in noban:
-					cursor.execute("INSERT INTO baned (banedid) VALUES (%s)", (banto,))
-					cursor.execute("INSERT INTO baned (banfromid) VALUES (%s)", (username,))
-					cursor.execute("INSERT INTO baned (reason) VALUES (%s)", (reason,))
-					m = "<@" + userid + "> ユーザー <@" + banto + "> をおみくじの使用及びshootizayaからBANしました。"
-					await client.send_message(message.channel, m)
-				else:
-					m = "このユーザーをBANすることは禁止されています。"
-					await client.send_message(message.channel, m)
-			else:
-				m = "You are not allowed to do that!"
-				await client.send_message(message.channel, m)
 		if message.content.startswith("/warn"):
 			username = message.author.id
 			banallow = ["326091178984603669", "294470458013908992"]
