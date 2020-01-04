@@ -24,7 +24,7 @@ import rollbar
 config = configparser.ConfigParser()
 config.read('dismona.conf')
 
-section1 = 'development'
+section1 = 'complylaw'
 #status defines if its main server or backup server. Main server: 1, Sub server: 2 and 3
 #status = config.get(section1, 'status')
 discord_token = config.get(section1, 'discord_token')
@@ -60,83 +60,6 @@ async def on_ready():
 	print(currenttime)
 	print('------')
 	await client.change_presence(game=discord.Game(name='/help'))
-
-
-@client.event
-async def on_reaction_add(reaction, user):
-	tipto = reaction.message.author.id
-	tipby = user.id
-	emoji = reaction.emoji.name
-	tip0114114 = "monage0114114"
-	tip039 = "monage039"
-	if emoji == tip0114114:
-
-		mlibs.unlockwallet()
-
-		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-		cmd = "monacoin-cli getbalance " + tipby + ""
-		rut  =  subprocess.check_output( cmd.split(" ") )
-		balance = rut.decode()
-		num2 = 100000000
-		balance = float(balance) * float(num2)
-		print ("balance")
-		print(balance)
-		tipamount = "0.114114"
-		print("tipamount")
-		print(tipamount)
-		tipamount = float(tipamount) * float(num2)
-		print("multiplyed tipamount")
-		print(tipamount)
-		minimumtip = "1"
-		minimumtip = float(minimumtip)
-		if tipamount <= balance:
-			if tipamount >= minimumtip:
-				tipamount = float(tipamount) / float(num2)
-				tipamount = str(tipamount)
-				mlibs.tip(tipby, tipto, tipamount)
-				m = "<@" + tipby + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ")"
-				await client.send_message(reaction.message.channel, m)
-			else:
-				m = "<@" + tipby + ">, sorry, failed to complete your request: your tip must meet the minimum of 10 watanabe (0.00000010 Mona).\n(message created on " + currenttime + ")"
-				await client.send_message(reaction.message.channel, m)
-		else:
-			m = "<@"+ tipby + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + "\n DEBUG: tipamount:" + tipamount + " balance:" + balance + " "
-			await client.send_message(reaction.message.channel, m)
-
-	if emoji == tip039:
-
-		mlibs.unlockwallet()
-
-		currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-		cmd = "monacoin-cli getbalance " + tipby + ""
-		rut  =  subprocess.check_output( cmd.split(" ") )
-		balance = rut.decode()
-		#watanabeをmonaに直すため。100000000watanabeは1mona
-		num2 = 100000000
-		balance = float(balance) * float(num2)
-		print ("balance")
-		print(balance)
-		tipamount = "0.39"
-		print("tipamount")
-		print(tipamount)
-		tipamount = float(tipamount) * float(num2)
-		print("multiplyed tipamount")
-		print(tipamount)
-		minimumtip = "1"
-		minimumtip = float(minimumtip)
-		if tipamount <= balance:
-			if tipamount >= minimumtip:
-				tipamount = float(tipamount) / float(num2)
-				tipamount = str(tipamount)
-				mlibs.tip(tipby, tipto, tipamount)
-				m = "<@" + tipby + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + ")"
-				await client.send_message(reaction.message.channel, m)
-			else:
-				m = "<@" + tipby + ">, sorry, failed to complete your request: your tip must meet the minimum of 10 watanabe (0.00000010 Mona).\n(message created on " + currenttime + ")"
-				await client.send_message(reaction.message.channel, m)
-		else:
-			m = "<@"+ tipby + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + "\n DEBUG: tipamount:" + tipamount + " balance:" + balance + " "
-			await client.send_message(reaction.message.channel, m)
 
 
 @client.event #noqa
@@ -178,7 +101,7 @@ async def on_message(message):
 			authorname = message.author.name
 			authorid = message.author.id
 			channelid = message.channel.id
-			logmessage = "[PRODUCTION]" + message.content
+			logmessage = "[LAWCOMPLY]" + message.content
 			cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, logmessage, authorid, channelid, currenttime))
 			#cursor.execute("INSERT INTO tmplog (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, message, authorid, channelid, currenttime))
 
@@ -193,26 +116,6 @@ async def on_message(message):
 			if splitedm[1] != "" or splitedm [1] != None:
 				hashedaddress = splitedm[1]
 
-		if message.content.startswith("/rera"):
-			start = time.time()
-				# データベース接続とカーソル生成
-			username = message.author.id
-			# エラー処理（例外処理）
-			# INSERT
-			#残高を取得
-			balance = mlibs.libgetbalance(userid)
-			if balance > "0.01":
-				fee = "0.01"
-				cursor.execute("INSERT INTO rainregistered (rainid) VALUES (%s)", (username,))
-				cmd = "monacoin-cli move "  + message.author.id + " fee " + fee + ""
-				subprocess.check_output( cmd.split(" ") )
-				m = "Success."
-				await client.send_message(message.channel, m)
-				connection.commit()
-			else:
-				m = "Not enough balance to take fee. Please note that fee of 0.01mona will be charged for registering rain.(only once.)"
-				await client.send_message(message.channel, m)
-
 		if message.content.startswith("/balance"):
 			await client.add_reaction(message, '👌')
 			m = "<@" + message.author.id + "> さんの残高チェック中.."
@@ -223,24 +126,26 @@ async def on_message(message):
 			m = "<@" + message.author.id + ">, you currently have  " + balance + " mona!(" + jpybalance +  ")\n(message created on " + currenttime + ")"
 			print ("---6---")
 			await client.send_message(message.channel, m)
+
 		if message.content.startswith("/price"):
 			cp = mlibs.getcurrentprice()
 			m ="いまmonaは" + cp + "円です！"
 			await client.send_message(message.channel, m)
+
 		if message.content.startswith("/deposit"):
 			await client.add_reaction(message, '👌')
 			# 送り主がBotだった場合反応したくないので
 			if client.user != message.author.name:
-				address3 = mlibs.deposit(userid)
+				address3 = mlibs.getusersaddress(userid)
 				#もしすでにアドレスが存在している場合
 				if address3 != "":
-					m = "<@" + message.author.id + ">, This is your deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
+					m = "<@" + userid + ">, This is your deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
 					await client.send_message(message.channel, m)
 				#アドレスがまだ無い場合はここで作る
 				else:
-					address = mlibs.register(userid)
-					m = "<@" + userid + ">, This is your deposit address: " + address + ""
+					m = "<@" + userid + ">, no address registered yet.."
 					await client.send_message(message.channel, m)
+
 		if message.content.startswith("/disagreetos"):
 			#利用規約同意取り消し処理開始
 			await client.add_reaction(message, '👌')
@@ -267,15 +172,18 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 			m = "あなたを利用規約の同意データベースから削除しました。そして、Monageを使ってくださりありがとうございました。"
 			await client.send_message(message.channel, m)
+
 		if message.content.startswith("/list"):
 			#addressは１つに統一したため/depositコマンドへの導線を。
 			m = "This command is no longer available. please use /deposit command instead."
 			await client.send_message(message.channel, m)
+
 		if message.content.startswith("/withdraw"):
 			m = "I'm sorry, but this command no longer work with us. He was literaly forced to quit due to certain restriction being enabled by Japanese Government.. Instead, please do withdraw from the Monage Bridge platform"
 			await client.send_message(message.channel, m)
 			m = "新システムへの移行によって資金の保存先がクライアントのデバイスになったためWithdrawコマンドを廃止しました。もしMonage Discord Editionに使っているアドレスから出金されたい場合はMonage Bridgeよりお願いします。"
 			await client.send_message(message.channel, m)
+
 		if message.content.startswith("/givemylog"):
 			#ログ取得
 			m = "Sure, wait a min to get log. (Please note that we can only give you the log after 24 April since we were taking log with txt before that.)"
@@ -339,144 +247,6 @@ async def on_message(message):
 			else:
 				print("a")
 
-		if message.content.startswith("/rainall"):
-			#rain実行
-			start = time.time()
-
-			mlibs.unlockwallet()
-
-			#残高取得
-			balancea = mlibs.libgetbalance(userid)
-			await client.add_reaction(message, '👌')
-			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-			#処理を簡単にするため/rainを削除
-			message2 = message.content.replace('/rain ', '')
-			pattern = r'([+-]?[0-9]+\.?[0-9]*)'
-			raininfo = re.findall(pattern,message2)
-			#rainする合計のmonaを指定
-			print("--totalmona--")
-			print(raininfo[0])
-			totalmona = raininfo[0]
-			print(totalmona)
-			totalmona = float(totalmona)
-			#エラー防止のために小数点第6位で四捨五入を実施。
-			totalmona = round(totalmona,6)
-			print(totalmona)
-			totalmona = str(totalmona)
-			cursor.execute('SELECT * FROM ragreedtos')
-			# 全件取得は cursor.fetchall()
-			rainall = cursor.fetchall()
-			print(rainall)
-			rainall = str(rainall)
-			pattern=r'([+]?[0-9]+\.?[0-9]*)'
-			rainall = re.findall(pattern,rainall)
-			print(rainall)
-			numofpeople = len(rainall)
-			numofpeople = str(numofpeople)
-			#permonaは1人当たりにrainされるmonaの量。totalmona/numofpeople = permona
-			permona = float(totalmona) / float(numofpeople)
-			totalmona = float(totalmona)
-			totalmona = round(totalmona,6)
-			totalmona = str(totalmona)
-			permona = float(permona)
-			if float(balancea) >= float(totalmona):
-				if totalmona > "0.01":
-					totalmona = str(totalmona)
-					numofpeople = str(numofpeople)
-					permona = str(permona)
-					m = "You'll be raining in total of " + totalmona + "mona to " + numofpeople + " people. Amount of mona each user will be given is " + permona + "mona."
-					await client.send_message(message.channel, m)
-					m = "Rain started by <@" + message.author.id + "> at #" + message.channel.name + ""
-					await client.send_message(rainnotify, m)
-
-					for var in range(0, numofpeople):
-						tosend = random.choice(rainall)
-						print(tosend)
-						print("--rondomfinish--")
-						#tosend = int(tosend)
-						#tosend = rainall[tosend]
-						tosend = str(tosend)
-						print("--startcommand--")
-						#cmd = "monacoin-cli move " + message.author.id + " " + tosend + " " + sum + ""
-						#rut  =  subprocess.check_output( cmd.split(" ") )
-						#print(rut)
-						mlibs.tip(userid, tosend, permona)
-						m = "Raining" + permona + "mona to <@" + tosend + ">.."
-						await client.send_message(rainnotify, m)
-					numofpeople = str(numofpeople)
-					m = "Finished raining " + permona + "mona to " + numofpeople + "people! total amount was " + totalmona + "mona! Rained by <@" + message.author.id + ">"
-					await client.send_message(message.channel, m)
-					await client.send_message(rainnotify, m)
-					print(rut)
-				else:
-					m = "Due to Server load, rain amount of less than 0.01 mona is unfortunatly not permited.."
-					await client.send_message(message.channel, m)
-			else:
-				m = "not enough fund.. double check amount to rain."
-				await client.send_message(message.channel, m)
-
-		if message.content.startswith("/rain"):
-			#rain実行
-			start = time.time()
-			mlibs.unlockwallet()
-
-			#残高取得
-			balancea = mlibs.libgetbalance(userid)
-			await client.add_reaction(message, '👌')
-			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-			#処理を簡単にするため/rainを削除
-			message2 = message.content.replace('/rain ', '')
-			pattern = r'([+-]?[0-9]+\.?[0-9]*)'
-			raininfo = re.findall(pattern,message2)
-			print("--numbertorain--")
-			print(raininfo[0])
-			print("--amounttorain--")
-			print(raininfo[1])
-			sum = float(raininfo[1]) / float(raininfo[0])
-			print(sum)
-			sum = round(sum,6)
-			print(sum)
-			sum = str(sum)
-			cursor.execute('SELECT * FROM rainregistered ORDER BY rainid')
-			# 全件取得は cursor.fetchall()
-			rainall = cursor.fetchall()
-			print(rainall)
-			rainall = str(rainall)
-			pattern=r'([+]?[0-9]+\.?[0-9]*)'
-			rainall = re.findall(pattern,rainall)
-			print(rainall)
-			if balancea >= raininfo[1]:
-				if raininfo[1] >= "0.01":
-					m = "you will rain " + sum + "mona to " + raininfo[0] + " people."
-					await client.send_message(message.channel, m)
-					sum = str(sum)
-					numbertosend = raininfo[0]
-					numbertosend = int(numbertosend)
-					m = "Rain started by <@" + message.author.id + "> at #" + message.channel.name + ""
-					await client.send_message(rainnotify, m)
-					for var in range(0, numbertosend):
-						tosend = random.choice(rainall)
-						print(tosend)
-						print("--rondomfinish--")
-						#tosend = int(tosend)
-						#tosend = rainall[tosend]
-						tosend = str(tosend)
-						print("--startcommand--")
-						mlibs.tip(userid, tosend, sum)
-						m = "Raining" + sum + "mona to <@" + tosend + ">.."
-						await client.send_message(rainnotify, m)
-					m = "finished raining " + sum + "mona to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona! Rained by <@" + message.author.id + ">"
-					await client.send_message(message.channel, m)
-					m = "finished raining " + sum + "mona to " + raininfo[0] + "people! total amount was " + raininfo[1] + "mona! Rained by <@" + message.author.id + ">"
-					await client.send_message(rainnotify, m)
-					print(rut)
-				else:
-					m = "Due to Server load, it is not allowed to make total amount of rain less then 0.01."
-					await client.send_message(message.channel, m)
-			else:
-				m = "not enough fund.. double check amount to rain."
-				await client.send_message(message.channel, m)
-
 		if message.content.startswith("/warn"):
 			username = message.author.id
 			banallow = ["326091178984603669", "294470458013908992"]
@@ -504,7 +274,6 @@ async def on_message(message):
 		if message.content.startswith("/tip"):
 			start = time.time()
 			mlibs.unlockwallet()
-
 			message2 = message.content.replace('/tip', '')
 			print (message2)
 			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
@@ -532,36 +301,15 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 			tipto = str(tipto)
 			tipamount = float(tipamount)
-			if tipto == "326091178984603669" and "200" in tip_detail:
-				#re3 = float("0.2")
-				re1 = float("0.01")
-				if tipamount >= re1:
-					cursor.execute("DELETE FROM shooted WHERE id = %s", (userid,))
-					cursor.execute("DELETE FROM shooted2 WHERE id = %s", (userid,))
-					cursor.execute("DELETE FROM shooted3 WHERE id = %s", (userid,))
-					m = "ありがとうございます！shootizayaの残弾をリセットしました！"
-					await client.send_message(message.channel, m)
+
 		if message.content.startswith("/admin info"):
 			start = time.time()
 			mlibs.unlockwallet()
-
 			await client.add_reaction(message, '👌')
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-			cmd = "monacoin-cli getinfo"
-			rut  =  subprocess.check_output( cmd.split(" ") )
-			cmd2 = "monacoin-cli getbalance"
-			rut2 = subprocess.check_output( cmd2.split(" "))
-			cmd3 = "monacoin-cli listaccounts"
-			rut3 = subprocess.check_output( cmd3.split(" "))
-			cmd4 = "monacoin-cli listtransactions"
-			rut4 = subprocess.check_output( cmd4.split(" "))
-			getinfo = rut.decode()
-			getbalance = rut2.decode()
-			listaccounts = rut3.decode()
-			listtransactions = rut4.decode()
+			m = "Verfifying.. wait a monemt"
+			await client.send_message(message.channel, m)
 			if message.author.id == "326091178984603669":
-				m = "Verfifying.. wait a monemt"
-				await client.send_message(message.channel, m)
 				m = "Successfully verified you as an admin, here is the info you requested:"
 				await client.send_message(message.channel, m)
 				m = "```getinfo result: " + getinfo + "\n```"
@@ -579,21 +327,7 @@ async def on_message(message):
 			else:
 				m = "Haha, you don't have permission to do that! Your request has been logged and reported to the admin! (but the admin probably won't care about it, so don't worry.)"
 				await client.send_message(message.channel, m)
-		if message.content.startswith("/adminc"):
 
-			mlibs.unlockwallet()
-
-			if message.author.id == "326091178984603669":
-				message2 = message.content.replace('/adminc', '')
-				print(message2)
-				cmd = "monacoin-cli" + message2 + ""
-				rut = subprocess.check_output( cmd.split(" "))
-				result = rut.decode()
-				await client.send_message(message.channel, result)
-				await client.add_reaction(message, '👌')
-			else:
-				m = "sorry, but you are not allowed to do that!"
-				await client.send_message(message.channel, m)
 		if message.content.startswith('/members'):
 			mlibs.unlockwallet()
 
@@ -660,7 +394,6 @@ async def on_message(message):
 			sys.exit()
 		if message.content.startswith('/adminbalance'):
 			mlibs.unlockwallet()
-
 			await client.add_reaction(message, '👌')
 			if message.author.id == "326091178984603669":
 				message2 = message.content.replace('/adminbalance', '')
@@ -674,6 +407,7 @@ async def on_message(message):
 			else:
 				m = "sorry, but you are not arrowed to do that!"
 				await client.send_message(message.channel, m)
+
 		if message.content == "/makemenew":
 			m = "Sure, Lets me make your account newer!"
 			await client.send_message(message.channel, m)
@@ -706,6 +440,7 @@ async def on_message(message):
 			await client.add_reaction(message, '👌')
 			with open('../image.png', 'rb') as f:
 				await client.send_file(message.channel, f)
+
 		if message.content.startswith("/hello"):
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			start = time.time()
@@ -716,6 +451,7 @@ async def on_message(message):
 			m = "elapsed time:" + elapsed_time + "sec"
 			await client.send_message(message.channel, m)
 			await client.add_reaction(message, '👌')
+
 		if message.content.startswith("/rmomikuzi"):
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			start = time.time()
@@ -729,19 +465,8 @@ async def on_message(message):
 				m = "elapsed time:" + elapsed_time + "sec"
 				await client.send_message(message.channel, m)
 				await client.add_reaction(message, '👌')
-		if message.content.startswith("/rmshootizaya"):
-			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
-			start = time.time()
-			if message.author.id == "326091178984603669" or message.author.id == "351363656698560513":
-				cmd = 'sh dismona-rmshoot.sh'
-				subprocess.check_output( cmd.split(" ") )
 
-				m = "True"
-				await client.send_message(message.channel, m)
-				elapsed_time = time.time() - start
-				elapsed_time = str(elapsed_time)
-				m = "elapsed time:" + elapsed_time + "sec"
-				await client.send_message(message.channel, m)
+
 				await client.add_reaction(message, '👌')
 		if message.content.startswith("/love"):
 			start = time.time()

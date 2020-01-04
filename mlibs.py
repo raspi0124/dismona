@@ -14,7 +14,6 @@ config = configparser.ConfigParser()
 config.read('dismona.conf')
 
 section1 = 'development'
-walletpassphrase = config.get(section1, 'mona_walletpassphrase')
 db_user = config.get(section1, 'db_user')
 db_password = config.get(section1, 'db_password')
 db_host = config.get(section1, 'db_host')
@@ -27,22 +26,6 @@ cursor = connection.cursor()
 def round_down5(value):
 	value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
 	return str(value)
-def unlockwallet():
-	time = "30"
-	time = str(time)
-	cmda = "monacoin-cli walletpassphrase {0} {1}".format(walletpassphrase, time)
-	subprocess.check_output( cmda.split(" ") )
-
-def libgetbalance(userid):
-	unlockwallet()
-	minconf = "60"
-	cmdlib = "monacoin-cli getbalance {0} {1}".format(userid, minconf)
-	rutlib = subprocess.check_output( cmdlib.split(" ") )
-	balancelib = rutlib.decode()
-	balancelib = float(balancelib)
-	balancelib = str(balancelib)
-	return balancelib
-
 def getcurrentprice():
 	headers = {
 	'Accept': 'application/json',
@@ -74,6 +57,22 @@ def libgetjpybalance(userid):
 	jpybalance = str(jpybalance)
 	return jpybalance
 
+def libgetbalance(address):
+	#Getbalance in new version, requesting blockbook a balance.
+	address = str(address)
+	headers = {
+	'Accept': 'application/json',
+	}
+	response = requests.get('https://blockbook.electrum-mona.org/api/v2/address/' + address + '?details=basic', headers=headers)
+	response = response.json()
+	balance = str(response['balance'])
+	addresstomakesure = str(response['address'])
+	if addresstomakesure == address:
+		return balance
+	else:
+		return "GNB_E" #When responsed address does not match with requested address. Probably won't happen.
+
+
 def deposit(userid):
 	unlockwallet()
 	cmd = "monacoin-cli getaddressesbyaccount {}".format(userid)
@@ -85,51 +84,46 @@ def deposit(userid):
 	address = address[1]
 	address = address.replace(']', '')
 	return address
-def getunconfbalance(userid):
-	unlockwallet()
-	minconf = "0"
-	cmdlib = "monacoin-cli getbalance {0} {1}".format(userid, minconf)
-	rutlib = subprocess.check_output( cmdlib.split(" ") )
-	balancelib = rutlib.decode()
-	balancelib = float(balancelib)
-	balancelib = str(balancelib)
-	return balancelib
-def withdraw(userid, to, amount):
-	unlockwallet()
-	balancea = libgetbalance(userid)
-	fee = "0.005"
-	reamount = float(amount) - float(fee)
-	reamount = round_down5(reamount)
-	reamount = str(reamount)
-	minbalance = "0.01"
-	minbalance = float(minbalance)
-	minamount = "0.01"
-	minamount = float(minamount)
-	balancea = float(balancea)
-	amount = float(amount)
-	if amount >= minamount:
-		if amount <= balancea:
-			cmd = "monacoin-cli sendfrom {0} {1} {2}".format(userid, to, reamount)
-			rut  =  subprocess.check_output( cmd.split(" ") )
-			cmd = "monacoin-cli move {0} fee {1}".format(userid, fee)
-			subprocess.check_output( cmd.split(" ") )
-			rut = rut.decode()
-			m = rut
-			balancea = libgetbalance(userid)
-			if balancea <= "0":
-				defo = "0"
-				amounttosendback = float(defo) - float(balancea)
-				amounttosendback = str(amounttosendback)
-				cmd = "monacoin-cli move fee {0} {1}".format(userid, amounttosendback)
-				subprocess.check_output( cmd.split(" ") )
 
-		else:
-			#m = "<@" + userid + ">sorry, failed to complete your request: you do not have any mona at all!(message created on " + currenttime + ")"
-			m = "500"
-	else:
-		#m = "<@" + userid + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
-		m = "500"
-	return m
+def getunconfbalance(userid):
+	#Getbalance in new version, requesting blockbook a balance.
+	address = str(address)
+	headers = {
+	'Accept': 'application/json',
+	}
+	response = requests.get('https://blockbook.electrum-mona.org/api/v2/address/' + address + '?details=basic', headers=headers)
+	response = response.json()
+	balance = str(response['balance'])
+	addresstomakesure = str(response['address'])
+	return balancelib
+
+def withdraw(userid, to, amount):
+	return "CMDNOLONGERWORKS"
+
+def getusersaddress(userid):
+	connection = MySQLdb.connect(
+		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
+	cursor = connection.cursor()
+	cursor.execute("SELECT address FROM accounts WHERE discordid='{}'".format(discordid))
+	address = cursor.fetchall()
+	address = str(address)
+	return address
+
+def remuseraddress(userid):
+	connection = MySQLdb.connect(
+		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
+	cursor = connection.cursor()
+	cursor.execute("INSERT INTO accounts (address) VALUES (%s)", ("None",))
+	return True
+
+def reguseraddress(userid, address):
+	prevuseradd = getusersaddress(userid)
+	remuseraddress(userid)
+	connection = MySQLdb.connect(
+		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
+	cursor = connection.cursor()
+	cursor.execute("INSERT INTO accounts (address) VALUES (%s)", (reqaddress,))
+	return True
 
 def tip(userid, to, amount):
 	connection = MySQLdb.connect(
