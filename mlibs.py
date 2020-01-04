@@ -104,7 +104,7 @@ def getusersaddress(userid):
 	connection = MySQLdb.connect(
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
-	cursor.execute("SELECT address FROM accounts WHERE discordid='{}'".format(discordid))
+	cursor.execute("SELECT address FROM accounts WHERE discordid='{}'".format(userid))
 	address = cursor.fetchall()
 	address = str(address)
 	return address
