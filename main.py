@@ -110,7 +110,7 @@ async def on_message(message):
 		if message.content.startswith("/register"):
 			m = "This command is no longer available. Please consider using /nregist command instead. For further more information, please take a look at https://blog.raspi0124.dev/...."
 			await client.send_message(message.channel, m)
-		if message.cotent.startswith("/nregist"):
+		if message.content.startswith("/nregist"):
 			m = "Welcome to brand new register command here! Please access https://gallant-jackson-e57582.netlify.com/address.html to get token."
 			splitedm = message.content.split(" ")
 			if splitedm[1] != "" or splitedm [1] != None:
