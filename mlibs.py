@@ -13,7 +13,7 @@ import configparser
 config = configparser.ConfigParser()
 config.read('dismona.conf')
 
-section1 = 'development'
+section1 = 'complylaw'
 db_user = config.get(section1, 'db_user')
 db_password = config.get(section1, 'db_password')
 db_host = config.get(section1, 'db_host')
