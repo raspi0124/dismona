@@ -116,6 +116,22 @@ async def on_message(message):
 			if splitedm[1] != "" or splitedm [1] != None:
 				hashedaddress = splitedm[1]
 
+		if message.content.startswith("/nregistmyaddress"):
+			m = "NOTICE: THIS COMMAND IS ONLY AVAILABLE TO THE USERS WHO ARE NOT ABLE TO USE MPurse and decided to use own wallet. We highly recommend you to use /nregist command instead. Continue? Type /ntregistmyaddress."
+			await client.send_message(message.channel, m)
+			m = "注意: このコマンドはあくまでMPurseが全く使えない方のために用意したコマンドです。運営としましてはもしMPurseが使えるようでしたら /nregist コマンドを使用されることを強くお勧めしております。もし続けたい場合は /ntregistmyaddress と打ってください。"
+			await client.send_message(message.channel, m)
+
+		if message.content.startswith("/ntregistmyaddress")
+			splitedm = message.content.split(" ")
+			if splitedm[1] != "" or splitedm [1] != None:
+				address = splitedm[1]
+				if reguseraddress(userid, address):
+					m = "アドレス: " + address + " を正常に登録しました。/deposit コマンドで確認できます。"
+					await client.send_message(message.channel, m)
+					m = "Address " + address + " has been successfully registered. You should now be able to confirm it by executing /deposit command."
+					await client.send_message(message.channel, m)
+
 		if message.content.startswith("/balance"):
 			await client.add_reaction(message, '👌')
 			m = "<@" + message.author.id + "> さんの残高チェック中.."
@@ -567,7 +583,6 @@ async def on_message(message):
 					cmd = "startbackup"
 					subprocess.Popen(cmd)
 
-		if message.content.startswith("/marryhim"):
 			if message.author.id == "326091178984603669":
 				username = message.author.id
 				cursor.execute('SELECT * FROM loved')
@@ -629,7 +644,6 @@ async def on_message(message):
 			embed.add_field(name="ぱい", value=" - Discord.pyについてのアドバイス")
 			embed.add_field(name="両親", value=" - 匿名にしておきます")
 			await client.send_message(message.channel, embed=embed)
-
 
 
 
