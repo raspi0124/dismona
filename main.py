@@ -122,7 +122,7 @@ async def on_message(message):
 			m = "注意: このコマンドはあくまでMPurseが全く使えない方のために用意したコマンドです。運営としましてはもしMPurseが使えるようでしたら /nregist コマンドを使用されることを強くお勧めしております。もし続けたい場合は /ntregistmyaddress と打ってください。"
 			await client.send_message(message.channel, m)
 
-		if message.content.startswith("/ntregistmyaddress")
+		if message.content.startswith("/ntregistmyaddress"):
 			splitedm = message.content.split(" ")
 			if splitedm[1] != "" or splitedm [1] != None:
 				address = splitedm[1]
