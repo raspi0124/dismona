@@ -51,10 +51,10 @@ def balance(address):
 	response = requests.post('https://monapa.electrum-mona.org/_api', headers=headers, data=data, auth=('rpc', 'hello'))
 	print(response)
 	print(response.text)
-	if response.text is None:
-		return "0-1" #No return fetched from server, possibilly server error.
 	responsejson = response.json()
 	responseresult = responsejson['result']
+	if response.text is None:
+		return "0-1" #No return fetched from server, possibilly server error.
 	elif responseresult is None:
 		return "0-2" #No token balance found.
 	else:
