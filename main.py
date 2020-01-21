@@ -126,7 +126,7 @@ async def on_message(message):
 			splitedm = message.content.split(" ")
 			if splitedm[1] != "" or splitedm [1] != None:
 				address = splitedm[1]
-				if reguseraddress(userid, address):
+				if mlibs.reguseraddress(userid, address):
 					m = "アドレス: " + address + " を正常に登録しました。/deposit コマンドで確認できます。"
 					await client.send_message(message.channel, m)
 					m = "Address " + address + " has been successfully registered. You should now be able to confirm it by executing /deposit command."
