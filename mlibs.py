@@ -74,16 +74,7 @@ def libgetbalance(address):
 
 
 def deposit(userid):
-	unlockwallet()
-	cmd = "monacoin-cli getaddressesbyaccount {}".format(userid)
-	rut  =  subprocess.check_output( cmd.split(" ") )
-	address = rut.decode()
-	address2 = address.replace('"', '')
-	address3 = address2.replace(',', '')
-	address = address3.split()
-	address = address[1]
-	address = address.replace(']', '')
-	return address
+	return getusersaddress(userid)
 
 def getunconfbalance(userid):
 	#Getbalance in new version, requesting blockbook a balance.
@@ -130,37 +121,9 @@ def tip(userid, to, amount):
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
 	balance = libgetbalance(userid)
-	num2 = 100000000
-	balance = float(balance) * float(num2)
-	amount = float(amount) * float(num2)
-	minimumtip = "1"
-	minimumtip = float(minimumtip)
-	if amount <= balance:
-		if amount >= minimumtip:
-			if userid != to:
-				if len(to) > 16:
-					username = userid
-					amount = float(amount) / float(num2)
-					amount = str(amount)
-					cmd2 = "monacoin-cli move " + userid + " " + to + " " + amount + ""
-					subprocess.check_output( cmd2.split(" ") )
-					#m = "<@" + message.author.id + "> sent " + tipamount + " mona to <@" + tipto + ">!\n(message created on " + currenttime + " . exectime: " + elapsed_time + " sec)"
-					m = "200"
-					cursor.execute("INSERT INTO tiped (id) VALUES (%s)", (username,))
-					cursor.execute("INSERT INTO tiped (id) VALUES (%s)", (to,))
-					connection.commit()
-				else:
-					m = "e_sl"
-			else:
-				m = "e_s2"
-		else:
-			#m = m = "<@" + message.author.id + ">, sorry, failed to complete your request: your tip must meet the minimum of 10 watanabe (0.00000010 Mona).\n(message created on " + currenttime + ")"
-			m = "e_10"
-	else:
-	#m = "<@"+ message.author.id + ">, sorry, failed to complete your request: you do not have enough Mona in your account, please double check your balance and your tip amount.\n(message created on " + currenttime + "\n DEBUG: tipamount:" + tipamount + " balance:" + balance + " "
-		m = "e_en"
-	return m
-
+	cursor.execute("INSERT INTO tipqueue (id, to, amount) VALUES (%s, %s, %s)", (userid, to, amount))
+	return "https://mpursetest2.raspi0124.dev/send.html?sendto=" + to + "&amount=" + amount + "&memo=from=" + userid
+	
 def fixselect(string):
 	string = str(string)
 	string = string.replace('(', '')
