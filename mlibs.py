@@ -122,8 +122,14 @@ def tip(userid, to, amount):
 	cursor = connection.cursor()
 	balance = libgetbalance(userid)
 	cursor.execute("INSERT INTO tipqueue (id, to, amount) VALUES (%s, %s, %s)", (userid, to, amount))
-	return "https://mpursetest2.raspi0124.dev/send.html?sendto=" + to + "&amount=" + amount + "&memo=from=" + userid
-	
+	#json = {
+	#	"type": "tip",
+	#	"to": "toaddress",
+	#	"from": "fromaddress",
+	#	"id": "00000000"
+	#}
+	return "https://mpursetest2.raspi0124.dev/send.html?sendto=" + to + "&amount=" + amount + "&memo=from_" + userid
+
 def fixselect(string):
 	string = str(string)
 	string = string.replace('(', '')
