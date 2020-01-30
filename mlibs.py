@@ -96,7 +96,9 @@ def getusersaddress(userid):
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
 	cursor.execute("SELECT address FROM accounts WHERE discordid='{}'".format(userid))
-	address = cursor.fetchall()
+	print(cursor.fetchall())
+	print("userid:" + userid)
+	address = cursor.fetchone()
 	address = str(address)
 	return address
 
