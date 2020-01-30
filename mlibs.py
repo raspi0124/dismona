@@ -107,13 +107,13 @@ def remuseraddress(userid):
 	cursor.execute("INSERT INTO accounts (address) VALUES (%s)", ("None",))
 	return True
 
-def reguseraddress(userid, address):
+def reguseraddress(userid, regaddress):
 	prevuseradd = getusersaddress(userid)
 	remuseraddress(userid)
 	connection = MySQLdb.connect(
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
-	cursor.execute("INSERT INTO accounts (address) VALUES (%s)", (reqaddress,))
+	cursor.execute("INSERT INTO accounts (address) VALUES (%s)", (regaddress,))
 	return True
 
 def tip(userid, to, amount):
