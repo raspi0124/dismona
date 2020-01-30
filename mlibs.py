@@ -120,7 +120,7 @@ def tip(userid, to, amount):
 	connection = MySQLdb.connect(
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
-	balance = libgetbalance(userid)
+	balance = libgetbalance(getuseraddress(userid))
 	cursor.execute("INSERT INTO tipqueue (id, to, amount) VALUES (%s, %s, %s)", (userid, to, amount))
 	#json = {
 	#	"type": "tip",
