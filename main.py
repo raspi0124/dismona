@@ -289,7 +289,7 @@ async def on_message(message):
 
 		if message.content.startswith("/tip"):
 			start = time.time()
-			mlibs.unlockwallet()
+
 			message2 = message.content.replace('/tip', '')
 			print (message2)
 			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
@@ -307,7 +307,7 @@ async def on_message(message):
 
 		if message.content.startswith("/admin info"):
 			start = time.time()
-			mlibs.unlockwallet()
+
 			await client.add_reaction(message, '👌')
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			m = "Verfifying.. wait a monemt"
@@ -332,7 +332,7 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 
 		if message.content.startswith('/members'):
-			mlibs.unlockwallet()
+
 
 			await client.add_reaction(message, '👌')
 			for server in client.servers:
@@ -377,7 +377,7 @@ async def on_message(message):
 					m = "Adding your text ad to DB.."
 					await client.send_message(message.channel, m)
 		if message.content.startswith('/adminregister'):
-			mlibs.unlockwallet()
+
 			await client.add_reaction(message, '👌')
 			if message.author.id == "326091178984603669":
 				message2 = message.content.replace('/adminregister', '')
@@ -396,7 +396,7 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 			sys.exit()
 		if message.content.startswith('/adminbalance'):
-			mlibs.unlockwallet()
+
 			await client.add_reaction(message, '👌')
 			if message.author.id == "326091178984603669":
 				message2 = message.content.replace('/adminbalance', '')
