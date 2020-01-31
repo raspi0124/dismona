@@ -97,10 +97,10 @@ def getusersaddress(userid):
 	cursor = connection.cursor(dictionary=True)
 	cursor.execute("SELECT address FROM accounts WHERE discordid='{}'".format(userid))
 	print(cursor.fetchall())
+	print(cursor.fetchone())
 	print("userid:" + userid)
 	address = cursor.fetchall()
 	print(address)
-	address = str(address)
 	return address
 
 def remuseraddress(userid):
