@@ -101,6 +101,7 @@ def getusersaddress(userid):
 	print("userid:" + userid)
 	address = cursor.fetchall()
 	print(address)
+	address = fixselect(address)
 	addressl = list(address)
 	print(addressl)
 	address = addressl[0]
