@@ -98,7 +98,7 @@ def getusersaddress(userid):
 	cursor.execute("SELECT address FROM accounts WHERE discordid='{}'".format(userid))
 	print(cursor.fetchall())
 	print("userid:" + userid)
-	address = cursor.fetchone()
+	address = cursor.fetchall()
 	print(address)
 	address = str(address)
 	return address
