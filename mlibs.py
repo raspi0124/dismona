@@ -100,6 +100,8 @@ def getusersaddress(userid):
 	print(cursor.fetchone())
 	print("userid:" + userid)
 	address = cursor.fetchall()
+	addressl = list(address)
+	address = addressl[0]
 	print(address)
 	return address
 
