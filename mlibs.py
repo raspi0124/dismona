@@ -115,7 +115,7 @@ def reguseraddress(userid, regaddress):
 	connection = MySQLdb.connect(
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
-	cursor.execute("INSERT INTO accounts (userid, address) VALUES (%s, %s)", (userid, regaddress,))
+	cursor.execute("INSERT INTO accounts (discordid, address) VALUES (%s, %s)", (userid, regaddress,))
 	return True
 
 def tip(userid, to, amount):
