@@ -100,6 +100,8 @@ def getusersaddress(userid):
 	print("userid:" + userid)
 	address = cursor.fetchone()
 	address = str(address)
+	connection.commit()
+	connection.close()
 	return address
 
 def remuseraddress(userid):
@@ -107,6 +109,8 @@ def remuseraddress(userid):
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
 	cursor.execute("INSERT INTO accounts (address) VALUES (%s)", ("None",))
+	connection.commit()
+	connection.close()
 	return True
 
 def reguseraddress(userid, regaddress):
@@ -115,7 +119,9 @@ def reguseraddress(userid, regaddress):
 	connection = MySQLdb.connect(
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
-	cursor.execute("INSERT INTO accounts (discordid, address) VALUES (%s, %s)", (int(userid), regaddress,))
+	cursor.execute("INSERT INTO accounts (discordid, address) VALUES (%s, %s)", (userid, regaddress,))
+	connection.commit()
+	connection.close()
 	return True
 
 def tip(userid, to, amount):
