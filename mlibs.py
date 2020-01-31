@@ -94,7 +94,7 @@ def withdraw(userid, to, amount):
 def getusersaddress(userid):
 	connection = MySQLdb.connect(
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
-	cursor = connection.cursor(dictionary=True)
+	cursor = connection.cursor()
 	cursor.execute("SELECT address FROM accounts WHERE discordid='{}'".format(userid))
 	print(cursor.fetchall())
 	print(cursor.fetchone())
