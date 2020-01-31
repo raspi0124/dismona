@@ -99,9 +99,8 @@ def getusersaddress(userid):
 	print(cursor.fetchall())
 	print("userid:" + userid)
 	address = cursor.fetchone()
+	print(address)
 	address = str(address)
-	connection.commit()
-	connection.close()
 	return address
 
 def remuseraddress(userid):
