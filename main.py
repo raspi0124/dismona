@@ -155,7 +155,7 @@ async def on_message(message):
 				address3 = mlibs.getusersaddress(userid)
 				#もしすでにアドレスが存在している場合
 				if address3 != "":
-					m = "<@" + userid + ">, This is your deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
+					m = "<@" + userid + ">, This is your registered deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
 					await client.send_message(message.channel, m)
 				#アドレスがまだ無い場合はここで作る
 				else:
