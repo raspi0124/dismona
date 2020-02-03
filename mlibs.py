@@ -96,7 +96,6 @@ def getusersaddress(userid):
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
 	cursor.execute("SELECT address FROM accounts WHERE discordid='{}'".format(userid))
-	print(cursor.fetchall())
 	print(cursor.fetchone())
 	print("userid:" + userid)
 	address = cursor.fetchall()
@@ -133,7 +132,7 @@ def tip(userid, to, amount):
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
 	balance = libgetbalance(getusersaddress(userid))
-	cursor.execute("INSERT INTO tipqueue (id, to, amount) VALUES (%s, %s, %s)", (userid, to, amount))
+	#cursor.execute("INSERT INTO tipqueue (id, to, amount) VALUES (%s, %s, %s)", (userid, to, amount))
 	#json = {
 	#	"type": "tip",
 	#	"to": "toaddress",
