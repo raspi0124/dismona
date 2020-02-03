@@ -104,7 +104,8 @@ def getusersaddress(userid):
 	addressl = list(address)
 	print(addressl)
 	address = addressl[0]
-	print(address)
+	addresslt = list(address)
+	address = address[0]
 	return address
 
 def remuseraddress(userid):
