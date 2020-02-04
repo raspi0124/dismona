@@ -132,6 +132,18 @@ async def on_message(message):
 					m = "Address " + address + " has been successfully registered. You should now be able to confirm it by executing /deposit command."
 					await client.send_message(message.channel, m)
 
+		if message.content.startswith("/adminregistaddress"):
+			if message.author.id == "326091178984603669":
+				splitedm = message.content.split(" ")
+				if splitedm[1] != "" or splitedm [1] != None:
+					reguserid = splitedm[1]
+					adddress = splitedm[2]
+					if mlibs.reguseraddress(reguserid, address):
+						m = "アドレス: " + address + " を正常に登録しました。/deposit コマンドで確認できます。"
+						await client.send_message(message.channel, m)
+						m = "Address " + address + " has been successfully registered. You should now be able to confirm it by executing /deposit command."
+						await client.send_message(message.channel, m)
+
 		if message.content.startswith("/balance"):
 			await client.add_reaction(message, '👌')
 			m = "<@" + message.author.id + "> さんの残高チェック中.."
