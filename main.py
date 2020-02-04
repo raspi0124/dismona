@@ -859,7 +859,7 @@ async def on_message(message):
 			embed = discord.Embed(title="Monage Discord Edition - Help")
 			embed.set_footer(text=" Created message at | " + currenttime + "")
 			embed.add_field(name="/help", value=" ヘルプを表示します")
-			embed.add_field(name="/register", value="あなたの財布を新しく作成します <Create your address>")
+			embed.add_field(name="/ntregistmyaddress ``<あなたのアドレス(Your registering address)>``", value="あなたのアドレスを手動で登録するコマンドです。")
 			embed.add_field(name="/deposit", value="あなたの所有しているアドレスを一覧表示します <List all address you have generated>")
 			embed.add_field(name="/withdraw ``<amount to withdraw (出金量)> <address to send(アドレス)>``", value="指定されたmonaを指定されたアドレスに送ります <Withdraw specified amount of Mona available to specified address>")
 			embed.add_field(name="/tip ``<User to send Mona(送り先ユーザー)> <amount to tip(tip量)> <Comment (optional)>``", value="指定されたmonaを指定されたユーザーに送ります <Tip specified amount of mona to specified user>")
