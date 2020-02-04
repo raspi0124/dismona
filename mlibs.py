@@ -239,6 +239,15 @@ def validateaddress(address):
 	else:
 		return False
 def generatemonageid():
+	connection = MySQLdb.connect(
+		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
+	cursor = connection.cursor()
 	uuid = str(uuid.uuid4())
 	#TODO:UUIDが衝突しないか一応チェック入れること
-	return uuid
+	cursor.execute("SELECT monageid FROM accounts")
+	res = cursor.fetchall()
+	connection.close()
+	if uuid in str(res):
+		return "REDO"
+	else:
+		return uuid
