@@ -224,6 +224,7 @@ def validateaddress(address):
 	print(cmd)
 	rut  =  subprocess.check_output( cmd.split(" ") )
 	print(rut)
+	rut = rut.decode()
 	rut = str(rut)
 	rut = rut.replace("\n", "")
 	resultjson = rut
