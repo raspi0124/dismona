@@ -223,8 +223,9 @@ def validateaddress(address):
 	cmd = "monacoin-cli validateaddress {}".format(address)
 	print(cmd)
 	rut  =  subprocess.check_output( cmd.split(" ") )
+	print(rut)
 	rut = str(rut)
-	rut = rut.replace("\n", '')
+	rut = rut.replace("\n", "")
 	resultjson = rut
 	print(resultjson)
 	resultjson = json.loads(resultjson)
