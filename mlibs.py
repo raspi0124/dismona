@@ -50,7 +50,7 @@ def libgetjpybalance(userid):
 	currentprice = str(currentprice)
 	currentprice = float(currentprice)
 
-	balance = libgetbalance(userid)
+	balance = libgetbalance(getusersaddress(userid))
 	balance = float(balance)
 	jpybalance = float(currentprice) * float(balance)
 	balance = str(balance)
@@ -63,7 +63,9 @@ def libgetbalance(address):
 	headers = {
 	'Accept': 'application/json',
 	}
-	response = requests.get('https://blockbook.electrum-mona.org/api/v2/address/' + address + '?details=basic', headers=headers)
+	requestto = 'https://blockbook.electrum-mona.org/api/v2/address/' + address + '?details=basic'
+	print(requestto)
+	response = requests.get(requestto, headers=headers)
 	print(response)
 	response = response.json()
 	print(response)
