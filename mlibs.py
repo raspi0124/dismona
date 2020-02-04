@@ -116,13 +116,16 @@ def getusersaddress(userid):
 def reguseraddress(userid, regaddress):
 	#prevuseradd = getusersaddress(userid)
 	#remuseraddress(userid)
-	connection = MySQLdb.connect(
-		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
-	cursor = connection.cursor()
-	cursor.execute("INSERT INTO accounts (discordid, address) VALUES (%s, %s)", (userid, regaddress,))
-	connection.commit()
-	connection.close()
-	return True
+	if validateaddress(regaddress):
+		connection = MySQLdb.connect(
+			host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
+		cursor = connection.cursor()
+		cursor.execute("INSERT INTO accounts (discordid, address) VALUES (%s, %s)", (userid, regaddress,))
+		connection.commit()
+		connection.close()
+		return True
+	else:
+		return False
 
 def tip(userid, to, amount):
 	connection = MySQLdb.connect(
@@ -216,3 +219,19 @@ def sqlformat_faucet(msg):
 	msg = msg.replace("]", '')
 	msg = msg.split(',')
 	msg = str(msg)
+def validateaddress(address):
+	cmd = "monacoin-cli validateaddress {}".format(address)
+	print(cmd)
+	rut  =  subprocess.check_output( cmd.split(" ") )
+	rut = str(rut)
+	rut = rut.replace("\n", '')
+	resultjson = rut
+	print(resultjson)
+	resultjson = json.loads(resultjson)
+	print(json.dumps(resultjson["isvalid"]))
+	isvalid = json.dumps(resultjson["isvalid"])
+	print(isvalid)
+	if "true" in str(isvalid):
+		return True
+	else:
+		return False

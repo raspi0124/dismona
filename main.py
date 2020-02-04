@@ -104,12 +104,12 @@ async def on_message(message):
 			logmessage = "[LAWCOMPLY]" + message.content
 			cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, logmessage, authorid, channelid, currenttime))
 			#cursor.execute("INSERT INTO tmplog (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, message, authorid, channelid, currenttime))
-
 			connection.commit()
 
 		if message.content.startswith("/register"):
 			m = "This command is no longer available. Please consider using /nregist command instead. For further more information, please take a look at https://blog.raspi0124.dev/...."
 			await client.send_message(message.channel, m)
+
 		if message.content.startswith("/nregist"):
 			m = "Welcome to brand new register command here! Please access https://gallant-jackson-e57582.netlify.com/address.html to get token."
 			splitedm = message.content.split(" ")
@@ -130,6 +130,9 @@ async def on_message(message):
 					m = "アドレス: " + address + " を正常に登録しました。/deposit コマンドで確認できます。"
 					await client.send_message(message.channel, m)
 					m = "Address " + address + " has been successfully registered. You should now be able to confirm it by executing /deposit command."
+					await client.send_message(message.channel, m)
+				else:
+					m = "False response returned. Maybe wrong type of address?"
 					await client.send_message(message.channel, m)
 
 		if message.content.startswith("/adminregistaddress"):
