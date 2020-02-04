@@ -112,18 +112,10 @@ def getusersaddress(userid):
 	address = address[-1]
 	return address
 
-def remuseraddress(userid):
-	connection = MySQLdb.connect(
-		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
-	cursor = connection.cursor()
-	cursor.execute("INSERT INTO accounts (address) VALUES (%s)", ("None",))
-	connection.commit()
-	connection.close()
-	return True
 
 def reguseraddress(userid, regaddress):
 	#prevuseradd = getusersaddress(userid)
-	remuseraddress(userid)
+	#remuseraddress(userid)
 	connection = MySQLdb.connect(
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
