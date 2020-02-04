@@ -109,7 +109,7 @@ def getusersaddress(userid):
 	print(addressl)
 	address = addressl[0]
 	addresslt = list(address)
-	address = address[0]
+	address = address[-1]
 	return address
 
 def remuseraddress(userid):
