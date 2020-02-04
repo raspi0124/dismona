@@ -174,6 +174,7 @@ def getpubkey(address):
 	cmd = "monacoin-cli validateaddress {}".format(address)
 	print(cmd)
 	rut  =  subprocess.check_output( cmd.split(" ") )
+	rut = rut.decode()
 	rut = str(rut)
 	rut = rut.replace("\n", '')
 	resultjson = rut
@@ -237,3 +238,7 @@ def validateaddress(address):
 		return True
 	else:
 		return False
+def generatemonageid():
+	uuid = str(uuid.uuid4())
+	#TODO:UUIDが衝突しないか一応チェック入れること
+	return uuid
