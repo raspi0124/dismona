@@ -230,7 +230,7 @@ def validateaddress(address):
 	resultjson = rut
 	print(resultjson)
 	resultjson = json.loads(resultjson)
-	pritn(resultjson)
+	print(resultjson)
 	isvalid = resultjson["isvalid"]
 	print(isvalid)
 	if "true" in str(isvalid):
