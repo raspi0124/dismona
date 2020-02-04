@@ -122,7 +122,7 @@ def remuseraddress(userid):
 	return True
 
 def reguseraddress(userid, regaddress):
-	prevuseradd = getusersaddress(userid)
+	#prevuseradd = getusersaddress(userid)
 	remuseraddress(userid)
 	connection = MySQLdb.connect(
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
