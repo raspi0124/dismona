@@ -137,7 +137,7 @@ async def on_message(message):
 				splitedm = message.content.split(" ")
 				if splitedm[1] != "" or splitedm [1] != None:
 					reguserid = splitedm[1]
-					adddress = splitedm[2]
+					address = splitedm[2]
 					if mlibs.reguseraddress(reguserid, address):
 						m = "アドレス: " + address + " を正常に登録しました。/deposit コマンドで確認できます。"
 						await client.send_message(message.channel, m)
