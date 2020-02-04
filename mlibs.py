@@ -233,7 +233,7 @@ def validateaddress(address):
 	print(resultjson)
 	isvalid = resultjson["isvalid"]
 	print(isvalid)
-	if "true" in str(isvalid):
+	if "True" in str(isvalid):
 		return True
 	else:
 		return False
