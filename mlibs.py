@@ -82,7 +82,7 @@ def deposit(userid):
 
 def getunconfbalance(userid):
 	#Getbalance in new version, requesting blockbook a balance.
-	address = str(address)
+	address = str(getusersaddress(userid))
 	headers = {
 	'Accept': 'application/json',
 	}

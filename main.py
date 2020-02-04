@@ -137,8 +137,8 @@ async def on_message(message):
 			m = "<@" + message.author.id + "> さんの残高チェック中.."
 		# メッセージが送られてきたチャンネルへメッセージを送ります
 			await client.send_message(message.channel, m)
-			balance = str(mlibs.libgetbalance(userid))
-			jpybalance = str(mlibs.libgetjpybalance(userid))
+			balance = str(mlibs.libgetbalance(mlibs.getusersaddress(userid)))
+			jpybalance = str(mlibs.libgetjpybalance(userid)
 			m = "<@" + message.author.id + ">, you currently have  " + balance + " mona!(" + jpybalance +  ")\n(message created on " + currenttime + ")"
 			print ("---6---")
 			await client.send_message(message.channel, m)
