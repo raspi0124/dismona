@@ -300,7 +300,7 @@ async def on_message(message):
 			tipto = tipinfo[0]
 			tipamount = tipinfo[1]
 			tip_detail = mlibs.tip(userid, tipto, tipamount)
-			m = tip_detail
+			m = "↓のリンクをクリックして送金してください!\n" + tip_detail
 			await client.send_message(message.channel, m)
 			tipto = str(tipto)
 			tipamount = float(tipamount)
