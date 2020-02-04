@@ -64,7 +64,9 @@ def libgetbalance(address):
 	'Accept': 'application/json',
 	}
 	response = requests.get('https://blockbook.electrum-mona.org/api/v2/address/' + address + '?details=basic', headers=headers)
+	print(response)
 	response = response.json()
+	print(response)
 	balance = str(response['balance'])
 	addresstomakesure = str(response['address'])
 	if addresstomakesure == address:
