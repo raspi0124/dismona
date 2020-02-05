@@ -177,6 +177,22 @@ async def on_message(message):
 					m = "<@" + userid + ">, no address registered yet.."
 					await client.send_message(message.channel, m)
 
+		if message.content.startswith("/show otheraddress"):
+			splitedm = message.content.split(" ")
+			targetuserid = splitedm[2]
+			await client.add_reaction(message, '👌')
+			# 送り主がBotだった場合反応したくないので
+			if client.user != message.author.name:
+				address3 = mlibs.getusersaddress(targetuserid)
+				#もしすでにアドレスが存在している場合
+				if address3 != "":
+					m = "<@" + userid + ">, This is his/her registered deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
+					await client.send_message(message.channel, m)
+				#アドレスがまだ無い場合はここで作る
+				else:
+					m = "<@" + userid + ">, no address registered for specified user yet.."
+					await client.send_message(message.channel, m)
+
 		if message.content.startswith("/disagreetos"):
 			#利用規約同意取り消し処理開始
 			await client.add_reaction(message, '👌')
@@ -291,9 +307,7 @@ async def on_message(message):
 				banto = baninfo[0]
 				reason = ""
 				reason = baninfo[1]
-
 				if banto not in noban:
-
 					m = "<@" + username + ">ユーザー <@" + banto + "> をDM上にて警告しました。"
 					await client.send_message(message.channel, m)
 				else:
@@ -304,7 +318,6 @@ async def on_message(message):
 
 		if message.content.startswith("/tip"):
 			start = time.time()
-
 			message2 = message.content.replace('/tip', '')
 			print (message2)
 			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
@@ -317,12 +330,9 @@ async def on_message(message):
 			tip_detail = mlibs.tip(userid, tipto, tipamount)
 			m = "↓のリンクをクリックして送金してください!\n" + tip_detail
 			await client.send_message(message.channel, m)
-			tipto = str(tipto)
-			tipamount = float(tipamount)
 
 		if message.content.startswith("/admin info"):
 			start = time.time()
-
 			await client.add_reaction(message, '👌')
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			m = "Verfifying.. wait a monemt"
