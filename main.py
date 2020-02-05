@@ -177,7 +177,7 @@ async def on_message(message):
 					m = "<@" + userid + ">, no address registered yet.."
 					await client.send_message(message.channel, m)
 
-		if message.content.startswith("/show otheraddress"):
+		if message.content.startswith("/show othersaddress"):
 			splitedm = message.content.split(" ")
 			targetuserid = splitedm[2]
 			await client.add_reaction(message, '👌')
