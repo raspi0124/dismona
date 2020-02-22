@@ -200,7 +200,7 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 			m = "<@" + userid + "> Following thing will not happen after unless you agree tos again.\n \
 			・ Loging message that starts with Monages prefix\n \
-			Dont worry, your balance is still alive after this. Like as people who got tiped but not agreed tos yet.\n \
+			Dont worry, your balance will yet remain like as people who got tiped but not agreed tos yet.\n \
 			If you want to start to use Monage again, just execute /agreetos again,read tos, than agree.\n \
 			and .. Thanks for using Monage!"
 			await client.send_message(message.channel, m)
