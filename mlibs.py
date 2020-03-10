@@ -71,6 +71,7 @@ def libgetbalance(address):
 	print(response)
 	balance = str(response['balance'])
 	addresstomakesure = str(response['address'])
+	balance = int(balance) / int("100000000‬")
 	if addresstomakesure == address:
 		return balance
 	else:
