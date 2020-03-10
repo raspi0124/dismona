@@ -9,6 +9,7 @@ from decimal import (Decimal, ROUND_DOWN)
 import urllib
 import MySQLdb
 import configparser
+import math
 
 config = configparser.ConfigParser()
 config.read('dismona.conf')
@@ -69,9 +70,10 @@ def libgetbalance(address):
 	print(response)
 	response = response.json()
 	print(response)
-	balance = str(response['balance'])
+	balance = int(response['balance'])
 	addresstomakesure = str(response['address'])
-	balance = float(int(balance) / 100000000)‬
+	balance = math.floor(balance / 100000000)
+	balance = float(balance)
 	if addresstomakesure == address:
 		return balance
 	else:
