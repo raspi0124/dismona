@@ -153,7 +153,7 @@ async def on_message(message):
 			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
 			print(re.findall(pattern, splitedm[1]))
 			tocheck = re.findall(pattern, splitedm[1])
-			res = maclib.getusersaddress(tocheck)
+			res = maclib.getusersaddress(tocheck[0])
 			m = res
 			await client.send_message(message.channel, m)
 
