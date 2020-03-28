@@ -13,6 +13,7 @@ import hashlib
 import MySQLdb
 from datetime import datetime
 import mlibs
+import maclib
 from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 import sys
@@ -86,7 +87,7 @@ async def on_message(message):
 	"tip","admin info","adminc","members","ad","adminregister","kill",\
 	"adminbalance","makemenew","image","hello","rmomikuzi","rmshootizaya",\
 	"love","restart","marryhim","credit","mp","cagreedtos","ragreedtos",\
-	"agreetos","help","shootizaya","omikuzi","omikuji"]
+	"agreetos","help","shootizaya","omikuzi","omikuji", "show"]
 
 
 	if userid in ragreedtos:
@@ -126,7 +127,7 @@ async def on_message(message):
 			splitedm = message.content.split(" ")
 			if splitedm[1] != "" or splitedm [1] != None:
 				address = splitedm[1]
-				if mlibs.reguseraddress(userid, address):
+				if maclib.reguseraddress(userid, address):
 					m = "アドレス: " + address + " を正常に登録しました。/deposit コマンドで確認できます。"
 					await client.send_message(message.channel, m)
 					m = "Address " + address + " has been successfully registered. You should now be able to confirm it by executing /deposit command."
@@ -141,18 +142,28 @@ async def on_message(message):
 				if splitedm[1] != "" or splitedm [1] != None:
 					reguserid = splitedm[1]
 					regaddress = splitedm[2]
-					if mlibs.reguseraddress(reguserid, regaddress):
+					if maclib.reguseraddress(reguserid, regaddress):
 						m = "アドレス: " + regaddress + " を " + reguserid +" に正常に登録しました。/deposit コマンドで確認できます。"
 						await client.send_message(message.channel, m)
 						m = "Address " + regaddress + " has been successfully registered. You should now be able to confirm it by executing /deposit command."
 						await client.send_message(message.channel, m)
+
+		if message.content.startswith("/checkaddress"):
+			splitedm = message.content.split(" ")
+			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
+			print(re.findall(pattern,message2))
+			tocheck = re.findall(pattern,splitedm)
+			res = maclib.getusersaddress(tocheck)
+			m = res
+			await client.send_message(message.channel, m)
+
 
 		if message.content.startswith("/balance"):
 			await client.add_reaction(message, '👌')
 			m = "<@" + message.author.id + "> さんの残高チェック中.."
 		# メッセージが送られてきたチャンネルへメッセージを送ります
 			await client.send_message(message.channel, m)
-			balance = str(mlibs.libgetbalance(mlibs.getusersaddress(userid)))
+			balance = str(mlibs.libgetbalance(maclib.getusersaddress(userid)))
 			jpybalance = str(mlibs.libgetjpybalance(userid))
 			m = "<@" + message.author.id + ">, you currently have  " + balance + " mona!(JPY " + jpybalance +  ")\n(message created on " + currenttime + ")"
 			print ("---6---")
@@ -167,7 +178,7 @@ async def on_message(message):
 			await client.add_reaction(message, '👌')
 			# 送り主がBotだった場合反応したくないので
 			if client.user != message.author.name:
-				address3 = mlibs.getusersaddress(userid)
+				address3 = maclib.getusersaddress(userid)
 				#もしすでにアドレスが存在している場合
 				if address3 != "":
 					m = "<@" + userid + ">, This is your registered deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
@@ -183,7 +194,7 @@ async def on_message(message):
 			await client.add_reaction(message, '👌')
 			# 送り主がBotだった場合反応したくないので
 			if client.user != message.author.name:
-				address3 = mlibs.getusersaddress(targetuserid)
+				address3 = maclib.getusersaddress(targetuserid)
 				#もしすでにアドレスが存在している場合
 				if address3 != "":
 					m = "<@" + userid + ">, This is his/her registered deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
@@ -402,26 +413,12 @@ async def on_message(message):
 					m = "Adding your text ad to DB.."
 					await client.send_message(message.channel, m)
 		if message.content.startswith('/adminregister'):
-
-			await client.add_reaction(message, '👌')
-			if message.author.id == "326091178984603669":
-				message2 = message.content.replace('/adminregister', '')
-				message3 = message2.replace(' ', '')
-				print(message3)
-				cmd = "monacoin-cli getnewaddress " + message3 + ""
-				rut = subprocess.check_output( cmd.split(" "))
-				address = rut.decode()
-				m = "issued account for <@" + message3 + ">. address is " + address + "."
-				await client.send_message(message.channel, m)
-			else:
-				m = "sorry, but you are not allowed to do that!"
-				await client.send_message(message.channel, m)
+			m = "This command is no longer available. Use /adminregistaddress instead."
 		if message.content == "/kill main":
 			m = "OK, killing main process.."
 			await client.send_message(message.channel, m)
 			sys.exit()
 		if message.content.startswith('/adminbalance'):
-
 			await client.add_reaction(message, '👌')
 			if message.author.id == "326091178984603669":
 				message2 = message.content.replace('/adminbalance', '')
@@ -437,7 +434,7 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 
 		if message.content == "/makemenew":
-			m = "Sure, Lets me make your account newer!"
+			m = "Sure, upgrading your account..."
 			await client.send_message(message.channel, m)
 			#accountlistは本番ではきちんとsqlからid一覧でも抜き出してやること
 			accountlist = ""
@@ -461,7 +458,7 @@ async def on_message(message):
 						#send dm here
 						#dm = "Your Monage id are: " + monageid + ""
 					if monageid in istaken:
-						m = "Error.Please contact administrater of this bot (@raspi0124) ERRCODE: m01"
+						m = "Error. Please contact administrater of this bot (@raspi0124) ERRCODE: m01"
 						await client.send_message(message.channel, m)
 
 		if message.content.startswith("/image"):

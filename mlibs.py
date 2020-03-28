@@ -10,7 +10,7 @@ import urllib
 import MySQLdb
 import configparser
 import math
-
+from maclib import *
 config = configparser.ConfigParser()
 config.read('dismona.conf')
 
@@ -99,37 +99,6 @@ def getunconfbalance(userid):
 def withdraw(userid, to, amount):
 	return "CMDNOLONGERWORKS"
 
-def getusersaddress(userid):
-	connection = MySQLdb.connect(
-		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
-	cursor = connection.cursor()
-	cursor.execute("SELECT address FROM accounts WHERE discordid='{}'".format(userid))
-	#print(cursor.fetchone())
-	print("userid:" + userid)
-	address = cursor.fetchall()
-	print(address)
-	#address = fixselect(address)
-	addressl = list(address)
-	print(addressl)
-	address = addressl[-1]
-	print(address)
-	address = address[-1]
-	return address
-
-
-def reguseraddress(userid, regaddress):
-	#prevuseradd = getusersaddress(userid)
-	#remuseraddress(userid)
-	if validateaddress(regaddress):
-		connection = MySQLdb.connect(
-			host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
-		cursor = connection.cursor()
-		cursor.execute("INSERT INTO accounts (discordid, address) VALUES (%s, %s)", (userid, regaddress,))
-		connection.commit()
-		connection.close()
-		return True
-	else:
-		return False
 
 def tip(userid, to, amount):
 	connection = MySQLdb.connect(
@@ -160,19 +129,6 @@ def fixselect(string):
 	string = str(string)
 	return string
 
-def register(userid):
-	cmd = "monacoin-cli getnewaddress " + userid + ""
-	rut  =  subprocess.check_output( cmd.split(" ") )
-	#cursor.execute("insert into dismona.id(id,address) values('message_author', address);")
-	resultaddress = rut.decode()
-	resultmore = resultaddress.replace('[', '')
-	resultmore2 = resultmore.replace(']', '')
-	resultmore3 = resultmore2.replace('"', '')
-	resultmore4 = resultmore3.replace("\n", "")
-	resultmore5 = resultmore4.replace(" ", "")
-	cursor.execute("INSERT INTO addresses (username, address) VALUES (%s, %s)", (userid, resultmore5))
-	connection.commit()
-	return resultmore5
 
 def getpubkey(address):
 	cmd = "monacoin-cli validateaddress {}".format(address)
@@ -203,16 +159,7 @@ def isurlexist(url):
 			return "0-2" #Notfound
 	else:
 		return "0" #Not URL
-def getmonageid(discordid):
-	cursor.execute("SELECT discordid FROM accounts")
-	accountDB = cursor.fetchall()
-	if discordid in accountDB:
-		cursor.execute("SELECT monageid FROM accounts WHERE discordid='{}'".format(discordid))
-		monageid = cursor.fetchall()
-		monageid = str(monageid)
-		return monageid
-	else:
-		return "ERROR"
+
 def sqlformat_faucet(msg):
 	msg = str(msg)
 	msg = msg.replace('(', '')
@@ -242,16 +189,3 @@ def validateaddress(address):
 		return True
 	else:
 		return False
-def generatemonageid():
-	connection = MySQLdb.connect(
-		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
-	cursor = connection.cursor()
-	uuid = str(uuid.uuid4())
-	#TODO:UUIDが衝突しないか一応チェック入れること
-	cursor.execute("SELECT monageid FROM accounts")
-	res = cursor.fetchall()
-	connection.close()
-	if uuid in str(res):
-		return "REDO"
-	else:
-		return uuid
