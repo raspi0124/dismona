@@ -11,6 +11,7 @@ import MySQLdb
 import configparser
 import math
 from maclib import *
+import maclib
 config = configparser.ConfigParser()
 config.read('dismona.conf')
 
@@ -51,7 +52,7 @@ def libgetjpybalance(userid):
 	currentprice = str(currentprice)
 	currentprice = float(currentprice)
 
-	balance = libgetbalance(getusersaddress(userid))
+	balance = libgetbalance(maclib.getusersaddress(userid))
 	balance = float(balance)
 	jpybalance = float(currentprice) * float(balance)
 	balance = str(balance)
@@ -82,11 +83,11 @@ def libgetbalance(address):
 
 
 def deposit(userid):
-	return getusersaddress(userid)
+	return maclib.getusersaddress(userid)
 
 def getunconfbalance(userid):
 	#Getbalance in new version, requesting blockbook a balance.
-	address = str(getusersaddress(userid))
+	address = str(maclib.getusersaddress(userid))
 	headers = {
 	'Accept': 'application/json',
 	}
@@ -104,8 +105,8 @@ def tip(userid, to, amount):
 	connection = MySQLdb.connect(
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
-	balance = libgetbalance(getusersaddress(userid))
-	toaddress = getusersaddress(to)
+	balance = libgetbalance(maclib.getusersaddress(userid))
+	toaddress = maclib.getusersaddress(to)
 	#cursor.execute("INSERT INTO tipqueue (id, to, amount) VALUES (%s, %s, %s)", (userid, to, amount))
 	#json = {
 	#	"type": "tip",
@@ -171,7 +172,7 @@ def sqlformat_faucet(msg):
 	msg = msg.replace("]", '')
 	msg = msg.split(',')
 	msg = str(msg)
-	
+
 def validateaddress(address):
 	cmd = "monacoin-cli validateaddress {}".format(address)
 	print(cmd)

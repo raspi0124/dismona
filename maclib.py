@@ -10,8 +10,7 @@ import urllib
 import MySQLdb
 import configparser
 import math
-from mlibs import *
-from mlibs import validateaddress
+import mlibs
 config = configparser.ConfigParser()
 config.read('dismona.conf')
 
@@ -45,7 +44,7 @@ def getusersaddress(userid):
 def reguseraddress(userid, regaddress):
 	#prevuseradd = getusersaddress(userid)
 	#remuseraddress(userid)
-	if validateaddress(regaddress):
+	if mlibs.validateaddress(regaddress):
 		connection = MySQLdb.connect(
 			host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 		cursor = connection.cursor()
