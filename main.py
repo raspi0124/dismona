@@ -151,8 +151,8 @@ async def on_message(message):
 		if message.content.startswith("/checkaddress"):
 			splitedm = message.content.split(" ")
 			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
-			print(re.findall(pattern,splitedm))
-			tocheck = re.findall(pattern,splitedm)
+			print(re.findall(pattern, splitedm[1]))
+			tocheck = re.findall(pattern, splitedm[1])
 			res = maclib.getusersaddress(tocheck)
 			m = res
 			await client.send_message(message.channel, m)
