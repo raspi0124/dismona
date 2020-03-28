@@ -171,6 +171,7 @@ def sqlformat_faucet(msg):
 	msg = msg.replace("]", '')
 	msg = msg.split(',')
 	msg = str(msg)
+	
 def validateaddress(address):
 	cmd = "monacoin-cli validateaddress {}".format(address)
 	print(cmd)
