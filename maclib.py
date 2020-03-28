@@ -11,6 +11,7 @@ import MySQLdb
 import configparser
 import math
 from mlibs import *
+from mlibs import validateaddress
 config = configparser.ConfigParser()
 config.read('dismona.conf')
 
