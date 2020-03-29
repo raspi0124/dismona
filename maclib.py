@@ -11,6 +11,7 @@ import MySQLdb
 import configparser
 import math
 import mlibs
+import uuid
 config = configparser.ConfigParser()
 config.read('dismona.conf')
 
