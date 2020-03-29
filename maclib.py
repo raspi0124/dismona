@@ -48,16 +48,18 @@ def reguseraddress(userid, regaddress):
 	#prevuseradd = getusersaddress(userid)
 	#remuseraddress(userid)
 	if mlibs.validateaddress(regaddress):
-		if getusersaddress(userid) != "NF":
+		if getusersaddress(userid) == "NF":
 			connection = MySQLdb.connect(
 				host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 			cursor = connection.cursor()
 			cursor.execute("INSERT INTO accounts (discordid, address) VALUES (%s, %s)", (userid, regaddress,))
 			connection.commit()
 			connection.close()
+			print("INSERTING TO DATABASE SUCCEEDED.")
 			updatemonageid(userid)
 			return True
 		else:
+			print("Wasn't NF")
 			return False
 	else:
 		return False
