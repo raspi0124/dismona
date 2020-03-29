@@ -649,7 +649,7 @@ async def on_message(message):
 			embed.add_field(name="MGQ", value=" - アドバイス、クローズドアルファにおけるテスト")
 			embed.add_field(name="だれかさん", value=" - 新バージョンのテスト・アドバイス")
 			embed.add_field(name="Geri", value=" - 新バージョンのテスト・アドバイス")
-			embed.add_field(name="その他、Discordサーバー「MGQclub」のみなさん", value=" - テスト全般")
+			embed.add_field(name="その他、Discordサーバー「MGQclub」、「Monacoin」、そして「Monageと遊ぶ鯖」のみなさん", value=" - テスト全般")
 			embed.add_field(name="W.S Wsans", value=" - Discord.pyについてのアドバイス")
 			embed.add_field(name="ぱい", value=" - Discord.pyについてのアドバイス")
 			embed.add_field(name="両親", value=" - 匿名にしておきます")
