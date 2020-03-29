@@ -51,6 +51,7 @@ def reguseraddress(userid, regaddress):
 		cursor.execute("INSERT INTO accounts (discordid, address) VALUES (%s, %s)", (userid, regaddress,))
 		connection.commit()
 		connection.close()
+		createmonageid(userid)
 		return True
 	else:
 		return False
@@ -88,3 +89,4 @@ def createmonageid(discordid):
 	if "REDO" not in monageid:
 		cursor.execute("INSERT INTO accounts (monageid) VALUES ('{0}') WHERE discordid='{1}'".format(monageid, userid))
 		connection.commit()
+		connection.close()
