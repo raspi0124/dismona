@@ -92,7 +92,7 @@ async def on_message(message):
 
 	if userid in ragreedtos:
 		# 全件取得は cursor.fetchall()
-		# 「/register」で始まるか調べる
+		# 「/nregister」で始まるか調べる
 		if message.content.startswith("/"):
 			#各種ログを投入。
 			towrite = "" + message.author.name + " said " + messagesql + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + "\n"
@@ -107,10 +107,6 @@ async def on_message(message):
 			#cursor.execute("INSERT INTO tmplog (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, message, authorid, channelid, currenttime))
 			connection.commit()
 
-		if message.content.startswith("/register"):
-			m = "This command is no longer available. Please consider using /nregist command instead. For further more information, please take a look at https://blog.raspi0124.dev/...."
-			await client.send_message(message.channel, m)
-
 		if message.content.startswith("/nregist"):
 			m = "Welcome to brand new register command here! Please access https://gallant-jackson-e57582.netlify.com/address.html to get token."
 			splitedm = message.content.split(" ")
@@ -118,12 +114,12 @@ async def on_message(message):
 				hashedaddress = splitedm[1]
 
 		if message.content.startswith("/nregistmyaddress"):
-			m = "NOTICE: THIS COMMAND IS ONLY AVAILABLE TO THE USERS WHO ARE NOT ABLE TO USE MPurse and decided to use own wallet. We highly recommend you to use /nregist command instead. Continue? Type /ntregistmyaddress."
+			m = "NOTICE: THIS COMMAND IS ONLY AVAILABLE TO THE USERS WHO ARE NOT ABLE TO USE MPurse and decided to use own wallet. We highly recommend you to use /nregist command instead. Continue? Type /nregister."
 			await client.send_message(message.channel, m)
-			m = "注意: このコマンドはあくまでMPurseが全く使えない方のために用意したコマンドです。運営としましてはもしMPurseが使えるようでしたら /nregist コマンドを使用されることを強くお勧めしております。もし続けたい場合は /ntregistmyaddress と打ってください。"
+			m = "注意: このコマンドはあくまでMPurseが全く使えない方のために用意したコマンドです。運営としましてはもしMPurseが使えるようでしたら /nregist コマンドを使用されることを強くお勧めしております。もし続けたい場合は /nregister と打ってください。"
 			await client.send_message(message.channel, m)
 
-		if message.content.startswith("/ntregistmyaddress"):
+		if message.content.startswith("/nregister"):
 			splitedm = message.content.split(" ")
 			if splitedm[1] != "" or splitedm [1] != None:
 				address = splitedm[1]
@@ -133,7 +129,7 @@ async def on_message(message):
 					m = "Address " + address + " has been successfully registered. You should now be able to confirm it by executing /deposit command."
 					await client.send_message(message.channel, m)
 				else:
-					m = "False response returned. Maybe wrong type of address?"
+					m = "False response returned. Maybe wrong type of address or already registered?"
 					await client.send_message(message.channel, m)
 
 		if message.content.startswith("/adminregistaddress"):
@@ -146,6 +142,9 @@ async def on_message(message):
 						m = "アドレス: " + regaddress + " を " + reguserid +" に正常に登録しました。/deposit コマンドで確認できます。"
 						await client.send_message(message.channel, m)
 						m = "Address " + regaddress + " has been successfully registered. You should now be able to confirm it by executing /deposit command."
+						await client.send_message(message.channel, m)
+					else:
+						m = "False response returned. Maybe wrong type of address or already registered?"
 						await client.send_message(message.channel, m)
 
 		if message.content.startswith("/checkaddress"):
@@ -869,7 +868,7 @@ async def on_message(message):
 			embed = discord.Embed(title="Monage Discord Edition - Help")
 			embed.set_footer(text=" Created message at | " + currenttime + "")
 			embed.add_field(name="/help", value=" ヘルプを表示します")
-			embed.add_field(name="/ntregistmyaddress ``<あなたのアドレス(Your registering address)>``", value="あなたのアドレスを手動で登録するコマンドです。")
+			embed.add_field(name="/nregister ``<あなたのアドレス(Your registering address)>``", value="あなたのアドレスを手動で登録するコマンドです。")
 			embed.add_field(name="/deposit", value="あなたの所有しているアドレスを一覧表示します <List all address you have generated>")
 			embed.add_field(name="/withdraw ``<amount to withdraw (出金量)> <address to send(アドレス)>``", value="指定されたmonaを指定されたアドレスに送ります <Withdraw specified amount of Mona available to specified address>")
 			embed.add_field(name="/tip ``<User to send Mona(送り先ユーザー)> <amount to tip(tip量)> <Comment (optional)>``", value="指定されたmonaを指定されたユーザーに送ります <Tip specified amount of mona to specified user>")

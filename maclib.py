@@ -48,14 +48,17 @@ def reguseraddress(userid, regaddress):
 	#prevuseradd = getusersaddress(userid)
 	#remuseraddress(userid)
 	if mlibs.validateaddress(regaddress):
-		connection = MySQLdb.connect(
-			host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
-		cursor = connection.cursor()
-		cursor.execute("INSERT INTO accounts (discordid, address) VALUES (%s, %s)", (userid, regaddress,))
-		connection.commit()
-		connection.close()
-		createmonageid(userid)
-		return True
+		if getusersaddress(userid) != "NF":
+			connection = MySQLdb.connect(
+				host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
+			cursor = connection.cursor()
+			cursor.execute("INSERT INTO accounts (discordid, address) VALUES (%s, %s)", (userid, regaddress,))
+			connection.commit()
+			connection.close()
+			updatemonageid(userid)
+			return True
+		else:
+			return False
 	else:
 		return False
 
@@ -91,5 +94,15 @@ def createmonageid(discordid):
 	cursor = connection.cursor()
 	if "REDO" not in monageid:
 		cursor.execute("INSERT INTO accounts (monageid) VALUES ('{0}') WHERE discordid='{1}'".format(monageid, userid))
+		connection.commit()
+		connection.close()
+
+def updatemonageid(discordid):
+	monageid = generatemonageid()
+	connection = MySQLdb.connect(
+		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
+	cursor = connection.cursor()
+	if "REDO" not in monageid:
+		cursor.execute("UPDATE accounts SET monageid = '{0}' WHERE discordid = '{1}'".format(monageid, userid))
 		connection.commit()
 		connection.close()
