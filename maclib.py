@@ -36,10 +36,13 @@ def getusersaddress(userid):
 	#address = fixselect(address)
 	addressl = list(address)
 	print(addressl)
-	address = addressl[-1]
-	print(address)
-	address = address[-1]
-	return address
+	try:
+		address = addressl[-1]
+		print(address)
+		address = address[-1]
+		return address
+	except:
+		return "NF"
 
 def reguseraddress(userid, regaddress):
 	#prevuseradd = getusersaddress(userid)
