@@ -81,6 +81,7 @@ def generatemonageid():
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
 	useruuid = str(uuid.uuid4())
+	useruuid.replace("-", "") #ハイフン削除
 	#TODO:UUIDが衝突しないか一応チェック入れること
 	cursor.execute("SELECT monageid FROM accounts")
 	res = cursor.fetchall()
