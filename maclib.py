@@ -106,6 +106,6 @@ def updatemonageid(discordid):
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
 	if "REDO" not in monageid:
-		cursor.execute("UPDATE accounts SET monageid = '{0}' WHERE discordid = '{1}'".format(monageid, userid))
+		cursor.execute("UPDATE accounts SET monageid = '{0}' WHERE discordid = '{1}'".format(monageid, discordid))
 		connection.commit()
 		connection.close()
