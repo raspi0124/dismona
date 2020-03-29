@@ -79,15 +79,15 @@ def generatemonageid():
 	connection = MySQLdb.connect(
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
-	uuid = str(uuid.uuid4())
+	useruuid = str(uuid.uuid4())
 	#TODO:UUIDが衝突しないか一応チェック入れること
 	cursor.execute("SELECT monageid FROM accounts")
 	res = cursor.fetchall()
 	connection.close()
-	if uuid in str(res):
+	if useruuid in str(res):
 		return "REDO"
 	else:
-		return uuid
+		return useruuid
 
 def createmonageid(discordid):
 	monageid = generatemonageid()
