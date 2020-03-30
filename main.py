@@ -167,7 +167,7 @@ async def on_message(message):
 
 		if message.content.startswith("/mymonageid"):
 			result = maclib.getmonageid(userid)
-			m = "あなたのMonage IDは " + result + " です!"
+			m = "あなたのMonage IDは" + result + "です!"
 			await client.send_message(message.channel, m)
 
 
