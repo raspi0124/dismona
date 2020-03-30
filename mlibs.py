@@ -126,7 +126,10 @@ def fixselect(string):
 	string = string.replace(",,", ',')
 	string = string.replace("[", '')
 	string = string.replace("]", '')
-	string = string.split(',')
+	string = string.replace("['", "")
+	string = string.replace("'" "")
+	string = string.replace("', '']", "")
+	#string = string.split(',')
 	string = str(string)
 	return string
 
