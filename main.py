@@ -137,8 +137,10 @@ async def on_message(message):
 			address = splitedm[1]
 			if maclib.updateuseraddress(userid, address):
 				m = "Successfully updated your address to " + address + "."
+				await client.send_message(message.channel, m)
 			else:
 				m = "False response returned. Maybe wrong type of address or not yet registered? Remember, you need to execute /nregister command in order to start using Monage."
+				await client.send_message(message.channel, m)
 		if message.content.startswith("/adminregistaddress"):
 			if message.author.id == "326091178984603669":
 				splitedm = message.content.split(" ")

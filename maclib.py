@@ -64,6 +64,7 @@ def reguseraddress(discordid, regaddress):
 			return False
 	else:
 		return False
+
 def updateuseraddress(discordid, newaddress):
 	if mlibs.validateaddress(newaddress):
 		if getusersaddress(discordid) != "NF":
