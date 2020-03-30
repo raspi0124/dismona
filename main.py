@@ -129,9 +129,16 @@ async def on_message(message):
 					m = "Address " + address + " has been successfully registered. You should now be able to confirm it by executing /deposit command."
 					await client.send_message(message.channel, m)
 				else:
-					m = "False response returned. Maybe wrong type of address or already registered?"
+					m = "False response returned. Maybe wrong type of address or already registered?\n If you have already registered, please use /updatemyaddress command instead to update your address."
 					await client.send_message(message.channel, m)
 
+		if message.content.startswith("/updatemyaddress"):
+			splitedm = message.content.split(" ")
+			address = splitedm[1]
+			if updateuseraddress(userid, address):
+				m = "Successfully updated your address to " + address + "."
+			else:
+				m = "False response returned. Maybe wrong type of address or not yet registered? Remember, you need to execute /nregister command in order to start using Monage."
 		if message.content.startswith("/adminregistaddress"):
 			if message.author.id == "326091178984603669":
 				splitedm = message.content.split(" ")
@@ -849,6 +856,7 @@ async def on_message(message):
 			embed.set_footer(text=" Created message at | " + currenttime + "")
 			embed.add_field(name="/help", value=" ヘルプを表示します")
 			embed.add_field(name="/nregister ``<あなたのアドレス(Your registering address)>``", value="あなたのアドレスを手動で登録するコマンドです。")
+			embed.add_field(name="/updatemyaddress ``<新しいアドレス(Your new address to update)", value="あなたの登録されているアドレスを変更します。")
 			embed.add_field(name="/mymonageid", value="あなたのMonage IDを表示します。")
 			embed.add_field(name="/deposit", value="あなたの所有しているアドレスを一覧表示します <List all address you have generated>")
 			embed.add_field(name="/withdraw ``<amount to withdraw (出金量)> <address to send(アドレス)>``", value="指定されたmonaを指定されたアドレスに送ります <Withdraw specified amount of Mona available to specified address>")

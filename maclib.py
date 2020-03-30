@@ -64,6 +64,22 @@ def reguseraddress(userid, regaddress):
 			return False
 	else:
 		return False
+def updateuseraddress(discordid, newaddress):
+	if mlibs.validateaddress(newaddress):
+		if getusersaddress(userid) != "NF":
+			connection = MySQLdb.connect(
+				host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
+			cursor = connection.cursor()
+			cursor.execute("UPDATE accounts SET address = '{0}' WHERE discordid = '{1}'".format(newaddress, discordid))
+			connection.commit()
+			connection.close()
+			print("INSERTING TO DATABASE SUCCEEDED.")
+			return True
+		else:
+			print("Was NF")
+			return False
+	else:
+		return False
 
 def getmonageid(discordid):
 	if getusersaddress(discordid) != "NF":
