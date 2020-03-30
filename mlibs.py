@@ -106,6 +106,7 @@ def tip(userid, to, amount):
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
 	balance = libgetbalance(maclib.getusersaddress(userid))
+	frommonageid = maclib.getmonageid(userid)
 	toaddress = maclib.getusersaddress(to)
 	#cursor.execute("INSERT INTO tipqueue (id, to, amount) VALUES (%s, %s, %s)", (userid, to, amount))
 	#json = {
@@ -115,7 +116,7 @@ def tip(userid, to, amount):
 	#	"id": "00000000"
 	#}
 	#TODO:ってか下のやつゆくゆくはtoをMonage IDにしてクライアント側でアドレス照合したいなー
-	return "https://mpursetest2.raspi0124.dev/send.html?sendto=" + toaddress + "&amount=" + amount + "&memo=from_" + userid
+	return "https://mpursetest2.raspi0124.dev/send.html?sendto=" + toaddress + "&amount=" + amount + "&memo=from_" + frommonageid
 
 def fixselect(string):
 	string = str(string)
