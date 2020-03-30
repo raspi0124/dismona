@@ -156,6 +156,11 @@ async def on_message(message):
 			m = res
 			await client.send_message(message.channel, m)
 
+		if message.content.startswith("/mymonageid"):
+			result = maclib.getmonageid(userid)
+			m = "あなたのMonage IDは " + result + " です!"
+			await client.send_message(message.channel, m)
+
 
 		if message.content.startswith("/balance"):
 			await client.add_reaction(message, '👌')
@@ -432,33 +437,6 @@ async def on_message(message):
 				m = "sorry, but you are not arrowed to do that!"
 				await client.send_message(message.channel, m)
 
-		if message.content == "/makemenew":
-			m = "Sure, upgrading your account..."
-			await client.send_message(message.channel, m)
-			#accountlistは本番ではきちんとsqlからid一覧でも抜き出してやること
-			accountlist = ""
-			if userid not in accountlist:
-				#address = elib.createaddress("monageid")
-				cursor.execute("INSERT INTO accounts (discordid) VALUES (userid)")
-				connection.commit()
-				cursor.execute("SELECT monageid FROM accounts WHERE discordid='{}'".format(userid))
-				isavailable = cursor.fetchall()
-				cursor.execute("SELECT monageid FROM accounts")
-				istaken = cursor.fetchall()
-				if isavailable is None or isavailable == "":
-					monageid_seed = ""
-					#if monageid is not given to discord user, generate hash for userid on discord
-					monageid = hashlib.md5(monageid_seed.encode('utf-8')).hexdigest()
-					if monageid not in istaken:
-						cursor.execute("INSERT INTO accounts (monageid) VALUES (monageid) WHERE discordid='{}'".format(userid))
-						connection.commit()
-						m = "Added your Monage ID to DB! Your monageid will be sent to DM shortly!"
-						await client.send_message(message.channel, m)
-						#send dm here
-						#dm = "Your Monage id are: " + monageid + ""
-					if monageid in istaken:
-						m = "Error. Please contact administrater of this bot (@raspi0124) ERRCODE: m01"
-						await client.send_message(message.channel, m)
 
 		if message.content.startswith("/image"):
 			await client.add_reaction(message, '👌')
@@ -871,6 +849,7 @@ async def on_message(message):
 			embed.set_footer(text=" Created message at | " + currenttime + "")
 			embed.add_field(name="/help", value=" ヘルプを表示します")
 			embed.add_field(name="/nregister ``<あなたのアドレス(Your registering address)>``", value="あなたのアドレスを手動で登録するコマンドです。")
+			embed.add_field(name="/mymonageid", value="あなたのMonage IDを表示します。")
 			embed.add_field(name="/deposit", value="あなたの所有しているアドレスを一覧表示します <List all address you have generated>")
 			embed.add_field(name="/withdraw ``<amount to withdraw (出金量)> <address to send(アドレス)>``", value="指定されたmonaを指定されたアドレスに送ります <Withdraw specified amount of Mona available to specified address>")
 			embed.add_field(name="/tip ``<User to send Mona(送り先ユーザー)> <amount to tip(tip量)> <Comment (optional)>``", value="指定されたmonaを指定されたユーザーに送ります <Tip specified amount of mona to specified user>")
