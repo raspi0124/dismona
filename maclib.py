@@ -66,7 +66,7 @@ def reguseraddress(userid, regaddress):
 		return False
 
 def getmonageid(discordid):
-	if getusersaddress(userid) != "NF":
+	if getusersaddress(discordid) != "NF":
 		cursor.execute("SELECT monageid FROM accounts WHERE discordid='{}'".format(discordid))
 		monageid = cursor.fetchall()
 		monageid = str(monageid)
