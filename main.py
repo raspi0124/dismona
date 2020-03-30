@@ -135,7 +135,7 @@ async def on_message(message):
 		if message.content.startswith("/updatemyaddress"):
 			splitedm = message.content.split(" ")
 			address = splitedm[1]
-			if updateuseraddress(userid, address):
+			if maclib.updateuseraddress(userid, address):
 				m = "Successfully updated your address to " + address + "."
 			else:
 				m = "False response returned. Maybe wrong type of address or not yet registered? Remember, you need to execute /nregister command in order to start using Monage."
