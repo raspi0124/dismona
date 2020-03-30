@@ -70,6 +70,7 @@ def getmonageid(discordid):
 		cursor.execute("SELECT monageid FROM accounts WHERE discordid='{}'".format(discordid))
 		monageid = cursor.fetchall()
 		monageid = str(monageid[0])
+		monageid = str(mlibs.fixselect(monageid))
 		return monageid
 	else:
 		return "ERROR"
