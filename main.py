@@ -850,6 +850,12 @@ async def on_message(message):
 			connection.commit()
 			m = "<@" + userid + "> 利用規約への同意を確認しました。"
 			await client.send_message(message.channel, m)
+			if maclib.createmonageid(userid):
+				monageid = maclib.getmonageid(userid)
+				m = "<@" + userid + "> さんのMonage IDを生成しました! あなたのMonage IDは" + monageid + "です!\n/nregisterコマンドでアドレスを登録しましょう!"
+			else:
+				m = "MonageIDの生成過程でREDOエラーが起きました。。管理者にメンションします。<@raspi0124>"
+			await client.send_message(message.channel, m)
 			await client.delete_message(message)
 		if message.content == "/agreetos":
 			m = "利用規約はきちんと読みましたか？もう一度確認してみましょう。→　https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt\n Please read tos and try again. Tos can be found at → https://github.com/raspi0124/monage-term/blob/master/terms-en.txt"
