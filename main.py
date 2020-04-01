@@ -167,7 +167,10 @@ async def on_message(message):
 
 		if message.content.startswith("/mymonageid"):
 			result = maclib.getmonageid(userid)
-			m = "あなたのMonage IDは" + result + "です!"
+			if "ERRROR" in result:
+				m = "まずアドレスを登録してください!"
+			else:
+				m = "あなたのMonage IDは" + result + "です!"
 			await client.send_message(message.channel, m)
 
 
@@ -193,7 +196,7 @@ async def on_message(message):
 			if client.user != message.author.name:
 				address3 = maclib.getusersaddress(userid)
 				#もしすでにアドレスが存在している場合
-				if address3 != "":
+				if address3 != "NF":
 					m = "<@" + userid + ">, This is your registered deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
 					await client.send_message(message.channel, m)
 				#アドレスがまだ無い場合はここで作る
