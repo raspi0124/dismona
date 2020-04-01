@@ -181,7 +181,6 @@ async def on_message(message):
 				m = "あなたのMonage IDは" + result + "です!"
 			await client.send_message(message.channel, m)
 
-
 		if message.content.startswith("/balance"):
 			await client.add_reaction(message, '👌')
 			m = "<@" + message.author.id + "> さんの残高チェック中.."

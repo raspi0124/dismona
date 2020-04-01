@@ -56,7 +56,6 @@ def reguseraddress(discordid, regaddress):
 			cursor = connection.cursor()
 			cursor.execute("INSERT INTO accounts (discordid, address) VALUES (%s, %s)", (discordid, regaddress,))
 			connection.commit()
-			connection.close()
 			print("INSERTING TO DATABASE SUCCEEDED.")
 			updatemonageid(discordid)
 			return True
@@ -74,7 +73,6 @@ def updateuseraddress(discordid, newaddress):
 			cursor = connection.cursor()
 			cursor.execute("UPDATE accounts SET address = '{0}' WHERE discordid = '{1}'".format(newaddress, discordid))
 			connection.commit()
-			connection.close()
 			print("INSERTING TO DATABASE SUCCEEDED.")
 			return True
 		else:
@@ -120,7 +118,6 @@ def createmonageid(discordid):
 		print("INSERT INTO accounts (monageid, discordid) VALUES ('{0}', '{1}')".format(monageid, discordid))
 		cursor.execute("INSERT INTO accounts (monageid, discordid) VALUES ('{0}', '{1}')".format(monageid, discordid))
 		connection.commit()
-		connection.close()
 		return True
 	else:
 		return False
@@ -133,4 +130,3 @@ def updatemonageid(discordid):
 	if "REDO" not in monageid:
 		cursor.execute("UPDATE accounts SET monageid = '{0}' WHERE discordid = '{1}'".format(monageid, discordid))
 		connection.commit()
-		connection.close()
