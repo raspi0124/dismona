@@ -146,7 +146,7 @@ async def on_message(message):
 			if message.author.id == "326091178984603669":
 				splitedm = message.content.split(" ")
 				userid = splitedm[1]
-				res = getmonageid(userid)
+				res = maclib.getmonageid(userid)
 				m = res
 				await client.send_message(message.channel, m)
 		if message.content.startswith("/adminregistaddress"):
