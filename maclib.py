@@ -113,6 +113,7 @@ def createmonageid(discordid):
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
 	if "REDO" not in monageid:
+		print("INSERT INTO accounts (monageid, discordid) VALUES ('{0}', '{1}')".format(monageid, discordid))
 		cursor.execute("INSERT INTO accounts (monageid, discordid) VALUES ('{0}', '{1}')".format(monageid, discordid))
 		connection.commit()
 		connection.close()
