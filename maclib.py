@@ -116,6 +116,9 @@ def createmonageid(discordid):
 		cursor.execute("INSERT INTO accounts (monageid) VALUES ('{0}') WHERE discordid='{1}'".format(monageid, userid))
 		connection.commit()
 		connection.close()
+		return True
+	else:
+		return False
 
 def updatemonageid(discordid):
 	monageid = generatemonageid()
