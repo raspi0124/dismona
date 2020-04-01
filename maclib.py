@@ -87,7 +87,7 @@ def getmonageid(discordid):
 	if getusersaddress(discordid) != "NF":
 		print("Wasn't NF")
 		cursor.execute("SELECT monageid FROM accounts WHERE discordid='{}'".format(discordid))
-		print("SELECT monageid FROM accounts WHERE discordid='{}'".format(discordid)))
+		print("SELECT monageid FROM accounts WHERE discordid='{}'".format(discordid))
 		monageid = cursor.fetchall()
 		print(monageid)
 		monageid = str(monageid[0])
