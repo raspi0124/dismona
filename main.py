@@ -131,6 +131,7 @@ async def on_message(message):
 				else:
 					m = "False response returned. Maybe wrong type of address or already registered?\n If you have already registered, please use /updatemyaddress command instead to update your address."
 					await client.send_message(message.channel, m)
+					m = "無効なレスポンスが返ってきました。アドレスが間違っているかすでに登録済みではないですか? /updatemyaddress を代わりに使ってみるといいかもしれません。"
 
 		if message.content.startswith("/updatemyaddress"):
 			splitedm = message.content.split(" ")

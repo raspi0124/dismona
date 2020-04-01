@@ -49,7 +49,8 @@ def reguseraddress(discordid, regaddress):
 	#prevuseradd = getusersaddress(discordid)
 	#remuseraddress(discordid)
 	if mlibs.validateaddress(regaddress):
-		if getusersaddress(discordid) == "NF":
+		res = getusersaddress(discordid)
+		if res == "NF" or res == "null" or res == "None":
 			connection = MySQLdb.connect(
 				host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 			cursor = connection.cursor()
