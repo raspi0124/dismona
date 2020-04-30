@@ -97,13 +97,13 @@ def getunconfbalance(userid):
 def withdraw(userid, to, amount):
 	unlockwallet()
 	balancea = libgetbalance(userid)
-	fee = "0.005"
+	fee = "0.000001"
 	reamount = float(amount) - float(fee)
 	reamount = round_down5(reamount)
 	reamount = str(reamount)
-	minbalance = "0.01"
+	minbalance = "0.00001"
 	minbalance = float(minbalance)
-	minamount = "0.01"
+	minamount = "0.00001"
 	minamount = float(minamount)
 	balancea = float(balancea)
 	amount = float(amount)
