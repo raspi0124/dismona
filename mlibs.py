@@ -100,6 +100,42 @@ def getunconfbalance(userid):
 def withdraw(userid, to, amount):
 	return "CMDNOLONGERWORKS"
 
+def withdraw_old(userid, to, amount):
+	unlockwallet()
+	balancea = libgetbalance(userid)
+	fee = "0.000001"
+	reamount = float(amount) - float(fee)
+	reamount = round_down5(reamount)
+	reamount = str(reamount)
+	minbalance = "0.00001"
+	minbalance = float(minbalance)
+	minamount = "0.00001"
+	minamount = float(minamount)
+	balancea = float(balancea)
+	amount = float(amount)
+	if amount >= minamount:
+		if amount <= balancea:
+			cmd = "monacoin-cli sendfrom {0} {1} {2}".format(userid, to, reamount)
+			rut  =  subprocess.check_output( cmd.split(" ") )
+			cmd = "monacoin-cli move {0} fee {1}".format(userid, fee)
+			subprocess.check_output( cmd.split(" ") )
+			rut = rut.decode()
+			m = rut
+			balancea = libgetbalance(userid)
+			if balancea <= "0":
+				defo = "0"
+				amounttosendback = float(defo) - float(balancea)
+				amounttosendback = str(amounttosendback)
+				cmd = "monacoin-cli move fee {0} {1}".format(userid, amounttosendback)
+				subprocess.check_output( cmd.split(" ") )
+
+		else:
+			#m = "<@" + userid + ">sorry, failed to complete your request: you do not have any mona at all!(message created on " + currenttime + ")"
+			m = "500"
+	else:
+		#m = "<@" + userid + "> sorry, failed to complete your request: you do not have enogh mona for withdraw. \n please note that the minimum withdraw amount is 0.01mona.(message created on " + currenttime + ")"
+		m = "500"
+	return m
 
 def tip(userid, to, amount):
 	connection = MySQLdb.connect(

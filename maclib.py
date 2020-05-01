@@ -38,9 +38,9 @@ def getusersaddress(userid):
 	addressl = list(address)
 	print(addressl)
 	try:
-		address = addressl[-1]
+		address = addressl[0]
 		print(address)
-		address = address[-1]
+		address = address[0]
 		return address
 	except:
 		return "NF"
