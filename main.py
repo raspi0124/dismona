@@ -353,11 +353,12 @@ async def on_message(message):
 			pattern=r'([+-]?[0-9]+\.?[0-9]*)'
 			print(re.findall(pattern,message2))
 			tipinfo = re.findall(pattern,message2)
+			print("TIPINFO", tipinfo)
 			print(tipinfo[0])
 			print(tipinfo[1])
 			tipto = tipinfo[0]
 			tipamount = tipinfo[1]
-			tip_detail = mlibs.tip(userid, tipto, tipamount)
+			tip_detail = mlibs.tip(str(userid), str(tipto), tipamount)
 			m = "↓のリンクをクリックして送金してください!\n" + tip_detail
 			await client.send_message(message.channel, m)
 

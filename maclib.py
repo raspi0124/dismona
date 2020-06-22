@@ -26,6 +26,7 @@ connection = MySQLdb.connect(
 cursor = connection.cursor()
 
 def getusersaddress(userid):
+	print("GETUSERSADDRESS")
 	connection = MySQLdb.connect(
 		host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 	cursor = connection.cursor()
