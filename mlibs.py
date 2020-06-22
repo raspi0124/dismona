@@ -144,6 +144,10 @@ def tip(userid, to, amount):
 	balance = libgetbalance(maclib.getusersaddress(userid))
 	frommonageid = maclib.getmonageid(userid)
 	toaddress = maclib.getusersaddress(to)
+	if toaddress != "NF":
+		return "https://mpursetest2.raspi0124.dev/send.html?sendto=" + toaddress + "&amount=" + amount + "&memo=from_" + frommonageid
+	else:
+		return "Tip先のユーザーは現在アドレスが登録されていないようです。/checkaddress @ユーザー名 でそのユーザーがアドレスを登録されているかお確かめください。"
 	#cursor.execute("INSERT INTO tipqueue (id, to, amount) VALUES (%s, %s, %s)", (userid, to, amount))
 	#json = {
 	#	"type": "tip",
@@ -152,7 +156,6 @@ def tip(userid, to, amount):
 	#	"id": "00000000"
 	#}
 	#TODO:ってか下のやつゆくゆくはtoをMonage IDにしてクライアント側でアドレス照合したいなー
-	return "https://mpursetest2.raspi0124.dev/send.html?sendto=" + toaddress + "&amount=" + amount + "&memo=from_" + frommonageid
 
 def fixselect(string):
 	string = str(string)
