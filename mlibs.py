@@ -145,6 +145,7 @@ def tip(userid, to, amount):
 	frommonageid = maclib.getmonageid(userid)
 	toaddress = maclib.getusersaddress(to)
 	print("TIPDEBUG", toaddress)
+	connection.close()
 	if toaddress != "NF":
 		return "https://mpursetest2.raspi0124.dev/send.html?sendto=" + toaddress + "&amount=" + amount + "&memo=from_" + frommonageid
 	else:
