@@ -88,6 +88,8 @@ def updateuseraddress(discordid, newaddress):
 
 def getmonageid(discordid):
 	if getusersaddress(discordid) != "NF":
+		connection = MySQLdb.connect(
+			host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 		print("Wasn't NF")
 		cursor.execute("SELECT monageid FROM accounts WHERE discordid='{}'".format(discordid))
 		print("SELECT monageid FROM accounts WHERE discordid='{}'".format(discordid))
@@ -95,7 +97,6 @@ def getmonageid(discordid):
 		print(monageid)
 		monageid = str(monageid[0])
 		monageid = str(mlibs.fixselect(monageid))
-		connection.close()
 		return monageid
 	else:
 		return "ERROR"
