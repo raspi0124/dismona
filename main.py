@@ -182,7 +182,6 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 
 		if message.content.startswith("/balance"):
-			await client.add_reaction(message, '👌')
 			m = "<@" + message.author.id + "> さんの残高チェック中.."
 		# メッセージが送られてきたチャンネルへメッセージを送ります
 			await client.send_message(message.channel, m)
@@ -198,7 +197,6 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 
 		if message.content.startswith("/deposit"):
-			await client.add_reaction(message, '👌')
 			# 送り主がBotだった場合反応したくないので
 			if client.user != message.author.name:
 				address3 = maclib.getusersaddress(userid)
@@ -214,7 +212,6 @@ async def on_message(message):
 		if message.content.startswith("/show othersaddress"):
 			splitedm = message.content.split(" ")
 			targetuserid = splitedm[2]
-			await client.add_reaction(message, '👌')
 			# 送り主がBotだった場合反応したくないので
 			if client.user != message.author.name:
 				address3 = maclib.getusersaddress(targetuserid)
@@ -229,7 +226,6 @@ async def on_message(message):
 
 		if message.content.startswith("/disagreetos"):
 			#利用規約同意取り消し処理開始
-			await client.add_reaction(message, '👌')
 			m = "<@" + userid + "> Roger that. Now proceeding work.."
 			await client.send_message(message.channel, m)
 			m = "<@" + userid + "> Following thing will not happen after unless you agree tos again.\n \
@@ -367,7 +363,6 @@ async def on_message(message):
 
 		if message.content.startswith("/admin info"):
 			start = time.time()
-			await client.add_reaction(message, '👌')
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			m = "Verfifying.. wait a monemt"
 			await client.send_message(message.channel, m)
@@ -393,7 +388,6 @@ async def on_message(message):
 		if message.content.startswith('/members'):
 
 
-			await client.add_reaction(message, '👌')
 			for server in client.servers:
 				for member in server.members.id:
 					print (member)
@@ -442,7 +436,6 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 			sys.exit()
 		if message.content.startswith('/adminbalance'):
-			await client.add_reaction(message, '👌')
 			if message.author.id == "326091178984603669":
 				message2 = message.content.replace('/adminbalance', '')
 				message3 = message2.replace(' ', '')
@@ -458,7 +451,6 @@ async def on_message(message):
 
 
 		if message.content.startswith("/image"):
-			await client.add_reaction(message, '👌')
 			with open('../image.png', 'rb') as f:
 				await client.send_file(message.channel, f)
 
@@ -471,7 +463,6 @@ async def on_message(message):
 			elapsed_time = str(elapsed_time)
 			m = "elapsed time:" + elapsed_time + "sec"
 			await client.send_message(message.channel, m)
-			await client.add_reaction(message, '👌')
 
 		if message.content.startswith("/rmomikuzi"):
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
@@ -485,10 +476,8 @@ async def on_message(message):
 				elapsed_time = str(elapsed_time)
 				m = "elapsed time:" + elapsed_time + "sec"
 				await client.send_message(message.channel, m)
-				await client.add_reaction(message, '👌')
 
 
-				await client.add_reaction(message, '👌')
 		if message.content.startswith("/love"):
 			start = time.time()
 			username = message.author.id
@@ -628,7 +617,6 @@ async def on_message(message):
 
 		if message.content.startswith("/credit"):
 			start = time.time()
-			await client.add_reaction(message, '👌')
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			elapsed_time = time.time() - start
 			elapsed_time = str(elapsed_time)
@@ -702,7 +690,6 @@ async def on_message(message):
 			await client.send_message(message.channel, mge)
 
 		if message.content.startswith("/mp deposit"):
-			await client.add_reaction(message, '👌')
 			# 送り主がBotだった場合反応したくないので
 			if client.user != message.author.name:
 				# メッセージを書きます
@@ -714,7 +701,6 @@ async def on_message(message):
 				await client.send_message(message.channel, m)
 
 		if message.content.startswith("/mp tip"):
-			await client.add_reaction(message, '👌')
 			print("start")
 			#beforebal = mlibs.libgetbalance(userid)
 			message2 = message.content.replace('/mp tip', '')
@@ -843,7 +829,6 @@ async def on_message(message):
 			start = time.time()
 				# データベース接続とカーソル生成
 			# エラー処理（例外処理）
-			await client.add_reaction(message, '👌')
 			fee = "0.01"
 			m = "<@" + userid + "> おおー、MonageのMonaparty関連の不具合とかを無償で直すことに協力してくださるんですね！ありがたいです！ご協力ありがとうございます！\n <@326091178984603669>! <@" + userid + "> さんがMonapartyの不具合修正に何と無償で協力してくださるそうですよ！ありがいですねー。\nThanks for help us fixing Monaparty on Monage! You are very kind!Now, review the source code and fix it please!"
 			await client.send_message(message.channel, m)
@@ -852,7 +837,6 @@ async def on_message(message):
 		if message.content == "/ragreedtos":
 			# データベース接続とカーソル生成
 			# エラー処理（例外処理）
-			await client.add_reaction(message, '👌')
 			cursor.execute("INSERT INTO ragreedtos (id) VALUES (%s)", (userid,))
 			connection.commit()
 			m = "<@" + userid + "> 利用規約への同意を確認しました。"
