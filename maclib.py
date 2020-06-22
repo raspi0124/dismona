@@ -41,6 +41,7 @@ def getusersaddress(userid):
 	try:
 		address = addressl[0]
 		print(address)
+		print("TYPEADDRESS", type(address))
 		address = address[0]
 		return address
 	except:
