@@ -92,7 +92,7 @@ async def on_message(message):
 	"agreetos","help","shootizaya","omikuzi","omikuji", "show", "oldbalance"]
 
 
-	if userid in ragreedtos:
+	if str(userid) in ragreedtos:
 		# 全件取得は cursor.fetchall()
 		# 「/nregister」で始まるか調べる
 		if message.content.startswith("/"):
