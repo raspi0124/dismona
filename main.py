@@ -190,6 +190,16 @@ async def on_message(message):
 			m = "<@" + message.author.id + ">, you currently have  " + balance + " mona!(JPY " + jpybalance +  ")\n(message created on " + currenttime + ")"
 			print ("---6---")
 			await client.send_message(message.channel, m)
+		
+		if message.content.startswith("/oldbalance"):
+			m = "<@" + message.author.id + "> さんの旧Monage上での残高チェック中.."
+		# メッセージが送られてきたチャンネルへメッセージを送ります
+			await client.send_message(message.channel, m)
+			balance = str(mlibs.libgetbalance(mlibs.getoldbalance(userid)))
+			m = "<@" + message.author.id + ">さんの旧Monage上での残高は " + balance + " monaです! 引き出し期限は10月31日までとなっているので引き出しはお早めにどうぞ!\n(message created on " + currenttime + ")"
+			tm = "注意: 現在自動引き出しは未実装のため引き出したい際はraspi0124までDMをお願いします。"
+			await client.send_message(message.channel, m)
+			await client.send_message(message.channel, tm)
 
 		if message.content.startswith("/price"):
 			cp = mlibs.getcurrentprice()

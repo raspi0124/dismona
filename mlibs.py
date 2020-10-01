@@ -38,6 +38,17 @@ def getcurrentprice():
 	currentprice = data['last']
 	currentprice = str(currentprice)
 	return currentprice
+
+def getoldbalance(userid):
+	unlockwallet()
+	minconf = "60"
+	cmdlib = "monacoin-cli getbalance {0} {1}".format(userid, minconf)
+	rutlib = subprocess.check_output( cmdlib.split(" ") )
+	balancelib = rutlib.decode()
+	balancelib = float(balancelib)
+	balancelib = str(balancelib)
+	return balancelib
+	
 def helloworld():
 	return "Hello World"
 
