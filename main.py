@@ -196,7 +196,7 @@ async def on_message(message):
 			m = "<@" + userid + "> さんの旧Monage上での残高チェック中.."
 		# メッセージが送られてきたチャンネルへメッセージを送ります
 			await message.channel.send(m)
-			balance = str(mlibs.libgetbalance(mlibs.getoldbalance(userid)))
+			balance = str(mlibs.getoldbalance(userid))
 			m = "<@" + userid + ">さんの旧Monage上での残高は " + balance + " monaです! 引き出し期限は10月31日までとなっているので引き出しはお早めにどうぞ!\n(message created on " + currenttime + ")"
 			tm = "注意: 現在自動引き出しは未実装のため引き出したい際はraspi0124までDMをお願いします。"
 			await message.channel.send(m)
