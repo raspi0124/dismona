@@ -116,9 +116,9 @@ async def on_message(message):
 
 		if message.content.startswith("/nregistmyaddress"):
 			m = "NOTICE: THIS COMMAND IS ONLY AVAILABLE TO THE USERS WHO ARE NOT ABLE TO USE MPurse and decided to use own wallet. We highly recommend you to use /nregist command instead. Continue? Type /nregister."
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 			m = "注意: このコマンドはあくまでMPurseが全く使えない方のために用意したコマンドです。運営としましてはもしMPurseが使えるようでしたら /nregist コマンドを使用されることを強くお勧めしております。もし続けたい場合は /nregister と打ってください。"
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 
 		if message.content.startswith("/nregister"):
 			splitedm = message.content.split(" ")
@@ -126,12 +126,12 @@ async def on_message(message):
 				address = splitedm[1]
 				if maclib.reguseraddress(userid, address):
 					m = "アドレス: " + address + " を正常に登録しました。/deposit コマンドで確認できます。"
-					await client.send_message(message.channel, m)
+					await message.channel.send(m)
 					m = "Address " + address + " has been successfully registered. You should now be able to confirm it by executing /deposit command."
-					await client.send_message(message.channel, m)
+					await message.channel.send(m)
 				else:
 					m = "False response returned. Maybe wrong type of address or already registered?\n If you have already registered, please use /updatemyaddress command instead to update your address."
-					await client.send_message(message.channel, m)
+					await message.channel.send(m)
 					m = "無効なレスポンスが返ってきました。アドレスが間違っているかすでに登録済みではないですか? /updatemyaddress を代わりに使ってみるといいかもしれません。"
 
 		if message.content.startswith("/updatemyaddress"):
@@ -139,17 +139,17 @@ async def on_message(message):
 			address = splitedm[1]
 			if maclib.updateuseraddress(userid, address):
 				m = "Successfully updated your address to " + address + "."
-				await client.send_message(message.channel, m)
+				await message.channel.send(m)
 			else:
 				m = "False response returned. Maybe wrong type of address or not yet registered? Remember, you need to execute /nregister command in order to start using Monage."
-				await client.send_message(message.channel, m)
+				await message.channel.send(m)
 		if message.content.startswith("/adminmonageid"):
 			if userid == "326091178984603669":
 				splitedm = message.content.split(" ")
 				userid = splitedm[1]
 				res = maclib.getmonageid(userid)
 				m = res
-				await client.send_message(message.channel, m)
+				await message.channel.send(m)
 		if message.content.startswith("/adminregistaddress"):
 			if userid == "326091178984603669":
 				splitedm = message.content.split(" ")
@@ -158,12 +158,12 @@ async def on_message(message):
 					regaddress = splitedm[2]
 					if maclib.reguseraddress(reguserid, regaddress):
 						m = "アドレス: " + regaddress + " を " + reguserid +" に正常に登録しました。/deposit コマンドで確認できます。"
-						await client.send_message(message.channel, m)
+						await message.channel.send(m)
 						m = "Address " + regaddress + " has been successfully registered. You should now be able to confirm it by executing /deposit command."
-						await client.send_message(message.channel, m)
+						await message.channel.send(m)
 					else:
 						m = "False response returned. Maybe wrong type of address or already registered?"
-						await client.send_message(message.channel, m)
+						await message.channel.send(m)
 
 		if message.content.startswith("/checkaddress"):
 			splitedm = message.content.split(" ")
@@ -172,7 +172,7 @@ async def on_message(message):
 			tocheck = re.findall(pattern, splitedm[1])
 			res = maclib.getusersaddress(tocheck[0])
 			m = res
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 
 		if message.content.startswith("/mymonageid"):
 			result = maclib.getmonageid(userid)
@@ -180,32 +180,32 @@ async def on_message(message):
 				m = "まずアドレスを登録してください!"
 			else:
 				m = "あなたのMonage IDは" + result + "です!"
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 
 		if message.content.startswith("/balance"):
 			m = "<@" + userid + "> さんの残高チェック中.."
 		# メッセージが送られてきたチャンネルへメッセージを送ります
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 			balance = str(mlibs.libgetbalance(maclib.getusersaddress(userid)))
 			jpybalance = str(mlibs.libgetjpybalance(userid))
 			m = "<@" + userid + ">, you currently have  " + balance + " mona!(JPY " + jpybalance +  ")\n(message created on " + currenttime + ")"
 			print ("---6---")
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 		
 		if message.content.startswith("/oldbalance"):
 			m = "<@" + userid + "> さんの旧Monage上での残高チェック中.."
 		# メッセージが送られてきたチャンネルへメッセージを送ります
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 			balance = str(mlibs.libgetbalance(mlibs.getoldbalance(userid)))
 			m = "<@" + userid + ">さんの旧Monage上での残高は " + balance + " monaです! 引き出し期限は10月31日までとなっているので引き出しはお早めにどうぞ!\n(message created on " + currenttime + ")"
 			tm = "注意: 現在自動引き出しは未実装のため引き出したい際はraspi0124までDMをお願いします。"
-			await client.send_message(message.channel, m)
-			await client.send_message(message.channel, tm)
+			await message.channel.send(m)
+			await message.channel.send(tm)
 
 		if message.content.startswith("/price"):
 			cp = mlibs.getcurrentprice()
 			m ="いまmonaは" + cp + "円です！"
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 
 		if message.content.startswith("/deposit"):
 			# 送り主がBotだった場合反応したくないので
@@ -214,11 +214,11 @@ async def on_message(message):
 				#もしすでにアドレスが存在している場合
 				if address3 != "NF":
 					m = "<@" + userid + ">, This is your registered deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
-					await client.send_message(message.channel, m)
+					await message.channel.send(m)
 				#アドレスがまだ無い場合はここで作る
 				else:
 					m = "<@" + userid + ">, no address registered yet.."
-					await client.send_message(message.channel, m)
+					await message.channel.send(m)
 
 		if message.content.startswith("/show othersaddress"):
 			splitedm = message.content.split(" ")
@@ -229,53 +229,53 @@ async def on_message(message):
 				#もしすでにアドレスが存在している場合
 				if address3 != "":
 					m = "<@" + userid + ">, This is his/her registered deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
-					await client.send_message(message.channel, m)
+					await message.channel.send(m)
 				#アドレスがまだ無い場合はここで作る
 				else:
 					m = "<@" + userid + ">, no address registered for specified user yet.."
-					await client.send_message(message.channel, m)
+					await message.channel.send(m)
 
 		if message.content.startswith("/disagreetos"):
 			#利用規約同意取り消し処理開始
 			m = "<@" + userid + "> Roger that. Now proceeding work.."
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 			m = "<@" + userid + "> Following thing will not happen after unless you agree tos again.\n \
 			・ Loging message that starts with Monages prefix\n \
 			Dont worry, your balance will yet remain like as people who got tiped but not agreed tos yet.\n \
 			If you want to start to use Monage again, just execute /agreetos again,read tos, than agree.\n \
 			and .. Thanks for using Monage!"
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 			m = "<@" + userid + "> 以下のことは利用規約に再度同意しない限り起こることはありません。\n \
 			・Monageのコマンド拡張子(prefix)から始まるメッセージの記録\n \
 			心配しないでください、あなたの残高はtipされたが利用規約にまだ同意していないような人と同じように残ります。\n \
 			もしMonageをまた使いたくなったら/agreetosを実行して利用規約を読んで同意するだけでまた使いはじめることができます。\n "
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 			m = "Now, removing you from agreetos database..(Should only take a sec)"
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 			#ここで利用規約同意データベースからuseridを削除
 			cursor.execute("DELETE FROM ragreedtos WHERE id = %s", (userid,))
 			cursor.execute("DELETE FROM agreetos WHERE id = %s", (userid,))
 			connection.commit()
 			m = "Finished removing you from agreetos database! and once again, Thanks for using Monage! and I hope to see you again!"
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 			m = "あなたを利用規約の同意データベースから削除しました。そして、Monageを使ってくださりありがとうございました。"
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 
 		if message.content.startswith("/list"):
 			#addressは１つに統一したため/depositコマンドへの導線を。
 			m = "This command is no longer available. please use /deposit command instead."
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 
 		if message.content.startswith("/withdraw"):
 			m = "I'm sorry, but this command no longer work with us. He was literaly forced to quit due to certain restriction being enabled by Japanese Government.. Instead, please do withdraw from the Monage Bridge platform"
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 			m = "新システムへの移行によって資金の保存先がクライアントのデバイスになったためWithdrawコマンドを廃止しました。もしMonage Discord Editionに使っているアドレスから出金されたい場合はMonage Bridgeよりお願いします。"
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 
 		if message.content.startswith("/givemylog"):
 			#ログ取得
 			m = "Sure, wait a min to get log. (Please note that we can only give you the log after 24 April since we were taking log with txt before that.)"
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 			#sqlを作成、直接実行ではなく一回収納しているのはコマンド実行するため。
 			#コマンド実行する理由はSelectでcursorから取得しようとするとエラーが出るから
 			sql = "SELECT * FROM log WHERE userid='{}'".format(userid)
@@ -299,12 +299,12 @@ async def on_message(message):
 
 			await client.send_file(message.channel, '/root/tmp/tmplog.txt')
 			m = "Here are the log we took from you."
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 
 		if message.content.startswith("/givehislog"):
 			if userid == "326091178984603669":
 				m = "Sure, wait a min to get log. (Please note that we can only give you the log after 24 April since we were taking log with txt before that.)"
-				await client.send_message(message.channel, m)
+				await message.channel.send(m)
 				pattern=r'([+]?[0-9]+\.?[0-9]*)'
 				messagecontent = message.content
 				userid = re.findall(pattern, messagecontent)
@@ -331,7 +331,7 @@ async def on_message(message):
 
 				await client.send_file(message.channel, '/root/tmp/tmplog.txt')
 				m = "Here are the log we took from <" + userid + ">."
-				await client.send_message(message.channel, m)
+				await message.channel.send(m)
 			else:
 				print("a")
 
@@ -350,12 +350,12 @@ async def on_message(message):
 				reason = baninfo[1]
 				if banto not in noban:
 					m = "<@" + username + ">ユーザー <@" + banto + "> をDM上にて警告しました。"
-					await client.send_message(message.channel, m)
+					await message.channel.send(m)
 				else:
 					m = "このユーザーをBANすることは禁止されています。"
 			else:
 				m = "You are not allowed to do that!"
-				await client.send_message(message.channel, m)
+				await message.channel.send(m)
 
 		if message.content.startswith("/tip"):
 			start = time.time()
@@ -371,31 +371,31 @@ async def on_message(message):
 			tipamount = tipinfo[1]
 			tip_detail = mlibs.tip(str(userid), str(tipto), tipamount)
 			m = "↓のリンクをクリックして送金してください!\n" + tip_detail
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 
 		if message.content.startswith("/admin info"):
 			start = time.time()
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			m = "Verfifying.. wait a monemt"
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 			if userid == "326091178984603669":
 				m = "Successfully verified you as an admin, here is the info you requested:"
-				await client.send_message(message.channel, m)
+				await message.channel.send(m)
 				m = "```getinfo result: " + getinfo + "\n```"
-				await client.send_message(message.channel, m)
+				await message.channel.send(m)
 				time.sleep(1)
 				m = "```getbalance result: " + getbalance + "\n```"
-				await client.send_message(message.channel, m)
+				await message.channel.send(m)
 				time.sleep(1)
 				m = "```listaccounts result: " + listaccounts + "\n```"
-				await client.send_message(message.channel, m)
+				await message.channel.send(m)
 				time.sleep(1)
 				m = "```listtransactions result: " + listtransactions +"\n ```"
-				await client.send_message(message.channel, m)
+				await message.channel.send(m)
 				time.sleep(1)
 			else:
 				m = "Haha, you don't have permission to do that! Your request has been logged and reported to the admin! (but the admin probably won't care about it, so don't worry.)"
-				await client.send_message(message.channel, m)
+				await message.channel.send(m)
 
 		if message.content.startswith('/members'):
 
@@ -414,38 +414,38 @@ async def on_message(message):
 					checkresult = mlibs.isurlexist(url)
 					if checkresult == "0":
 						m = "Your URL specified not seems to be an URL. Please check your url and try again."
-						await client.send_message(message.channel, m)
+						await message.channel.send(m)
 					if checkresult == "0-1":
 						m = "It looks like theres HTTP Error with server. Please check your URL and try again.(Just to remind you, Its usually impossible for us to access image on discord server, but we can check image on selfhosted web server, twitter or github.)"
-						await client.send_message(message.channel, m)
+						await message.channel.send(m)
 					if checkresult == "0-2":
 						m = "Not Found.Please check your URL and try again."
-						await client.send_message(message.channel, m)
+						await message.channel.send(m)
 					if checkresult == "1":
 						m = "OK, now adding this to DB.."
-						await client.send_message(message.channel, m)
+						await message.channel.send(m)
 
 				else:
 					m = "Your URL doesnt seems to be a image's url. Please specify image's url witch ends with image's extention"
-					await client.send_message(message.channel, m)
+					await message.channel.send(m)
 			else:
 				m = "You have no permission to execute this command!\n Please ask @raspi0124 for permission."
-				await client.send_message(message.channel, m)
+				await message.channel.send(m)
 		if message.content.startswith("/ad settxt"):
 			if userid in contributor or userid == "326091178984603669":
 				command = message.content.split(" ")
 				text = command[2]
 				if text == "":
 					m = "TEXT NOT SPECIFIED ERROR"
-					await client.send_message(message.channel, m)
+					await message.channel.send(m)
 				else:
 					m = "Adding your text ad to DB.."
-					await client.send_message(message.channel, m)
+					await message.channel.send(m)
 		if message.content.startswith('/adminregister'):
 			m = "This command is no longer available. Use /adminregistaddress instead."
 		if message.content == "/kill main":
 			m = "OK, killing main process.."
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 			sys.exit()
 		if message.content.startswith('/adminbalance'):
 			if userid == "326091178984603669":
@@ -456,10 +456,10 @@ async def on_message(message):
 				rut = subprocess.check_output( cmd.split(" "))
 				balance = rut.decode()
 				m = "<@" + message3 + "> 's balance are " + balance + "mona."
-				await client.send_message(message.channel, m)
+				await message.channel.send(m)
 			else:
 				m = "sorry, but you are not arrowed to do that!"
-				await client.send_message(message.channel, m)
+				await message.channel.send(m)
 
 
 		if message.content.startswith("/image"):
@@ -470,11 +470,11 @@ async def on_message(message):
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			start = time.time()
 			m = "こんにちは! <@" + userid + "> さん！"
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 			elapsed_time = time.time() - start
 			elapsed_time = str(elapsed_time)
 			m = "elapsed time:" + elapsed_time + "sec"
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 
 		if message.content.startswith("/rmomikuzi"):
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
@@ -483,11 +483,11 @@ async def on_message(message):
 				cmd = "sh dismona-rm.sh"
 				subprocess.check_output( cmd.split(" ") )
 				m = "True"
-				await client.send_message(message.channel, m)
+				await message.channel.send(m)
 				elapsed_time = time.time() - start
 				elapsed_time = str(elapsed_time)
 				m = "elapsed time:" + elapsed_time + "sec"
-				await client.send_message(message.channel, m)
+				await message.channel.send(m)
 
 
 		if message.content.startswith("/love"):
@@ -515,7 +515,7 @@ async def on_message(message):
 			balance = float(balance)
 			if userid == "406829226751295488":
 				m = "友達にもなりたくないです。二度と話しかけないでください"
-				await client.send_message(message.channel, m)
+				await message.channel.send(m)
 			else:
 				if username not in loved:
 					minbal = "1"
@@ -539,15 +539,15 @@ async def on_message(message):
 						if result == loven:
 							cursor.execute("INSERT INTO loved (id) VALUES (%s)", (username,))
 							connection.commit()
-						await client.send_message(message.channel, m)
+						await message.channel.send(m)
 						elapsed_time = time.time() - start
 						elapsed_time = str(elapsed_time)
 						m = ". exectime: " + elapsed_time + " sec"
-						await client.send_message(message.channel, m)
+						await message.channel.send(m)
 						await client.delete_message(message)
 					else:
 						m = "私お金のない人と付き合いたくないのよ。ごめんなさいね。"
-						await client.send_message(message.channel, m)
+						await message.channel.send(m)
 
 				else:
 					def loved():
@@ -558,7 +558,7 @@ async def on_message(message):
 					result = loved()
 					result = int(result)
 					m = messeages[result]
-					await client.send_message(message.channel, m)
+					await message.channel.send(m)
 					lovedn = "2"
 					lovedn = int(lovedn)
 					username = '"' + username + '"'
@@ -574,16 +574,16 @@ async def on_message(message):
 				module = command[1]
 				if module == "main":
 					m = "OK, now proceeding to restart main module.. This process might take a while."
-					await client.send_message(message.channel, m)
+					await message.channel.send(m)
 					cmd = "refresh"
 					subprocess.Popen(cmd)
 					m = "Launched new process. Killing current Main Module's process in 3 sec."
-					await client.send_message(message.channel, m)
+					await message.channel.send(m)
 					time.sleep(3)
 					exit()
 				if module == "all":
 					m = "OK, proceeding restart for all module.\n Starting Backup Module.."
-					await client.send_message(message.channel, m)
+					await message.channel.send(m)
 					time.sleep(3)
 					exit()
 					cmd = "startbackup"
@@ -602,7 +602,7 @@ async def on_message(message):
 				tolove = tolove[0]
 				if userid == "aaa":
 					m = "友達にもなりたくないです。二度と話しかけないでください"
-					await client.send_message(message.channel, m)
+					await message.channel.send(m)
 				else:
 					if tolove not in loved:
 						result = "1"
@@ -611,7 +611,7 @@ async def on_message(message):
 						if result == loven:
 							cursor.execute("INSERT INTO loved (id) VALUES (%s)", (tolove,))
 							connection.commit()
-						await client.send_message(message.channel, m)
+						await message.channel.send(m)
 					else:
 						def loved():
 							kuji = ["0"]
@@ -621,7 +621,7 @@ async def on_message(message):
 						result = loved()
 						result = int(result)
 						m = messeages[result]
-						await client.send_message(message.channel, m)
+						await message.channel.send(m)
 
 
 
@@ -650,7 +650,7 @@ async def on_message(message):
 			embed.add_field(name="W.S Wsans", value=" - Discord.pyについてのアドバイス")
 			embed.add_field(name="ぱい", value=" - Discord.pyについてのアドバイス")
 			embed.add_field(name="両親", value=" - 匿名にしておきます")
-			await client.send_message(message.channel, embed=embed)
+			await message.channel.send(embed)
 
 
 
@@ -699,7 +699,7 @@ async def on_message(message):
 					mge = "<@" + userid + ">"
 				mge = "" + mge + "\n" + m + ""
 			responseresult = str(responseresult)
-			await client.send_message(message.channel, mge)
+			await message.channel.send(mge)
 
 		if message.content.startswith("/mp deposit"):
 			# 送り主がBotだった場合反応したくないので
@@ -707,10 +707,10 @@ async def on_message(message):
 				# メッセージを書きます
 				m = "<@" + userid + "> アドレスを確認中..."
 				# メッセージが送られてきたチャンネルへメッセージを送ります
-				await client.send_message(message.channel, m)
+				await message.channel.send(m)
 				address3 = mlibs.deposit(userid)
 				m = "<@" + userid + ">, This is your monaparty deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
-				await client.send_message(message.channel, m)
+				await message.channel.send(m)
 
 		if message.content.startswith("/mp tip"):
 			print("start")
@@ -821,7 +821,7 @@ async def on_message(message):
 			txid = str(txid)
 			deftipamount = str(deftipamount)
 			m = "Successfully sent " + deftipamount + " " + tiptoken + " from <@" + userid + "> to <@" + tipto +"> !\n TXID: " + txid + ""
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 
 	elif message.content.startswith("/"):
 		if userid not in ragreedtos:
@@ -830,7 +830,7 @@ async def on_message(message):
 				print(commands)
 				if tocheck in message.content:
 					m = "Please agree tos. Type /help for more information.\n 利用規約に同意してください。→　https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt\n Please read tos and try again. Tos can be found at → https://github.com/raspi0124/monage-term/blob/master/terms-en.txt"
-					await client.send_message(message.channel, m)
+					await message.channel.send(m)
 #MONAPARTY関連終わり
 
 
@@ -843,7 +843,7 @@ async def on_message(message):
 			# エラー処理（例外処理）
 			fee = "0.01"
 			m = "<@" + userid + "> おおー、MonageのMonaparty関連の不具合とかを無償で直すことに協力してくださるんですね！ありがたいです！ご協力ありがとうございます！\n <@326091178984603669>! <@" + userid + "> さんがMonapartyの不具合修正に何と無償で協力してくださるそうですよ！ありがいですねー。\nThanks for help us fixing Monaparty on Monage! You are very kind!Now, review the source code and fix it please!"
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 			await client.delete_message(message)
 
 		if message.content == "/ragreedtos":
@@ -852,17 +852,17 @@ async def on_message(message):
 			cursor.execute("INSERT INTO ragreedtos (id) VALUES (%s)", (userid,))
 			connection.commit()
 			m = "<@" + userid + "> 利用規約への同意を確認しました。"
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 			if maclib.createmonageid(userid):
 				monageid = maclib.getmonageid(userid)
 				m = "<@" + userid + "> さんのMonage IDを生成しました! あなたのMonage IDは" + monageid + "です!\n/nregisterコマンドでアドレスを登録しましょう!"
 			else:
 				m = "MonageIDの生成過程でREDOエラーが起きました。。管理者にメンションします。<@raspi0124>"
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 			await client.delete_message(message)
 		if message.content == "/agreetos":
 			m = "利用規約はきちんと読みましたか？もう一度確認してみましょう。→　https://github.com/raspi0124/monage-term/blob/master/terms-ja.txt\n Please read tos and try again. Tos can be found at → https://github.com/raspi0124/monage-term/blob/master/terms-en.txt"
-			await client.send_message(message.channel, m)
+			await message.channel.send(m)
 		if message.content == "/help":
 			start = time.time()
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
@@ -885,7 +885,7 @@ async def on_message(message):
 			embed.add_field(name="/givemylog", value="あなたのログをエクスポート。そのままチャンネルに吐き出すのでDMでの実行を強くおすすめします。<Export log. Executing this command in DM is highly recommended.>")
 			embed.add_field(name="/agreetos", value="利用規約に同意する。。と見せかけてただのコマンドです。実際に同意するためのコマンドは利用規約に書いてあるのできちんと読んでください()")
 			embed.add_field(name="/disagreetos", value="利用規約への同意を取りやめるコマンドです。なお、残高は残り続けますし、利用規約に同意しなおすことでまた使うことができます。 <Disagree the tos. Balance will still remain, and you may use it at anytime by agreeing the tos again.>")
-			await client.send_message(message.channel, embed=embed)
+			await message.channel.send(embed)
 			elapsed_time = time.time() - start
 			elapsed_time = str(elapsed_time)
 
