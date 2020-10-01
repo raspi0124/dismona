@@ -24,7 +24,11 @@ db_name = config.get(section1, 'db_name')
 connection = MySQLdb.connect(
 	host=db_host, user=db_user, passwd=db_password, db=db_name, charset='utf8')
 cursor = connection.cursor()
-
+def unlockwallet():
+	time = "30"
+	time = str(time)
+	cmda = "monacoin-cli walletpassphrase {0} {1}".format(walletpassphrase, time)
+	subprocess.check_output( cmda.split(" ") )
 def round_down5(value):
 	value = Decimal(value).quantize(Decimal('0.00001'), rounding=ROUND_DOWN)
 	return str(value)
