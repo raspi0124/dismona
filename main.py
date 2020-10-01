@@ -81,7 +81,7 @@ async def on_message(message):
 	messagesql = str(message.content)
 	rainnotify = "425766935825743882"
 	rainnotify = client.get_channel('425766935825743882')
-	userid = message.author.id
+	userid = str(message.author.id)
 	print("userid", type(userid))
 	print("ragreedtos", type(ragreedtos))
 	commands = ["register","rera","balance","price","deposit","disagreetos",\
