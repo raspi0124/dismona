@@ -77,6 +77,8 @@ async def on_message(message):
 	cursor.execute('SELECT * FROM ragreedtos')
 	ragreedtos = cursor.fetchall()
 	ragreedtos = mlibs.fixselect(ragreedtos)
+	print("userid", type(userid))
+	print("ragreedtos", type(ragreedtos))
 	userid = message.author.id
 	messagesql = str(message.content)
 	rainnotify = "425766935825743882"
@@ -87,7 +89,7 @@ async def on_message(message):
 	"tip","admin info","adminc","members","ad","adminregister","kill",\
 	"adminbalance","makemenew","image","hello","rmomikuzi","rmshootizaya",\
 	"love","restart","marryhim","credit","mp","cagreedtos","ragreedtos",\
-	"agreetos","help","shootizaya","omikuzi","omikuji", "show"]
+	"agreetos","help","shootizaya","omikuzi","omikuji", "show", "oldbalance"]
 
 
 	if userid in ragreedtos:
