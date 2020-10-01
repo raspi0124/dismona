@@ -16,6 +16,8 @@ config = configparser.ConfigParser()
 config.read('dismona.conf')
 
 section1 = 'complylaw'
+section2 = 'development'
+walletpassphrase = config.get(section2, 'mona_walletpassphrase')
 db_user = config.get(section1, 'db_user')
 db_password = config.get(section1, 'db_password')
 db_host = config.get(section1, 'db_host')
