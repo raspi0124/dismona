@@ -77,13 +77,13 @@ async def on_message(message):
 	cursor.execute('SELECT * FROM ragreedtos')
 	ragreedtos = cursor.fetchall()
 	ragreedtos = mlibs.fixselect(ragreedtos)
-	print("userid", type(userid))
-	print("ragreedtos", type(ragreedtos))
 	userid = message.author.id
 	messagesql = str(message.content)
 	rainnotify = "425766935825743882"
 	rainnotify = client.get_channel('425766935825743882')
 	userid = message.author.id
+	print("userid", type(userid))
+	print("ragreedtos", type(ragreedtos))
 	commands = ["register","rera","balance","price","deposit","disagreetos",\
 	"list","withdraw","givemylog","givehislog","rainall","rain","ban","warn",\
 	"tip","admin info","adminc","members","ad","adminregister","kill",\
