@@ -81,7 +81,7 @@ async def on_message(message):
 	messagesql = str(message.content)
 	rainnotify = "425766935825743882"
 	rainnotify = client.get_channel('425766935825743882')
-	userid = str(message.author.id)
+	userid = message.author.id
 	print("userid", type(userid))
 	print("ragreedtos", type(ragreedtos))
 	commands = ["register","rera","balance","price","deposit","disagreetos",\
@@ -97,7 +97,7 @@ async def on_message(message):
 		# 「/nregister」で始まるか調べる
 		if message.content.startswith("/"):
 			#各種ログを投入。
-			towrite = "" + message.author.name + " said " + messagesql + ". userid: " + message.author.id + " channel id: " + message.channel.id + " currenttime: " + currenttime + "\n"
+			towrite = "" + message.author.name + " said " + messagesql + ". userid: " + str(message.author.id) + " channel id: " + str(message.channel.id) + " currenttime: " + str(currenttime) + "\n"
 			file = open('/root/dismona_devlog.txt', 'a')  #追加書き込みモードでオープン
 			file.writelines(towrite)
 			print(towrite)
