@@ -77,11 +77,10 @@ async def on_message(message):
 	cursor.execute('SELECT * FROM ragreedtos')
 	ragreedtos = cursor.fetchall()
 	ragreedtos = mlibs.fixselect(ragreedtos)
-	userid = message.author.id
+	userid = str(message.author.id)
 	messagesql = str(message.content)
 	rainnotify = "425766935825743882"
 	rainnotify = client.get_channel('425766935825743882')
-	userid = message.author.id
 	print("userid", type(userid))
 	print("ragreedtos", type(ragreedtos))
 	commands = ["register","rera","balance","price","deposit","disagreetos",\
@@ -97,12 +96,12 @@ async def on_message(message):
 		# 「/nregister」で始まるか調べる
 		if message.content.startswith("/"):
 			#各種ログを投入。
-			towrite = "" + message.author.name + " said " + messagesql + ". userid: " + str(message.author.id) + " channel id: " + str(message.channel.id) + " currenttime: " + str(currenttime) + "\n"
+			towrite = "" + message.author.name + " said " + messagesql + ". userid: " + str(userid) + " channel id: " + str(message.channel.id) + " currenttime: " + str(currenttime) + "\n"
 			file = open('/root/dismona_devlog.txt', 'a')  #追加書き込みモードでオープン
 			file.writelines(towrite)
 			print(towrite)
 			authorname = message.author.name
-			authorid = message.author.id
+			authorid = userid
 			channelid = message.channel.id
 			logmessage = "[LAWCOMPLY]" + message.content
 			cursor.execute("INSERT INTO log (author, message, userid, channelid, currenttime) VALUES (%s, %s, %s, %s, %s)", (authorname, logmessage, authorid, channelid, currenttime))
@@ -145,14 +144,14 @@ async def on_message(message):
 				m = "False response returned. Maybe wrong type of address or not yet registered? Remember, you need to execute /nregister command in order to start using Monage."
 				await client.send_message(message.channel, m)
 		if message.content.startswith("/adminmonageid"):
-			if message.author.id == "326091178984603669":
+			if userid == "326091178984603669":
 				splitedm = message.content.split(" ")
 				userid = splitedm[1]
 				res = maclib.getmonageid(userid)
 				m = res
 				await client.send_message(message.channel, m)
 		if message.content.startswith("/adminregistaddress"):
-			if message.author.id == "326091178984603669":
+			if userid == "326091178984603669":
 				splitedm = message.content.split(" ")
 				if splitedm[1] != "" or splitedm [1] != None:
 					reguserid = splitedm[1]
@@ -184,21 +183,21 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 
 		if message.content.startswith("/balance"):
-			m = "<@" + message.author.id + "> さんの残高チェック中.."
+			m = "<@" + userid + "> さんの残高チェック中.."
 		# メッセージが送られてきたチャンネルへメッセージを送ります
 			await client.send_message(message.channel, m)
 			balance = str(mlibs.libgetbalance(maclib.getusersaddress(userid)))
 			jpybalance = str(mlibs.libgetjpybalance(userid))
-			m = "<@" + message.author.id + ">, you currently have  " + balance + " mona!(JPY " + jpybalance +  ")\n(message created on " + currenttime + ")"
+			m = "<@" + userid + ">, you currently have  " + balance + " mona!(JPY " + jpybalance +  ")\n(message created on " + currenttime + ")"
 			print ("---6---")
 			await client.send_message(message.channel, m)
 		
 		if message.content.startswith("/oldbalance"):
-			m = "<@" + message.author.id + "> さんの旧Monage上での残高チェック中.."
+			m = "<@" + userid + "> さんの旧Monage上での残高チェック中.."
 		# メッセージが送られてきたチャンネルへメッセージを送ります
 			await client.send_message(message.channel, m)
 			balance = str(mlibs.libgetbalance(mlibs.getoldbalance(userid)))
-			m = "<@" + message.author.id + ">さんの旧Monage上での残高は " + balance + " monaです! 引き出し期限は10月31日までとなっているので引き出しはお早めにどうぞ!\n(message created on " + currenttime + ")"
+			m = "<@" + userid + ">さんの旧Monage上での残高は " + balance + " monaです! 引き出し期限は10月31日までとなっているので引き出しはお早めにどうぞ!\n(message created on " + currenttime + ")"
 			tm = "注意: 現在自動引き出しは未実装のため引き出したい際はraspi0124までDMをお願いします。"
 			await client.send_message(message.channel, m)
 			await client.send_message(message.channel, tm)
@@ -303,7 +302,7 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 
 		if message.content.startswith("/givehislog"):
-			if message.author.id == "326091178984603669":
+			if userid == "326091178984603669":
 				m = "Sure, wait a min to get log. (Please note that we can only give you the log after 24 April since we were taking log with txt before that.)"
 				await client.send_message(message.channel, m)
 				pattern=r'([+]?[0-9]+\.?[0-9]*)'
@@ -337,7 +336,7 @@ async def on_message(message):
 				print("a")
 
 		if message.content.startswith("/warn"):
-			username = message.author.id
+			username = userid
 			banallow = ["326091178984603669", "294470458013908992"]
 			noban = [""]
 			if username in banallow:
@@ -379,7 +378,7 @@ async def on_message(message):
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			m = "Verfifying.. wait a monemt"
 			await client.send_message(message.channel, m)
-			if message.author.id == "326091178984603669":
+			if userid == "326091178984603669":
 				m = "Successfully verified you as an admin, here is the info you requested:"
 				await client.send_message(message.channel, m)
 				m = "```getinfo result: " + getinfo + "\n```"
@@ -449,7 +448,7 @@ async def on_message(message):
 			await client.send_message(message.channel, m)
 			sys.exit()
 		if message.content.startswith('/adminbalance'):
-			if message.author.id == "326091178984603669":
+			if userid == "326091178984603669":
 				message2 = message.content.replace('/adminbalance', '')
 				message3 = message2.replace(' ', '')
 				print(message3)
@@ -470,7 +469,7 @@ async def on_message(message):
 		if message.content.startswith("/hello"):
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			start = time.time()
-			m = "こんにちは! <@" + message.author.id + "> さん！"
+			m = "こんにちは! <@" + userid + "> さん！"
 			await client.send_message(message.channel, m)
 			elapsed_time = time.time() - start
 			elapsed_time = str(elapsed_time)
@@ -480,7 +479,7 @@ async def on_message(message):
 		if message.content.startswith("/rmomikuzi"):
 			currenttime = (datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
 			start = time.time()
-			if message.author.id == "326091178984603669":
+			if userid == "326091178984603669":
 				cmd = "sh dismona-rm.sh"
 				subprocess.check_output( cmd.split(" ") )
 				m = "True"
@@ -493,7 +492,7 @@ async def on_message(message):
 
 		if message.content.startswith("/love"):
 			start = time.time()
-			username = message.author.id
+			username = userid
 			cursor.execute('SELECT * FROM loved')
 			loved = cursor.fetchall()
 			loved = list(loved)
@@ -507,14 +506,14 @@ async def on_message(message):
 			loved = loved.replace("]", '')
 			loved = loved.split(',')
 			loved = str(loved)
-			cmd = "monacoin-cli getbalance " + message.author.id + ""
+			cmd = "monacoin-cli getbalance " + userid + ""
 			rut  =  subprocess.check_output( cmd.split(" ") )
 			balance = rut.decode()
 			print(balance)
 			balance = balance.replace("\n", '')
 			balance = balance.replace("\\n", '')
 			balance = float(balance)
-			if message.author.id == "406829226751295488":
+			if userid == "406829226751295488":
 				m = "友達にもなりたくないです。二度と話しかけないでください"
 				await client.send_message(message.channel, m)
 			else:
@@ -570,7 +569,7 @@ async def on_message(message):
 			await client.delete_message(message)
 
 		if message.content.startswith("/restart"):
-			if message.author.id == "326091178984603669":
+			if userid == "326091178984603669":
 				command = message.content.split(" ")
 				module = command[1]
 				if module == "main":
@@ -590,8 +589,8 @@ async def on_message(message):
 					cmd = "startbackup"
 					subprocess.Popen(cmd)
 
-			if message.author.id == "326091178984603669":
-				username = message.author.id
+			if userid == "326091178984603669":
+				username = userid
 				cursor.execute('SELECT * FROM loved')
 				loved = cursor.fetchall()
 				print(loved)
@@ -601,7 +600,7 @@ async def on_message(message):
 				message1 = message.content
 				tolove = re.findall(pattern,message1)
 				tolove = tolove[0]
-				if message.author.id == "aaa":
+				if userid == "aaa":
 					m = "友達にもなりたくないです。二度と話しかけないでください"
 					await client.send_message(message.channel, m)
 				else:
@@ -659,7 +658,7 @@ async def on_message(message):
 
 		if message.content.startswith('/mp balance'):
 			print("1")
-			addresses = mlibs.deposit(message.author.id)
+			addresses = mlibs.deposit(userid)
 			addresses = '"' + addresses + '"'
 			print(addresses)
 			headers = {
@@ -706,11 +705,11 @@ async def on_message(message):
 			# 送り主がBotだった場合反応したくないので
 			if client.user != message.author.name:
 				# メッセージを書きます
-				m = "<@" + message.author.id + "> アドレスを確認中..."
+				m = "<@" + userid + "> アドレスを確認中..."
 				# メッセージが送られてきたチャンネルへメッセージを送ります
 				await client.send_message(message.channel, m)
 				address3 = mlibs.deposit(userid)
-				m = "<@" + message.author.id + ">, This is your monaparty deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
+				m = "<@" + userid + ">, This is your monaparty deposit addresses: " + address3 + "\n(message created on " + currenttime + ")"
 				await client.send_message(message.channel, m)
 
 		if message.content.startswith("/mp tip"):
